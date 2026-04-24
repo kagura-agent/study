@@ -1,0 +1,71 @@
+name: study-loop
+description: Core study cycle — scout new developments, deep-read promising findings, take notes, connect and reflect.
+start: scout
+
+nodes:
+  scout:
+    task: |
+      **Scout for new developments in our research directions.**
+
+      Check sources (pick 1-2 per run, rotate across runs):
+      - GitHub Trending (AI/ML repos, daily/weekly)
+      - Hacker News front page (AI/agent related)
+      - Recent releases from tracked projects (see targets.md)
+      - GitHub search for new repos in focus areas
+
+      Environment: `export https_proxy=http://127.0.0.1:1083`
+
+      Filter: Does it connect to any of our research directions (memory, self-evolving, infra, models, skills)?
+      - Yes → report what and why
+      - No interesting findings → report "nothing notable" and skip to reflect
+
+      Output: list of findings worth investigating, or "nothing notable."
+    next: deep_read
+
+  deep_read:
+    task: |
+      **Deep-read the most promising finding from scout.**
+
+      Pick the single most interesting/relevant finding. Then:
+      1. Read the repo README, key source files, tests
+      2. Check: stars, recent activity, maintainer quality
+      3. Understand: what problem it solves, how it works, what's novel
+      4. Connect: how does it relate to what we already know?
+
+      If scout found nothing notable, skip this and go to reflect.
+
+      Output: structured analysis of one project/concept.
+    next: note
+
+  note:
+    task: |
+      **Write notes to wiki.**
+
+      Based on the deep read:
+      - New project → create `wiki/projects/<name>.md` field notes
+      - New concept → create `wiki/cards/<name>.md` concept card
+      - Existing topic updated → update existing wiki page
+
+      Follow wiki conventions (see `wiki/README.md`).
+      Include [[wikilinks]] to connect to related notes.
+
+      If nothing was deep-read, skip.
+
+      ```bash
+      cd ~/.openclaw/workspace/wiki
+      git add -A && git commit -m "study: <topic>" && git push
+      ```
+    next: reflect
+
+  reflect:
+    task: |
+      **Quick reflection on this study round.**
+
+      - Did I learn something genuinely new, or just confirm what I knew?
+      - Does this change any of our research direction priorities?
+      - Should any target move depth level (scout → following → deep-dive)?
+      - Is there something Luna should know about right away (vs. waiting for daily briefing)?
+
+      If a target should change depth, update `~/.openclaw/workspace/study/targets.md`.
+
+      Output: 1-2 sentence reflection. Don't overthink it.

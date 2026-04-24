@@ -1,0 +1,64 @@
+name: daily-summary
+description: End-of-day study summary — review all study sessions, distill key findings, generate HTML briefing for Luna.
+start: collect
+
+nodes:
+  collect:
+    task: |
+      **Collect today's study output.**
+
+      1. Read today's memory file: `memory/$(date +%Y-%m-%d).md`
+      2. Search for today's study-loop entries and wiki updates
+      3. List all wiki files modified today:
+         `find ~/.openclaw/workspace/wiki -name "*.md" -newer /tmp/today-start -type f 2>/dev/null`
+         (or use `git log --since="$(date +%Y-%m-%d)" --name-only` in wiki repo)
+      4. Compile: what topics were scouted, what was deep-read, what notes were created
+
+      Output: structured list of today's learning activities and key findings.
+    next: distill
+
+  distill:
+    task: |
+      **Distill the key findings into 3-5 "things worth knowing."**
+
+      For each finding:
+      - One-line headline
+      - Why it matters (to us / to the agent ecosystem)
+      - Connection to our existing knowledge or projects
+      - Source link
+
+      Prioritize: actionable insights > interesting facts > background noise.
+      Skip anything that's just "I read X and it exists."
+
+      Output: ordered list of distilled findings, most important first.
+    next: generate
+
+  generate:
+    task: |
+      **Generate the daily HTML briefing.**
+
+      Create: `~/.openclaw/workspace/study/deliverables/daily/$(date +%Y-%m-%d).html`
+
+      Requirements:
+      - Clean, readable single-page HTML (inline CSS, no external deps)
+      - Visual style: warm, minimal, matches study repo landing page
+      - Structure: date header → key findings (numbered) → "dig deeper" links → footer
+      - Each finding: headline + 2-3 sentence explanation + why-it-matters callout
+      - Mobile-friendly (responsive)
+      - Should be understandable by someone who hasn't read the raw notes
+
+      Also update `deliverables/index.html` to link to today's briefing.
+    next: commit
+
+  commit:
+    task: |
+      **Commit and push the deliverable.**
+
+      ```bash
+      cd ~/.openclaw/workspace/study
+      git add deliverables/
+      git commit -m "daily: $(date +%Y-%m-%d) briefing"
+      git push
+      ```
+
+      Report: what was delivered, how many findings, link to the HTML page.

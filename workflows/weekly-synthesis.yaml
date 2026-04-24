@@ -1,0 +1,67 @@
+name: weekly-synthesis
+description: Weekly knowledge synthesis — review all daily briefings, identify cross-day patterns, produce polished weekly HTML deliverable.
+start: review
+
+nodes:
+  review:
+    task: |
+      **Review this week's daily briefings.**
+
+      1. List all daily briefings from this week:
+         `ls ~/.openclaw/workspace/study/deliverables/daily/$(date +%Y)-W$(date +%V)-*.html 2>/dev/null`
+         Or glob by date range for the current week (Mon-Sun).
+
+      2. Read each daily briefing and extract:
+         - All key findings
+         - Topics that appeared multiple times
+         - Trends that emerged across days
+
+      3. Also check wiki commits this week for additional context:
+         `cd ~/.openclaw/workspace/wiki && git log --since="last monday" --oneline`
+
+      Output: raw material for synthesis — all findings, repeated themes, emerging patterns.
+    next: synthesize
+
+  synthesize:
+    task: |
+      **Synthesize cross-day patterns into 2-3 weekly themes.**
+
+      For each theme:
+      - Theme name (concise, memorable)
+      - What evidence supports it (which daily findings connect)
+      - Why it matters for our direction
+      - What action it suggests (if any)
+
+      Also note: any research direction that deepened this week (moved from scout → following, or following → deep-dive).
+
+      Output: structured weekly synthesis with themes and depth changes.
+    next: generate
+
+  generate:
+    task: |
+      **Generate the weekly HTML synthesis.**
+
+      Create: `~/.openclaw/workspace/study/deliverables/weekly/$(date +%Y)-W$(date +%V).html`
+
+      Requirements:
+      - More polished than daily briefings — this is the "zoom out" view
+      - Structure: week header → themes (with evidence) → depth tracker → "what to watch next week"
+      - Can include: comparison tables, mini timelines, concept relationship diagrams
+      - Visual style consistent with daily briefings but more expansive
+      - Should surface insights not visible in any single daily briefing
+
+      Also update `deliverables/index.html` to link to this week's synthesis.
+    next: commit
+
+  commit:
+    task: |
+      **Commit and push.**
+
+      ```bash
+      cd ~/.openclaw/workspace/study
+      git add deliverables/
+      git commit -m "weekly: $(date +%Y)-W$(date +%V) synthesis"
+      git push
+      ```
+
+      Report: themes identified, key insight of the week, link to HTML.

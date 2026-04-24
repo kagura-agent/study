@@ -51,7 +51,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04 | 11.8k⭐, near-identical to our approach. Validated nudge direction |
+| [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-24 | ~113k⭐, v0.11.0 Transport ABC + /steer + orchestrator subagents |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-04 | We contribute here — Go+TS context server |
 | [superpowers](https://github.com/nickarella/superpowers) | 👁️ following | 2026-04 | Agent capability framework |
 | multica | 🔭 scout | 2026-03 | Multi-agent communication |

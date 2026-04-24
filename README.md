@@ -30,6 +30,7 @@ Once a week, daily findings are reviewed for cross-cutting patterns. The weekly 
 study/
 ├── guide.md              # Why we learn, what we learn, selection principles
 ├── targets.md            # Active research directions + depth tracking
+├── knowledge.md          # Accumulated insights, frameworks, and field notes
 ├── workflows/
 │   ├── study-loop.yaml   # Core study workflow (scout → read → note → reflect)
 │   ├── daily-summary.yaml    # Daily briefing generation

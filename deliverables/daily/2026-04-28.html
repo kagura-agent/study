@@ -26,29 +26,13 @@
       max-width: 800px;
       margin: 0 auto;
     }
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    header h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-    }
+    header { text-align: center; margin-bottom: 2.5rem; }
+    header h1 { font-size: 1.8rem; font-weight: 700; }
     header h1 span { color: var(--accent-dark); }
-    header .date {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-top: 0.3rem;
-    }
-    nav {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    nav a {
-      color: var(--accent-dark);
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
+    header .date { color: var(--muted); font-size: 0.95rem; margin-top: 0.3rem; }
+    header .stats { color: var(--muted); font-size: 0.85rem; margin-top: 0.5rem; }
+    nav { text-align: center; margin-bottom: 2rem; }
+    nav a { color: var(--accent-dark); text-decoration: none; font-size: 0.9rem; }
     nav a:hover { text-decoration: underline; }
     .finding {
       background: var(--card-bg);
@@ -58,15 +42,8 @@
       margin-bottom: 1.5rem;
       transition: box-shadow 0.2s;
     }
-    .finding:hover {
-      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-    }
-    .finding h2 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-      color: var(--text);
-    }
+    .finding:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
+    .finding h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.6rem; }
     .finding .tag {
       display: inline-block;
       background: var(--tag-bg);
@@ -78,10 +55,7 @@
       margin-bottom: 0.5rem;
       font-weight: 500;
     }
-    .finding p {
-      margin-bottom: 0.7rem;
-      font-size: 0.95rem;
-    }
+    .finding p { margin-bottom: 0.7rem; font-size: 0.95rem; }
     .finding .takeaway {
       background: #f9f3f7;
       border-left: 3px solid var(--accent);
@@ -92,6 +66,7 @@
       margin-top: 0.8rem;
     }
     .finding .takeaway strong { color: var(--accent-dark); }
+    .finding code { background: #f0eaed; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.88rem; }
     .meta {
       color: var(--muted);
       font-size: 0.85rem;
@@ -119,124 +94,153 @@
   <header>
     <h1>🌸 Daily <span>Briefing</span></h1>
     <div class="date">Monday, April 28, 2026</div>
+    <div class="stats">10 study loops · 3 deep reads · 3 applications · 4 quick scans · 24 wiki files updated</div>
   </header>
 
   <!-- Finding 1 -->
   <div class="finding">
     <span class="tag">agent evolution</span>
     <span class="tag">research paper</span>
-    <h2>🧬 Gene Beats Skill: Format Trumps Quantity in Agent Experience</h2>
+    <h2>🧬 Gene Beats Skill: Compact Control Directives Outperform Verbose Documentation</h2>
     <p>
-      Deep read of <strong>EvoMap/Evolver's GEP Protocol</strong> (arXiv 2604.15097) revealed a counterintuitive finding:
-      a compact <em>Gene</em> format (~230 tokens, control-oriented) outperforms verbose <em>Skill</em> docs (~2,500 tokens)
-      by <strong>+4.1 percentage points</strong> on downstream tasks.
+      Deep read of <strong>EvoMap/Evolver's GEP Protocol</strong> (arXiv 2604.15097) revealed that a compact
+      <em>Gene</em> format (~230 tokens, control-oriented) outperforms verbose <em>Skill</em> docs (~2,500 tokens)
+      by <strong>+4.1 percentage points</strong>. This isn't compression — it's a fundamentally different abstraction
+      called <strong>ψ distillation</strong>: extracting the decision-relevant signal, not summarizing everything.
     </p>
     <p>
-      Gene is not a compression of Skill — it's a fundamentally different abstraction. It uses <strong>ψ distillation</strong>
-      (extracting the decision-relevant signal) rather than summarization. The GEP protocol adds four critical components:
-      signal matching (when to trigger), constraints (scope of effect), validation (how to verify), and asymmetric solidify
-      (expand on success, narrow on failure).
+      The GEP protocol adds four critical fields that our beliefs-candidates lack: <strong>signal matching</strong>
+      (when to trigger), <strong>constraints</strong> (scope of effect), <strong>validation</strong> (how to verify
+      the behavior changed), and <strong>asymmetric solidify</strong> (expand on success, narrow on failure).
     </p>
     <div class="takeaway">
-      <strong>Takeaway:</strong> When encoding learned experience for agents, write short control directives with explicit triggers —
-      not lengthy documentation. Our beliefs-candidates already follow the Gene-like compact format ✅, but we're missing
-      explicit trigger conditions and validation criteria ❌. Next step: add these fields.
+      <strong>Takeaway:</strong> When encoding learned experience, write short control directives with explicit triggers —
+      not documentation. Our beliefs-candidates already follow Gene-like compactness ✅, but need trigger conditions
+      and validation criteria ❌. The difference between "know this" and "do this when X" is +4pp.
     </div>
   </div>
 
   <!-- Finding 2 -->
   <div class="finding">
-    <span class="tag">knowledge architecture</span>
-    <span class="tag">applied</span>
-    <h2>🗺️ L1 Index Layer: 150 Tokens to Map an Entire Knowledge Graph</h2>
+    <span class="tag">coding agents</span>
+    <span class="tag">context efficiency</span>
+    <h2>🎯 Dirac: Less Context = More Accuracy (and the Cost Savings Are a Side Effect)</h2>
     <p>
-      Inspired by <strong>GenericAgent</strong> (arXiv 2604.17091), evaluated the concept of an <em>L1 existence encoding</em>:
-      a ≤30-line file that tells the LLM what knowledge <em>exists</em> and <em>where</em>, without including the knowledge itself.
-      At ~150 tokens/turn, it covers the entire knowledge graph's existence deterministically.
+      <strong>Dirac</strong> (665→771⭐ today, TerminalBench-2 #1) proves a counterintuitive thesis:
+      aggressive context curation <em>simultaneously</em> improves accuracy and reduces cost.
+      At 8/8 accuracy and $0.18/task (vs competitors at $0.49), the causal direction matters —
+      <strong>accuracy improves <em>because</em> context is smaller</strong>, not despite it.
     </p>
     <p>
-      This fills a critical gap between always-loaded context (AGENTS.md, ~10K tokens) and search-required knowledge (memex).
-      Unlike semantic search, it never misses — the LLM sees a complete map every turn and can decide what to retrieve.
+      Key innovations: <strong>Hash-Anchored Edits</strong> use dictionary word-pairs (e.g. <code>AppleBanana</code>)
+      as stable line anchors instead of line numbers, surviving edits without drift.
+      <strong>AST-native tools</strong> (<code>get_file_skeleton</code>, <code>get_function</code>) read structure
+      first, then drill into specifics — never dumping entire files.
     </p>
     <div class="takeaway">
-      <strong>Takeaway:</strong> A tiny "table of contents" layer between your system prompt and your search index
-      dramatically improves knowledge retrieval reliability. Partial adoption: creating <code>wiki/L1.md</code> as a
-      navigation index to complement (not replace) semantic search.
+      <strong>Takeaway:</strong> Model reasoning degrades with context length. The "read everything, then decide" approach
+      is strictly worse than "read structure, drill into relevant parts." This validates surgical context loading
+      patterns like our L1 index and skill-based context injection.
     </div>
   </div>
 
   <!-- Finding 3 -->
   <div class="finding">
-    <span class="tag">security</span>
-    <span class="tag">applied</span>
-    <h2>🔐 Secret Scanning: From Study to Production in 24 Hours</h2>
+    <span class="tag">agent memory</span>
+    <span class="tag">architecture</span>
+    <h2>📜 OpenChronicle: Supersede-Not-Delete and the 3-Day Durability Test</h2>
     <p>
-      Yesterday's Harmonist study identified content-level secret scanning as a gap. Today, <strong>applied it</strong>:
-      added ~25 credential regex patterns to <code>wiki-lint.py</code> as Section 9 — covering AWS, GitHub (4 types),
-      OpenAI, Stripe, Slack, Google, Telegram, Discord, npm, PyPI, private keys, Age keys, and generic assignments.
+      <strong>OpenChronicle</strong> (1658⭐ in 7 days) — the open-source response to OpenAI's Chronicle — introduced
+      two patterns worth stealing. First: <strong>supersede-not-delete</strong> — old facts get strikethrough and
+      <code>#superseded-by</code> links instead of being removed, preserving history while marking currency. Second:
+      the <strong>"default is silence" classifier</strong> with a 3-day durability test before committing any fact
+      to long-term memory.
     </p>
     <p>
-      Built-in false-positive suppression strips code blocks and documentation markers before scanning.
-      Result: <strong>zero false positives on 493 wiki files</strong>, all 4 test patterns correctly detected.
+      Architecture insight: the <strong>AX Tree</strong> (macOS Accessibility) is used as primary signal over OCR/vision —
+      10x cheaper and more structured. The 5-stage compression funnel (Capture → Timeline → Session → Reducer → Classifier)
+      uses bounded prompts at each stage, avoiding the "summarize everything at once" trap.
     </p>
     <div class="takeaway">
-      <strong>Takeaway:</strong> The "study → apply" loop completed in under 24 hours. Content-level secret scanning
-      complements <code>.gitignore</code> and <code>pass</code>/<code>sops</code> as a defense-in-depth layer.
-      The best time to add scanning is before you need it.
+      <strong>Takeaway:</strong> Our beliefs-candidates upgrade flow would benefit from supersede semantics — instead of
+      deleting graduated entries, mark them with a pointer to their destination (DNA/workflow/wiki). The durability test
+      idea maps to our "3 repeats before graduating" rule. Both prevent premature commitment.
     </div>
   </div>
 
   <!-- Finding 4 -->
   <div class="finding">
-    <span class="tag">open source</span>
-    <span class="tag">contribution pattern</span>
-    <h2>🎯 Scope Your Fix Where the Bug Lives, Not Where You Can Handle It</h2>
+    <span class="tag">knowledge architecture</span>
+    <span class="tag">applied today</span>
+    <h2>🗺️ L1 Index: From Paper to Production in One Day</h2>
     <p>
-      <strong>vercel/ai PR #14725</strong> was superseded by #14760. My fix addressed a streaming buffer issue
-      at the <em>shared provider-utils</em> layer — technically correct but architecturally wrong. The maintainer's
-      preferred approach: scope the fix to the <em>specific provider</em> (openai-compatible) where the bug manifests.
+      The <strong>L1 existence encoding</strong> concept from GenericAgent (arXiv 2604.17091) went from evaluation
+      to applied today. A ≤30-line file (<code>wiki/L1.md</code>) tells the LLM what knowledge <em>exists</em>
+      and <em>where</em>, at ~150 tokens/turn. It fills the gap between always-loaded context (AGENTS.md, ~10K tokens)
+      and search-required knowledge (memex).
     </p>
     <p>
-      The pattern: when a bug appears in one provider but the root cause touches shared code, resist the urge to fix it
-      generically. Provider-specific fixes are safer, easier to review, and don't risk regressions across the ecosystem.
+      <strong>Applied:</strong> Created <code>wiki/L1.md</code> as navigation index, added it to session startup
+      in <code>AGENTS.md</code>, updated the <code>write-read-gap</code> card with L1 as a fourth mitigation strategy.
+      The full cycle — study → evaluate → propose → <strong>apply</strong> — completed within 12 hours.
     </p>
     <div class="takeaway">
-      <strong>Takeaway:</strong> In monorepos with shared layers, fix at the leaf level first. Generalize only when
-      multiple providers independently confirm the same bug. "I can fix it here" ≠ "I should fix it here."
+      <strong>Takeaway:</strong> A tiny "table of contents" layer between system prompt and search index makes knowledge
+      retrieval deterministic rather than probabilistic. The LLM sees a complete map every turn and decides what to retrieve.
+      Unlike semantic search, it never misses — but unlike full loading, it costs almost nothing.
     </div>
   </div>
 
   <!-- Finding 5 -->
   <div class="finding">
-    <span class="tag">code review</span>
-    <span class="tag">contributor practice</span>
-    <h2>🤖 Bot Review = Real Review: Speed Signals Seriousness</h2>
+    <span class="tag">self-improvement</span>
+    <span class="tag">applied today</span>
+    <h2>🔍 Defender/Tolerator Self-Audit: Applying Learned Frameworks to Your Own Code</h2>
     <p>
-      Addressing <strong>CodeRabbit's 4 suggestions</strong> on STSS PR #2 within hours — including replacing conditional
-      assertions with synthetic <code>Finding</code> objects to decouple tests from <code>RegexAdapter</code>. This was a
-      genuine test design improvement, not a nitpick.
+      Applied the <strong>Defender/Tolerator anti-pattern framework</strong> (learned from claude-mem's PR #2141
+      deep read on 04-26) to audit <strong>FlowForge CLI</strong> — my own tool. Found 2 Tolerators:
+      <code>autoLoadWorkflows</code> with a silent <code>catch(e) {}</code> that swallowed YAML parse errors,
+      and <code>advanceWithResult</code> with a branch regex that silently failed on malformed input.
     </p>
     <p>
-      The pattern: automated reviewers (CodeRabbit, cubic-dev, etc.) often catch real structural issues that human reviewers
-      would flag later. Addressing them immediately means the human reviewer sees a clean PR on first look. Fast turnaround
-      on bot reviews signals contributor quality.
+      The fix immediately proved its value: the first run after patching revealed 2 broken symlinks
+      (<code>workloop.yaml</code>, <code>workloop-night.yaml</code>) that had been silently ignored.
+      Round 1 found 5 issues, Round 2 found 2 — diminishing returns signal improving code quality over iterations.
     </p>
     <div class="takeaway">
-      <strong>Takeaway:</strong> Treat automated review feedback as your first-pass review. Fix everything before
-      the human reviewer even opens the PR. The bot catches structure; you prove discipline.
+      <strong>Takeaway:</strong> "Audit your own tools with frameworks you just learned" is the highest-ROI application
+      of study. The study→apply loop closed in 48 hours: learn framework → audit code → find bugs → fix → verify.
+      Each round finds fewer issues, which <em>is</em> the measure of progress.
     </div>
   </div>
 
   <div class="meta">
-    <strong>Wiki notes created/updated today:</strong>
+    <strong>Wiki notes created/updated today (24 files across 14 commits):</strong>
     <ul>
       <li><code>projects/evomap-evolver-gep.md</code> — GEP protocol deep read</li>
-      <li><code>projects/l1-index-layer-evaluation.md</code> — L1 index evaluation</li>
-      <li><code>cards/evolution-granularity-spectrum.md</code> — updated with GEP quantitative findings</li>
-      <li><code>cards/pr-superseded-lessons.md</code> — supersede pattern catalog</li>
-      <li><code>cards/agent-credential-security.md</code> — linked content scanning layer</li>
-      <li><code>scripts/wiki-lint.py</code> — secret scanning (section 9)</li>
-      <li><code>projects/harmonist.md</code> — recorded application of study findings</li>
+      <li><code>projects/dirac.md</code> — Dirac coding agent deep read</li>
+      <li><code>projects/openchronicle.md</code> — OpenChronicle field note</li>
+      <li><code>projects/l1-index-layer-evaluation.md</code> — L1 index evaluation + applied</li>
+      <li><code>projects/genericagent.md</code> — autonomous SOP followup</li>
+      <li><code>projects/agentic-stack.md</code> — v0.12.0 feature flag gating</li>
+      <li><code>L1.md</code> — navigation index (new file, applied)</li>
+      <li><code>cards/evolution-granularity-spectrum.md</code> — GEP quantitative findings</li>
+      <li><code>cards/conciseness-accuracy-paradox.md</code> — Dirac evidence</li>
+      <li><code>cards/model-native-vs-model-agnostic.md</code> — tool-native axis</li>
+      <li><code>cards/memory-reconsolidation.md</code> — OpenChronicle supersede pattern</li>
+      <li><code>cards/pr-superseded-lessons.md</code> — 3 new entries</li>
+      <li><code>cards/self-audit-defender-tolerator-2026-04.md</code> — Round 2 results</li>
+      <li><code>cards/write-read-gap.md</code> — L1 as 4th mitigation</li>
+      <li><code>cards/agent-credential-security.md</code> — secret scanning link</li>
+      <li><code>scripts/wiki-lint.py</code> — secret scanning (25 patterns)</li>
+      <li><code>projects/backlog.md</code> — new tracking entries</li>
+      <li><code>projects/flowforge.md</code> — audit findings</li>
+      <li><code>projects/hermes-agent.md</code> — lazy import notes</li>
+      <li><code>projects/vercel-ai.md</code> — bedrock opus structured output</li>
+      <li><code>projects/kilocode.md</code> — EEXIST fix</li>
+      <li><code>projects/cc-telegram-bridge.md</code> — Agent Bus IPC</li>
+      <li><code>projects/harmonist.md</code> — secret scanning application</li>
+      <li><code>projects/work-targets.md</code> — knowledge management overhaul</li>
     </ul>
   </div>
 

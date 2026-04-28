@@ -15,12 +15,15 @@ How agents persist, retrieve, and reason about past experience.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [hindsight](https://github.com/OpenViking/hindsight) | 👁️ following | 2026-04 | Rust+Go memory server, integration tested |
 | [memex](https://github.com/nickarella/memex) | 🔬 deep-dive | 2026-04 | We use this — slug-based cards, backlinks, semantic search |
+| [hindsight](https://github.com/OpenViking/hindsight) | 👁️ following | 2026-04 | Rust+Go memory server, integration tested |
+| [claude-mem](https://github.com/thedotmack/claude-mem) | 🔬 deep-dive | 2026-04-26 | 50k⭐, AGPL. "Cynical Deletion" architecture studied |
+| [OpenChronicle](https://github.com/Einsia/OpenChronicle) | 🔬 deep-dive | 2026-04-28 | 1.6k⭐, macOS-only, local-first memory for tool-capable LLMs |
+| [harmonist](https://github.com/harmonist) | 👁️ following | 2026-04 | Memory secret scanning, 4-dim scoring (Novelty/Durability/Specificity/Reduction) |
+| [caveman](https://github.com/caveman) | 🔬 deep-dive | 2026-04-26 | Token compression, 75% output reduction, conciseness-accuracy paradox |
 | [auto-memory](https://github.com/auto-memory) | 🔭 scout | 2026-03 | Automatic memory extraction |
 | [cognee](https://github.com/topoteretes/cognee) | 🔭 scout | 2026-03 | Knowledge graph for AI memory |
-| [cavemem](https://github.com/cave-memory) | 🔭 scout | 2026-03 | Episodic memory for agents |
-| [expcap](https://github.com/expcap) | 🔭 scout | 2026-03 | Experience capture patterns |
+| [gastownhall/beads](https://github.com/gastownhall/beads) | 🔭 scout | 2026-04-28 | "Memory upgrade for coding agents" — new, spotted in scout |
 
 **Key question:** What's the right abstraction for agent memory — documents, graphs, or episodes?
 
@@ -33,15 +36,32 @@ Agents that improve themselves through experience — the core of what we're bui
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | ACE (SambaNova) | 🔬 deep-dive | 2026-04 | beliefs→DNA architecture mirrors ours |
+| [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-04-27 | 7.9k⭐, self-evolving skill tree from 3.3K-line seed |
+| [EvoMap/Evolver GEP](https://arxiv.org/abs/2604.15097) | 🔬 deep-dive | 2026-04-28 | Gene vs Skill (+4.1pp), GEP protocol, signal matching |
 | TextGrad | 👁️ following | 2026-03 | Text-as-gradient paradigm, validates our feedback loop |
 | [agents-md](https://github.com/agents-md) | 👁️ following | 2026-03 | Agent identity via markdown |
-| Agent0 | 🔭 scout | 2026-03 | Model-layer self-improvement |
-| OPD | 🔭 scout | 2026-03 | Optimized prompt design |
-| STaR | 🔭 scout | 2026-03 | Self-taught reasoner, academic mainstream |
 | EvoAgentX | 🔭 scout | 2026-03 | Workflow-layer evolution |
 | AgentEvolver | 🔭 scout | 2026-03 | Workflow-layer evolution |
 
-**Key insight:** We operate at the Identity layer — only us and ACE are here. Most work is at Model or Workflow layers.
+**Key insight:** We operate at the Identity layer — only us and ACE are here. Most work is at Model or Workflow layers. GEP research validates: compact control-oriented format (Gene ~230 tokens) outperforms verbose doc-oriented format (Skill ~2,500 tokens) by +4.1pp.
+
+---
+
+## Coding Agents & Context Efficiency
+
+How coding agents manage context, edits, and tool design.
+
+| Project | Depth | Last Updated | Notes |
+|---------|-------|-------------|-------|
+| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-28 | Cline fork, hash-anchored edits, AST-native tools, 64.8% cost reduction |
+| [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
+| [nanobot](https://github.com/HKUDS/nanobot) | 👁️ following | 2026-04-28 | 41k⭐, ultra-lightweight agent, OpenClaw-inspired |
+| [Orb](https://github.com/KarryViber/Orb) | 👁️ following | 2026-04-28 | Claude Code wrapper, v0.2.0, 53⭐ |
+| [bux](https://github.com/browser-use/bux) | 🔭 scout | 2026-04-28 | 24/7 Claude Code + Browser Harness, very new (04-26), 196⭐ |
+| [obscura](https://github.com/nickarella/obscura) | 🔭 scout | 2026-04-28 | Headless browser, 7.2k⭐, Rust |
+| [CubeSandbox](https://github.com/nickarella/CubeSandbox) | 🔭 scout | 2026-04-28 | Agent sandbox, 4.4k⭐, Tencent, Rust |
+
+**Key insight (Dirac):** Context curation is a multiplier — less context = better reasoning = lower cost. AST-native reads (file skeleton → drill into function) outperform full-file reads.
 
 ---
 
@@ -53,27 +73,23 @@ The plumbing that makes agents reliable, deployable, and composable.
 |---------|-------|-------------|-------|
 | [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-24 | ~113k⭐, v0.11.0 Transport ABC + /steer + orchestrator subagents |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-04 | We contribute here — Go+TS context server |
+| [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-04-27 | 1.7k⭐, v0.12.0, skill CRUD + data-flywheel |
+| [STSS](https://github.com/stss/stss) | 🔬 deep-dive | 2026-04-27 | 6⭐, skill trust & signing, we submitted PR #2 + Issue #3 |
 | [superpowers](https://github.com/nickarella/superpowers) | 👁️ following | 2026-04 | Agent capability framework |
-| multica | 🔭 scout | 2026-03 | Multi-agent communication |
-| AgentFactory | 🔭 scout | 2026-04 | Automatic skill extraction (gap for us) |
-| OpenSpace | 🔭 scout | 2026-04 | Automatic skill extraction |
+| [veniceai/skills](https://github.com/veniceai/skills) | 👁️ following | 2026-04-27 | 33⭐, stalled, revisit 05-04 |
 
-**Key gap:** Skill auto-extraction — both AgentFactory and OpenSpace have it, we don't.
+**Key gap:** Skill auto-extraction — AgentFactory and OpenSpace have it, we don't.
 
 ---
 
 ## Frontier Models
 
-Tracking model releases and their implications for agent architecture.
-
 | Model/Provider | Depth | Last Updated | Notes |
 |---------------|-------|-------------|-------|
 | Claude (Anthropic) | 👁️ following | 2026-04 | Primary model, Claude Code studied in depth |
+| DeepSeek v4 | 👁️ following | 2026-04 | Reasonix built model-native on it; flash-first economics |
 | GPT-5.x (OpenAI) | 🔭 scout | 2026-04 | Monitoring releases |
-| DeepSeek | 🔭 scout | 2026-04 | Open-weight competitor |
 | Gemini (Google) | 🔭 scout | 2026-04 | Multimodal capabilities |
-
-**Key question:** How do model capability jumps change agent architecture requirements?
 
 ---
 
@@ -85,8 +101,27 @@ How agent skills are packaged, discovered, shared, and composed.
 |---------|-------|-------------|-------|
 | ClawHub | 🔬 deep-dive | 2026-04 | Our skill marketplace |
 | Claude Code skills | 👁️ following | 2026-03 | 39k+ skills on GitHub, "skill = installable package" |
-| toku.agency | 🔭 scout | 2026-03 | Bidding mechanism for agent work |
 | Moltbook | 👁️ following | 2026-04 | Reputation system for agents |
-| agent.ai | 🔭 scout | 2026-03 | Agent marketplace |
+| [wanman](https://github.com/wanman) | 🔬 deep-dive | 2026-04-27 | Hosted skill self-evolution, run_feedback→metrics→autoPromote pipeline |
 
 **Key insight (Luna):** "Skills are essentially installable packages." The ecosystem is exploding — 39k+ Claude Code skills on GitHub as of 2026-03.
+
+---
+
+## Tracking (revisit dates)
+
+Projects being monitored for growth/activity signals:
+
+| Project | ⭐ | Last Check | Revisit | Signal Watching |
+|---------|-----|-----------|---------|-----------------|
+| veniceai/skills | 33 | 04-27 | 05-04 | Growth, push activity |
+| STSS | 6 | 04-27 | 05-04 | Maintainer response to our PR/Issue |
+| Orb | 53 | 04-28 | 05-04 | v0.3 release |
+| agentic-stack | 1,712 | 04-28 | 05-04 | v0.13+ |
+| GenericAgent | 7,866 | 04-28 | 05-04 | Post-launch trajectory |
+| nanobot | 41,117 | 04-28 | 05-04 | Daily updates |
+| dirac | 771 | 04-28 | 05-04 | TerminalBench evolution |
+| obscura | 7,200 | 04-28 | 05-04 | Rust headless browser |
+| CubeSandbox | 4,400 | 04-28 | 05-04 | Agent sandbox |
+| bux | 196 | 04-28 | 05-04 | Very new, browser+agent |
+| OpenChronicle | 1,658 | 04-28 | 05-04 | macOS agent memory |

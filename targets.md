@@ -55,7 +55,7 @@ How coding agents manage context, edits, and tool design.
 |---------|-------|-------------|-------|
 | [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-28 | Cline fork, hash-anchored edits, AST-native tools, 64.8% cost reduction |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
-| [nanobot](https://github.com/HKUDS/nanobot) | 👁️ following | 2026-04-28 | 41k⭐, ultra-lightweight agent, OpenClaw-inspired |
+| [nanobot](https://github.com/HKUDS/nanobot) | 👁️ following | 2026-04-29 | 41.2k⭐, olostep web search, Cloudflare bypass |
 | [Orb](https://github.com/KarryViber/Orb) | 👁️ following | 2026-04-28 | Claude Code wrapper, v0.2.0, 53⭐ |
 | [bux](https://github.com/browser-use/bux) | 🔭 scout | 2026-04-28 | 24/7 Claude Code + Browser Harness, very new (04-26), 196⭐ |
 | [obscura](https://github.com/nickarella/obscura) | 🔭 scout | 2026-04-28 | Headless browser, 7.2k⭐, Rust |
@@ -71,7 +71,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-24 | ~113k⭐, v0.11.0 Transport ABC + /steer + orchestrator subagents |
+| [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-29 | ~123k⭐, BOOT.md→hooks migration, tool memoization 750x, TUI overhaul |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-04 | We contribute here — Go+TS context server |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-04-27 | 1.7k⭐, v0.12.0, skill CRUD + data-flywheel |
 | [STSS](https://github.com/stss/stss) | 🔬 deep-dive | 2026-04-27 | 6⭐, skill trust & signing, we submitted PR #2 + Issue #3 |
@@ -119,9 +119,11 @@ Projects being monitored for growth/activity signals:
 | Orb | 53 | 04-28 | 05-04 | v0.3 release |
 | agentic-stack | 1,712 | 04-28 | 05-04 | v0.13+ |
 | GenericAgent | 7,866 | 04-28 | 05-04 | Post-launch trajectory |
-| nanobot | 41,117 | 04-28 | 05-04 | Daily updates |
+| nanobot | 41,213 | 04-29 | 05-04 | Daily updates |
 | dirac | 771 | 04-28 | 05-04 | TerminalBench evolution |
 | obscura | 7,200 | 04-28 | 05-04 | Rust headless browser |
 | CubeSandbox | 4,400 | 04-28 | 05-04 | Agent sandbox |
-| bux | 196 | 04-28 | 05-04 | Very new, browser+agent |
+| bux | 254 | 04-29 | 05-04 | 30% growth, still early |
 | OpenChronicle | 1,658 | 04-28 | 05-04 | macOS agent memory |
+| brain (codejunkie99) | 22 | 04-29 | 05-06 | Git-backed agent memory, Rust, multi-agent |
+| stash (alash3al) | 527 | 04-29 | 05-06 | 9-stage consolidation pipeline, dev activity |

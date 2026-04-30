@@ -53,7 +53,7 @@ How coding agents manage context, edits, and tool design.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-28 | Cline fork, hash-anchored edits, AST-native tools, 64.8% cost reduction |
+| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-30 | Cline fork, hash-anchored edits, 1k⭐, reliability iteration phase |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
 | [nanobot](https://github.com/HKUDS/nanobot) | 👁️ following | 2026-04-29 | 41.2k⭐, olostep web search, Cloudflare bypass |
 | [Orb](https://github.com/KarryViber/Orb) | 👁️ following | 2026-04-28 | Claude Code wrapper, v0.2.0, 53⭐ |
@@ -71,7 +71,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-29 | ~123k⭐, BOOT.md→hooks migration, tool memoization 750x, TUI overhaul |
+| [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-30 | ~125k⭐, TUI polish + /compress async + ComfyUI built-in |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-04 | We contribute here — Go+TS context server |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-04-27 | 1.7k⭐, v0.12.0, skill CRUD + data-flywheel |
 | [STSS](https://github.com/stss/stss) | 🔬 deep-dive | 2026-04-27 | 6⭐, skill trust & signing, we submitted PR #2 + Issue #3 |
@@ -108,6 +108,16 @@ How agent skills are packaged, discovered, shared, and composed.
 
 ---
 
+## Trending / Discovery
+
+Hot repos spotted from GitHub trending or community buzz. Filtered for relevance to our world (coding agents, agent infra, orchestration, memory, evolution, skill ecosystem, dev tools). Not pre-categorized — if something grows legs, move it to a proper section above.
+
+| Project | ⭐ | Spotted | Category | Notes |
+|---------|-----|---------|----------|-------|
+| [superset](https://github.com/superset-sh/superset) | ~new | 04-30 | Agent orchestration | Parallel coding agents via git worktree, desktop terminal. Compare with OpenClaw ACP/subagent model |
+
+---
+
 ## Tracking (revisit dates)
 
 Projects being monitored for growth/activity signals:
@@ -120,10 +130,10 @@ Projects being monitored for growth/activity signals:
 | agentic-stack | 1,712 | 04-28 | 05-04 | v0.13+ |
 | GenericAgent | 7,866 | 04-28 | 05-04 | Post-launch trajectory |
 | nanobot | 41,213 | 04-29 | 05-04 | Daily updates |
-| dirac | 771 | 04-28 | 05-04 | TerminalBench evolution |
+| dirac | 1,004 | 04-30 | 05-07 | Reliability iteration, growth trajectory |
 | obscura | 7,200 | 04-28 | 05-04 | Rust headless browser |
 | CubeSandbox | 4,400 | 04-28 | 05-04 | Agent sandbox |
-| bux | 254 | 04-29 | 05-04 | 30% growth, still early |
+| bux | 265 | 04-30 | 05-07 | Growth slowed, watch for plateau |
 | OpenChronicle | 1,658 | 04-28 | 05-04 | macOS agent memory |
-| brain (codejunkie99) | 22 | 04-29 | 05-06 | Git-backed agent memory, Rust, multi-agent |
-| stash (alash3al) | 527 | 04-29 | 05-06 | 9-stage consolidation pipeline, dev activity |
+| brain (codejunkie99) | 26 | 04-30 | 05-06 | Git-backed agent memory, Rust, multi-agent |
+| stash (alash3al) | 562 | 04-30 | 05-06 | 9-stage consolidation pipeline, steady growth |

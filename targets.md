@@ -127,13 +127,22 @@ Projects being monitored for growth/activity signals:
 | veniceai/skills | 33 | 04-27 | 05-04 | Growth, push activity |
 | STSS | 6 | 04-27 | 05-04 | Maintainer response to our PR/Issue |
 | Orb | 53 | 04-28 | 05-04 | v0.3 release |
-| agentic-stack | 1,712 | 04-28 | 05-04 | v0.13+ |
-| GenericAgent | 7,866 | 04-28 | 05-04 | Post-launch trajectory |
+| agentic-stack | 1,778 | 05-01 | 05-07 | CJK fix merged, steady growth |
+| GenericAgent | 8,480 | 05-01 | 05-07 | Maturation phase, supervisor SOP |
 | nanobot | 41,213 | 04-29 | 05-04 | Daily updates |
-| dirac | 1,004 | 04-30 | 05-07 | Reliability iteration, growth trajectory |
+| dirac | 1,027 | 05-01 | 05-07 | Provider consolidation, v0.3.11 |
 | obscura | 7,200 | 04-28 | 05-04 | Rust headless browser |
 | CubeSandbox | 4,400 | 04-28 | 05-04 | Agent sandbox |
 | bux | 265 | 04-30 | 05-07 | Growth slowed, watch for plateau |
 | OpenChronicle | 1,658 | 04-28 | 05-04 | macOS agent memory |
 | brain (codejunkie99) | 26 | 04-30 | 05-06 | Git-backed agent memory, Rust, multi-agent |
-| stash (alash3al) | 562 | 04-30 | 05-06 | 9-stage consolidation pipeline, steady growth |
+| mercury-agent | 1,839 | 05-01 | 05-07 | Soul-driven agent, sustained growth, provider ecosystem |
+| stash (alash3al) | 606 | 05-01 | 05-10 | 9-stage consolidation pipeline, dev pace slowing |
+
+## Chat-to-Knowledge Infrastructure
+
+How team chat becomes structured knowledge — the "compile once, query many" pattern.
+
+| Project | Depth | Last Updated | Notes |
+|---------|-------|-------------|-------|
+| [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-04-30 | 191⭐, Google ADK, dual-memory (Weaviate+Neo4j), 3-tier semantic, wiki-first RAG |

@@ -24,6 +24,7 @@ How agents persist, retrieve, and reason about past experience.
 | [auto-memory](https://github.com/auto-memory) | 🔭 scout | 2026-03 | Automatic memory extraction |
 | [cognee](https://github.com/topoteretes/cognee) | 🔭 scout | 2026-03 | Knowledge graph for AI memory |
 | [gastownhall/beads](https://github.com/gastownhall/beads) | 🔭 scout | 2026-04-28 | "Memory upgrade for coding agents" — new, spotted in scout |
+| [mnem](https://github.com/Uranid/mnem) | 🔬 deep-dive | 2026-05-05 | 18⭐, Rust, versioned KG + hybrid GraphRAG + content-addressed CIDs, WASM-clean core. Best-in-class retrieval benchmarks. See wiki/projects/mnem.md |
 
 **Key question:** What's the right abstraction for agent memory — documents, graphs, or episodes?
 

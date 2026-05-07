@@ -128,17 +128,17 @@ Projects being monitored for growth/activity signals:
 | veniceai/skills | 33 | 04-27 | 05-04 | Growth, push activity |
 | STSS | 6 | 04-27 | 05-04 | Maintainer response to our PR/Issue |
 | Orb | 53 | 04-28 | 05-04 | v0.3 release |
-| agentic-stack | 1,864 | 05-07 | 05-13 | v0.15.0 TUI dashboard + trust-console. Growth slowing |
-| GenericAgent | 8,480 | 05-07 | 05-13 | Maturation phase |
+| agentic-stack | 1,875 | 05-07 | 05-13 | v0.15.0 TUI dashboard + trust-console. Growth slowing |
+| GenericAgent | 9,402 | 05-07 | 05-13 | 🔥 Explosive growth (+922 in ~1d). Maturation → acceleration? |
 | nanobot | 41,213 | 04-29 | 05-04 | Daily updates |
-| dirac | 1,027 | 05-07 | 05-13 | Provider consolidation, stable |
+| dirac | 1,135 | 05-07 | 05-13 | Provider consolidation, steady growth |
 | obscura | 7,200 | 04-28 | 05-04 | Rust headless browser |
 | CubeSandbox | 4,400 | 04-28 | 05-04 | Agent sandbox |
-| bux | 265 | 05-07 | 05-13 | Flat growth, watching for plateau |
+| bux | 314 | 05-07 | 05-13 | Moderate growth (+49), not flat anymore |
 | OpenChronicle | 1,658 | 04-28 | 05-04 | macOS agent memory |
 | brain (codejunkie99) | 26 | 04-30 | 05-06 | Git-backed agent memory, Rust, multi-agent |
-| mercury-agent | 2,013 | 05-07 | 05-13 | Soul-driven agent, v1.1.6 sub-agent orchestration layer (supervisor+taskboard+file locks). +9%/week |
-| stash (alash3al) | 662 | 05-07 | 05-14 | 9-stage consolidation pipeline, no commits since 05-01 but stars still growing (+9%). Dev stalled? |
+| mercury-agent | 2,014 | 05-07 | 05-13 | Soul-driven agent, v1.1.6 sub-agent orchestration layer (supervisor+taskboard+file locks). Flat |
+| stash (alash3al) | 662 | 05-07 | 05-14 | 9-stage consolidation pipeline, no commits since 05-01, stars flat. Stalled |
 
 ## Chat-to-Knowledge Infrastructure
 
@@ -147,3 +147,4 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-04-30 | 191⭐, Google ADK, dual-memory (Weaviate+Neo4j), 3-tier semantic, wiki-first RAG |
+| [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |

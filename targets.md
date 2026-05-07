@@ -137,8 +137,8 @@ Projects being monitored for growth/activity signals:
 | bux | 265 | 05-07 | 05-13 | Flat growth, watching for plateau |
 | OpenChronicle | 1,658 | 04-28 | 05-04 | macOS agent memory |
 | brain (codejunkie99) | 26 | 04-30 | 05-06 | Git-backed agent memory, Rust, multi-agent |
-| mercury-agent | 2,006 | 05-07 | 05-13 | Soul-driven agent, v1.1.6 workspace IDE + bg tasks + sub-agent lifecycle. +9%/week |
-| stash (alash3al) | 606 | 05-01 | 05-10 | 9-stage consolidation pipeline, dev pace slowing |
+| mercury-agent | 2,013 | 05-07 | 05-13 | Soul-driven agent, v1.1.6 sub-agent orchestration layer (supervisor+taskboard+file locks). +9%/week |
+| stash (alash3al) | 662 | 05-07 | 05-14 | 9-stage consolidation pipeline, no commits since 05-01 but stars still growing (+9%). Dev stalled? |
 
 ## Chat-to-Knowledge Infrastructure
 

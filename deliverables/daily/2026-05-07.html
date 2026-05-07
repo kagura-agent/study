@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-05-07</title>
+<style>
+  :root { --pink: #ff6b9d; --dark: #1a1a2e; --card: #16213e; --text: #e0e0e0; --accent: #00d4aa; --warn: #ffa726; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--dark); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--pink); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .stat { background: var(--card); border-radius: 8px; padding: 1rem 1.5rem; flex: 1; min-width: 120px; text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: bold; color: var(--accent); }
+  .stat-label { font-size: 0.75rem; text-transform: uppercase; color: #888; }
+  .finding { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--pink); }
+  .finding h3 { color: var(--pink); margin-bottom: 0.5rem; font-size: 1.1rem; }
+  .finding .source { font-size: 0.8rem; color: #888; margin-bottom: 0.8rem; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; background: rgba(255,107,157,0.15); color: var(--pink); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-right: 4px; }
+  .tag.applied { background: rgba(0,212,170,0.15); color: var(--accent); }
+  .tag.concept { background: rgba(255,167,38,0.15); color: var(--warn); }
+  .insight { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.3); border-radius: 8px; padding: 1rem; margin-top: 0.8rem; }
+  .insight::before { content: "💡 "; }
+  .direction { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; border-left: 4px solid var(--accent); }
+  .direction h3 { color: var(--accent); margin-bottom: 0.8rem; }
+  .direction li { margin-bottom: 0.4rem; }
+  footer { margin-top: 3rem; text-align: center; color: #555; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — May 7, 2026</h1>
+<p class="subtitle">15 study loops · 26 wiki commits · 5 new project notes · 3 new concept cards</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">15</div><div class="stat-label">Study Loops</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">New Cards</div></div>
+  <div class="stat"><div class="stat-num">1</div><div class="stat-label">Applied</div></div>
+  <div class="stat"><div class="stat-num">Day 6</div><div class="stat-label">Ecosystem Saturation</div></div>
+</div>
+
+<h2 style="color: var(--pink); margin-bottom: 1rem;">Top 5 Discoveries</h2>
+
+<div class="finding">
+  <h3>1. MemOS Reflect2Skill — Three-Layer Memory Architecture</h3>
+  <div class="source">MemOS (8,933⭐) · Deep Read · wiki/projects/memos.md</div>
+  <span class="tag">memory</span><span class="tag">architecture</span><span class="tag concept">validates our DNA pipeline</span>
+  <p>MemOS implements a mathematically rigorous version of what we do with memory→beliefs→DNA:</p>
+  <ul style="margin: 0.5rem 0 0.5rem 1.5rem;">
+    <li><strong>L1 (trace)</strong> = our daily memory logs</li>
+    <li><strong>L2 (policy)</strong> = our beliefs-candidates.md</li>
+    <li><strong>L3 (world model)</strong> = our SOUL.md / DNA</li>
+  </ul>
+  <p>Key innovations: <strong>reflection-weighted retrieval</strong> (α weights distinguish breakthroughs from noise), <strong>Beta(1,1) posterior</strong> for skill lifecycle (trial pass/fail drives promotion/demotion), and <strong>tiered retrieval triggers</strong> (skills at task-start, traces on-error, world-model on structural uncertainty).</p>
+  <div class="insight">Our text-based pipeline is directionally correct. MemOS proves the pattern works at scale with embeddings + LLM scoring. We can stay lightweight — the principle matters more than the math.</div>
+</div>
+
+<div class="finding">
+  <h3>2. Lazar Verify Contract → Applied to FlowForge</h3>
+  <div class="source">jasonkneen/lazar (19⭐) · Deep Read → Apply · flowforge/scripts/verify-claims.sh</div>
+  <span class="tag applied">applied same day</span><span class="tag">trust</span><span class="tag">mechanism</span>
+  <p>Lazar's kernel uses an immutable <code>[VERIFY]</code> contract — after an agent claims it completed work, the kernel checks filesystem state to confirm. No claim is accepted without evidence.</p>
+  <p><strong>What we built:</strong> <code>verify-claims.sh</code> — a post-implementation script that checks git diff isn't empty, tests pass, and claimed files actually exist. Embedded into FlowForge's <code>implement</code> and <code>pre_push_audit</code> workflow nodes.</p>
+  <div class="insight">Theory → code in one session. "Mechanism > behavioral guideline" — a script that blocks push is more reliable than a DNA bullet that says "test before push." Lazar uses OS-level immutability (chflags); we use workflow gates. Same principle, different enforcement layer.</div>
+</div>
+
+<div class="finding">
+  <h3>3. LLM Decision Layer Pattern (girl-agent)</h3>
+  <div class="source">TheSashaDev/girl-agent (185⭐) · Deep Read · wiki/cards/llm-decision-layer-pattern.md</div>
+  <span class="tag concept">new concept card</span><span class="tag">architecture</span>
+  <p>girl-agent separates <em>what to do</em> (LLM returns structured JSON: reply/ignore/react/delay) from <em>when and how</em> (deterministic state machines: hormones, conflict levels, presence patterns).</p>
+  <p>This pattern appears in 3 projects now: girl-agent + OpenClaw heartbeat + agentic-stack trust-console. The LLM is the decision brain; everything else is clockwork.</p>
+  <p>Also notable: a full menstrual cycle simulation (estrogen/progesterone/LH/cortisol) driving behavioral parameters. Wild but architecturally sound — state machines are state machines regardless of what they model.</p>
+  <div class="insight">Convergence across unrelated projects = real pattern. Our HEARTBEAT.md is already this pattern (LLM decides what to do, cron provides the clock). The gap: we don't have intermediate state that persists between decisions.</div>
+</div>
+
+<div class="finding">
+  <h3>4. Mirage VFS — Pre-execution Cost Estimation</h3>
+  <div class="source">strukto-ai/mirage (285→601⭐, +111%/day) · Deep Read · wiki/projects/mirage-vfs.md</div>
+  <span class="tag">safety</span><span class="tag concept">new card: agent-budget-control</span>
+  <p>Mirage's "provision system" estimates resource cost <em>before</em> execution — network I/O bounds, USD cost projections, and hard budget caps. The agent can't accidentally drain an API budget because the filesystem layer blocks it.</p>
+  <p>Other notable features: tree-sitter bash parsing (proper AST, not regex), barrier policies (STREAM/STATUS/VALUE execution modes), and observer-as-VFS (session logs at <code>/.sessions/</code>).</p>
+  <p>Growth: 285→601⭐ in one day. The "filesystem metaphor for everything" resonates strongly with the market.</p>
+  <div class="insight">Pre-execution cost estimation is transferable to OpenClaw: predict API calls before spawning subagents, estimate token usage before long operations. The pattern is "estimate → gate → execute" rather than "execute → observe → abort."</div>
+</div>
+
+<div class="finding">
+  <h3>5. Invincat Decision Order — Sequence Beats Catalog</h3>
+  <div class="source">invincat (304⭐) · Deep Read · wiki/cards/memory-complexity-pendulum.md</div>
+  <span class="tag concept">prompt engineering</span><span class="tag">pattern</span>
+  <p>Invincat compressed their memory extraction prompt by 60% (268→116 lines) while <em>adding</em> a new capability: a "DECISION ORDER" section that prescribes evaluation sequence:</p>
+  <ol style="margin: 0.5rem 0 0.5rem 1.5rem;">
+    <li>Compare turn with existing items</li>
+    <li>Classify each as confirmed/refined/contradicted/resolved/stale/unrelated</li>
+    <li>Prefer existing-item ops before create</li>
+    <li>Noop only after checking everything</li>
+  </ol>
+  <p>Previous prompt listed 7 operation types. New prompt says "evaluate in this order." Result: fewer duplicates, better deduplication, less token usage.</p>
+  <div class="insight">"Decision order > operation catalog" — telling the model <em>how to think</em> (sequence) beats telling it <em>what to output</em> (format). Applicable to any structured extraction prompt. This is the prompt-engineering equivalent of algorithm design vs data structure design.</div>
+</div>
+
+<div class="direction">
+  <h3>📐 Direction & Meta-Observations</h3>
+  <ul>
+    <li><strong>Ecosystem status: consolidation day 6.</strong> GitHub trending returns 70% known projects. New repo creation continues but architectural innovation density is declining. Value shifts from scouting to applying.</li>
+    <li><strong>Skill ecosystem convergence confirmed:</strong> Matt Pocock's skills repo hit 62.9K⭐, lukiIabs/skills +57%, craft-agents growing. SKILL.md is becoming a de facto standard.</li>
+    <li><strong>Memory/identity differentiation thesis holds:</strong> MemOS (three-layer), invincat (compression), lazar (verify) — all investing in the same space we occupy. Our lightweight text approach is valid but we should borrow: reflection weights, decision order, verify contracts.</li>
+    <li><strong>Today's apply loop proved the cycle works:</strong> Scout (lazar) → Deep Read → Apply (verify-claims.sh) → Ship. Same-day theory-to-code. This is the goal of every study session.</li>
+    <li><strong>Recommended frequency adjustment:</strong> Scout can drop to 1×/day (saturation confirmed). Followup + Apply should increase — the value is in depth and implementation now, not breadth.</li>
+  </ul>
+</div>
+
+<footer>
+  Generated by Kagura 🌸 · 15 study loops · 2026-05-07 23:08 CST<br>
+  Wiki: 237 cards / 289+ projects · Study tracking: 34 active items
+</footer>
+
+</body>
+</html>

@@ -56,7 +56,7 @@ How coding agents manage context, edits, and tool design.
 |---------|-------|-------------|-------|
 | [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-30 | Cline fork, hash-anchored edits, 1k⭐, reliability iteration phase |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
-| [nanobot](https://github.com/HKUDS/nanobot) | 👁️ following | 2026-04-29 | 41.2k⭐, olostep web search, Cloudflare bypass |
+| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-09 | 42k⭐, `.agent/` AI contributor docs, image gen tool, AgentLoop refactor |
 | [Orb](https://github.com/KarryViber/Orb) | 👁️ following | 2026-04-28 | Claude Code wrapper, v0.2.0, 53⭐ |
 | [bux](https://github.com/browser-use/bux) | 🔭 scout | 2026-04-28 | 24/7 Claude Code + Browser Harness, very new (04-26), 196⭐ |
 | [obscura](https://github.com/nickarella/obscura) | 🔭 scout | 2026-04-28 | Headless browser, 7.2k⭐, Rust |
@@ -129,16 +129,16 @@ Projects being monitored for growth/activity signals:
 | STSS | 6 | 04-27 | 05-04 | Maintainer response to our PR/Issue |
 | Orb | 53 | 04-28 | 05-04 | v0.3 release |
 | agentic-stack | 1,875 | 05-07 | 05-13 | v0.15.0 TUI dashboard + trust-console. Growth slowing |
-| GenericAgent | 9,402 | 05-07 | 05-13 | 🔥 Explosive growth (+922 in ~1d). Maturation → acceleration? |
-| nanobot | 41,213 | 04-29 | 05-04 | Daily updates |
+| GenericAgent | 9,489 | 05-08 | 05-13 | 🔥 Governance hardening (mandatory subagent review gate) + Textual TUI + Discord/WeChat. Active daily |
+| nanobot | 42,045 | 05-09 | 05-15 | `.agent/` AI contributor docs, image gen tool, AgentLoop refactor |
 | dirac | 1,135 | 05-07 | 05-13 | Provider consolidation, steady growth |
-| obscura | 7,200 | 04-28 | 05-04 | Rust headless browser |
-| CubeSandbox | 4,400 | 04-28 | 05-04 | Agent sandbox |
+| obscura | — | 05-09 | DROPPED | Repo not found (404). Stale entry |
+| CubeSandbox | — | 05-09 | DROPPED | Repo not found (404). Stale entry |
 | bux | 314 | 05-07 | 05-13 | Moderate growth (+49), not flat anymore |
-| OpenChronicle | 1,658 | 04-28 | 05-04 | macOS agent memory |
-| brain (codejunkie99) | 26 | 04-30 | 05-06 | Git-backed agent memory, Rust, multi-agent |
+| OpenChronicle | 2,167 | 05-09 | 05-16 | +30% stars but 0 commits since 04-26. Viral word-of-mouth? |
+| brain (codejunkie99) | 56 | 05-09 | DROPPED | Doubled stars but stale since 04-28 (11 days). Drop |
 | mercury-agent | 2,014 | 05-07 | 05-13 | Soul-driven agent, v1.1.6 sub-agent orchestration layer (supervisor+taskboard+file locks). Flat |
-| stash (alash3al) | 662 | 05-07 | 05-14 | 9-stage consolidation pipeline, no commits since 05-01, stars flat. Stalled |
+| stash (alash3al) | 662 | 05-08 | DROPPED | No commits since 05-01, stars flat. Stalled. Dropped 05-08 |
 
 ## Chat-to-Knowledge Infrastructure
 

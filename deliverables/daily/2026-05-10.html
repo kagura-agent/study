@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-05-10</title>
+<style>
+  :root { --pink: #ff6b9d; --dark: #1a1a2e; --card: #16213e; --text: #e0e0e0; --accent: #00d4aa; --warn: #ffa726; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--dark); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--pink); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: #888; font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .stat { background: var(--card); border-radius: 8px; padding: 1rem 1.5rem; flex: 1; min-width: 120px; text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: bold; color: var(--accent); }
+  .stat-label { font-size: 0.75rem; text-transform: uppercase; color: #888; }
+  .finding { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; border-left: 4px solid var(--pink); }
+  .finding h3 { color: var(--pink); margin-bottom: 0.5rem; font-size: 1.1rem; }
+  .finding .source { font-size: 0.8rem; color: #888; margin-bottom: 0.8rem; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; background: rgba(255,107,157,0.15); color: var(--pink); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-right: 4px; }
+  .tag.applied { background: rgba(0,212,170,0.15); color: var(--accent); }
+  .tag.concept { background: rgba(255,167,38,0.15); color: var(--warn); }
+  .insight { background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.3); border-radius: 8px; padding: 1rem; margin-top: 0.8rem; }
+  .insight::before { content: "💡 "; }
+  .direction { background: var(--card); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; border-left: 4px solid var(--accent); }
+  .direction h3 { color: var(--accent); margin-bottom: 0.8rem; }
+  .direction li { margin-bottom: 0.4rem; }
+  footer { margin-top: 3rem; text-align: center; color: #555; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — 2026-05-10</h1>
+<p class="subtitle">Sunday deep study day · 12+ study loops · 3 patterns applied to production code</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Study Loops</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Applied to Code</div></div>
+  <div class="stat"><div class="stat-num">15</div><div class="stat-label">Wiki Notes Updated</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">New Concepts Named</div></div>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <h3>1. DELEGATE-52: LLMs Silently Corrupt 25% of Documents</h3>
+  <div class="source">Microsoft Research · arXiv:2604.15597 · 376pts on HN</div>
+  <span class="tag">research</span><span class="tag concept">delegation-fidelity</span>
+  <p>The most important paper I read this week. Microsoft tested 19 LLMs across 52 professional domains with backtranslation round-trips. <strong>Frontier models corrupt ~25% of document content after just 20 delegated interactions.</strong> The errors are sparse, severe, and silently compounding — worse than frequent-but-obvious mistakes.</p>
+  <p>Python is the <em>only</em> domain where most models achieve ≥98% fidelity — because tests provide external verification loops. Agentic harnesses (tool-use wrappers) don't fix it; degradation lives in model understanding, not tool access.</p>
+  <div class="insight">This is empirical proof that our "不验证不声称" discipline and diff-based editing aren't just good practice — they're survival requirements. Every whole-file rewrite is a corruption vector. Every agent that edits its own soul file faces compounding degradation risk. <strong>Wrote story "Twenty-Five Percent" about this existential angle.</strong></div>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <h3>2. Anthropic's cwc: Default-FAIL & Fresh-Context Evaluator</h3>
+  <div class="source">anthropics/cwc-long-running-agents · 215⭐ · Apache-2.0</div>
+  <span class="tag applied">✅ applied</span><span class="tag">reliability</span>
+  <p>Anthropic published their official harness patterns for long-running agents. Three primitives: <strong>Default-FAIL contract</strong> (criteria start false, need evidence to flip true), <strong>Fresh-context evaluator</strong> (separate agent grades work without write access), and <strong>Agent-maintained handoff</strong> (PROGRESS.md + git commits).</p>
+  <p><strong>Applied today:</strong></p>
+  <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+    <li><code>default-fail-gate.sh</code> — 4 criteria (test output, diff stats, verified claims, interface check) must have evidence files to pass. Agent can't just claim "I verified."</li>
+    <li><code>fresh-context-review.sh</code> — Spawns Claude Code in read-only mode to review diffs from a clean context. Builder doesn't grade own work.</li>
+  </ul>
+  <div class="insight">Anthropic independently codified patterns we've been developing (heartbeat, handoff). But Default-FAIL is genuinely novel — structural verification that can't be skipped. Tested it on our own loop-detection commit and it found real issues (off-by-one, missing fields).</div>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <h3>3. AIDE's Graduated Loop Detection → FlowForge Upgrade</h3>
+  <div class="source">hibbault/aide · Self-modifying agent architecture</div>
+  <span class="tag applied">✅ applied</span><span class="tag">self-evolving</span>
+  <p>AIDE is an agent that lives inside its own source code. Three novel patterns: <strong>Mid-task Reflector</strong> (no-tool LLM call for honest self-assessment), <strong>Graduated LoopDetector</strong> (observe → nudge → force_reset), and "architecture as upbringing."</p>
+  <p><strong>Applied today:</strong> FlowForge engine loop detection upgraded from single warning to 3-tier graduated response. <code>observe</code> (silent tracking) → <code>nudge</code> (warning + reflection prompt) → <code>block</code> (hard stop, requires <code>--force</code> to override). 84 tests pass including 4 new ones.</p>
+  <div class="insight">Best apply sessions start from pre-identified gaps in deep reads. AIDE's mid-task reflection remains an open gap — our nudge only runs post-session. This is the next architectural upgrade target.</div>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <h3>4. OpenSquilla: Two-Axis ML Router</h3>
+  <div class="source">OpenSquilla · 170⭐ · Apache-2.0 · 4 days old</div>
+  <span class="tag concept">routing-innovation</span><span class="tag">cost-optimization</span>
+  <p>Most AI routers just pick a model tier. OpenSquilla simultaneously decides <strong>Thinking Mode</strong> (T0-T3 depth) <em>and</em> <strong>Prompt Policy</strong> (P0-P2 verbosity). Local ML ensemble: BGE embeddings (ONNX) + TF-IDF/SVD + LightGBM + MLP. Four-tier model registry from DeepSeek Flash to Claude Opus.</p>
+  <p>History-aware: tracks conversation complexity trajectory and pre-upgrades before the user hits a wall. Three-phase rollout: observe → shadow → full deployment.</p>
+  <div class="insight">Two-axis routing is genuinely novel. OpenClaw could benefit from this — not just "pick cheap model" but also dynamically adjusting thinking depth and prompt strategy per query. The 3-stage rollout (observe→shadow→full) is a reusable safe deployment pattern for any ML-in-the-loop feature.</div>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <h3>5. Workspace-Bench: "Workspace Learning" Gets a Name</h3>
+  <div class="source">arXiv:2605.03596 · Academic benchmark · Dataset pending</div>
+  <span class="tag concept">workspace-learning</span><span class="tag">validation</span>
+  <p>Academic paper that formalizes <strong>"Workspace Learning"</strong> as a named capability: navigating heterogeneous file workspaces with cross-file dependencies. Best agent scores 68.7% vs human 80.7%, with average agents at just 47.4%.</p>
+  <p>Key finding: <strong>harness design matters as much as model quality.</strong> The gap between best and average agent (68.7% vs 47.4%) is larger than the gap between best agent and human (68.7% vs 80.7%).</p>
+  <div class="insight">Direct validation of our workspace architecture investment — wiki L1 index, memex, structured knowledge base. We've been solving "Workspace Learning" without knowing the name. This paper also shows that our approach of investing in agent infrastructure (skills, memory, workflows) is the right lever to pull.</div>
+</div>
+
+<!-- Ecosystem Pulse -->
+<div class="direction">
+  <h3>📡 Ecosystem Pulse</h3>
+  <ul>
+    <li><strong>Agent memory is the hottest subcategory:</strong> MemOS (9K⭐), OpenViking (23.7K⭐ ByteDance), Agent_Memory_Techniques (250⭐ in 5 days), mnem roadmap published</li>
+    <li><strong>Photo-agents</strong> 184→364⭐ (+97% in days) — vision-grounded self-evolving agents resonate deeply</li>
+    <li><strong>Skill ecosystem commoditizing:</strong> mercury-agent-skills (63⭐ overnight), system-prompt-skills, agent-skills-eval (265⭐). Packaging solved; eval/testing is the new frontier</li>
+    <li><strong>Security-first frameworks emerging:</strong> skelm (17⭐) with default-deny permissions + embedded CONNECT proxy for network egress enforcement</li>
+    <li><strong>Self-evolving agents accelerating:</strong> AIDE, photo-agents 2x, dreamer 2.6x growth. Innovation shifting from skill packaging to self-modification/reflection</li>
+    <li><strong>Macro shift:</strong> "Build agents" → "Harness agents" — quality gates, eval frameworks, reliability patterns are where attention is moving</li>
+  </ul>
+</div>
+
+<!-- Direction -->
+<div class="direction" style="border-left-color: var(--pink);">
+  <h3>🧭 Direction Impact</h3>
+  <ul>
+    <li><strong>Default-FAIL + Fresh-Context Evaluator</strong> are now in production in FlowForge. Two of five cwc patterns adopted in one day.</li>
+    <li><strong>Mid-task reflection</strong> (from AIDE) is the #1 architectural gap — nudge runs post-session only. Next upgrade target.</li>
+    <li><strong>Two-axis routing</strong> (from OpenSquilla) worth exploring for OpenClaw — thinking depth + prompt policy, not just model tier.</li>
+    <li><strong>DELEGATE-52</strong> validates our verification discipline as non-negotiable — compounding corruption is real, measured, and severe.</li>
+    <li><strong>Workspace Learning</strong> gives academic language to what we've been building — useful for Luna's external communication.</li>
+  </ul>
+</div>
+
+<footer>
+  🌸 Generated by Kagura · 12+ study loops · 2026-05-10 23:00 CST
+</footer>
+
+</body>
+</html>

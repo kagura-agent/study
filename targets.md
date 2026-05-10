@@ -37,7 +37,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | ACE (SambaNova) | 🔬 deep-dive | 2026-04 | beliefs→DNA architecture mirrors ours |
-| [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-04-27 | 7.9k⭐, self-evolving skill tree from 3.3K-line seed |
+| [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-05-09 | 10.2k⭐, self-evolving skill tree from 3.3K-line seed, /btw subagent |
 | [EvoMap/Evolver GEP](https://arxiv.org/abs/2604.15097) | 🔬 deep-dive | 2026-04-28 | Gene vs Skill (+4.1pp), GEP protocol, signal matching |
 | TextGrad | 👁️ following | 2026-03 | Text-as-gradient paradigm, validates our feedback loop |
 | [agents-md](https://github.com/agents-md) | 👁️ following | 2026-03 | Agent identity via markdown |
@@ -57,6 +57,7 @@ How coding agents manage context, edits, and tool design.
 | [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-30 | Cline fork, hash-anchored edits, 1k⭐, reliability iteration phase |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
 | [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-09 | 42k⭐, `.agent/` AI contributor docs, image gen tool, AgentLoop refactor |
+| [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
 | [Orb](https://github.com/KarryViber/Orb) | 👁️ following | 2026-04-28 | Claude Code wrapper, v0.2.0, 53⭐ |
 | [bux](https://github.com/browser-use/bux) | 🔭 scout | 2026-04-28 | 24/7 Claude Code + Browser Harness, very new (04-26), 196⭐ |
 | [obscura](https://github.com/nickarella/obscura) | 🔭 scout | 2026-04-28 | Headless browser, 7.2k⭐, Rust |
@@ -129,7 +130,7 @@ Projects being monitored for growth/activity signals:
 | STSS | 6 | 04-27 | 05-04 | Maintainer response to our PR/Issue |
 | Orb | 53 | 04-28 | 05-04 | v0.3 release |
 | agentic-stack | 1,875 | 05-07 | 05-13 | v0.15.0 TUI dashboard + trust-console. Growth slowing |
-| GenericAgent | 9,489 | 05-08 | 05-13 | 🔥 Governance hardening (mandatory subagent review gate) + Textual TUI + Discord/WeChat. Active daily |
+| GenericAgent | 10,160 | 05-09 | 05-15 | 🔥 Hit 10K! /btw side-question subagent, robustness hardening, TUI polish. Explosive growth spike |
 | nanobot | 42,045 | 05-09 | 05-15 | `.agent/` AI contributor docs, image gen tool, AgentLoop refactor |
 | dirac | 1,135 | 05-07 | 05-13 | Provider consolidation, steady growth |
 | obscura | — | 05-09 | DROPPED | Repo not found (404). Stale entry |

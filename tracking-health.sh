@@ -66,7 +66,7 @@ echo "$ITEMS" | while IFS= read -r line; do
     reason="stale signal"
   fi
   # Signal 2: very low stars (<20) with no deep read
-  stars_num=$(echo "$line" | grep -oP "(\d+)⭐" | grep -oP "\d+" | head -1 || echo "999")
+  stars_num=$(echo "$line" | grep -oP "[\d,]+⭐" | head -1 | tr -d ',⭐' || echo "999")
   stars_num=$((10#$stars_num))  # force base-10
   if [[ "$stars_num" -lt 20 ]] && ! echo "$line" | grep -qi "deep read"; then
     reason="low traction, no deep read"

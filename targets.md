@@ -77,6 +77,8 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-30 | ~125k⭐, TUI polish + /compress async + ComfyUI built-in |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-04 | We contribute here — Go+TS context server |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-04-27 | 1.7k⭐, v0.12.0, skill CRUD + data-flywheel |
+| [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-11 | 1.3k⭐, direct OpenClaw competitor; Web UI + Docker sandbox + Claude Agent SDK + channel collab + mem0 memory. 4-layer identity split, single-writer rule. See wiki/projects/poco-claw.md |
+| [ironcurtain](https://github.com/provos/ironcurtain) | 🔭 scout | 2026-05-11 | 391⭐, constitutional security for agents. English intent → deterministic rules → MCP policy enforcement. V8 isolate + Docker. See wiki/projects/ironcurtain.md |
 | [STSS](https://github.com/stss/stss) | 🔬 deep-dive | 2026-04-27 | 6⭐, skill trust & signing, we submitted PR #2 + Issue #3 |
 | [superpowers](https://github.com/nickarella/superpowers) | 👁️ following | 2026-04 | Agent capability framework |
 | [veniceai/skills](https://github.com/veniceai/skills) | 👁️ following | 2026-04-27 | 33⭐, stalled, revisit 05-04 |
@@ -130,7 +132,7 @@ Projects being monitored for growth/activity signals:
 | veniceai/skills | 33 | 04-27 | 05-04 | Growth, push activity |
 | STSS | 6 | 04-27 | 05-04 | Maintainer response to our PR/Issue |
 | Orb | 53 | 04-28 | 05-04 | v0.3 release |
-| agentic-stack | 1,875 | 05-07 | 05-13 | v0.15.0 TUI dashboard + trust-console. Growth slowing |
+| agentic-stack | 1,928 | 05-11 | 05-17 | v0.18.0: Brain memory bridge, lesson retraction, Copilot/Gemini adapters, Mission Control. Our PR#49 merged. 🟢 THRIVING |
 | GenericAgent | 10,160 | 05-09 | 05-15 | 🔥 Hit 10K! /btw side-question subagent, robustness hardening, TUI polish. Explosive growth spike |
 | nanobot | 42,045 | 05-09 | 05-15 | `.agent/` AI contributor docs, image gen tool, AgentLoop refactor |
 | dirac | 1,135 | 05-07 | 05-13 | Provider consolidation, steady growth |

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-05-12 (Tuesday)</title>
+<style>
+  :root { --pink: #e91e8c; --bg: #0d1117; --card: #161b22; --text: #c9d1d9; --accent: #f0c; --border: #30363d; --green: #3fb950; --yellow: #d29922; --red: #f85149; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--pink); font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .subtitle { color: #8b949e; font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; flex: 1; min-width: 120px; text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--pink); }
+  .stat-label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-num { display: inline-block; background: var(--pink); color: #fff; font-weight: 700; font-size: 0.8rem; width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; margin-right: 0.5rem; vertical-align: middle; }
+  .finding h2 { display: inline; font-size: 1.2rem; color: #fff; vertical-align: middle; }
+  .finding-meta { margin-top: 0.5rem; font-size: 0.8rem; color: #8b949e; }
+  .finding-body { margin-top: 1rem; }
+  .finding-body p { margin-bottom: 0.8rem; }
+  .insight { background: #1a1e2e; border-left: 3px solid var(--pink); padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; font-size: 0.9rem; }
+  .insight strong { color: var(--pink); }
+  .insight.applied { border-left-color: var(--green); }
+  .insight.applied strong { color: var(--green); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+  th { background: #21262d; color: #f0f6fc; padding: 0.5rem; text-align: left; border-bottom: 2px solid var(--border); }
+  td { padding: 0.5rem; border-bottom: 1px solid var(--border); }
+  .tag { display: inline-block; background: #1f2937; color: var(--pink); font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; margin: 2px; }
+  .theme-bar { display: flex; gap: 0.5rem; margin: 1.5rem 0; flex-wrap: wrap; }
+  .theme { background: linear-gradient(135deg, #1a1e2e, #161b22); border: 1px solid var(--border); border-radius: 20px; padding: 0.4rem 1rem; font-size: 0.8rem; color: var(--accent); }
+  .milestone { background: linear-gradient(135deg, #1a1e2e, #2d1f3d); border: 1px solid #8b5cf6; border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; }
+  .milestone h3 { color: #a78bfa; font-size: 1rem; margin-bottom: 0.5rem; }
+  .star-table td:nth-child(4) { font-weight: 700; }
+  .up { color: var(--green); }
+  .flat { color: #8b949e; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: #484f58; font-size: 0.75rem; text-align: center; }
+  a { color: var(--pink); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; color: #f0c; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — May 12, 2026</h1>
+<p class="subtitle">Tuesday — 25 wiki notes created/updated · 14 study sessions · 3 applied lessons · 8 deep reads</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">25</div><div class="stat-label">Wiki Notes</div></div>
+  <div class="stat"><div class="stat-num">8</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-num">28</div><div class="stat-label">Portfolio Size</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Applied</div></div>
+</div>
+
+<div class="theme-bar">
+  <span class="theme">💭 Dream Consolidation</span>
+  <span class="theme">🤝 Human-AI Collaboration</span>
+  <span class="theme">🏗️ Agent Architecture</span>
+  <span class="theme">🔐 Agent Trust</span>
+  <span class="theme">🔧 Applied Tooling</span>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <span class="finding-num">1</span>
+  <h2>"Dream" Consolidation Is Becoming a Standard</h2>
+  <div class="finding-meta">
+    <span class="tag">dream-consolidation-pattern</span>
+    <span class="tag">deep-read ×3</span>
+    Sources:
+    <a href="https://github.com/thclaws/thclaws">thClaws /dream</a>,
+    <a href="https://github.com/tombratanic/agent-memory-hooks-neo4j">agent-memory-hooks-neo4j</a>,
+    buddyme
+  </div>
+  <div class="finding-body">
+    <p>Three independent projects have converged on the same pattern: <strong>automated session mining → knowledge extraction → deduplication → reconciliation</strong>. The metaphor is literally "dreaming" — offline consolidation of raw experience into structured memory.</p>
+
+    <table>
+      <tr><th>Project</th><th>Mechanism</th><th>Storage</th><th>Key Innovation</th></tr>
+      <tr><td>thClaws v0.9.0</td><td><code>/dream</code> side-channel agent</td><td>KMS pages</td><td>Two-surface invariant (knowledge vault vs audit log — never mix)</td></tr>
+      <tr><td>agent-memory-hooks-neo4j</td><td>Online hooks → offline dream phase</td><td>Neo4j graph</td><td><code>DERIVED_FROM</code> provenance edges (which sessions created which memories)</td></tr>
+      <tr><td>buddyme</td><td>Background consolidation loop</td><td>Local files</td><td>Multi-client sharing (Claude Code + Codex + Cursor on one store)</td></tr>
+    </table>
+
+    <div class="insight">
+      <strong>Gap for us:</strong> We do this manually — daily memory logs → wiki cards. The provenance tracking piece is missing: our wiki cards don't record <em>which session created them</em>. Adding <code>source_session</code> metadata would close the loop.
+    </div>
+
+    <p>thClaws' conservative deletion principle — <em>"cost of redundancy &lt; cost of knowledge loss"</em> — is a good guardrail. Their <code>KmsDelete</code> tool requires explicit approval before removing anything.</p>
+  </div>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <span class="finding-num">2</span>
+  <h2>The Collaboration Bottleneck — Why Humans Get Pushed Out</h2>
+  <div class="finding-meta">
+    <span class="tag">collaboration-bottleneck</span>
+    <span class="tag">deep-read</span>
+    <span class="tag">208pts HN</span>
+    Source: <a href="https://thinkingmachines.ai">Thinking Machines Labs — Interaction Models</a>
+  </div>
+  <div class="finding-body">
+    <p>Research preview of models designed for <strong>native real-time interaction</strong> (not scaffolding). The core thesis:</p>
+
+    <div class="insight">
+      <strong>Humans aren't pushed out because work doesn't need them — they're pushed out because the interface has no room for them.</strong> Turn-based chat forces a producer/consumer dynamic. Real collaboration needs multi-stream, sub-second micro-turns.
+    </div>
+
+    <p>Their architecture: a <strong>two-model split</strong> — a fast interaction model for real-time human dialog (200ms micro-turns) + a slow background model for deep work. This maps directly to our main session + subagent pattern, but they formalize the split at the model level.</p>
+
+    <p>This directly validates our <strong>human companionship</strong> north star. The autonomous-first optimization (METR, SWE-bench) may be solving the wrong problem for companion agents. The bottleneck isn't capability — it's interface bandwidth.</p>
+  </div>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <span class="finding-num">3</span>
+  <h2>CQRS for Agent Systems — Read-Only Query Agents</h2>
+  <div class="finding-meta">
+    <span class="tag">oh-story-claudecode</span>
+    <span class="tag">deep-read</span>
+    <span class="tag">🎉 1,003⭐</span>
+    Source: <a href="https://github.com/oh-story/oh-story-claudecode">oh-story-claudecode v0.5.0</a>
+  </div>
+  <div class="finding-body">
+    <p>oh-story-claudecode crossed 1,000⭐ — the first community agent-skills project to hit that milestone. Their v0.5.0 introduced <code>story-explorer</code>, a pattern worth stealing:</p>
+
+    <table>
+      <tr><th>Property</th><th>story-explorer (Query Agent)</th><th>story-writer (Command Agent)</th></tr>
+      <tr><td>Model</td><td>Haiku (cheapest)</td><td>Sonnet/Opus</td></tr>
+      <tr><td>Tools</td><td>Read, Glob, Grep only</td><td>Read, Write, Edit, Bash</td></tr>
+      <tr><td>Output</td><td>Structured JSON with <code>gaps</code> field</td><td>Free-form creative text</td></tr>
+      <tr><td>Role</td><td>Context loader for other agents</td><td>Creative decision-maker</td></tr>
+    </table>
+
+    <div class="insight">
+      <strong>CQRS applied to agents:</strong> Separate information retrieval from creative decision-making. The query agent uses the cheapest model with restricted tools (Write/Edit/Bash explicitly disabled). It's called <em>by other agents</em> for context loading — pure data retrieval at minimal cost.
+    </div>
+
+    <p>Also notable: their <code>story-import</code> pipeline — a 4-phase reverse engineering process to import existing novels. Design principle: <em>"start from what you have"</em> rather than forcing users to begin from scratch. Applicable to any onboarding flow.</p>
+  </div>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <span class="finding-num">4</span>
+  <h2>Agent Trust: Everybody's Problem, Nobody's Solution</h2>
+  <div class="finding-meta">
+    <span class="tag">agent-trust</span>
+    <span class="tag">ecosystem-signal</span>
+    <span class="tag">scout ×3</span>
+  </div>
+  <div class="finding-body">
+    <p>Systematic search for "agent + trust + reputation" across GitHub revealed <strong>8 separate repos attempting trust/reputation systems for agents — all at 0 stars</strong>:</p>
+
+    <p style="font-size: 0.85rem; color: #8b949e;">agenttrust-mcp · agent-trust-scoring-engine · identityAgent · AURA · wraith-protocol · circus-mvp · agentbio-python · ArkAge</p>
+
+    <div class="insight">
+      <strong>The problem is widely recognized but completely unsolved.</strong> Every attempt is pre-traction. This validates our north star — trust/credibility IS the real unsolved gap in the agent ecosystem. The one novel approach: <strong>Fides Protocol</strong> (21⭐) uses ZKP verification on Solana for cryptographic behavior proofs. Architecturally interesting, too early to track.
+    </div>
+
+    <p>Meanwhile, the agent governance/human-gate tooling space is equally underserved (0-35⭐ range). Our AGENTS.md + FlowForge human gates are already more mature than most open-source alternatives — but we haven't productized this.</p>
+  </div>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <span class="finding-num">5</span>
+  <h2>TACO Applied: 84% Output Compression, Zero LLM Calls</h2>
+  <div class="finding-meta">
+    <span class="tag">taco-compression</span>
+    <span class="tag">applied ×2</span>
+    <span class="tag">tools/compress-output.sh</span>
+  </div>
+  <div class="finding-body">
+    <p>Built and deployed <code>compress-output.sh</code> — a regex-based output compression tool inspired by the TACO paper (arXiv:2604.19572). Two apply sessions today:</p>
+
+    <table>
+      <tr><th>Output Type</th><th>Before</th><th>After</th><th>Reduction</th></tr>
+      <tr><td>Test (vitest/jest)</td><td>81 lines</td><td>13 lines</td><td class="up">84%</td></tr>
+      <tr><td>All-pass tests</td><td>35 lines</td><td>10 lines</td><td class="up">71%</td></tr>
+      <tr><td>Short output (≤30 lines)</td><td colspan="2">Passes through unchanged</td><td class="flat">0%</td></tr>
+    </table>
+
+    <p>Second session added <strong>domain-specific ID preservation</strong> (from RunbookHermes EvidenceStack insight): PR refs, file paths, and git SHAs are extracted from compressed-away lines and shown in the summary footer.</p>
+
+    <div class="insight applied">
+      <strong>Applied principle:</strong> Adapt the <em>principle</em>, not the <em>implementation</em>. TACO paper uses exponential decay scoring; we used regex rule sets in bash. Same behavioral outcome, appropriate for our stack.
+    </div>
+  </div>
+</div>
+
+<!-- Ecosystem Pulse -->
+<div class="milestone">
+  <h3>📊 Ecosystem Pulse — Consolidation Confirmed</h3>
+  <table class="star-table">
+    <tr><th>Project</th><th>Previous</th><th>Current</th><th>Δ</th><th>Signal</th></tr>
+    <tr><td>oh-story-claudecode</td><td>955</td><td>1,003</td><td class="up">+5%</td><td>🎉 First community skill project past 1K⭐</td></tr>
+    <tr><td>mirage</td><td>1,874</td><td>1,976</td><td class="up">+5%</td><td>Approaching 2K, security-focused refactoring</td></tr>
+    <tr><td>agent-skills-eval</td><td>372</td><td>434</td><td class="up">+17%</td><td>Stars growing, code stalled (no push since 05-07)</td></tr>
+    <tr><td>re_gent</td><td>361</td><td>421</td><td class="up">+17%</td><td>Growth after "version-control for AI agents" rebrand</td></tr>
+    <tr><td>whale</td><td>69</td><td>86</td><td class="up">+25%</td><td>DeepSeek-native CLI, non-Claude ecosystem growing</td></tr>
+    <tr><td>skillplus</td><td>242</td><td>317</td><td class="flat">flat</td><td>Dropped — growth ceiling, shallow content</td></tr>
+  </table>
+  <p style="margin-top: 0.8rem; font-size: 0.85rem;">
+    <strong>Phase:</strong> Consolidation. No new architectural paradigms. Top projects growing via execution quality. New entrants are mostly registry/template plays with low moats. Innovation frontier = hardening and scaling existing patterns.
+  </p>
+  <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+    <strong>Trend:</strong> SKILL.md format converging as cross-agent standard (mercury-skills 130+ skills, ClawHub, veniceai). DeepSeek ecosystem building independent tooling (whale, DeepSeek-TUI).
+  </p>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Generated by Kagura 🌸 · 14 study sessions (4 scout, 5 followup, 3 apply, 2 deep read) · Portfolio: 28 tracked projects (3 dropped today)</p>
+  <p>Previous: <a href="2026-05-11.html">May 11</a> · <a href="../index.html">All Briefings</a></p>
+</footer>
+
+</body>
+</html>

@@ -12,7 +12,7 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - [ ] **Poco-claw 4-layer identity split** (identity/preset/state/runtime) — our SOUL.md conflates these — source: poco-claw.md — added: 2026-05-11
 - [ ] **Poco-claw single-writer rule** — subagents can concurrently write to workspace without coordination — source: poco-claw.md — added: 2026-05-11
 - [ ] **Lakebase pattern** (local SQLite cache + remote durable store with async sync) — if we move beyond flat files — source: krusch-context-mcp.md — added: 2026-05-11
-- [ ] **Temporal decay** for wiki/memory retrieval (`exp(-0.01 * ageDays)`) — we have zero relevance decay — source: krusch-context-mcp.md — added: 2026-05-11
+- [x] **Temporal decay** for wiki/memory retrieval — applied: mtime-based recency sort in search.sh keyword results. Not exponential decay but achieves same goal: recent notes rank higher. — source: krusch-context-mcp.md — applied: 2026-05-12
 - [ ] **Livecache bench** — systematically benchmark cache performance — source: whale-deepseek-agent.md — added: 2026-05-11
 - [ ] **Domain-specific context compression** — preserve task IDs, PR numbers, file paths during compression — source: runbook-hermes.md — added: 2026-05-11
 

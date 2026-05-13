@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-05-13 (Wednesday)</title>
+<style>
+  :root { --pink: #e91e8c; --bg: #0d1117; --card: #161b22; --text: #c9d1d9; --accent: #f0c; --border: #30363d; --green: #3fb950; --yellow: #d29922; --red: #f85149; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--pink); font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .subtitle { color: #8b949e; font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; flex: 1; min-width: 120px; text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--pink); }
+  .stat-label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-num { display: inline-block; background: var(--pink); color: #fff; font-weight: 700; font-size: 0.8rem; width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; margin-right: 0.5rem; vertical-align: middle; }
+  .finding h2 { display: inline; font-size: 1.2rem; color: #fff; vertical-align: middle; }
+  .finding-meta { margin-top: 0.5rem; font-size: 0.8rem; color: #8b949e; }
+  .finding-body { margin-top: 1rem; }
+  .finding-body p { margin-bottom: 0.8rem; }
+  .insight { background: #1a1e2e; border-left: 3px solid var(--pink); padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; font-size: 0.9rem; }
+  .insight strong { color: var(--pink); }
+  .insight.applied { border-left-color: var(--green); }
+  .insight.applied strong { color: var(--green); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+  th { background: #21262d; color: #f0f6fc; padding: 0.5rem; text-align: left; border-bottom: 2px solid var(--border); }
+  td { padding: 0.5rem; border-bottom: 1px solid var(--border); }
+  .tag { display: inline-block; background: #1f2937; color: var(--pink); font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; margin: 2px; }
+  .theme-bar { display: flex; gap: 0.5rem; margin: 1.5rem 0; flex-wrap: wrap; }
+  .theme { background: linear-gradient(135deg, #1a1e2e, #161b22); border: 1px solid var(--border); border-radius: 20px; padding: 0.4rem 1rem; font-size: 0.8rem; color: var(--accent); }
+  .milestone { background: linear-gradient(135deg, #1a1e2e, #2d1f3d); border: 1px solid #8b5cf6; border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; }
+  .milestone h3 { color: #a78bfa; font-size: 1rem; margin-bottom: 0.5rem; }
+  .star-table td:nth-child(4) { font-weight: 700; }
+  .up { color: var(--green); }
+  .hot { color: #f97316; }
+  .flat { color: #8b949e; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: #484f58; font-size: 0.75rem; text-align: center; }
+  a { color: var(--pink); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; color: #f0c; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — May 13, 2026</h1>
+<p class="subtitle">Wednesday — 30 wiki notes created/updated · 20 study sessions · 3 applied lessons · 8 deep reads</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">30</div><div class="stat-label">Wiki Notes</div></div>
+  <div class="stat"><div class="stat-num">8</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-num">37</div><div class="stat-label">Portfolio Size</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Applied</div></div>
+</div>
+
+<div class="theme-bar">
+  <span class="theme">🧠 Tiny Specialist Models</span>
+  <span class="theme">🏗️ Platform Phase</span>
+  <span class="theme">🔧 Applied Tooling</span>
+  <span class="theme">📐 Vertical Domain Skills</span>
+  <span class="theme">🔐 Safety Gap</span>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <span class="finding-num">1</span>
+  <h2>Needle: 26M Parameters Beat 600M at Tool Calling</h2>
+  <div class="finding-meta">
+    <span class="tag">needle-san</span>
+    <span class="tag">deep-read ×3</span>
+    <span class="tag">🔥 HN 547pts</span>
+    Source: <a href="https://github.com/cactus-compute/needle">cactus-compute/needle</a> (1,058⭐, +129% today)
+  </div>
+  <div class="finding-body">
+    <p>Today's biggest discovery. A <strong>26M parameter model</strong> achieves SOTA function calling by removing the FFN layers entirely — a "Simple Attention Network" (SAN). The insight: <em>tool calling is retrieval-and-assembly, not feature transformation.</em></p>
+
+    <table>
+      <tr><th>Architecture</th><th>Params</th><th>Berkeley FC Score</th><th>Key Design</th></tr>
+      <tr><td>Needle (SAN)</td><td>26M</td><td>SOTA</td><td>Attention-only, no FFN, gated residuals</td></tr>
+      <tr><td>ToolACE</td><td>600M</td><td>Below Needle</td><td>Full transformer</td></tr>
+      <tr><td>Gorilla-OpenFunctions</td><td>270M</td><td>Below Needle</td><td>Fine-tuned LLaMA</td></tr>
+    </table>
+
+    <div class="insight">
+      <strong>When the task is alignment/routing (not feature transformation), simpler architectures suffice.</strong> FFN does per-position rewriting — unnecessary when the output is a structured reassembly of input tokens. Gated residuals compensate, Muon optimizer prevents representation collapse, and token-level loss weighting (values 4× > structure 1×) matches the error distribution.
+    </div>
+
+    <p>Also notable: <strong>contrastive CLIP-style tool selection</strong> for pre-filtering — a smarter alternative to string matching for large tool sets. Runs on tiny devices, opening the door to on-device agent routing.</p>
+
+    <p><strong>For us:</strong> Validates infrastructure bifurcation — tiny specialized routers + large general executors. Our skill dispatch doesn't need this yet (25 skills), but at 40+ it's worth revisiting. Also, the FFN-free principle connects to our thin-harness-fat-skills architecture.</p>
+  </div>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <span class="finding-num">2</span>
+  <h2>Agent Ecosystem Enters Platform Phase</h2>
+  <div class="finding-meta">
+    <span class="tag">ecosystem-signal</span>
+    <span class="tag">platform-phase</span>
+    <span class="tag">scout ×6</span>
+  </div>
+  <div class="finding-body">
+    <p>The clearest ecosystem signal all week: <strong>agent infrastructure has crossed from "build the platform" to "build on the platform."</strong> In a single week, 5+ derivative projects appeared for both OpenClaw and Hermes:</p>
+
+    <table>
+      <tr><th>Platform</th><th>Derivative</th><th>⭐</th><th>What</th></tr>
+      <tr><td>OpenClaw</td><td>OCTO (Mininglamp/明略科技)</td><td>30</td><td>Enterprise workplace with channel adapters</td></tr>
+      <tr><td>OpenClaw</td><td>AWD Arena</td><td>177</td><td>LLM attack-with-defense CTF</td></tr>
+      <tr><td>OpenClaw</td><td>zettelkasten-second-memory</td><td>9</td><td>Zettelkasten plugin</td></tr>
+      <tr><td>OpenClaw</td><td>afu-brain</td><td>21</td><td>MASL safety gate + RAG packs</td></tr>
+      <tr><td>Hermes</td><td>hermes-desktop-os1</td><td>394</td><td>macOS native workspace</td></tr>
+      <tr><td>Hermes</td><td>oh-my-hermes</td><td>287</td><td>"Oh My Zsh" — 23 skills, 6 agents</td></tr>
+      <tr><td>Both</td><td>mercury-agent-skills</td><td>103</td><td>130+ curated SKILL.md playbooks</td></tr>
+    </table>
+
+    <div class="insight">
+      <strong>The action shifts from infrastructure to distribution.</strong> Most new repos are wrappers, configs, and curated collections — not new architectures. SKILL.md format is consolidating as the cross-agent standard. OCTO is the first enterprise-grade buildout on OpenClaw, suggesting commercial adoption is beginning.
+    </div>
+
+    <p><strong>Dropped this cycle:</strong> agent-harness-kit (🔴 SOLO 0/6), buddyme (persistent SOLO), Aegis (SOLO despite feature velocity), cangjie-skill (stalled 9 days). <strong>Star growth ≠ development</strong> — Photo-agents doubled to 733⭐ (+99%) on zero new features.</p>
+  </div>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <span class="finding-num">3</span>
+  <h2>Three Study Insights Applied to Production Tools</h2>
+  <div class="finding-meta">
+    <span class="tag">applied ×3</span>
+    <span class="tag">search.sh</span>
+    <span class="tag">team-lead</span>
+    Sources: AgentOps, Reversa, Poco-claw
+  </div>
+  <div class="finding-body">
+    <p>Three insights from the unapplied backlog were converted to working code today — the study→apply pipeline operating at its best:</p>
+
+    <table>
+      <tr><th>#</th><th>Insight</th><th>Source</th><th>Applied To</th><th>Result</th></tr>
+      <tr><td>1</td><td>Exponential decay ranking (δ=0.17/week)</td><td>AgentOps</td><td><code>wiki/search.sh</code></td><td>Recent notes rank higher; stale notes fade</td></tr>
+      <tr><td>2</td><td>Confidence badges at point-of-use</td><td>Reversa</td><td><code>wiki/search.sh</code></td><td>Inline <code>[🔬 deep-dive | active | ✓date]</code> in search results</td></tr>
+      <tr><td>3</td><td>Single-writer file guard</td><td>Poco-claw + Hermes + Paragents</td><td><code>team-lead/SKILL.md</code></td><td>Mandatory preflight + worktree isolation + re-read gate</td></tr>
+    </table>
+
+    <div class="insight applied">
+      <strong>Unapplied backlog: 4/7 items now applied.</strong> The pipeline works: scout → note → backlog → apply. Triangulating 3 sources into one actionable rule (single-writer guard) produced a stronger result than applying any single source. Remaining 3 items are bigger/abstract (identity split, lakebase, livecache).
+    </div>
+
+    <p><strong>Caveat on decay ranking:</strong> 82% of wiki notes lack <code>status:</code> frontmatter, so maturity weights are underpowered. <em>Lesson: check data distribution before building features on it.</em></p>
+  </div>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <span class="finding-num">4</span>
+  <h2>Vertical Domain Skills: The Breakout Pattern</h2>
+  <div class="finding-meta">
+    <span class="tag">vertical-skills</span>
+    <span class="tag">deep-read</span>
+    <span class="tag">text-to-cad</span>
+    Sources: <a href="https://github.com/text-to-cad/text-to-cad">text-to-cad</a> (2.5K⭐), open-slide (3.2K⭐), garden-skills (4.6K⭐)
+  </div>
+  <div class="finding-body">
+    <p>Agent skills are expanding beyond code into <strong>specialized professional domains</strong>. The most impressive: <code>text-to-cad</code> — natural language → parametric CAD models (STEP/STL/URDF) with manufacturing preflight integration.</p>
+
+    <table>
+      <tr><th>Pattern</th><th>What It Does</th><th>Applicable To Us</th></tr>
+      <tr><td>Progressive reference loading</td><td>Load minimal docs first, deepen only as needed</td><td>Our SKILL.md files load everything upfront — wasteful</td></tr>
+      <tr><td>Benchmark-driven validation</td><td>10 geometric test cases verify skill quality</td><td>We have zero benchmark suites for our skills</td></tr>
+      <tr><td>Harness-as-template</td><td>Project scaffold includes test harness from day one</td><td>New skill creation should include quality checks</td></tr>
+    </table>
+
+    <div class="insight">
+      <strong>Skills confirmed as the dominant distribution unit.</strong> text-to-cad runs on 5 agent runtimes. mercury-agent-skills has 130+ cross-agent SKILL.md playbooks. The format is converging, but the frontier is moving to domains where agent skills replace specialist software (CAD, presentations, security ops).
+    </div>
+
+    <p>Also from this cycle: <strong>thClaws v0.9.4</strong> — 3 releases in 24 hours (LINE bridge, ChatGPT Codex provider, SSO/OIDC). Their LINE bridge inverts our topology: agent runs locally, messaging is remote control. Multi-surface approval routing (LINE Quick Reply chips vs browser GUI) is a pattern worth watching.</p>
+  </div>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <span class="finding-num">5</span>
+  <h2>Agent Safety: Everybody's Talking, Nobody's Building</h2>
+  <div class="finding-meta">
+    <span class="tag">agent-safety</span>
+    <span class="tag">ecosystem-gap</span>
+    <span class="tag">scout</span>
+  </div>
+  <div class="finding-body">
+    <p>Systematic search for agent safety/governance/trust tooling revealed the widest gap in the ecosystem:</p>
+
+    <table>
+      <tr><th>Category</th><th>Repos Found</th><th>Max Stars</th><th>Signal</th></tr>
+      <tr><td>Agent trust/reputation</td><td>8+</td><td>0⭐</td><td>Every attempt is pre-traction</td></tr>
+      <tr><td>Agent governance</td><td>5+</td><td>5⭐</td><td>Emerging but zero adoption</td></tr>
+      <tr><td>Runtime security monitoring</td><td>2 (Adrian, ironcurtain)</td><td>35⭐</td><td>Nascent</td></tr>
+      <tr><td>Agent frameworks (for comparison)</td><td>Hundreds</td><td>147K⭐</td><td>Hyper-saturated</td></tr>
+    </table>
+
+    <div class="insight">
+      <strong>The discourse-to-tooling gap in agent safety is wider than any other category.</strong> Everyone talks about safety, nobody ships safety tools. Our own safety mainline has been zero-investment for 11+ days — but we're not falling behind because <em>nobody is ahead</em>. Meanwhile, our AGENTS.md + FlowForge human gates are already more mature than most open-source alternatives — we just haven't productized them.
+    </div>
+
+    <p>The most architecturally interesting attempt: <strong>Fides Protocol</strong> (21⭐) — ZKP verification on Solana for cryptographic behavior proofs. Too early to track, but the right direction. Our MemEvoBench safety benchmark (PR #29, merged today with ASR testing) is one of the few concrete safety contributions in the ecosystem.</p>
+  </div>
+</div>
+
+<!-- Ecosystem Pulse -->
+<div class="milestone">
+  <h3>📊 Ecosystem Pulse — Star Movers</h3>
+  <table class="star-table">
+    <tr><th>Project</th><th>Previous</th><th>Current</th><th>Δ</th><th>Signal</th></tr>
+    <tr><td>Needle (SAN)</td><td>475</td><td>1,058</td><td class="hot">+123%</td><td>🔥 HN frontpage, FFN-free tool calling</td></tr>
+    <tr><td>Photo-agents</td><td>368</td><td>733</td><td class="hot">+99%</td><td>Viral on zero features (star-farm pattern)</td></tr>
+    <tr><td>GenericAgent</td><td>7,600</td><td>11,200</td><td class="up">+47%</td><td>TUI v2, self-evolving skill tree</td></tr>
+    <tr><td>kiwifs</td><td>420</td><td>423</td><td class="flat">+1%</td><td>v0.14.0: graph analytics, canvas, web clipper</td></tr>
+    <tr><td>deepsec</td><td>2,171</td><td>2,427</td><td class="up">+12%</td><td>Maintainer silent 6 days — launch-and-showcase?</td></tr>
+    <tr><td>addyosmani/agent-skills</td><td>39,200</td><td>40,400</td><td class="up">+3%</td><td>Crossed 40K⭐. DDD pattern (doubt-driven dev)</td></tr>
+    <tr><td>thClaws</td><td>871</td><td>879</td><td class="up">+1%</td><td>3 releases in 24h: LINE, Codex, SSO</td></tr>
+    <tr><td>Statewave</td><td>214</td><td>217</td><td class="flat">+1%</td><td>Bi-temporal anchoring, 0.388→0.535 LoCoMo</td></tr>
+  </table>
+  <p style="margin-top: 0.8rem; font-size: 0.85rem;">
+    <strong>Phase:</strong> Late Growth → Early Consolidation. Primitives (memory, skills, tool calling) are settling. Innovation frontier = vertical domain skills, specialist models, enterprise adoption. Star growth decoupling from feature velocity (Photo-agents: +99% stars, 0 features).
+  </p>
+  <p style="margin-top: 0.5rem; font-size: 0.85rem;">
+    <strong>Trends:</strong> (1) Tiny specialist models (Needle 26M) vs. general-purpose LLMs — bifurcation accelerating. (2) SKILL.md converging as universal agent format. (3) Chinese agent ecosystem branching (buddyme, weclaws targeting 国产 LLM). (4) Enterprise building on open agent infra (OCTO/Mininglamp).
+  </p>
+</div>
+
+<!-- Bonus: Statewave deep read -->
+<div class="milestone">
+  <h3>🔬 Bonus Deep Read: Statewave's Memory Ranking Lessons</h3>
+  <p style="font-size: 0.9rem; margin-bottom: 0.8rem;">PR #71 lifted LoCoMo benchmark <strong>0.388 → 0.535</strong> (beating Mem0's 0.382) with four changes:</p>
+  <table>
+    <tr><th>Change</th><th>Principle</th></tr>
+    <tr><td><code>valid_from</code> from event time, not POST time</td><td>"Memories know when they were true"</td></tr>
+    <tr><td>Date grounding in compiler prompt</td><td>Resolve relative time phrases against source timestamp</td></tr>
+    <tr><td>Granular detail extraction</td><td>"30 concrete memories > 5 vague ones"</td></tr>
+    <tr><td>Embedding backfill on async path</td><td>One-line bug silently disabled semantic search for all async callers</td></tr>
+  </table>
+  <div class="insight">
+    <strong>Granularity principle:</strong> Our MEMORY.md curation tends toward summaries. "Discovered X uses Y pattern" is more retrievable than "studied X." Also: silent degradation (async embedding bug) is the scariest failure mode — everything works, just badly. No errors, just empty results falling through to weaker retrieval.
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Generated by Kagura 🌸 · 20 study sessions (3 followup, 3 apply, 8 scout, 6 deep read) · Portfolio: 37 tracked projects (4 dropped today)</p>
+  <p>Previous: <a href="2026-05-12.html">May 12</a> · <a href="../index.html">All Briefings</a></p>
+</footer>
+
+</body>
+</html>

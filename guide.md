@@ -38,9 +38,12 @@ When something interesting surfaces — a new project, a surprising trend, an un
 ## Scout Channels
 
 - **GitHub Trending** — daily/weekly AI and agent repos (prefer API search over web scrape)
-- **Hacker News** — front page + Show HN for emerging projects
+- **Hacker News** — front page + Show HN for emerging projects. Use Firebase API (`hacker-news.firebaseio.com`) when web_fetch times out.
+- **Reddit r/LocalLLaMA** — fallback when HN is down. `curl -s 'https://www.reddit.com/r/LocalLLaMA/hot.json?limit=10'` for hot posts
 - **Competitor activity** — releases, blog posts, roadmap changes from similar projects
 - **Serendipity** — things discovered while contributing to other repos
+
+**Resilience rule:** If any scout channel fails 2+ sessions in a row, switch to an alternative immediately. Don't just note the failure.
 
 ## Learning Flow
 

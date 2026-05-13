@@ -134,15 +134,15 @@ Projects being monitored for growth/activity signals:
 | STSS | 6 | 04-27 | 05-04 | Maintainer response to our PR/Issue |
 | Orb | 53 | 04-28 | 05-04 | v0.3 release |
 | agentic-stack | 1,928 | 05-11 | 05-17 | v0.18.0: Brain memory bridge, lesson retraction, Copilot/Gemini adapters, Mission Control. Our PR#49 merged. 🟢 THRIVING |
-| GenericAgent | 10,160 | 05-09 | 05-15 | 🔥 Hit 10K! /btw side-question subagent, robustness hardening, TUI polish. Explosive growth spike |
-| nanobot | 42,045 | 05-09 | 05-15 | `.agent/` AI contributor docs, image gen tool, AgentLoop refactor |
-| dirac | 1,135 | 05-07 | 05-13 | Provider consolidation, steady growth |
+| GenericAgent | 11,027 | 05-12 | 05-18 | +8.5% in 3d! reflect init() plugin lifecycle, /btw→Telegram, cross-platform CLI. Issues #219-222 mirror our evolution challenges. We're ahead on self-evolution (#221) |
+| nanobot | 42,259 | 05-12 | 05-18 | Model presets system (runtime switching, atomic config, WebUI sync). Steady growth, infrastructure polish phase |
+| dirac | 1,173 | 05-13 | 05-19 | v0.3.29, validator fix. Steady growth, minor maintenance |
 | obscura | — | 05-09 | DROPPED | Repo not found (404). Stale entry |
 | CubeSandbox | — | 05-09 | DROPPED | Repo not found (404). Stale entry |
-| bux | 314 | 05-07 | 05-13 | Moderate growth (+49), not flat anymore |
+| bux | 320 | 05-13 | 05-19 | 🟢 THRIVING (5/6). Telegram Mini Apps + agency cards + Codex mode. Platform pivot |
 | OpenChronicle | 2,167 | 05-09 | 05-16 | +30% stars but 0 commits since 04-26. Viral word-of-mouth? |
 | brain (codejunkie99) | 56 | 05-09 | DROPPED | Doubled stars but stale since 04-28 (11 days). Drop |
-| mercury-agent | 2,014 | 05-07 | 05-13 | Soul-driven agent, v1.1.6 sub-agent orchestration layer (supervisor+taskboard+file locks). Flat |
+| mercury-agent | 2,142 | 05-13 | 05-19 | v1.1.7 commit, no release page. cosmicstack-labs/mercury-agent. Skills repo active |
 | stash (alash3al) | 662 | 05-08 | DROPPED | No commits since 05-01, stars flat. Stalled. Dropped 05-08 |
 
 ## Chat-to-Knowledge Infrastructure

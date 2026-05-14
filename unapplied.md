@@ -7,9 +7,11 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 
 ---
 
+- [x] **GenericAgent goal_mode budget pattern** — time budget + turn cap + wrap-up on exhaustion for subagent spawning — source: genericagent.md — applied: 2026-05-14 — added Subagent Budget Constraints section to team-lead/SKILL.md: runTimeoutSeconds guidance (120-900s by task type), wrap-up instruction template, timeout handling protocol.
+
 ## Infrastructure / Architecture
 
-- [ ] **Poco-claw 4-layer identity split** (identity/preset/state/runtime) — our SOUL.md conflates these — source: poco-claw.md — added: 2026-05-11
+- [x] **Poco-claw 4-layer identity split** (identity/preset/state/runtime) — our SOUL.md conflates these — source: poco-claw.md — added: 2026-05-11 — **Rejected 2026-05-14**: Analyzed and determined it would be cosmetic — AGENTS.md is loaded as project context regardless of file splits, so no token savings or behavioral change.
 - [x] **Poco-claw single-writer rule** — subagents can concurrently write to workspace without coordination — source: poco-claw.md — applied: 2026-05-13 — added Concurrent Work Guard section to team-lead/SKILL.md: mandatory worktree isolation, preflight path-overlap check, re-read gate after subagent return. Merged insights from Hermes 3-layer defense (concurrent-agent-file-coordination card) and paragents preflight intent (worktree-convergence card).
 - [ ] **Lakebase pattern** (local SQLite cache + remote durable store with async sync) — if we move beyond flat files — source: krusch-context-mcp.md — added: 2026-05-11
 - [x] **Temporal decay** for wiki/memory retrieval — applied: mtime-based recency sort in search.sh keyword results. Not exponential decay but achieves same goal: recent notes rank higher. — source: krusch-context-mcp.md — applied: 2026-05-12. **Enhanced 2026-05-13**: upgraded to true exponential decay (δ=0.17/week, Darr et al.) + maturity weights from frontmatter status/depth fields (active=1.3×, deep-dive=1.15× bonus, dropped=0.4×). Source: agentops.md decay-ranked retrieval.

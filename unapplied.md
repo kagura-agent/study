@@ -26,3 +26,7 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 ## Applied ✅
 
 - [x] **Hybrid retrieval** (cosine + keyword) for wiki search — created search.sh — source: krusch-context-mcp.md — applied: 2026-05-11
+
+## Meta / Workflow
+
+- [x] **Followup daily cap** — add ≥4/day saturation rule to study.yaml entry node, preventing diminishing-return followup loops — source: 05-14 reflection (24 study sessions, 7+ followups with zero new signals in later rounds) — applied: 2026-05-15 — added followup ≥4 cap + global saturation gate (all modes locked → exit) to study.yaml

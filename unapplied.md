@@ -11,6 +11,7 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 
 ## Retrieval / Search
 
+- [x] **CJK-to-English bridge for memex BM25** — memex BM25 can't tokenize CJK, so Chinese queries returned nothing. Added cjk_bridge() with 35-term domain mapping table that auto-translates Chinese → English when memex returns empty. Benchmark 100% maintained. — source: brain-rust bilingual search gap — applied: 2026-05-18
 - [x] **Orb recall frequency logging** — track which wiki notes are actually returned by search, enabling data-driven staleness decisions. Log format: timestamp|intent|query|slugs. Companion recall-report.sh for hot/cold analysis. — source: orb.md (v0.6.0 telemetry-backed skill lifecycle) — applied: 2026-05-18 — added to wiki/search.sh + wiki/scripts/recall-report.sh
 - [x] **Elephant Agent intent-aware recall reranking** — classify query intent (recent/historical/current/neutral) and adjust temporal decay rate accordingly. Recent queries get stronger decay (δ=0.35), historical queries preserve old notes (δ=0.05), current queries heavily favor fresh (δ=0.50). — source: elephant-agent.md — applied: 2026-05-18 — added `classify_intent()` and `get_decay_rate()` to wiki/search.sh, intent displayed in output, benchmark still 100%.
 

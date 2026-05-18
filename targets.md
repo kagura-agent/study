@@ -43,6 +43,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
 | [Orb](https://github.com/KarryViber/Orb) | 🔬 deep-dive | 2026-05-17 | 63⭐, v0.6.0. Telemetry-backed skill lifecycle (draft→prod→stale→archive), 3-stage self-evolution (A/B/C), memory freshness. Solo dev, Claude-Code-only, best-in-class governance |
+| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-18 | 287⭐, Four-lens Personal Model (Identity/World/Pulse/Journey), proactive curiosity, evidence-based recall, auto-retire. Unified daemon, episode lifecycle maturing. 🟢 THRIVING (5/6) |
 
 
 **Key insight:** We operate at the Identity layer — only us and ACE are here. Most work is at Model or Workflow layers. GEP research validates: compact control-oriented format (Gene ~230 tokens) outperforms verbose doc-oriented format (Skill ~2,500 tokens) by +4.1pp.
@@ -138,6 +139,7 @@ Projects being monitored for growth/activity signals:
 
 | mercury-agent | 2,231 | 05-17 | 05-24 | 2,231⭐ (+89). No commits since 05-10. Last release v1.1.6 (05-06). 🟢 THRIVING community (6/6): 29 issue authors, 31 external PRs/30d. Quiet week but strong base |
 | Orb (KarryViber) | 63 | 05-17 | 05-24 | v0.6.0 (05-14): 3-stage self-evolution pipeline (A/B/C), telemetry-backed skill lifecycle (draft→prod→stale→archive), memory freshness states, permission-blocker scan. Solo dev, Slack-only. Architecturally best-in-class Claude Code wrapper |
+| Elephant Agent (agentic-in) | 287 | 05-18 | 05-24 | 287⭐. Unified ServiceDaemon (PR#29), episode session boundary unification (PR#30), status normalization (PR#32). 4+ contributors now. 🟢 THRIVING (5/6) |
 
 
 ## Chat-to-Knowledge Infrastructure
@@ -148,4 +150,4 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 |---------|-------|-------------|-------|
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-04-30 | 191⭐, Google ADK, dual-memory (Weaviate+Neo4j), 3-tier semantic, wiki-first RAG |
 | [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |
-| TrustClaw (ComposioHQ) | 596 | 05-15 | 05-21 | +4.2%. Trust boundary hardening (PRs #25-26): compaction/scheduled-task/continuity injection defenses. Maturing security posture. Direct OpenClaw competitor |
+| TrustClaw (ComposioHQ) | 669 | 05-18 | 05-21 | 669⭐ (+12% in 3d). No new commits since 05-15, star growth from marketing/awareness. Trust boundary hardening phase. Direct OpenClaw competitor |

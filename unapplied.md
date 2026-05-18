@@ -9,6 +9,10 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 
 - [x] **GenericAgent goal_mode budget pattern** — time budget + turn cap + wrap-up on exhaustion for subagent spawning — source: genericagent.md — applied: 2026-05-14 — added Subagent Budget Constraints section to team-lead/SKILL.md: runTimeoutSeconds guidance (120-900s by task type), wrap-up instruction template, timeout handling protocol.
 
+## Retrieval / Search
+
+- [x] **Elephant Agent intent-aware recall reranking** — classify query intent (recent/historical/current/neutral) and adjust temporal decay rate accordingly. Recent queries get stronger decay (δ=0.35), historical queries preserve old notes (δ=0.05), current queries heavily favor fresh (δ=0.50). — source: elephant-agent.md — applied: 2026-05-18 — added `classify_intent()` and `get_decay_rate()` to wiki/search.sh, intent displayed in output, benchmark still 100%.
+
 ## Infrastructure / Architecture
 
 - [x] **Poco-claw 4-layer identity split** (identity/preset/state/runtime) — our SOUL.md conflates these — source: poco-claw.md — added: 2026-05-11 → **retracted 2026-05-14** (rationale: Analyzed and determined it would be cosmetic — AGENTS.md is loaded as project context regardless of file splits, so no token savings or behavioral change)

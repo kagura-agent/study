@@ -61,9 +61,14 @@ echo ""
 echo "🗑️  AUTO-DROP CANDIDATES (signals of low value):"
 echo "$ITEMS" | while IFS= read -r line; do
   reason=""
-  # Signal 1: "stalled", "no commits", "no push", "flat"
-  if echo "$line" | grep -qiP "stalled|no commits|no push since|flat|growth without dev|flash|solo"; then
-    reason="stale signal"
+  # Signal 1: stale/negative growth signals
+  # Note: "flat" alone is too broad (matches "star growth flat" in thriving projects)
+  # Use specific phrases: "flat growth", "stars flat", "growth flat"
+  if echo "$line" | grep -qiP "stalled|no commits|no push since|flat growth|stars flat|growth flat|growth without dev|\bSOLO\b"; then
+    # Negative gate: don't flag items explicitly marked as thriving/healthy
+    if ! echo "$line" | grep -qiP "THRIVING|HEALTHY"; then
+      reason="stale signal"
+    fi
   fi
   # Signal 2: very low stars (<20) with no deep read
   stars_num=$(echo "$line" | grep -oP "[\d,]+⭐" | head -1 | tr -d ',⭐' || echo "999")
@@ -123,7 +128,7 @@ overdue_count=$(echo "$ITEMS" | grep -oP "Revisit \K\d{2}-\d{2}" | while read r;
   [[ "$r" < "$target_mmdd" ]] && echo "1"
 done | wc -l)
 
-drop_count=$(echo "$ITEMS" | grep -ciP "stalled|no commits|no push since|flat|growth without dev|flash|consider drop|drop if" || echo "0")
+drop_count=$(echo "$ITEMS" | grep -ciP "stalled|no commits|no push since|flat growth|stars flat|growth flat|growth without dev|\bSOLO\b|consider drop|drop if" || echo "0")
 
 if [[ "$TOTAL" -gt 40 ]]; then
   echo "  ⚠️  Portfolio too large ($TOTAL items). Target: ≤30. Drop $((TOTAL - 30)) low-value items."

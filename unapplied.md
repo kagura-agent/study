@@ -46,3 +46,7 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 ## Meta / Workflow
 
 - [x] **Followup daily cap** — add ≥4/day saturation rule to study.yaml entry node, preventing diminishing-return followup loops — source: 05-14 reflection (24 study sessions, 7+ followups with zero new signals in later rounds) — applied: 2026-05-15 — added followup ≥4 cap + global saturation gate (all modes locked → exit) to study.yaml
+
+## Workflow / Efficiency
+
+- [x] **Diff-scoped followup pre-filter** — check tracked repos' `pushed_at` before investing followup time. QUIET repos (no push since last check) skipped. tracking-activity.sh created, integrated into study.yaml followup step 0a3. — source: dreamer diff-scoped review + mirage-vfs truth.txt harness — applied: 2026-05-20

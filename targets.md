@@ -43,7 +43,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
 | [Orb](https://github.com/KarryViber/Orb) | 🔬 deep-dive | 2026-05-17 | 63⭐, v0.6.0. Telemetry-backed skill lifecycle (draft→prod→stale→archive), 3-stage self-evolution (A/B/C), memory freshness. Solo dev, Claude-Code-only, best-in-class governance |
-| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-18 | 287⭐, Four-lens Personal Model (Identity/World/Pulse/Journey), proactive curiosity, evidence-based recall, auto-retire. Unified daemon, episode lifecycle maturing. 🟢 THRIVING (5/6) |
+| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-26 | 318⭐, Four-lens Personal Model (Identity/World/Pulse/Journey), proactive curiosity, evidence-based recall, auto-retire. Prefix-cache stabilization, OTel observability, tool-group-safe compaction. 🟢 THRIVING (5/6), accelerating |
 
 
 **Key insight:** We operate at the Identity layer — only us and ACE are here. Most work is at Model or Workflow layers. GEP research validates: compact control-oriented format (Gene ~230 tokens) outperforms verbose doc-oriented format (Skill ~2,500 tokens) by +4.1pp.
@@ -60,6 +60,7 @@ How coding agents manage context, edits, and tool design.
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
 | [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-14 | 42.4k⭐, model failover with fallback_models, MCP probe fix, live thread rendering |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
+| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-21 | 840⭐ in 3 days. Coding agent for small local LLMs (7B-20B). MarrowScript cognition layer, budget tracking, repair prompts, model escalation. Solo dev, no tests, context overflow not fully solved. 🔴 SOLO (0/6) |
 
 
 
@@ -130,16 +131,16 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 1,984 | 05-16 | 05-22 | v0.18.0 settling. Brew formula audit. Brain bridge landed. Our PR#49 merged. 🟢 STABLE |
-| GenericAgent | 11,527 | 05-16 | 05-21 | v0.1.0 Desktop App (Windows, aiohttp bridge). TUI polish (scrolling, rewind, streaming). memory_management.py (#381) L1↔L2/L3 sync automation. +4.5% in 4d. Multi-frontend transition |
-| nanobot | 42,549 | 05-16 | 05-21 | /goal command merged (#3788, 4.8k lines): chat-scoped sustained goal state + WebUI. Signal channel (#3852). Atomic Chat local provider. Python 3.13/3.14 only. Steady growth |
+| GenericAgent | 11,838 | 05-20 | 05-24 | goal_mode rewrite: quality-focused polishing with perspective switching (user/reviewer/attacker lenses). TG inline selection. WeChat auth fixes. 🟢 THRIVING |
+| nanobot | 42,829 | 05-20 | 05-24 | APIFree provider, cold-start lazy boundary refactor, stdin detach. Post-v0.2.0 polish. 🟢 THRIVING |
 | dirac | 1,190 | 05-17 | 05-24 | PRs #101-104 merged (external contributors: suzaku, LuminairPrime). Minor fixes: icon, Windows auth raw mode, dead code cleanup, isFirstRequest simplification. No new release. Steady maintenance |
 
 | bux | 331 | 05-17 | 05-24 | 331⭐ (+11). Active 05-16: Mini App concept lab rework, scroll reels. Still pivoting toward platform. Steady |
 | OpenChronicle | 2,623 | 05-16 | 05-23 | +21% stars (2167→2623). External PR#25 merged (compact fix). Issues #29-30 show community engagement (datetime fix, capture exclusions). Still macOS-only |
 
-| mercury-agent | 2,231 | 05-17 | 05-24 | 2,231⭐ (+89). No commits since 05-10. Last release v1.1.6 (05-06). 🟢 THRIVING community (6/6): 29 issue authors, 31 external PRs/30d. Quiet week but strong base |
+| mercury-agent | 2,358 | 05-20 | 05-24 | v1.1.9 released (05-19). Graph node inspection dialog, dep cleanup. 🟢 THRIVING |
 | Orb (KarryViber) | 63 | 05-17 | 05-24 | v0.6.0 (05-14): 3-stage self-evolution pipeline (A/B/C), telemetry-backed skill lifecycle (draft→prod→stale→archive), memory freshness states, permission-blocker scan. Solo dev, Slack-only. Architecturally best-in-class Claude Code wrapper |
-| Elephant Agent (agentic-in) | 287 | 05-18 | 05-24 | 287⭐. Unified ServiceDaemon (PR#29), episode session boundary unification (PR#30), status normalization (PR#32). 4+ contributors now. 🟢 THRIVING (5/6) |
+| Elephant Agent (agentic-in) | 353 | 05-20 | 05-24 | 353⭐ (+35). prefix-cache reuse across loops (PR#39: tool_id sorting, frozen_prefix hash cache, Anthropic cache_control breakpoints). keep/replace API key. daemon hardening. 🟢 THRIVING (5/6) |
 
 
 ## Chat-to-Knowledge Infrastructure
@@ -150,4 +151,4 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 |---------|-------|-------------|-------|
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-04-30 | 191⭐, Google ADK, dual-memory (Weaviate+Neo4j), 3-tier semantic, wiki-first RAG |
 | [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |
-| TrustClaw (ComposioHQ) | 669 | 05-18 | 05-21 | 669⭐ (+12% in 3d). No new commits since 05-15, star growth from marketing/awareness. Trust boundary hardening phase. Direct OpenClaw competitor |
+| TrustClaw (ComposioHQ) | 680 | 05-19 | 05-24 | 680⭐ (+11). No commits since 05-13. Growth slowing. Quiet/stable phase |

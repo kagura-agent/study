@@ -43,7 +43,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
 | [Orb](https://github.com/KarryViber/Orb) | 🔬 deep-dive | 2026-05-17 | 63⭐, v0.6.0. Telemetry-backed skill lifecycle (draft→prod→stale→archive), 3-stage self-evolution (A/B/C), memory freshness. Solo dev, Claude-Code-only, best-in-class governance |
-| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-26 | 318⭐, Four-lens Personal Model (Identity/World/Pulse/Journey), proactive curiosity, evidence-based recall, auto-retire. Prefix-cache stabilization, OTel observability, tool-group-safe compaction. 🟢 THRIVING (5/6), accelerating |
+| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-26 | 385⭐, macOS native app (heavy UX polish), vLLM Semantic Router provider (PR#33), reflect runtime in wheel, daemon logs -f (#42). 30 forks, 21 open issues. 🟢 THRIVING (5/6), accelerating |
 
 
 **Key insight:** We operate at the Identity layer — only us and ACE are here. Most work is at Model or Workflow layers. GEP research validates: compact control-oriented format (Gene ~230 tokens) outperforms verbose doc-oriented format (Skill ~2,500 tokens) by +4.1pp.
@@ -58,9 +58,9 @@ How coding agents manage context, edits, and tool design.
 |---------|-------|-------------|-------|
 | [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-30 | Cline fork, hash-anchored edits, 1k⭐, reliability iteration phase |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
-| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-14 | 42.4k⭐, model failover with fallback_models, MCP probe fix, live thread rendering |
+| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-21 | 42.9k⭐, v0.2.0 released (105 PRs): /goal persistent context, image gen, WebUI in wheel, 5 new providers, fallback_models, core refactor. Revisit 05-28 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
-| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-21 | 840⭐ in 3 days. Coding agent for small local LLMs (7B-20B). MarrowScript cognition layer, budget tracking, repair prompts, model escalation. Solo dev, no tests, context overflow not fully solved. 🔴 SOLO (0/6) |
+| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-21 | 848⭐ (was 840). v0.7.0 86-bug security audit, v0.7.1 MarrowScript reorg. Community formed: 4 merged PR authors, 11 issue authors/30d. 🟢 THRIVING (5/6). Revisit 05-28 |
 
 
 
@@ -78,8 +78,9 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-30 | ~125k⭐, TUI polish + /compress async + ComfyUI built-in |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-05-15 | We contribute here — Go+TS context server. ⚙️ reference (our infra) |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-05-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
-| [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-11 | 1.3k⭐, direct OpenClaw competitor; Web UI + Docker sandbox + Claude Agent SDK + channel collab + mem0 memory. 4-layer identity split, single-writer rule. See wiki/projects/poco-claw.md |
+| [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-28 | 1.3k⭐, direct OpenClaw competitor; Web UI + Docker sandbox + Claude Agent SDK + channel collab + mem0 memory. 4-layer identity split, single-writer rule. See wiki/projects/poco-claw.md. Revisit 05-28 |
 | [ironcurtain](https://github.com/provos/ironcurtain) | 🔭 scout | 2026-05-11 | 391⭐, constitutional security for agents. English intent → deterministic rules → MCP policy enforcement. V8 isolate + Docker. See wiki/projects/ironcurtain.md |
+| [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-21 | 105⭐ (stable). v0.8.0 released (freshness, fleet, chaos, goal-drift modules). CLI auth loopback. Steady development. 🟢 THRIVING (5/6). Revisit 05-28 |
 
 | [superpowers](https://github.com/nickarella/superpowers) | 🔬 deep-dive | 2026-05-15 | Agent capability framework. ⚙️ reference |
 
@@ -130,17 +131,17 @@ Projects being monitored for growth/activity signals:
 | Project | ⭐ | Last Check | Revisit | Signal Watching |
 |---------|-----|-----------|---------|-----------------|
 
-| agentic-stack | 1,984 | 05-16 | 05-22 | v0.18.0 settling. Brew formula audit. Brain bridge landed. Our PR#49 merged. 🟢 STABLE |
+| agentic-stack | 2,023 | 05-22 | 05-28 | 2023⭐. v0.18.0, quiet since 05-10 (12d). Brain bridge + semantic lesson retraction + Copilot support merged. 🟡 STABLE but cooling |
 | GenericAgent | 11,838 | 05-20 | 05-24 | goal_mode rewrite: quality-focused polishing with perspective switching (user/reviewer/attacker lenses). TG inline selection. WeChat auth fixes. 🟢 THRIVING |
-| nanobot | 42,829 | 05-20 | 05-24 | APIFree provider, cold-start lazy boundary refactor, stdin detach. Post-v0.2.0 polish. 🟢 THRIVING |
+| nanobot | 42,865 | 05-21 | 05-28 | v0.2.0 released. Post-release fixes (streaming dedup, session refresh, signal pairing). 🟢 THRIVING |
 | dirac | 1,190 | 05-17 | 05-24 | PRs #101-104 merged (external contributors: suzaku, LuminairPrime). Minor fixes: icon, Windows auth raw mode, dead code cleanup, isFirstRequest simplification. No new release. Steady maintenance |
 
 | bux | 331 | 05-17 | 05-24 | 331⭐ (+11). Active 05-16: Mini App concept lab rework, scroll reels. Still pivoting toward platform. Steady |
 | OpenChronicle | 2,623 | 05-16 | 05-23 | +21% stars (2167→2623). External PR#25 merged (compact fix). Issues #29-30 show community engagement (datetime fix, capture exclusions). Still macOS-only |
 
-| mercury-agent | 2,358 | 05-20 | 05-24 | v1.1.9 released (05-19). Graph node inspection dialog, dep cleanup. 🟢 THRIVING |
+| mercury-agent | 2,397 | 05-21 | 05-27 | v1.1.9. Critical shell injection fix (PR#48, CWE-78). Chinese docs. Shell segment parser. 🟢 THRIVING |
 | Orb (KarryViber) | 63 | 05-17 | 05-24 | v0.6.0 (05-14): 3-stage self-evolution pipeline (A/B/C), telemetry-backed skill lifecycle (draft→prod→stale→archive), memory freshness states, permission-blocker scan. Solo dev, Slack-only. Architecturally best-in-class Claude Code wrapper |
-| Elephant Agent (agentic-in) | 353 | 05-20 | 05-24 | 353⭐ (+35). prefix-cache reuse across loops (PR#39: tool_id sorting, frozen_prefix hash cache, Anthropic cache_control breakpoints). keep/replace API key. daemon hardening. 🟢 THRIVING (5/6) |
+| Elephant Agent (agentic-in) | 385 | 05-22 | 05-26 | 385⭐ (+98 in 4d). macOS app, vLLM Semantic Router (PR#33), reflect runtime in wheel, Feishu fix (ext contributor). 🟢 THRIVING (5/6) |
 
 
 ## Chat-to-Knowledge Infrastructure

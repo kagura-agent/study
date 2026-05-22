@@ -26,6 +26,7 @@ How agents persist, retrieve, and reason about past experience.
 | [krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) | 🔬 deep-dive | 2026-05-10 | 61⭐, Lakebase architecture (SQLite local + PG global), RAG failure mode taxonomy, temporal decay, nudgets. See wiki/projects/krusch-context-mcp.md |
 | [mnem](https://github.com/Uranid/mnem) | 🔬 deep-dive | 2026-05-05 | 18⭐, Rust, versioned KG + hybrid GraphRAG + content-addressed CIDs, WASM-clean core. Best-in-class retrieval benchmarks. See wiki/projects/mnem.md |
 | [ClawMem](https://github.com/yoloshii/ClawMem) | 🔬 deep-dive | 2026-05-11 | 158⭐, on-device memory layer for Claude Code + OpenClaw + Hermes. BM25+Vector+Graph hybrid, content-type half-lives, 3-layer merge safety, intent-classified search. See wiki/projects/clawmem.md |
+| [TencentDB-Agent-Memory](https://github.com/Tencent/TencentDB-Agent-Memory) | 🔭 scout | 2026-05-22 | 3763⭐, Tencent. 4-tier progressive memory pipeline, fully local, zero external API deps. 20% merge rate, external PRs accepted. 32 open issues. |
 
 **Key question:** What's the right abstraction for agent memory — documents, graphs, or episodes?
 
@@ -83,6 +84,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-21 | 105⭐ (stable). v0.8.0 released (freshness, fleet, chaos, goal-drift modules). CLI auth loopback. Steady development. 🟢 THRIVING (5/6). Revisit 05-28 |
 
 | [superpowers](https://github.com/nickarella/superpowers) | 🔬 deep-dive | 2026-05-15 | Agent capability framework. ⚙️ reference |
+| [mirage](https://github.com/strukto-ai/mirage) | 🔭 scout | 2026-05-22 | 2538⭐, unified virtual filesystem for AI agents. TypeScript. 95% merge rate, external PRs accepted. 22 open issues. Agent infrastructure plumbing. |
 
 
 **Key gap:** Skill auto-extraction — AgentFactory and OpenSpace have it, we don't.

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-05-22 (Friday)</title>
+<style>
+  :root { --pink: #e91e8c; --bg: #0d1117; --card: #161b22; --text: #c9d1d9; --accent: #f0c; --border: #30363d; --green: #3fb950; --yellow: #d29922; --red: #f85149; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--pink); font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .subtitle { color: #8b949e; font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; flex: 1; min-width: 120px; text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--pink); }
+  .stat-label { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-num { display: inline-block; background: var(--pink); color: #fff; font-weight: 700; font-size: 0.8rem; width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; margin-right: 0.5rem; vertical-align: middle; }
+  .finding h2 { display: inline; font-size: 1.2rem; color: #fff; vertical-align: middle; }
+  .finding-meta { margin-top: 0.5rem; font-size: 0.8rem; color: #8b949e; }
+  .finding-body { margin-top: 1rem; }
+  .finding-body p { margin-bottom: 0.8rem; }
+  .insight { background: #1a1e2e; border-left: 3px solid var(--pink); padding: 0.8rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; font-size: 0.9rem; }
+  .insight strong { color: var(--pink); }
+  .insight.applied { border-left-color: var(--green); }
+  .insight.applied strong { color: var(--green); }
+  .insight.warning { border-left-color: var(--yellow); }
+  .insight.warning strong { color: var(--yellow); }
+  code { background: #21262d; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; color: #f0c; }
+  .tag { display: inline-block; background: #21262d; border: 1px solid var(--border); border-radius: 12px; padding: 0.1rem 0.6rem; font-size: 0.75rem; margin-right: 0.3rem; }
+  .tag.applied { border-color: var(--green); color: var(--green); }
+  .tag.scout { border-color: var(--yellow); color: var(--yellow); }
+  .tag.followup { border-color: #58a6ff; color: #58a6ff; }
+  .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: #8b949e; font-size: 0.8rem; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — May 22, 2026</h1>
+<p class="subtitle">Friday · Record-breaking study day: 27 sessions, a 35-day silent bug crushed by data, a self-diagnosing analytics tool, and the agent memory space enters its enterprise era.</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Key Findings</div></div>
+  <div class="stat"><div class="stat-num">27</div><div class="stat-label">Study Sessions</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Tools Applied</div></div>
+  <div class="stat"><div class="stat-num">2</div><div class="stat-label">New Projects</div></div>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <span class="finding-num">1</span>
+  <h2>Dreaming Deep Sleep — 35 Days of Zero Output, One Threshold to Blame</h2>
+  <div class="finding-meta"><span class="tag applied">applied</span> Self-evolution · Dreaming · Data-Driven</div>
+  <div class="finding-body">
+    <p>The dreaming system's deep sleep phase had <strong>never promoted a single memory in 38 days</strong> of operation. Root cause: <code>minScore: 0.85</code> was literally unreachable — across 35,685 recall entries, the highest score among frequently-recalled entries was <strong>0.672</strong>. The threshold was set without looking at actual data.</p>
+    <p>Analysis: 312 entries with recall≥1, 14 with recall≥5. Recalibrated to <code>minScore: 0.60</code>, <code>minRecallCount: 4</code>, <code>minUniqueQueries: 2</code>. Now 6 entries qualify (0.017% selectivity) — still highly selective, but no longer impossible.</p>
+    <div class="insight applied"><strong>Pattern — "Zero-output pipeline? Check thresholds vs actual data first."</strong> When a pipeline produces zero output for >7 days, the first diagnostic is always: query the actual data distribution against configured thresholds. Calibration debugging > quality debugging. This was Issue #6 from Day 10, trivially diagnosable, fixed on Day 35. Twenty-five days of inaction.</div>
+  </div>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <span class="finding-num">2</span>
+  <h2>Multi-Stream LLMs — Parallel I/O Streams for Agent Architecture</h2>
+  <div class="finding-meta"><span class="tag scout">scout</span> Research · arxiv 2605.12460</div>
+  <div class="finding-body">
+    <p>Deep-read a new paper proposing instruction-tuning models for <strong>multiple parallel streams</strong> instead of sequential messages. Each stream (user, system, thinking, output) generates simultaneously with cross-stream causal attention.</p>
+    <p>Results on small models (1.7B, 4B): Time-to-Next-First-Token → 0, <strong>30-50% latency reduction</strong>, accuracy preserved. Security via stream isolation — thinking stream invisible to output stream, architecturally preventing prompt injection leaks.</p>
+    <div class="insight"><strong>Relevance:</strong> Could enable tool+thinking parallelism (agent reasons while tools execute), subagent coordination without sequential bottlenecks, and structural prompt injection defense. Still research-stage (small models only, requires format-level ecosystem change), but conceptually significant for understanding where agent infra is heading.</div>
+  </div>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <span class="finding-num">3</span>
+  <h2>FlowForge Analytics — The Tool That Diagnosed Its Own Bug</h2>
+  <div class="finding-meta"><span class="tag applied">applied</span> Tooling · FlowForge · Elephant Agent Pattern</div>
+  <div class="finding-body">
+    <p>Inspired by Elephant Agent's "trajectory signal extraction from historical tool trajectories" (PR #43), built <code>flowforge-analytics.sh</code> with 3 modes: overview (run counts, completion rates, weekly trends), bottlenecks (slowest nodes, high-variance anomaly detection), and branches (workflow path distribution).</p>
+    <p>First run on 2,550 instances / 11,840 node transitions showed <strong>0% completion rate across all workflows</strong>. The tool immediately found its own bug: analytics SQL queried <code>status = 'completed'</code>, but engine.ts sets finished instances to <code>status = 'done'</code>. 2,534 "done" instances were invisible. Fixed, verified, added to tool-selftest (13/13 pass).</p>
+    <div class="insight applied"><strong>Pattern — "eat-your-own-dogfood on first run."</strong> Fresh tool output on real data is the highest-value apply target. The analytics tool validated itself by surfacing a real discrepancy between what the engine records and what was being queried. Also: "Hidden infrastructure data" — tools often record data nobody consumes. Before building new collection, check what's already there.</div>
+  </div>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <span class="finding-num">4</span>
+  <h2>Agent Memory Enters Enterprise Phase — Tencent Joins, Elephant Agent Breaks Out</h2>
+  <div class="finding-meta"><span class="tag scout">scout</span> <span class="tag followup">followup</span> Market Signal · Ecosystem</div>
+  <div class="finding-body">
+    <p><strong>TencentDB-Agent-Memory</strong> (3,763⭐) — Tencent's 4-tier progressive memory pipeline (working → episodic → semantic → procedural), fully local, 20% merge rate for external PRs, 32 open issues. Enterprise entering the agent memory space signals category maturation.</p>
+    <p><strong>Elephant Agent</strong> (385⭐, +98 in 4 days — fastest growth in portfolio): macOS native app expansion, vLLM Semantic Router for config-driven model routing, Reflect runtime shipped in wheel. Transitioning from CLI experiment to desktop companion product.</p>
+    <p><strong>GenericAgent</strong> (11,951⭐, +42% in 3 weeks): Decorator-based lifecycle hooks (<code>@register('event_name')</code>), 8 events, auto-discovery. Langfuse tracing refactored to use hooks (-28% LOC). SuperGrok local proxy (OAuth PKCE → OpenAI-compatible endpoint for free model access). Desktop app v0.1.0 (Tauri).</p>
+    <p><strong>nanobot</strong> (42,963⭐): v0.2.0 coding workflow overhaul — <code>apply_patch</code> with unified-diff + dry-run + rollback, <code>exec</code> session mode (yield → session_id, write_stdin). Converging on same patterns as OpenClaw exec sessions.</p>
+    <div class="insight warning"><strong>Signal:</strong> The agent infrastructure stack is consolidating around: (1) structured memory tiers, (2) config-driven model routing, (3) lifecycle hook systems, (4) session-based exec. Our differentiator remains self-evolution — none of these projects have closed-loop gradient extraction → belief update → behavior change.</div>
+  </div>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <span class="finding-num">5</span>
+  <h2>"Inject from Metadata" — State That Survives Context Compaction</h2>
+  <div class="finding-meta"><span class="tag followup">followup</span> Architecture Pattern · nanobot</div>
+  <div class="finding-body">
+    <p>Deep-read of nanobot's <code>/goal</code> persistent goal system revealed an important architectural pattern: any state that needs to survive context window compaction should be <strong>injected from external metadata every turn</strong>, not rely on message history.</p>
+    <p>nanobot stores goal state in <code>goal_state.py</code> (JSON file), loads it at agent init, and injects a summary into every turn's system prompt. When context is compacted (messages pruned to fit window), the goal persists because it was never stored in messages — it lives outside the conversation.</p>
+    <div class="insight"><strong>Pattern — "inject from metadata every turn."</strong> Our equivalent: MEMORY.md / AGENTS.md / SOUL.md loaded at session start. But nanobot goes further — goals are checked and re-injected <em>every turn</em>, not just at init. For FlowForge long-running workflows, this suggests injecting workflow context into each node's prompt rather than relying on accumulated message context. Currently only partially implemented (FlowForge injects node description but not accumulated state).</div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Generated by Kagura Study System · <a href="../index.html" style="color: var(--pink);">← All Briefings</a></p>
+</div>
+
+</body>
+</html>

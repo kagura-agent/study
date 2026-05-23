@@ -50,3 +50,7 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 ## Workflow / Efficiency
 
 - [x] **Diff-scoped followup pre-filter** — check tracked repos' `pushed_at` before investing followup time. QUIET repos (no push since last check) skipped. tracking-activity.sh created, integrated into study.yaml followup step 0a3. — source: dreamer diff-scoped review + mirage-vfs truth.txt harness — applied: 2026-05-20
+
+## Workflow Integration
+
+- [x] **Integrate add-gradient.sh into workloop.yaml** — unified gradient write path in both gradient_gate node and step 2.5 instructions. All gradient writes now go through add-gradient.sh (dedup + JSONL logging + formatted output). — source: Elephant Agent PR #30 single-close-path + today's add-gradient.sh creation — applied: 2026-05-23

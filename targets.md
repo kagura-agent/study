@@ -44,7 +44,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
 | [Orb](https://github.com/KarryViber/Orb) | 🔬 deep-dive | 2026-05-17 | 63⭐, v0.6.0. Telemetry-backed skill lifecycle (draft→prod→stale→archive), 3-stage self-evolution (A/B/C), memory freshness. Solo dev, Claude-Code-only, best-in-class governance |
-| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-26 | 385⭐, macOS native app (heavy UX polish), vLLM Semantic Router provider (PR#33), reflect runtime in wheel, daemon logs -f (#42). 30 forks, 21 open issues. 🟢 THRIVING (5/6), accelerating |
+| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-27 | 418⭐ (+33/day!), skill optimization pipeline (PR#43), macOS self-contained runtime + multimodal MCP, browser headless shell. 🟢 THRIVING, fastest growth in portfolio |
 
 
 **Key insight:** We operate at the Identity layer — only us and ACE are here. Most work is at Model or Workflow layers. GEP research validates: compact control-oriented format (Gene ~230 tokens) outperforms verbose doc-oriented format (Skill ~2,500 tokens) by +4.1pp.
@@ -134,16 +134,16 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,023 | 05-22 | 05-28 | 2023⭐. v0.18.0, quiet since 05-10 (12d). Brain bridge + semantic lesson retraction + Copilot support merged. 🟡 STABLE but cooling |
-| GenericAgent | 11,838 | 05-20 | 05-24 | goal_mode rewrite: quality-focused polishing with perspective switching (user/reviewer/attacker lenses). TG inline selection. WeChat auth fixes. 🟢 THRIVING |
+| GenericAgent | 11,990 | 05-23 | 05-27 | 11,990⭐ (+1.3%). TUI v3 feature parity (export/fold/ask_user/plan card). Pluggable Policy Hook PR#450 (turn strategy decoupling). Desktop App v0.1.0. Feishu integration fixes. External PRs active. 🟢 THRIVING |
 | nanobot | 42,865 | 05-21 | 05-28 | v0.2.0 released. Post-release fixes (streaming dedup, session refresh, signal pairing). 🟢 THRIVING |
-| dirac | 1,190 | 05-17 | 05-24 | PRs #101-104 merged (external contributors: suzaku, LuminairPrime). Minor fixes: icon, Windows auth raw mode, dead code cleanup, isFirstRequest simplification. No new release. Steady maintenance |
+| dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
-| bux | 331 | 05-17 | 05-24 | 331⭐ (+11). Active 05-16: Mini App concept lab rework, scroll reels. Still pivoting toward platform. Steady |
-| OpenChronicle | 2,623 | 05-16 | 05-23 | +21% stars (2167→2623). External PR#25 merged (compact fix). Issues #29-30 show community engagement (datetime fix, capture exclusions). Still macOS-only |
+| bux | 340 | 05-23 | 05-30 | 340⭐ (+2.7%). Pushed 05-21. Mini App platform pivot continues. Steady but slow |
+| OpenChronicle | 2,749 | 05-23 | 05-30 | 2,749⭐ (+4.8%). No push since 05-09 (14d). Stars still growing but dev pace slowing. Still macOS-only. Watch for activity resumption |
 
 | mercury-agent | 2,397 | 05-21 | 05-27 | v1.1.9. Critical shell injection fix (PR#48, CWE-78). Chinese docs. Shell segment parser. 🟢 THRIVING |
-| Orb (KarryViber) | 63 | 05-17 | 05-24 | v0.6.0 (05-14): 3-stage self-evolution pipeline (A/B/C), telemetry-backed skill lifecycle (draft→prod→stale→archive), memory freshness states, permission-blocker scan. Solo dev, Slack-only. Architecturally best-in-class Claude Code wrapper |
-| Elephant Agent (agentic-in) | 385 | 05-22 | 05-26 | 385⭐ (+98 in 4d). macOS app, vLLM Semantic Router (PR#33), reflect runtime in wheel, Feishu fix (ext contributor). 🟢 THRIVING (5/6) |
+| Orb (KarryViber) | 65 | 05-23 | 05-30 | 65⭐ (+3.2%). QUIET — no push since 05-14. Solo dev. Growth stalled. Consider drop next cycle if no activity |
+| Elephant Agent (agentic-in) | 418 | 05-23 | 05-27 | 418⭐ (+33/day). Skill optimization pipeline (PR#43), macOS self-contained runtime, multimodal MCP, browser headless shell. 🟢 THRIVING |
 
 
 ## Chat-to-Knowledge Infrastructure
@@ -154,4 +154,4 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 |---------|-------|-------------|-------|
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-04-30 | 191⭐, Google ADK, dual-memory (Weaviate+Neo4j), 3-tier semantic, wiki-first RAG |
 | [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |
-| TrustClaw (ComposioHQ) | 680 | 05-19 | 05-24 | 680⭐ (+11). No commits since 05-13. Growth slowing. Quiet/stable phase |
+| TrustClaw (ComposioHQ) | 702 | 05-23 | 05-30 | 702⭐ (+3.2%). No commits since 05-15 (8 days). Growth slowing further. Quiet phase |

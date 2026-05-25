@@ -123,6 +123,9 @@ Hot repos spotted from GitHub trending or community buzz. Filtered for relevance
 | Project | ⭐ | Spotted | Category | Notes |
 |---------|-----|---------|----------|-------|
 | [superset](https://github.com/superset-sh/superset) | ~new | 04-30 | Agent orchestration | Parallel coding agents via git worktree, desktop terminal. Compare with OpenClaw ACP/subagent model |
+| [ccglass](https://github.com/jianshuo/ccglass) | 239 | 05-25 | Agent observability | Local reverse-proxy + dashboard for coding agent traffic. Base-URL interception, turn-to-turn diff, MCP self-inspection. See wiki/projects/ccglass.md |
+| [ai-memory](https://github.com/akitaonrails/ai-memory) | 159 | 05-25 | Agent memory | Rust, cross-vendor memory for coding CLIs. Vendor handoff angle unique |
+| [TriMem](https://github.com/tmlr-group/TriMem) | 8 | 05-25 | Agent memory (research) | arxiv:2605.19952 "Beyond Atomic Facts in Lifelong LLM Agent Memory" |
 
 ---
 
@@ -134,16 +137,17 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,023 | 05-22 | 05-28 | 2023⭐. v0.18.0, quiet since 05-10 (12d). Brain bridge + semantic lesson retraction + Copilot support merged. 🟡 STABLE but cooling |
-| GenericAgent | 11,990 | 05-23 | 05-27 | 11,990⭐ (+1.3%). TUI v3 feature parity (export/fold/ask_user/plan card). Pluggable Policy Hook PR#450 (turn strategy decoupling). Desktop App v0.1.0. Feishu integration fixes. External PRs active. 🟢 THRIVING |
-| nanobot | 42,865 | 05-21 | 05-28 | v0.2.0 released. Post-release fixes (streaming dedup, session refresh, signal pairing). 🟢 THRIVING |
+| GenericAgent | 12,041 | 05-25 | 05-28 | 12,041⭐ (+0.4%). Steady. 🟢 THRIVING |
+| nanobot | 43,055 | 05-24 | 05-28 | v0.2.0 post-release: exec timeout uncap (#3595), transcription apiBase normalization (#3637). Docs polish. 🟢 THRIVING |
 | dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
 | bux | 340 | 05-23 | 05-30 | 340⭐ (+2.7%). Pushed 05-21. Mini App platform pivot continues. Steady but slow |
 | OpenChronicle | 2,749 | 05-23 | 05-30 | 2,749⭐ (+4.8%). No push since 05-09 (14d). Stars still growing but dev pace slowing. Still macOS-only. Watch for activity resumption |
 
-| mercury-agent | 2,397 | 05-21 | 05-27 | v1.1.9. Critical shell injection fix (PR#48, CWE-78). Chinese docs. Shell segment parser. 🟢 THRIVING |
+| mercury-agent | 2,418 | 05-24 | 05-30 | Standalone binaries (PR#61, bun --compile). Shell injection fix (PR#48) merged. One-line installers. 🟢 THRIVING |
 | Orb (KarryViber) | 65 | 05-23 | 05-30 | 65⭐ (+3.2%). QUIET — no push since 05-14. Solo dev. Growth stalled. Consider drop next cycle if no activity |
-| Elephant Agent (agentic-in) | 418 | 05-23 | 05-27 | 418⭐ (+33/day). Skill optimization pipeline (PR#43), macOS self-contained runtime, multimodal MCP, browser headless shell. 🟢 THRIVING |
+| Elephant Agent (agentic-in) | 459 | 05-25 | 05-28 | 459⭐ (+41 in 2d). Still thriving. 🟢 THRIVING |
+| ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |
 
 
 ## Chat-to-Knowledge Infrastructure

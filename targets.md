@@ -137,14 +137,14 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,023 | 05-22 | 05-28 | 2023⭐. v0.18.0, quiet since 05-10 (12d). Brain bridge + semantic lesson retraction + Copilot support merged. 🟡 STABLE but cooling |
-| GenericAgent | 12,045 | 05-25 | 05-28 | TUI v3 (#462), QQ markdown (#475), Py3.9 compat (#473). 🟢 THRIVING |
-| nanobot | 43,084 | 05-25 | 05-28 | MECE memory PR #3990 (SNIP/routing), per-subagent temperature (#3975). 🟢 THRIVING |
+| GenericAgent | 12,049 | 05-25 | 05-28 | 12K⭐. TUI v3 parity merged, A3Agent fork (simplified version), 6+ external contributors. Community flywheel confirmed. 🟢 THRIVING |
+| nanobot | 43,086 | 05-25 | 05-28 | 43K⭐. Provider config enhancements (extraBody, apiType), circuit breaker tests. Routine maintenance. 🟢 THRIVING |
 | dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
-| bux | 340 | 05-23 | 05-30 | 340⭐ (+2.7%). Pushed 05-21. Mini App platform pivot continues. Steady but slow |
+| bux | 342 | 05-25 | 05-30 | 342⭐. Voice onboarding, Codex for Telegram lanes. Steady. |
 | OpenChronicle | 2,749 | 05-23 | 05-30 | 2,749⭐ (+4.8%). No push since 05-09 (14d). Stars still growing but dev pace slowing. Still macOS-only. Watch for activity resumption |
 
-| mercury-agent | 2,418 | 05-24 | 05-30 | Standalone binaries (PR#61, bun --compile). Shell injection fix (PR#48) merged. One-line installers. 🟢 THRIVING |
+| mercury-agent | 2,446 | 05-25 | 05-30 | 2.4K⭐. Domain migration to mercuryagent.sh. Security fix landed. v1.1.9. Developer→product transition executing. 🟢 THRIVING |
 | Orb (KarryViber) | 65 | 05-23 | 05-30 | 65⭐ (+3.2%). QUIET — no push since 05-14. Solo dev. Growth stalled. Consider drop next cycle if no activity |
 | Elephant Agent (agentic-in) | 459 | 05-25 | 05-28 | 459⭐ (+41 in 2d). Still thriving. 🟢 THRIVING |
 | ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |

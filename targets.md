@@ -80,7 +80,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-05-15 | We contribute here — Go+TS context server. ⚙️ reference (our infra) |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-05-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
 | [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-28 | 1.3k⭐, direct OpenClaw competitor; Web UI + Docker sandbox + Claude Agent SDK + channel collab + mem0 memory. 4-layer identity split, single-writer rule. See wiki/projects/poco-claw.md. Revisit 05-28 |
-| [ironcurtain](https://github.com/provos/ironcurtain) | 🔭 scout | 2026-05-11 | 391⭐, constitutional security for agents. English intent → deterministic rules → MCP policy enforcement. V8 isolate + Docker. See wiki/projects/ironcurtain.md |
+| [ironcurtain](https://github.com/provos/ironcurtain) | 🔭 scout | 2026-05-25 | 461⭐ (+17.9%), v0.11.0: evolved into workflow orchestration platform. Vuln-discovery FSM, Svelte 5 web UI, XState engine, shared containers, SKILL.md. 🟢 THRIVING (5/6). Revisit 06-01 |
 | [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-21 | 105⭐ (stable). v0.8.0 released (freshness, fleet, chaos, goal-drift modules). CLI auth loopback. Steady development. 🟢 THRIVING (5/6). Revisit 05-28 |
 
 | [superpowers](https://github.com/nickarella/superpowers) | 🔬 deep-dive | 2026-05-15 | Agent capability framework. ⚙️ reference |
@@ -137,8 +137,8 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,023 | 05-22 | 05-28 | 2023⭐. v0.18.0, quiet since 05-10 (12d). Brain bridge + semantic lesson retraction + Copilot support merged. 🟡 STABLE but cooling |
-| GenericAgent | 12,041 | 05-25 | 05-28 | 12,041⭐ (+0.4%). Steady. 🟢 THRIVING |
-| nanobot | 43,055 | 05-24 | 05-28 | v0.2.0 post-release: exec timeout uncap (#3595), transcription apiBase normalization (#3637). Docs polish. 🟢 THRIVING |
+| GenericAgent | 12,045 | 05-25 | 05-28 | TUI v3 (#462), QQ markdown (#475), Py3.9 compat (#473). 🟢 THRIVING |
+| nanobot | 43,084 | 05-25 | 05-28 | MECE memory PR #3990 (SNIP/routing), per-subagent temperature (#3975). 🟢 THRIVING |
 | dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
 | bux | 340 | 05-23 | 05-30 | 340⭐ (+2.7%). Pushed 05-21. Mini App platform pivot continues. Steady but slow |

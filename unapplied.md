@@ -56,3 +56,5 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - [x] **Integrate add-gradient.sh into workloop.yaml** — unified gradient write path in both gradient_gate node and step 2.5 instructions. All gradient writes now go through add-gradient.sh (dedup + JSONL logging + formatted output). — source: Elephant Agent PR #30 single-close-path + today's add-gradient.sh creation — applied: 2026-05-23
 
 - [x] **Reflect workflow gradient integration** — reflect.yaml act node bypassed beliefs-candidates pipeline entirely, sending behavioral lessons directly to SOUL.md/AGENTS.md. Added mandatory add-gradient.sh (--source reflect) + gradient_gate node (same pattern as workloop.yaml). — source: self-evolving-observations.md (Issue #9, "reflect 本身仍不产 gradient") — applied: 2026-05-25
+
+- [x] **SmallCode contract/done_guard pattern** — structural completion gate for subagent spawns: mandatory Done Contract with checkable assertions, hard gate (❌ = fix, not "done with caveats"), structured ✅/❌ report format — source: smallcode.md v1.1.0 — applied: 2026-05-26 — added Definition of Done section to team-lead/SKILL.md + structural-backpressure concept card

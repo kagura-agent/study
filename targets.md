@@ -44,7 +44,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
 | [Orb](https://github.com/KarryViber/Orb) | 🔬 deep-dive | 2026-05-17 | 63⭐, v0.6.0. Telemetry-backed skill lifecycle (draft→prod→stale→archive), 3-stage self-evolution (A/B/C), memory freshness. Solo dev, Claude-Code-only, best-in-class governance |
-| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-26 | 473⭐ (+33/day!), skill optimization pipeline, macOS runtime, browser headless shell, copilot+hermes argv_prompt adapters. 🟢 THRIVING 6/6, fastest growth in portfolio |
+| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-26 | 483⭐ (+52% since 318). PR #50: 60x startup (84s→1.4s) via evidence N+1 elimination. Reflect learning unification. 🟢 THRIVING 6/6, fastest growth in portfolio |
 
 
 **Key insight:** We operate at the Identity layer — only us and ACE are here. Most work is at Model or Workflow layers. GEP research validates: compact control-oriented format (Gene ~230 tokens) outperforms verbose doc-oriented format (Skill ~2,500 tokens) by +4.1pp.
@@ -146,7 +146,7 @@ Projects being monitored for growth/activity signals:
 
 | mercury-agent | 2,446 | 05-25 | 05-30 | 2.4K⭐. Domain migration to mercuryagent.sh. Security fix landed. v1.1.9. Developer→product transition executing. 🟢 THRIVING |
 | Orb (KarryViber) | 65 | 05-23 | 05-30 | 65⭐ (+3.2%). QUIET — no push since 05-14. Solo dev. Growth stalled. Consider drop next cycle if no activity |
-| Elephant Agent (agentic-in) | 473 | 05-26 | 05-28 | 473⭐. Copilot+Hermes adapters enabled. Onboarding polish. 🟢 THRIVING 6/6 |
+| Elephant Agent (agentic-in) | 483 | 05-26 | 05-30 | 483⭐. PR #50 merged: 60x startup perf (N+1→batch SQL). Reflect unification. 🟢 THRIVING 6/6 |
 | ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |
 
 

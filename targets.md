@@ -137,8 +137,8 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,023 | 05-22 | 05-28 | 2023⭐. v0.18.0, quiet since 05-10 (12d). Brain bridge + semantic lesson retraction + Copilot support merged. 🟡 STABLE but cooling |
-| GenericAgent | 12,049 | 05-25 | 05-28 | 12K⭐. TUI v3 parity merged, A3Agent fork (simplified version), 6+ external contributors. Community flywheel confirmed. 🟢 THRIVING |
-| nanobot | 43,086 | 05-25 | 05-28 | 43K⭐. Provider config enhancements (extraBody, apiType), circuit breaker tests. Routine maintenance. 🟢 THRIVING |
+| GenericAgent | 12,136 | 05-26 | 05-28 | 12K⭐. Salient Mining SOP (L4 life modeling), conductor model inheritance (#489). 🟢 THRIVING |
+| nanobot | 43,181 | 05-26 | 05-28 | 43K⭐. Dream single-phase consolidation PR #3990, Telegram webhook, sustained goal continuation fix. 🟢 THRIVING |
 | dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
 | bux | 342 | 05-25 | 05-30 | 342⭐. Voice onboarding, Codex for Telegram lanes. Steady. |

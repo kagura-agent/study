@@ -58,3 +58,10 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - [x] **Reflect workflow gradient integration** — reflect.yaml act node bypassed beliefs-candidates pipeline entirely, sending behavioral lessons directly to SOUL.md/AGENTS.md. Added mandatory add-gradient.sh (--source reflect) + gradient_gate node (same pattern as workloop.yaml). — source: self-evolving-observations.md (Issue #9, "reflect 本身仍不产 gradient") — applied: 2026-05-25
 
 - [x] **SmallCode contract/done_guard pattern** — structural completion gate for subagent spawns: mandatory Done Contract with checkable assertions, hard gate (❌ = fix, not "done with caveats"), structured ✅/❌ report format — source: smallcode.md v1.1.0 — applied: 2026-05-26 — added Definition of Done section to team-lead/SKILL.md + structural-backpressure concept card
+
+### Salient Mining SOP (from GenericAgent, 2026-05-26)
+- **What**: Structured process to mine past user conversations for (1) emotional events (by tone, not content) and (2) activity lifecycle (ongoing vs disappeared)
+- **How**: Incremental session scanning, persistent state across runs, activity knowledge layer as database not report
+- **Relevance**: Could enhance our MEMORY.md curation — currently we don't systematically mine past conversations for emotional signals or track activity lifecycle changes
+- **Key design**: "Activities" classified as ongoing or disappeared; same-name items collapse; emotion detection by tone not topic; "write before read" persistent state
+- **Status**: 🟡 Evaluate — would need session transcript access and a structured output format

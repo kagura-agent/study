@@ -137,8 +137,8 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,023 | 05-22 | 05-28 | 2023⭐. v0.18.0, quiet since 05-10 (12d). Brain bridge + semantic lesson retraction + Copilot support merged. 🟡 STABLE but cooling |
-| GenericAgent | 12,136 | 05-26 | 05-28 | 12K⭐. Salient Mining SOP (L4 life modeling), conductor model inheritance (#489). 🟢 THRIVING |
-| nanobot | 43,181 | 05-26 | 05-28 | 43K⭐. Dream single-phase consolidation PR #3990, Telegram webhook, sustained goal continuation fix. 🟢 THRIVING |
+| GenericAgent | 12,145 | 05-26 | 05-28 | 12.1K⭐. Salient Mining SOP committed (emotion + activity lifecycle mining from sessions). Telegram /review, PowerShell UTF-8. 🟢 THRIVING |
+| nanobot | 43,182 | 05-26 | 05-28 | 43K⭐. PR #3999: goal continuation fix (prevent premature exit). PR #3996: Telegram webhook mode (+310 lines). WebUI ESLint. 🟢 THRIVING |
 | dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
 | bux | 342 | 05-25 | 05-30 | 342⭐. Voice onboarding, Codex for Telegram lanes. Steady. |
@@ -146,7 +146,7 @@ Projects being monitored for growth/activity signals:
 
 | mercury-agent | 2,446 | 05-25 | 05-30 | 2.4K⭐. Domain migration to mercuryagent.sh. Security fix landed. v1.1.9. Developer→product transition executing. 🟢 THRIVING |
 | Orb (KarryViber) | 65 | 05-23 | 05-30 | 65⭐ (+3.2%). QUIET — no push since 05-14. Solo dev. Growth stalled. Consider drop next cycle if no activity |
-| Elephant Agent (agentic-in) | 483 | 05-26 | 05-30 | 483⭐. PR #50 merged: 60x startup perf (N+1→batch SQL). Reflect unification. 🟢 THRIVING 6/6 |
+| Elephant Agent (agentic-in) | 484 | 05-26 | 05-30 | 484⭐. Docs alignment sprint (implementation ↔ paper drift). 🟢 THRIVING 6/6 |
 | ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |
 
 

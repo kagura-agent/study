@@ -44,7 +44,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
 | [Orb](https://github.com/KarryViber/Orb) | 🔬 deep-dive | 2026-05-17 | 63⭐, v0.6.0. Telemetry-backed skill lifecycle (draft→prod→stale→archive), 3-stage self-evolution (A/B/C), memory freshness. Solo dev, Claude-Code-only, best-in-class governance |
-| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-27 | 418⭐ (+33/day!), skill optimization pipeline (PR#43), macOS self-contained runtime + multimodal MCP, browser headless shell. 🟢 THRIVING, fastest growth in portfolio |
+| [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-26 | 473⭐ (+33/day!), skill optimization pipeline, macOS runtime, browser headless shell, copilot+hermes argv_prompt adapters. 🟢 THRIVING 6/6, fastest growth in portfolio |
 
 
 **Key insight:** We operate at the Identity layer — only us and ACE are here. Most work is at Model or Workflow layers. GEP research validates: compact control-oriented format (Gene ~230 tokens) outperforms verbose doc-oriented format (Skill ~2,500 tokens) by +4.1pp.
@@ -61,7 +61,7 @@ How coding agents manage context, edits, and tool design.
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
 | [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-21 | 42.9k⭐, v0.2.0 released (105 PRs): /goal persistent context, image gen, WebUI in wheel, 5 new providers, fallback_models, core refactor. Revisit 05-28 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
-| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-21 | 848⭐ (was 840). v0.7.0 86-bug security audit, v0.7.1 MarrowScript reorg. Community formed: 4 merged PR authors, 11 issue authors/30d. 🟢 THRIVING (5/6). Revisit 05-28 |
+| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-26 | 1,426⭐ ⚡ BREAKOUT (+68% in 5d!). v1.2.1. SSRF hardening, contract/def-of-done, idempotent-write dedup. External PRs active. 🟢 THRIVING (6/6). Contract/DoD evaluated for OpenClaw: NOT NOW (runtime already structural). Revisit 05-28 |
 
 
 
@@ -84,7 +84,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-21 | 105⭐ (stable). v0.8.0 released (freshness, fleet, chaos, goal-drift modules). CLI auth loopback. Steady development. 🟢 THRIVING (5/6). Revisit 05-28 |
 
 | [superpowers](https://github.com/nickarella/superpowers) | 🔬 deep-dive | 2026-05-15 | Agent capability framework. ⚙️ reference |
-| [mirage](https://github.com/strukto-ai/mirage) | 🔭 scout | 2026-05-22 | 2538⭐, unified virtual filesystem for AI agents. TypeScript. 95% merge rate, external PRs accepted. 22 open issues. Agent infrastructure plumbing. |
+| [mirage](https://github.com/strukto-ai/mirage) | 🔭 scout | 2026-05-26 | 2,618⭐ (+7.0%), pushed 05-26. 179 forks, 23 issues. 🟢 THRIVING. Revisit 06-02 |
 
 
 **Key gap:** Skill auto-extraction — AgentFactory and OpenSpace have it, we don't.
@@ -146,7 +146,7 @@ Projects being monitored for growth/activity signals:
 
 | mercury-agent | 2,446 | 05-25 | 05-30 | 2.4K⭐. Domain migration to mercuryagent.sh. Security fix landed. v1.1.9. Developer→product transition executing. 🟢 THRIVING |
 | Orb (KarryViber) | 65 | 05-23 | 05-30 | 65⭐ (+3.2%). QUIET — no push since 05-14. Solo dev. Growth stalled. Consider drop next cycle if no activity |
-| Elephant Agent (agentic-in) | 459 | 05-25 | 05-28 | 459⭐ (+41 in 2d). Still thriving. 🟢 THRIVING |
+| Elephant Agent (agentic-in) | 473 | 05-26 | 05-28 | 473⭐. Copilot+Hermes adapters enabled. Onboarding polish. 🟢 THRIVING 6/6 |
 | ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |
 
 

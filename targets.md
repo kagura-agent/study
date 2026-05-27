@@ -138,15 +138,15 @@ Projects being monitored for growth/activity signals:
 
 | agentic-stack | 2,042 | 05-27 | 06-03 | 2042⭐. v0.19 spec "The Agentic Turn" on branch — converting to multi-agent runtime (plans layer, file-based bus, evals from lessons, speculative execution, auto-act). Still draft, no implementation. 🟡 AMBITIOUS |
 | GenericAgent | 12,166 | 05-27 | 06-03 | 12.2K⭐. TUI v2/v3 polish sprint (picker, stash, scheduler, slash-command bundle). Cloudflare retry hardening. Feature-stable, polish phase. 🟢 THRIVING |
-| nanobot | 43,210 | 05-27 | 06-03 | 43.2K⭐. PR #3991: unified Apps+MCP surface (+2088/-965). PR #3999: sustained goal continuation (inject loop). Telegram webhook, Codex/Kagi fixes. 🟢 THRIVING |
+| nanobot | 43,214 | 05-27 | 06-02 | 43.2K⭐. Codex transport error handling (+450). WebUI ESLint enabled. Kagi search fix. Incremental maintenance phase. 🟢 THRIVING |
 | dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
 | bux | 342 | 05-25 | 05-30 | 342⭐. Voice onboarding, Codex for Telegram lanes. Steady. |
 | OpenChronicle | 2,749 | 05-23 | 05-30 | 2,749⭐ (+4.8%). No push since 05-09 (14d). Stars still growing but dev pace slowing. Still macOS-only. Watch for activity resumption |
 
 | mercury-agent | 2,446 | 05-25 | 05-30 | 2.4K⭐. Domain migration to mercuryagent.sh. Security fix landed. v1.1.9. Developer→product transition executing. 🟢 THRIVING |
-| Orb (KarryViber) | 65 | 05-23 | 05-30 | 65⭐ (+3.2%). QUIET — no push since 05-14. Solo dev. Growth stalled. Consider drop next cycle if no activity |
-| Elephant Agent (agentic-in) | 484 | 05-26 | 05-30 | 484⭐. Docs alignment sprint (implementation ↔ paper drift). 🟢 THRIVING 6/6 |
+| Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
+| Elephant Agent (agentic-in) | 500 | 05-27 | 06-02 | 500⭐ milestone (+96% in 12d). PR#51: full sandbox integration (E2B+TencentCloud, unified PathMapper, 82 files). Product vision docs. 🟢 THRIVING 6/6 |
 | ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |
 
 

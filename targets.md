@@ -17,10 +17,10 @@ How agents persist, retrieve, and reason about past experience.
 |---------|-------|-------------|-------|
 | [memex](https://github.com/nickarella/memex) | 🔬 deep-dive | 2026-05-15 | We use this — slug-based cards, backlinks, semantic search. ⚙️ reference (our infra) |
 | [hindsight](https://github.com/OpenViking/hindsight) | 🔬 deep-dive | 2026-05-15 | Rust+Go memory server. ⚙️ reference (contributed) |
-| [claude-mem](https://github.com/thedotmack/claude-mem) | 🔬 deep-dive | 2026-04-26 | 50k⭐, AGPL. "Cynical Deletion" architecture studied |
+| [claude-mem](https://github.com/thedotmack/claude-mem) | 🔬 deep-dive | 2026-05-27 | 50k⭐, AGPL. "Cynical Deletion" architecture studied |
 | [OpenChronicle](https://github.com/Einsia/OpenChronicle) | 🔬 deep-dive | 2026-04-28 | 1.6k⭐, macOS-only, local-first memory for tool-capable LLMs |
 | [harmonist](https://github.com/harmonist) | 🔬 deep-dive | 2026-05-15 | Memory secret scanning, 4-dim scoring. ⚙️ reference (adopted Durability+Reduction) |
-| [caveman](https://github.com/caveman) | 🔬 deep-dive | 2026-04-26 | Token compression, 75% output reduction, conciseness-accuracy paradox |
+| [caveman](https://github.com/caveman) | 🔬 deep-dive | 2026-05-27 | Token compression, 75% output reduction, conciseness-accuracy paradox |
 
 | [gastownhall/beads](https://github.com/gastownhall/beads) | 👁️ following | 2026-05-14 | 23.6k⭐, storage schema refactoring, v1.0.4. See tracking table |
 | [krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) | 🔬 deep-dive | 2026-05-10 | 61⭐, Lakebase architecture (SQLite local + PG global), RAG failure mode taxonomy, temporal decay, nudgets. See wiki/projects/krusch-context-mcp.md |
@@ -136,9 +136,9 @@ Projects being monitored for growth/activity signals:
 | Project | ⭐ | Last Check | Revisit | Signal Watching |
 |---------|-----|-----------|---------|-----------------|
 
-| agentic-stack | 2,023 | 05-22 | 05-28 | 2023⭐. v0.18.0, quiet since 05-10 (12d). Brain bridge + semantic lesson retraction + Copilot support merged. 🟡 STABLE but cooling |
-| GenericAgent | 12,145 | 05-26 | 05-28 | 12.1K⭐. Salient Mining SOP committed (emotion + activity lifecycle mining from sessions). Telegram /review, PowerShell UTF-8. 🟢 THRIVING |
-| nanobot | 43,182 | 05-26 | 05-28 | 43K⭐. PR #3999: goal continuation fix (prevent premature exit). PR #3996: Telegram webhook mode (+310 lines). WebUI ESLint. 🟢 THRIVING |
+| agentic-stack | 2,042 | 05-27 | 06-03 | 2042⭐. v0.19 spec "The Agentic Turn" on branch — converting to multi-agent runtime (plans layer, file-based bus, evals from lessons, speculative execution, auto-act). Still draft, no implementation. 🟡 AMBITIOUS |
+| GenericAgent | 12,166 | 05-27 | 06-03 | 12.2K⭐. TUI v2/v3 polish sprint (picker, stash, scheduler, slash-command bundle). Cloudflare retry hardening. Feature-stable, polish phase. 🟢 THRIVING |
+| nanobot | 43,210 | 05-27 | 06-03 | 43.2K⭐. PR #3991: unified Apps+MCP surface (+2088/-965). PR #3999: sustained goal continuation (inject loop). Telegram webhook, Codex/Kagi fixes. 🟢 THRIVING |
 | dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
 | bux | 342 | 05-25 | 05-30 | 342⭐. Voice onboarding, Codex for Telegram lanes. Steady. |

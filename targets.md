@@ -58,10 +58,10 @@ How coding agents manage context, edits, and tool design.
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-30 | Cline fork, hash-anchored edits, 1k⭐, reliability iteration phase |
-| [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-04-27 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming |
-| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-21 | 42.9k⭐, v0.2.0 released (105 PRs): /goal persistent context, image gen, WebUI in wheel, 5 new providers, fallback_models, core refactor. Revisit 05-28 |
+| [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-05-28 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming. ⚙️ reference (pattern extracted, no active tracking) |
+| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-28 | 43.3k⭐. Telegram webhook + ordered message queue. Codex stream idle timeout fix (NANOBOT_STREAM_IDLE_TIMEOUT_S). WebUI ESLint. Maintenance/polish phase. Revisit 06-04 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
-| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-26 | 1,426⭐ ⚡ BREAKOUT (+68% in 5d!). v1.2.1. SSRF hardening, contract/def-of-done, idempotent-write dedup. External PRs active. 🟢 THRIVING (6/6). Contract/DoD evaluated for OpenClaw: NOT NOW (runtime already structural). Revisit 05-28 |
+| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-28 | 1,495⭐ (+5% in 2d). Plugin system core merged (PR#28: ProviderRegistry, lifecycle hooks, manifest permissions). Provider wizard (PR#29). Per-tier endpoint routing (PR#51). Architecture maturing fast. 🟢 THRIVING (6/6). Revisit 06-04 |
 
 
 
@@ -110,7 +110,7 @@ How agent skills are packaged, discovered, shared, and composed.
 | ClawHub | 🔬 deep-dive | 2026-05-15 | Our skill marketplace. ⚙️ reference (our infra) |
 | Claude Code skills | 👁️ following | 2026-05-15 | 39k+ skills on GitHub. ⚙️ reference (ecosystem context) |
 | Moltbook | 🔬 deep-dive | 2026-05-15 | Reputation system for agents. ⚙️ reference (our project) |
-| [wanman](https://github.com/wanman) | 🔬 deep-dive | 2026-04-27 | Hosted skill self-evolution, run_feedback→metrics→autoPromote pipeline |
+| [wanman](https://github.com/wanman) | 🔬 deep-dive | 2026-05-28 | Hosted skill self-evolution, run_feedback→metrics→autoPromote pipeline. ⚙️ reference (pattern adopted, no active tracking) |
 
 **Key insight (Luna):** "Skills are essentially installable packages." The ecosystem is exploding — 39k+ Claude Code skills on GitHub as of 2026-03.
 
@@ -138,7 +138,7 @@ Projects being monitored for growth/activity signals:
 
 | agentic-stack | 2,042 | 05-27 | 06-03 | 2042⭐. v0.19 spec "The Agentic Turn" on branch — converting to multi-agent runtime (plans layer, file-based bus, evals from lessons, speculative execution, auto-act). Still draft, no implementation. 🟡 AMBITIOUS |
 | GenericAgent | 12,166 | 05-27 | 06-03 | 12.2K⭐. TUI v2/v3 polish sprint (picker, stash, scheduler, slash-command bundle). Cloudflare retry hardening. Feature-stable, polish phase. 🟢 THRIVING |
-| nanobot | 43,214 | 05-27 | 06-02 | 43.2K⭐. Codex transport error handling (+450). WebUI ESLint enabled. Kagi search fix. Incremental maintenance phase. 🟢 THRIVING |
+| nanobot | 43,271 | 05-28 | 06-04 | 43.3K⭐. Telegram webhook support, Codex stream timeout fix, WebUI ESLint. Maintenance/polish. 🟢 THRIVING |
 | dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
 
 | bux | 342 | 05-25 | 05-30 | 342⭐. Voice onboarding, Codex for Telegram lanes. Steady. |
@@ -146,7 +146,7 @@ Projects being monitored for growth/activity signals:
 
 | mercury-agent | 2,446 | 05-25 | 05-30 | 2.4K⭐. Domain migration to mercuryagent.sh. Security fix landed. v1.1.9. Developer→product transition executing. 🟢 THRIVING |
 | Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
-| Elephant Agent (agentic-in) | 500 | 05-27 | 06-02 | 500⭐ milestone (+96% in 12d). PR#51: full sandbox integration (E2B+TencentCloud, unified PathMapper, 82 files). Product vision docs. 🟢 THRIVING 6/6 |
+| Elephant Agent (agentic-in) | 500 | 05-28 | 06-04 | 500⭐. PR#52: Seatbelt sandbox hardening (policy injection prevention, .git/hooks write-protect, credential deny-read, mach-lookup restrict). PR#54-55: RTK terminal optimizer. 🟢 THRIVING 6/6 |
 | ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |
 
 

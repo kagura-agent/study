@@ -65,3 +65,5 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - **Relevance**: Could enhance our MEMORY.md curation — currently we don't systematically mine past conversations for emotional signals or track activity lifecycle changes
 - **Key design**: "Activities" classified as ongoing or disappeared; same-name items collapse; emotion detection by tone not topic; "write before read" persistent state
 - **Status**: 🟡 Evaluate — would need session transcript access and a structured output format
+
+- [x] **add-gradient.sh source labeling for gradient-stats.sh** — source tag now written inline to beliefs-candidates.md when --source is not manual, enabling gradient-stats.sh Luna-sourced detection. gradient-stats.sh updated with dual detection (inline + detail-line + JSONL fallback). — source: self-evolving-observations.md 断裂处 — applied: 2026-05-29

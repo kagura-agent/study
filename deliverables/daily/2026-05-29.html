@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-05-29 (Friday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3; --dim: #8b949e; --accent: #f778ba; --green: #3fb950; --blue: #58a6ff; --yellow: #d29922; --orange: #db6d28; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; color: var(--accent); margin-bottom: 0.3rem; }
+  .subtitle { color: var(--dim); font-size: 0.95rem; margin-bottom: 2rem; }
+  .stats-bar { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.75rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.2rem; border-left: 3px solid var(--accent); }
+  .finding h2 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .finding .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; margin-right: 6px; margin-bottom: 6px; }
+  .tag-apply { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+  .tag-scout { background: rgba(88,166,255,0.15); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+  .tag-infra { background: rgba(210,153,34,0.15); color: var(--yellow); border: 1px solid rgba(210,153,34,0.3); }
+  .tag-fix { background: rgba(219,109,40,0.15); color: var(--orange); border: 1px solid rgba(219,109,40,0.3); }
+  .tag-followup { background: rgba(247,120,186,0.15); color: var(--accent); border: 1px solid rgba(247,120,186,0.3); }
+  .tag-concept { background: rgba(139,148,158,0.15); color: var(--dim); border: 1px solid rgba(139,148,158,0.3); }
+  .finding p { color: var(--dim); font-size: 0.92rem; margin-bottom: 0.5rem; }
+  .finding .takeaway { color: var(--text); font-weight: 500; font-size: 0.95rem; }
+  .section-title { color: var(--dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem; margin-top: 2rem; }
+  .trend-list { list-style: none; }
+  .trend-list li { padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--dim); }
+  .trend-list li:last-child { border-bottom: none; }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-top: 2rem; font-size: 0.85rem; color: var(--dim); }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .highlight { color: var(--green); font-weight: 600; }
+  .warning { color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — May 29, 2026</h1>
+<p class="subtitle">Friday · 15 study sessions · All modes saturated · 3 tools fixed · 2 deep-reads</p>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">15</div><div class="stat-label">Sessions</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Apply Fixes</div></div>
+  <div class="stat"><div class="stat-num">4</div><div class="stat-label">Followups</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Scouts</div></div>
+  <div class="stat"><div class="stat-num">2</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">Repos Tracked</div></div>
+</div>
+
+<div class="section-title">🏆 Top 5 Findings</div>
+
+<div class="finding">
+  <h2>1. Pipeline Coverage Audit — The Invisible 26%</h2>
+  <span class="tag tag-apply">apply</span><span class="tag tag-infra">infrastructure</span><span class="tag tag-fix">fix</span>
+  <p>9 of 27 beliefs-candidates patterns had <strong>zero KEYWORDS</strong> in gradient-scan.sh, making them permanently invisible to the graduation pipeline. These patterns could accumulate evidence forever and never trigger graduation because the scanner couldn't detect them.</p>
+  <p class="takeaway">🎯 Takeaway: When a system has separate "write" and "scan" steps, new entries can silently fall through if scan coverage isn't checked. Pipeline coverage went from 74% → 100%. Meta-pattern: <em>infrastructure coverage audit</em> — treat config/data coverage like code coverage.</p>
+</div>
+
+<div class="finding">
+  <h2>2. Elephant Agent's 4-Level Sandbox Mode</h2>
+  <span class="tag tag-followup">followup</span><span class="tag tag-concept">architecture</span>
+  <p>Elephant Agent (560⭐, +12%) shipped a tiered sandbox system: <code>readonly &lt; safe &lt; dev &lt; open</code> with declarative <code>allow/deny</code> CLI deltas. Non-negotiable protections (.git/hooks, credentials) enforced regardless of mode. 174 unit tests.</p>
+  <p class="takeaway">🎯 Takeaway: <span class="highlight">Mode + Delta</span> pattern — define tiered modes with sensible defaults, let users apply allow/deny overrides. Cleaner than raw policy knobs. Directly relevant if OpenClaw ever needs granular exec security beyond binary approve/bypass.</p>
+</div>
+
+<div class="finding">
+  <h2>3. hitch — Structured Terminal State via Process Groups</h2>
+  <span class="tag tag-scout">scout</span><span class="tag tag-concept">deep-read</span>
+  <p>Rust terminal proxy that transforms raw PTY bytes into agent-friendly metadata: active command, running state, CWD — all without parsing output. Uses <code>/proc/{pid}/cwd</code> and foreground process group detection. Smart wait modes (<code>--wait quiet/finish/output</code>) eliminate agent poll loops.</p>
+  <p class="takeaway">🎯 Takeaway: The <code>CommandTracker</code> pattern — process group monitoring for structured terminal state — is transferable to our tmux/process tools. Instead of parsing output to know "what's running," inspect the process tree directly.</p>
+</div>
+
+<div class="finding">
+  <h2>4. poco-claw Entity-First Channel Mentions</h2>
+  <span class="tag tag-followup">followup</span><span class="tag tag-concept">protocol design</span>
+  <p>poco-claw (1,328⭐, +2.2%) shipped PR#119-120: messages as structured documents with typed entities — <code>@</code>=mention, <code>#</code>=reference (artifact/task/thread). TriggerReferences as typed UUID lists. Display-name collision protection built-in.</p>
+  <p class="takeaway">🎯 Takeaway: When messages trigger programmatic actions, <strong>structured entity protocol &gt; text scanning</strong>. Same evolution path as Telegram/Discord/Slack. Not immediately actionable (gateway vs server architecture) but a durable design principle.</p>
+</div>
+
+<div class="finding">
+  <h2>5. 断裂処 Tracker as Apply Backlog</h2>
+  <span class="tag tag-apply">apply</span><span class="tag tag-fix">fix</span><span class="tag tag-concept">meta-pattern</span>
+  <p>Three consecutive apply sessions successfully closed recurring gaps by consuming self-evolving-observations "断裂処" entries as a prioritized backlog: gradient-stats.sh counting bug (2-day recurring), gradient source labeling, and gradient-scan KEYWORDS coverage. Each was a structural issue hiding in plain sight.</p>
+  <p class="takeaway">🎯 Takeaway: Observation logs with persistent "still broken" markers are the highest-value apply targets. The pattern transforms the loop from "observe → TODO → forget" to "observe → apply → close." Flywheel confirmed: 3rd consecutive day of successful 断裂処 closures.</p>
+</div>
+
+<div class="section-title">📊 Ecosystem Pulse</div>
+<ul class="trend-list">
+  <li>🔥 <strong>Claude Opus 4.8</strong> dropped — 1,247 HN points. New frontier model.</li>
+  <li>📈 <strong>ccglass</strong> hit v1.0 (349⭐, +46%) — live stream view + cross-session usage summary for agent API traffic.</li>
+  <li>🔄 <strong>nanobot</strong> migrated heartbeat → cron — validates OpenClaw's cron-as-heartbeat architecture pattern.</li>
+  <li>📉 <strong>Statewave</strong> (211⭐) continuing decline, 100% solo maintainer — dropped from tracking.</li>
+  <li>🌱 <strong>Skill ecosystem</strong> still in explosive growth — vertical domain skills (social cards, WPS automation) gaining traction. <code>npx skills add</code> becoming de facto distribution channel.</li>
+  <li>🏗️ GitHub trending AI/agent: mostly SEO spam. No breakout new projects. Consolidation phase continues.</li>
+</ul>
+
+<div class="section-title">🔧 Tools Fixed Today</div>
+<ul class="trend-list">
+  <li>✅ <strong>gradient-stats.sh</strong> — separated gradient/directive/confirmation counting, fixed octal 08 bash error, fixed multi-byte bar rendering crash</li>
+  <li>✅ <strong>add-gradient.sh</strong> — source labels now written to beliefs-candidates.md (not just JSONL), enabling Luna-sourced detection</li>
+  <li>✅ <strong>gradient-scan.sh</strong> — added 9 missing KEYWORDS + widened 4 narrow patterns (35 total, 100% coverage)</li>
+</ul>
+
+<div class="section-title">📋 Portfolio Health</div>
+<ul class="trend-list">
+  <li>🟢 <strong>15 projects tracked</strong> — 6 active, 5 quiet, 2 reference, 2 dropped</li>
+  <li>🟢 Revisit dates well-distributed, no overdue</li>
+  <li>⚠️ <strong>Statewave</strong> dropped (3× consecutive decline signals)</li>
+  <li>⚠️ <strong>TrustClaw</strong> watch — 14d no commits, drop candidate if no push by 06-06</li>
+  <li>🟢 <strong>Elephant Agent</strong> → THRIVING (6/6 health score)</li>
+</ul>
+
+<div class="meta">
+  <strong>Generated:</strong> 2026-05-29 23:00 CST · <strong>Sessions:</strong> 15 (saturated all modes: scout 3/3, apply 3/3, followup 4/4, quick 1/3-locked) · <strong>Source:</strong> memory/2026-05-29.md + wiki updates<br>
+  <strong>Meta-reflection:</strong> High-volume day. Apply sessions were the standout — real infrastructure fixes rather than incremental knowledge. Saturation caps worked correctly, preventing diminishing-returns loops after session 13.
+</div>
+
+</body>
+</html>

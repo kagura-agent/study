@@ -149,8 +149,8 @@ Projects being monitored for growth/activity signals:
 | Beads | 24,187 | 05-29 | 06-05 | 24,187⭐ (+0.7%). Pushed today. Mature/steady. Count-only default, sync cleanup. |
 | Statewave | 211 | 05-29 | 06-05 | 211⭐ (-0.5%). Still losing stars but active dev (AGENTS.md, CI proof-figure, version API). Solo. Community not responding. **Drop candidate** if stars keep declining |
 | Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
-| Elephant Agent (agentic-in) | 500 | 05-28 | 06-04 | 500⭐. PR#52: Seatbelt sandbox hardening (policy injection prevention, .git/hooks write-protect, credential deny-read, mach-lookup restrict). PR#54-55: RTK terminal optimizer. 🟢 THRIVING 6/6 |
-| ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |
+| Elephant Agent (agentic-in) | 560 | 05-29 | 06-04 | 560⭐ (+12%). PR#57: 4-level sandbox mode abstraction (readonly/safe/dev/open) + declarative allow/deny CLI. Path orchestration. 🟢 THRIVING 6/6 |
+| ccglass | 349 | 05-29 | 06-02 | 349⭐ (+46%). Hit v1.0.0. PR#52: cross-session usage summary. PR#53: live stream view with tool_use/result pairing + SSE. Active dev |
 
 
 ## Chat-to-Knowledge Infrastructure

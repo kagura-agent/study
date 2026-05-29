@@ -140,11 +140,14 @@ Projects being monitored for growth/activity signals:
 | agentic-stack | 2,042 | 05-27 | 06-03 | 2042⭐. v0.19 spec "The Agentic Turn" on branch — converting to multi-agent runtime (plans layer, file-based bus, evals from lessons, speculative execution, auto-act). Still draft, no implementation. 🟡 AMBITIOUS |
 | GenericAgent | 12,166 | 05-27 | 06-03 | 12.2K⭐. TUI v2/v3 polish sprint (picker, stash, scheduler, slash-command bundle). Cloudflare retry hardening. Feature-stable, polish phase. 🟢 THRIVING |
 | nanobot | 43,271 | 05-28 | 06-04 | 43.3K⭐. Telegram webhook support, Codex stream timeout fix, WebUI ESLint. Maintenance/polish. 🟢 THRIVING |
+| re_gent | 634 | 05-29 | 06-05 | 634⭐ (+8.6% from 584). Pushed 05-24. 32 open issues, 44 forks. Growth continues. 🟢 THRIVING |
 | dirac | 1,257 | 05-29 | 06-06 | 1,257⭐ (+1.4%). 12d no push. 30 open issues. Quiet phase. Still has external PRs from earlier. Watch for activity resumption |
 
 | bux | 351 | 05-29 | 06-05 | 351⭐ (+2.6%). Free Codex self-heal fixes (PRs #265-267), symlink install fix. Maintenance/polish. Steady |
 
 | mercury-agent | 2,473 | 05-29 | 06-05 | 2.5K⭐ (+1.1%). PR#67 "mercury skills" merged. Domain migration complete. Steady. 🟢 THRIVING |
+| Beads | 24,187 | 05-29 | 06-05 | 24,187⭐ (+0.7%). Pushed today. Mature/steady. Count-only default, sync cleanup. |
+| Statewave | 211 | 05-29 | 06-05 | 211⭐ (-0.5%). Still losing stars but active dev (AGENTS.md, CI proof-figure, version API). Solo. Community not responding. **Drop candidate** if stars keep declining |
 | Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
 | Elephant Agent (agentic-in) | 500 | 05-28 | 06-04 | 500⭐. PR#52: Seatbelt sandbox hardening (policy injection prevention, .git/hooks write-protect, credential deny-read, mach-lookup restrict). PR#54-55: RTK terminal optimizer. 🟢 THRIVING 6/6 |
 | ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |

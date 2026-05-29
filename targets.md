@@ -18,7 +18,7 @@ How agents persist, retrieve, and reason about past experience.
 | [memex](https://github.com/nickarella/memex) | 🔬 deep-dive | 2026-05-15 | We use this — slug-based cards, backlinks, semantic search. ⚙️ reference (our infra) |
 | [hindsight](https://github.com/OpenViking/hindsight) | 🔬 deep-dive | 2026-05-15 | Rust+Go memory server. ⚙️ reference (contributed) |
 | [claude-mem](https://github.com/thedotmack/claude-mem) | 🔬 deep-dive | 2026-05-27 | 50k⭐, AGPL. "Cynical Deletion" architecture studied |
-| [OpenChronicle](https://github.com/Einsia/OpenChronicle) | 🔬 deep-dive | 2026-04-28 | 1.6k⭐, macOS-only, local-first memory for tool-capable LLMs |
+| [OpenChronicle](https://github.com/Einsia/OpenChronicle) | 🔬 deep-dive | 2026-05-29 | 2.7k⭐, macOS-only, local-first memory. 20d no push. ⚙️ reference (architectural study complete, no active tracking) |
 | [harmonist](https://github.com/harmonist) | 🔬 deep-dive | 2026-05-15 | Memory secret scanning, 4-dim scoring. ⚙️ reference (adopted Durability+Reduction) |
 | [caveman](https://github.com/caveman) | 🔬 deep-dive | 2026-05-27 | Token compression, 75% output reduction, conciseness-accuracy paradox |
 
@@ -40,7 +40,7 @@ Agents that improve themselves through experience — the core of what we're bui
 |---------|-------|-------------|-------|
 | ACE (SambaNova) | 🔬 deep-dive | 2026-05-15 | beliefs→DNA architecture mirrors ours. ⚙️ reference (identity layer peer) |
 | [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-05-14 | 11.2k⭐, conductor multi-agent orchestrator, code review principles, context budget tightening |
-| [EvoMap/Evolver GEP](https://arxiv.org/abs/2604.15097) | 🔬 deep-dive | 2026-04-28 | Gene vs Skill (+4.1pp), GEP protocol, signal matching |
+| [EvoMap/Evolver GEP](https://arxiv.org/abs/2604.15097) | 🔬 deep-dive | 2026-05-29 | Gene vs Skill (+4.1pp), GEP protocol, signal matching. ⚙️ reference (paper, findings adopted) |
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
 | [Orb](https://github.com/KarryViber/Orb) | 🔬 deep-dive | 2026-05-17 | 63⭐, v0.6.0. Telemetry-backed skill lifecycle (draft→prod→stale→archive), 3-stage self-evolution (A/B/C), memory freshness. Solo dev, Claude-Code-only, best-in-class governance |
@@ -79,9 +79,9 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-30 | ~125k⭐, TUI polish + /compress async + ComfyUI built-in |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-05-15 | We contribute here — Go+TS context server. ⚙️ reference (our infra) |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-05-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
-| [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-28 | 1.3k⭐, direct OpenClaw competitor; Web UI + Docker sandbox + Claude Agent SDK + channel collab + mem0 memory. 4-layer identity split, single-writer rule. See wiki/projects/poco-claw.md. Revisit 05-28 |
+| [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-29 | 1,328⭐ (+2.2%), direct OpenClaw competitor. PR#119-120: structured channel mentions — entity-first `@`/`#` protocol replacing text-scan triggers, artifact/task/thread `#` references in trigger envelope. Architecture maturing toward Discord-like collab. See wiki/projects/poco-claw.md. Revisit 06-05 |
 | [ironcurtain](https://github.com/provos/ironcurtain) | 🔭 scout | 2026-05-25 | 461⭐ (+17.9%), v0.11.0: evolved into workflow orchestration platform. Vuln-discovery FSM, Svelte 5 web UI, XState engine, shared containers, SKILL.md. 🟢 THRIVING (5/6). Revisit 06-01 |
-| [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-21 | 105⭐ (stable). v0.8.0 released (freshness, fleet, chaos, goal-drift modules). CLI auth loopback. Steady development. 🟢 THRIVING (5/6). Revisit 05-28 |
+| [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-29 | 112⭐ (+6.7%). ROADMAP added (#245), stoplist dedup refactor (#247). Steady growth. 🟢 THRIVING (5/6). Revisit 06-05 |
 
 | [superpowers](https://github.com/nickarella/superpowers) | 🔬 deep-dive | 2026-05-15 | Agent capability framework. ⚙️ reference |
 | [mirage](https://github.com/strukto-ai/mirage) | 🔭 scout | 2026-05-26 | 2,618⭐ (+7.0%), pushed 05-26. 179 forks, 23 issues. 🟢 THRIVING. Revisit 06-02 |
@@ -140,12 +140,11 @@ Projects being monitored for growth/activity signals:
 | agentic-stack | 2,042 | 05-27 | 06-03 | 2042⭐. v0.19 spec "The Agentic Turn" on branch — converting to multi-agent runtime (plans layer, file-based bus, evals from lessons, speculative execution, auto-act). Still draft, no implementation. 🟡 AMBITIOUS |
 | GenericAgent | 12,166 | 05-27 | 06-03 | 12.2K⭐. TUI v2/v3 polish sprint (picker, stash, scheduler, slash-command bundle). Cloudflare retry hardening. Feature-stable, polish phase. 🟢 THRIVING |
 | nanobot | 43,271 | 05-28 | 06-04 | 43.3K⭐. Telegram webhook support, Codex stream timeout fix, WebUI ESLint. Maintenance/polish. 🟢 THRIVING |
-| dirac | 1,240 | 05-23 | 05-30 | 1,240⭐ (+4.2%). PRs #105-106 merged: ACP chunk-based review system (pleibers), generated-content fix (suzaku). External contributors still active. Steady growth |
+| dirac | 1,257 | 05-29 | 06-06 | 1,257⭐ (+1.4%). 12d no push. 30 open issues. Quiet phase. Still has external PRs from earlier. Watch for activity resumption |
 
-| bux | 342 | 05-25 | 05-30 | 342⭐. Voice onboarding, Codex for Telegram lanes. Steady. |
-| OpenChronicle | 2,749 | 05-23 | 05-30 | 2,749⭐ (+4.8%). No push since 05-09 (14d). Stars still growing but dev pace slowing. Still macOS-only. Watch for activity resumption |
+| bux | 351 | 05-29 | 06-05 | 351⭐ (+2.6%). Free Codex self-heal fixes (PRs #265-267), symlink install fix. Maintenance/polish. Steady |
 
-| mercury-agent | 2,446 | 05-25 | 05-30 | 2.4K⭐. Domain migration to mercuryagent.sh. Security fix landed. v1.1.9. Developer→product transition executing. 🟢 THRIVING |
+| mercury-agent | 2,473 | 05-29 | 06-05 | 2.5K⭐ (+1.1%). PR#67 "mercury skills" merged. Domain migration complete. Steady. 🟢 THRIVING |
 | Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
 | Elephant Agent (agentic-in) | 500 | 05-28 | 06-04 | 500⭐. PR#52: Seatbelt sandbox hardening (policy injection prevention, .git/hooks write-protect, credential deny-read, mach-lookup restrict). PR#54-55: RTK terminal optimizer. 🟢 THRIVING 6/6 |
 | ccglass | 239 | 05-25 | 06-01 | 239⭐ in 3 days (~80/day). Coding agent observability proxy. Watch growth trajectory |
@@ -159,4 +158,4 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 |---------|-------|-------------|-------|
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-04-30 | 191⭐, Google ADK, dual-memory (Weaviate+Neo4j), 3-tier semantic, wiki-first RAG |
 | [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |
-| TrustClaw (ComposioHQ) | 702 | 05-23 | 05-30 | 702⭐ (+3.2%). No commits since 05-15 (8 days). Growth slowing further. Quiet phase |
+| TrustClaw (ComposioHQ) | 718 | 05-29 | 06-06 | 718⭐ (+2.3%). 14d no commits. Stars still growing but development stalled. **Drop candidate** if no push by 06-06 |

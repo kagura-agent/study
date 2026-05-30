@@ -138,16 +138,16 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,042 | 05-27 | 06-03 | 2042⭐. v0.19 spec "The Agentic Turn" on branch — converting to multi-agent runtime (plans layer, file-based bus, evals from lessons, speculative execution, auto-act). Still draft, no implementation. 🟡 AMBITIOUS |
-| GenericAgent | 12,166 | 05-27 | 06-03 | 12.2K⭐. TUI v2/v3 polish sprint (picker, stash, scheduler, slash-command bundle). Cloudflare retry hardening. Feature-stable, polish phase. 🟢 THRIVING |
+| GenericAgent | 12292 | 05-30 | 06-06 | 12,292⭐ (+1.3%). Goal Hive Master duty SOP refinement. Context budget tightening continues |
 | nanobot | 43,271 | 05-28 | 06-04 | 43.3K⭐. Telegram webhook support, Codex stream timeout fix, WebUI ESLint. Maintenance/polish. 🟢 THRIVING |
-| re_gent | 634 | 05-29 | 06-05 | 634⭐ (+8.6% from 584). Pushed 05-24. 32 open issues, 44 forks. Growth continues. 🟢 THRIVING |
+| re_gent | 639 | 05-30 | 06-06 | 639⭐ (+9.4% from 584). Last push 05-24. Growth strong but pace slowing |
 | dirac | 1,257 | 05-29 | 06-06 | 1,257⭐ (+1.4%). 12d no push. 30 open issues. Quiet phase. Still has external PRs from earlier. Watch for activity resumption |
 
 | bux | 351 | 05-29 | 06-05 | 351⭐ (+2.6%). Free Codex self-heal fixes (PRs #265-267), symlink install fix. Maintenance/polish. Steady |
 
 | mercury-agent | 2,473 | 05-29 | 06-05 | 2.5K⭐ (+1.1%). PR#67 "mercury skills" merged. Domain migration complete. Steady. 🟢 THRIVING |
-| Beads | 24,187 | 05-29 | 06-05 | 24,187⭐ (+0.7%). Pushed today. Mature/steady. Count-only default, sync cleanup. |
-| Statewave | 211 | 05-29 | — | **Dropped** 05-29 — 3 consecutive followups showing decline (220→212→211), 100% solo maintainer, zero external contributors despite active dev. Pattern: building features nobody adopts |
+| Beads | 24214 | 05-30 | 06-06 | 24,214⭐ (+0.8%). Active daily. Mature/steady |
+| Statewave | 213 | 05-30 | 06-06 | 213⭐ (flat). Still solo maintainer. Low traction signal |
 | Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
 | Elephant Agent (agentic-in) | 560 | 05-29 | 06-04 | 560⭐ (+12%). PR#57: 4-level sandbox mode abstraction (readonly/safe/dev/open) + declarative allow/deny CLI. Path orchestration. 🟢 THRIVING 6/6 |
 | ccglass | 349 | 05-29 | 06-02 | 349⭐ (+46%). Hit v1.0.0. PR#52: cross-session usage summary. PR#53: live stream view with tool_use/result pairing + SSE. Active dev |

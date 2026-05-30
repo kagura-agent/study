@@ -64,6 +64,8 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - **How**: Incremental session scanning, persistent state across runs, activity knowledge layer as database not report
 - **Relevance**: Could enhance our MEMORY.md curation — currently we don't systematically mine past conversations for emotional signals or track activity lifecycle changes
 - **Key design**: "Activities" classified as ongoing or disappeared; same-name items collapse; emotion detection by tone not topic; "write before read" persistent state
-- **Status**: 🟡 Evaluate — would need session transcript access and a structured output format
+- **Status**: ✅ Partially applied 2026-05-30 — created `tools/memory-lifecycle.sh` implementing the "ongoing vs disappeared" lifecycle distinction. Integrated into review.yaml memory_hygiene step (step 4: lifecycle check). Script detects stale promoted entries, flags lifecycle markers (paused/blocked/pending), checks line budget. Full session mining deferred (needs transcript access).
 
 - [x] **add-gradient.sh source labeling for gradient-stats.sh** — source tag now written inline to beliefs-candidates.md when --source is not manual, enabling gradient-stats.sh Luna-sourced detection. gradient-stats.sh updated with dual detection (inline + detail-line + JSONL fallback). — source: self-evolving-observations.md 断裂处 — applied: 2026-05-29
+
+- [x] **add-gradient.sh ↔ gradient-scan.sh consistency check** — warn when new gradient pattern has no KEYWORDS in gradient-scan.sh, preventing pipeline breakage where gradients are captured but scan is blind to them. Added as side-effect 3 in add-gradient.sh. — source: self-evolving-observations.md (05-29 断裂修复 post-mortem) — applied: 2026-05-30

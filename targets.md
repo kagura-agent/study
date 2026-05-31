@@ -57,7 +57,7 @@ How coding agents manage context, edits, and tool design.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-04-30 | Cline fork, hash-anchored edits, 1k⭐, reliability iteration phase |
+| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-05-31 | 1,263⭐. 14d no push (last 05-17). Quiet phase continues. Cline fork, hash-anchored edits |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-05-28 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming. ⚙️ reference (pattern extracted, no active tracking) |
 | [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-28 | 43.3k⭐. Telegram webhook + ordered message queue. Codex stream idle timeout fix (NANOBOT_STREAM_IDLE_TIMEOUT_S). WebUI ESLint. Maintenance/polish phase. Revisit 06-04 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
@@ -76,7 +76,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-04-30 | ~125k⭐, TUI polish + /compress async + ComfyUI built-in |
+| [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-05-31 | 173.8K⭐ (massive growth from ~125K). Active daily. Pushed today |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-05-15 | We contribute here — Go+TS context server. ⚙️ reference (our infra) |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-05-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
 | [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-29 | 1,328⭐ (+2.2%), direct OpenClaw competitor. PR#119-120: structured channel mentions — entity-first `@`/`#` protocol replacing text-scan triggers, artifact/task/thread `#` references in trigger envelope. Architecture maturing toward Discord-like collab. See wiki/projects/poco-claw.md. Revisit 06-05 |
@@ -141,16 +141,17 @@ Projects being monitored for growth/activity signals:
 | GenericAgent | 12292 | 05-30 | 06-06 | 12,292⭐ (+1.3%). Goal Hive Master duty SOP refinement. Context budget tightening continues |
 | nanobot | 43,271 | 05-28 | 06-04 | 43.3K⭐. Telegram webhook support, Codex stream timeout fix, WebUI ESLint. Maintenance/polish. 🟢 THRIVING |
 | re_gent | 639 | 05-30 | 06-06 | 639⭐ (+9.4% from 584). Last push 05-24. Growth strong but pace slowing |
-| dirac | 1,257 | 05-29 | 06-06 | 1,257⭐ (+1.4%). 12d no push. 30 open issues. Quiet phase. Still has external PRs from earlier. Watch for activity resumption |
+| dirac | 1,263 | 05-31 | 06-06 | 1,263⭐ (+0.5%). 14d no push. Quiet phase continues. Watch for activity resumption |
 
 | bux | 351 | 05-29 | 06-05 | 351⭐ (+2.6%). Free Codex self-heal fixes (PRs #265-267), symlink install fix. Maintenance/polish. Steady |
 
 | mercury-agent | 2,473 | 05-29 | 06-05 | 2.5K⭐ (+1.1%). PR#67 "mercury skills" merged. Domain migration complete. Steady. 🟢 THRIVING |
-| Beads | 24214 | 05-30 | 06-06 | 24,214⭐ (+0.8%). Active daily. Mature/steady |
+| Beads | 24,228 | 05-31 | 06-06 | 24,228⭐ (+0.06%). Active daily. Dolt target workspace rebind fixes. Mature/steady |
 | Statewave | 213 | 05-30 | 06-06 | 213⭐ (flat). Still solo maintainer. Low traction signal |
 | Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
-| Elephant Agent (agentic-in) | 560 | 05-29 | 06-04 | 560⭐ (+12%). PR#57: 4-level sandbox mode abstraction (readonly/safe/dev/open) + declarative allow/deny CLI. Path orchestration. 🟢 THRIVING 6/6 |
+| Elephant Agent (agentic-in) | 563 | 05-31 | 06-04 | 563⭐ (+0.5%). macOS polish: configurable tool approvals, localized personal questions, home continuity. 🟢 THRIVING |
 | ccglass | 349 | 05-29 | 06-02 | 349⭐ (+46%). Hit v1.0.0. PR#52: cross-session usage summary. PR#53: live stream view with tool_use/result pairing + SSE. Active dev |
+| centaur (paradigmxyz) | 673 | 05-31 | 06-07 | 673⭐ (+57% from 431 in 7d). ~30 commits since 05-24. Tool-server sidecar hardening, iron-proxy DB routing, Codex harness fixes. Paradigm infra quality. 🟢 THRIVING |
 
 
 ## Chat-to-Knowledge Infrastructure
@@ -159,6 +160,6 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-04-30 | 191⭐, Google ADK, dual-memory (Weaviate+Neo4j), 3-tier semantic, wiki-first RAG |
+| [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-05-31 | 364⭐ (from 191, +91%). Active (pushed 05-30). Google ADK, dual-memory (Weaviate+Neo4j) |
 | [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |
 | TrustClaw (ComposioHQ) | 718 | 05-29 | 06-06 | 718⭐ (+2.3%). 14d no commits. Stars still growing but development stalled. **Drop candidate** if no push by 06-06 |

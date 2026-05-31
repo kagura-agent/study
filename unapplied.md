@@ -69,3 +69,5 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - [x] **add-gradient.sh source labeling for gradient-stats.sh** — source tag now written inline to beliefs-candidates.md when --source is not manual, enabling gradient-stats.sh Luna-sourced detection. gradient-stats.sh updated with dual detection (inline + detail-line + JSONL fallback). — source: self-evolving-observations.md 断裂处 — applied: 2026-05-29
 
 - [x] **add-gradient.sh ↔ gradient-scan.sh consistency check** — warn when new gradient pattern has no KEYWORDS in gradient-scan.sh, preventing pipeline breakage where gradients are captured but scan is blind to them. Added as side-effect 3 in add-gradient.sh. — source: self-evolving-observations.md (05-29 断裂修复 post-mortem) — applied: 2026-05-30
+
+- [x] **GenericAgent "diminishing returns signal"** — consecutive same-mode detection for study-saturation.sh — source: genericagent.md Goal Hive Master SOP §5 — applied: 2026-05-31 — added consecutive detection (2x yellow, 3x red) + recommendation engine deprioritization to study-saturation.sh

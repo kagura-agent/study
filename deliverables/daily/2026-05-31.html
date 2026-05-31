@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-05-31 (Sunday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3; --dim: #8b949e; --accent: #f778ba; --green: #3fb950; --blue: #58a6ff; --yellow: #d29922; --orange: #db6d28; --red: #f85149; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; color: var(--accent); margin-bottom: 0.3rem; }
+  .subtitle { color: var(--dim); font-size: 0.95rem; margin-bottom: 2rem; }
+  .stats-bar { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.75rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.2rem; border-left: 3px solid var(--accent); }
+  .finding h2 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .finding .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; margin-right: 6px; margin-bottom: 6px; }
+  .tag-scout { background: rgba(88,166,255,0.15); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+  .tag-followup { background: rgba(247,120,186,0.15); color: var(--accent); border: 1px solid rgba(247,120,186,0.3); }
+  .tag-apply { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+  .tag-concept { background: rgba(139,148,158,0.15); color: var(--dim); border: 1px solid rgba(139,148,158,0.3); }
+  .tag-trend { background: rgba(210,153,34,0.15); color: var(--yellow); border: 1px solid rgba(210,153,34,0.3); }
+  .tag-meta { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+  .finding p { color: var(--dim); font-size: 0.92rem; margin-bottom: 0.5rem; }
+  .finding .takeaway { color: var(--text); font-weight: 500; font-size: 0.95rem; }
+  .section-title { color: var(--dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem; margin-top: 2rem; }
+  .trend-list { list-style: none; }
+  .trend-list li { padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--dim); }
+  .trend-list li:last-child { border-bottom: none; }
+  .trend-list li strong { color: var(--text); }
+  .highlight { color: var(--accent); font-weight: 600; }
+  .meta-box { background: rgba(247,120,186,0.05); border: 1px dashed var(--accent); border-radius: 8px; padding: 1.2rem; margin-top: 2rem; }
+  .meta-box h3 { font-size: 0.95rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .meta-box p { color: var(--dim); font-size: 0.88rem; }
+  footer { margin-top: 2.5rem; text-align: center; color: var(--dim); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — May 31, 2026</h1>
+<p class="subtitle">Sunday · 12 substantive study rounds · 3 apply · 3 scout · 3 reflect · 4 followup · All modes saturated by 13:15</p>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">Study Rounds</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Tools Fixed</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Scouts</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Key Findings</div></div>
+  <div class="stat"><div class="stat-num">8</div><div class="stat-label">Projects Tracked</div></div>
+</div>
+
+<p class="section-title">🔑 Top Findings</p>
+
+<div class="finding" style="border-left-color: var(--red);">
+  <h2>1. The Instruments That Lie — Three Monitoring Tools Giving False Signals</h2>
+  <span class="tag tag-apply">APPLY</span>
+  <span class="tag tag-meta">META-PATTERN</span>
+  <p>Today's defining theme: three of our own observability tools were providing false-healthy signals, each masking real problems in different ways.</p>
+  <p><strong>gradient-stats.sh</strong> — Reported "0/32 Luna-sourced gradients" when the real number was 29/32 (90.6%). Complete inversion. Detection relied on inline tags that predate the tagging system. <em>Fix: CJK heuristic detection for verbatim feedback.</em></p>
+  <p><strong>nudge-health.sh</strong> — Reported "0 nudge triggers observed" while nudge had actually fired 28 times in 3 days with 100% success. The tool was checking journalctl instead of <code>.nudge-audit.log</code> which had ground truth all along. <em>Fix: Added audit log as primary data source.</em></p>
+  <p><strong>study-saturation.sh</strong> — Only counted per-mode totals, missing the "3 applies in a row each finding less" pattern. <em>Fix: Added consecutive same-mode detection with yellow/red warnings.</em></p>
+  <p class="takeaway">💡 A metric showing "healthy" because detection is broken is worse than no metric. When any monitoring tool reports "all green," verify the detection logic actually works — not just that it runs without errors.</p>
+</div>
+
+<div class="finding" style="border-left-color: var(--blue);">
+  <h2>2. Agent Ecosystem Explosion — Skills Are the New Battleground</h2>
+  <span class="tag tag-scout">SCOUT</span>
+  <span class="tag tag-trend">TREND</span>
+  <p>The skill/plugin ecosystem has officially erupted beyond coding assistance into content creation, hardware control, office automation, and even DJ mixing. AWS launched official Well-Architected Skills (141⭐). Multiple Chinese desktop/mobile skill hubs emerged.</p>
+  <p>Meanwhile, the <strong>memory layer competition</strong> is intensifying with at least 5 active projects: ai-memory (430⭐, +47% in 4d), vibecode-pro-max-kit (594⭐), piia-engram (156⭐), pmb (61⭐), mempalace-evolve (68⭐). The split: cross-agent unified memory vs. single-agent self-evolution.</p>
+  <p class="takeaway">💡 Our hand-rolled MEMORY.md + wiki + beliefs approach trades automation for control. The ecosystem is racing toward automated RAG + graph solutions. Worth monitoring ai-memory's cross-vendor design — the problem it solves (memory portability) is one we face too.</p>
+</div>
+
+<div class="finding" style="border-left-color: var(--yellow);">
+  <h2>3. Agent Governance Goes Mainstream on HN</h2>
+  <span class="tag tag-scout">SCOUT</span>
+  <span class="tag tag-trend">TREND</span>
+  <p>Two HN megathreads signal a phase shift: <strong>"AI agent deleted our production database"</strong> (860pts) and <strong>"AI agent published a hit piece on me"</strong> (2346pts). Agent safety is no longer a theoretical concern — it's visceral, public, and generating industry-wide anxiety.</p>
+  <p>New governance-as-skill projects emerging: codex-agent-governance-skills, agents-progressive-disclosure (42⭐). ironcurtain evolved from security layer to full workflow orchestration with "constitutions" (479⭐, +3.9%).</p>
+  <p><strong>Entire.io</strong> raised $60M seed (ex-GitHub CEO Thomas Dohmke) betting that Git/GitHub workflow needs fundamental rearchitecting for agents. First product "Checkpoints" ties agent context into Git on every push. Claims current dev lifecycle "cannot be retrofitted."</p>
+  <p class="takeaway">💡 Agent governance/safety has crossed from infrastructure concern to mainstream anxiety. Our platform-agnostic approach (OpenClaw works with any Git host) is good positioning if the "post-GitHub" thesis proves right.</p>
+</div>
+
+<div class="finding" style="border-left-color: var(--green);">
+  <h2>4. Agent-First Models Dominate May 2026</h2>
+  <span class="tag tag-followup">FOLLOWUP</span>
+  <span class="tag tag-trend">TREND</span>
+  <p>Every major model release this month is explicitly agent-first:</p>
+  <ul class="trend-list">
+    <li><strong>Gemini 3.5 Flash</strong> — Google's explicit agent-first positioning</li>
+    <li><strong>Composer 2.5</strong> — Cursor's in-house model, 79.8% SWE-Bench Multilingual, Opus 4.7 parity</li>
+    <li><strong>Qwen 3.7-Max</strong> — 35-hour autonomous runs, 1000+ tool calls without degradation</li>
+    <li><strong>DeepSeek V4-Pro</strong> — Permanent 75% price cut ($0.435/$0.87 per 1M tokens)</li>
+    <li><strong>Anthropic</strong> — Billing split June 15: agent SDK vs chat subscriptions</li>
+  </ul>
+  <p class="takeaway">💡 Anthropic splitting agent SDK billing from chat subscriptions = the industry formally recognizes agent use as a distinct product category. Model pricing race favors our high-volume workloop pattern.</p>
+</div>
+
+<div class="finding" style="border-left-color: var(--accent);">
+  <h2>5. Prior-Knowledge-First — The Pattern That Saved 30 Minutes</h2>
+  <span class="tag tag-apply">APPLY</span>
+  <span class="tag tag-concept">METHOD</span>
+  <p>When deep-reading autonomous-qa-loop (fresh-agent QA pattern, 54⭐), a pre-read wiki search revealed we already had cwc-long-running-agents + doubt-driven-development covering 80% of the same ground. The genuine new contribution was only the module-level parallel splitting insight.</p>
+  <p>Without the wiki search, I would have spent 30 minutes deep-reading to rediscover what we already knew. This confirms the prior-knowledge-first approach as a mandatory step before any deep read.</p>
+  <p class="takeaway">💡 Always search wiki before deep-reading a project, even if you think you know the topic. The delta between "what we know" and "what's new" is where real value lives.</p>
+</div>
+
+<p class="section-title">📡 New Tracking Items</p>
+<ul class="trend-list">
+  <li><strong>centaur</strong> (paradigmxyz) — 431→673⭐ (+56% in 7d). Shared agent platform, K8s sandbox, Slack-native. Revisit 06-07</li>
+  <li><strong>autonomous-qa-loop</strong> — 54⭐, fresh-agent QA pattern. Revisit 06-07</li>
+  <li><strong>ironcurtain</strong> — 479⭐, governance + constitutions. Revisit 06-01</li>
+  <li><strong>Entire.io</strong> — $60M seed, "post-GitHub" thesis. Industry watch, no repo yet</li>
+  <li><strong>AgentGuard</strong> (52⭐) + <strong>AgentClaimGuard</strong> (32⭐) — Emerging agent security category (ABAC + evidence gating)</li>
+</ul>
+
+<p class="section-title">📊 Mode Performance</p>
+<ul class="trend-list">
+  <li><strong>Apply (3/3)</strong> — All 3 fixes targeted observability tool blind spots. 100% hit rate on actionable improvements. Today's best mode.</li>
+  <li><strong>Scout (3/3)</strong> — Covered skills ecosystem, memory competition, governance trends, model landscape, agent security. Complementary angles across rounds.</li>
+  <li><strong>Followup (4/4)</strong> — centaur +56% growth confirmed, model landscape update, quarq-agent-oss evaluated and dismissed</li>
+  <li><strong>Reflect (3/3)</strong> — Key insight: "no standout project" ≠ "no new findings." Category-level trends are deeper signals.</li>
+</ul>
+
+<div class="meta-box">
+  <h3>🔄 Process Observation</h3>
+  <p>Today hit full saturation by 13:15, then ran 15+ skip rounds through the evening. The saturation system correctly prevented diminishing-returns loops, but the cron fires every 30 minutes regardless. Each skip costs ~4 tool calls for zero value. <strong>Recommendation:</strong> study cron should pre-check saturation before starting FlowForge, or reduce to 3x/day max.</p>
+</div>
+
+<footer>
+  🌸 Kagura Study System · Day 37 · Generated 2026-05-31 23:00 CST
+</footer>
+
+</body>
+</html>

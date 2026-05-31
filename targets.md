@@ -22,7 +22,7 @@ How agents persist, retrieve, and reason about past experience.
 | [harmonist](https://github.com/harmonist) | 🔬 deep-dive | 2026-05-15 | Memory secret scanning, 4-dim scoring. ⚙️ reference (adopted Durability+Reduction) |
 | [caveman](https://github.com/caveman) | 🔬 deep-dive | 2026-05-27 | Token compression, 75% output reduction, conciseness-accuracy paradox |
 
-| [gastownhall/beads](https://github.com/gastownhall/beads) | 👁️ following | 2026-05-14 | 23.6k⭐, storage schema refactoring, v1.0.4. See tracking table |
+| [gastownhall/beads](https://github.com/gastownhall/beads) | 👁️ following | 2026-05-31 | 24.2k⭐, v1.0.5 gated (breaking migration), v1.0.6 in progress. See tracking table |
 | [krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) | 🔬 deep-dive | 2026-05-10 | 61⭐, Lakebase architecture (SQLite local + PG global), RAG failure mode taxonomy, temporal decay, nudgets. See wiki/projects/krusch-context-mcp.md |
 | [mnem](https://github.com/Uranid/mnem) | 🔬 deep-dive | 2026-05-05 | 18⭐, Rust, versioned KG + hybrid GraphRAG + content-addressed CIDs, WASM-clean core. Best-in-class retrieval benchmarks. See wiki/projects/mnem.md |
 | [ClawMem](https://github.com/yoloshii/ClawMem) | 🔬 deep-dive | 2026-05-11 | 158⭐, on-device memory layer for Claude Code + OpenClaw + Hermes. BM25+Vector+Graph hybrid, content-type half-lives, 3-layer merge safety, intent-classified search. See wiki/projects/clawmem.md |
@@ -59,7 +59,7 @@ How coding agents manage context, edits, and tool design.
 |---------|-------|-------------|-------|
 | [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-05-31 | 1,263⭐. 14d no push (last 05-17). Quiet phase continues. Cline fork, hash-anchored edits |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-05-28 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming. ⚙️ reference (pattern extracted, no active tracking) |
-| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-28 | 43.3k⭐. Telegram webhook + ordered message queue. Codex stream idle timeout fix (NANOBOT_STREAM_IDLE_TIMEOUT_S). WebUI ESLint. Maintenance/polish phase. Revisit 06-04 |
+| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-31 | 43.4k⭐. v0.2.0 deep read: /goal persistent objectives, WebUI in wheel, engine refactor. Per-session lock fix, IPv6 SSRF fix. Revisit 06-04 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
 | [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-28 | 1,495⭐ (+5% in 2d). Plugin system core merged (PR#28: ProviderRegistry, lifecycle hooks, manifest permissions). Provider wizard (PR#29). Per-tier endpoint routing (PR#51). Architecture maturing fast. 🟢 THRIVING (6/6). Revisit 06-04 |
 
@@ -139,14 +139,14 @@ Projects being monitored for growth/activity signals:
 
 | agentic-stack | 2,042 | 05-27 | 06-03 | 2042⭐. v0.19 spec "The Agentic Turn" on branch — converting to multi-agent runtime (plans layer, file-based bus, evals from lessons, speculative execution, auto-act). Still draft, no implementation. 🟡 AMBITIOUS |
 | GenericAgent | 12292 | 05-30 | 06-06 | 12,292⭐ (+1.3%). Goal Hive Master duty SOP refinement. Context budget tightening continues |
-| nanobot | 43,271 | 05-28 | 06-04 | 43.3K⭐. Telegram webhook support, Codex stream timeout fix, WebUI ESLint. Maintenance/polish. 🟢 THRIVING |
+| nanobot | 43,409 | 05-31 | 06-04 | 43.4K⭐. Heartbeat fail-closed PRs (#4112,#4114), GatewayHTTPHandler extraction (#4115), Matrix SAS verification. 🟢 THRIVING |
 | re_gent | 639 | 05-30 | 06-06 | 639⭐ (+9.4% from 584). Last push 05-24. Growth strong but pace slowing |
 | dirac | 1,263 | 05-31 | 06-06 | 1,263⭐ (+0.5%). 14d no push. Quiet phase continues. Watch for activity resumption |
 
 | bux | 351 | 05-29 | 06-05 | 351⭐ (+2.6%). Free Codex self-heal fixes (PRs #265-267), symlink install fix. Maintenance/polish. Steady |
 
-| mercury-agent | 2,473 | 05-29 | 06-05 | 2.5K⭐ (+1.1%). PR#67 "mercury skills" merged. Domain migration complete. Steady. 🟢 THRIVING |
-| Beads | 24,228 | 05-31 | 06-06 | 24,228⭐ (+0.06%). Active daily. Dolt target workspace rebind fixes. Mature/steady |
+| mercury-agent | 2,473 | 05-31 | 06-05 | 2.5K⭐. Token Saver Mode merged (PR#69, auto 75% budget), bottom status bar overhaul, skill router ambiguity fix. 🟢 THRIVING |
+| Beads | 24,229 | 05-31 | 06-04 | 24.2K⭐. Dolt target workspace rebind fixes (#4275,#4278,#4280). Low signal this round. 🟢 THRIVING |
 | Statewave | 213 | 05-30 | 06-06 | 213⭐ (flat). Still solo maintainer. Low traction signal |
 | Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
 | Elephant Agent (agentic-in) | 563 | 05-31 | 06-04 | 563⭐ (+0.5%). macOS polish: configurable tool approvals, localized personal questions, home continuity. 🟢 THRIVING |

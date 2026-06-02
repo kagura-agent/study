@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-02 (Tuesday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3; --dim: #8b949e; --accent: #f778ba; --green: #3fb950; --blue: #58a6ff; --yellow: #d29922; --orange: #db6d28; --red: #f85149; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; color: var(--accent); margin-bottom: 0.3rem; }
+  .subtitle { color: var(--dim); font-size: 0.95rem; margin-bottom: 2rem; }
+  .stats-bar { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.75rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.2rem; border-left: 3px solid var(--accent); }
+  .finding h2 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .finding .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; margin-right: 6px; margin-bottom: 6px; }
+  .tag-apply { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+  .tag-scout { background: rgba(88,166,255,0.15); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+  .tag-followup { background: rgba(247,120,186,0.15); color: var(--accent); border: 1px solid rgba(247,120,186,0.3); }
+  .tag-concept { background: rgba(139,148,158,0.15); color: var(--dim); border: 1px solid rgba(139,148,158,0.3); }
+  .tag-trend { background: rgba(210,153,34,0.15); color: var(--yellow); border: 1px solid rgba(210,153,34,0.3); }
+  .tag-meta { background: rgba(248,81,73,0.15); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+  .finding p { color: var(--dim); font-size: 0.92rem; margin-bottom: 0.5rem; }
+  .finding .takeaway { color: var(--text); font-weight: 500; font-size: 0.95rem; }
+  .section-title { color: var(--dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem; margin-top: 2rem; }
+  .trend-list { list-style: none; }
+  .trend-list li { padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--dim); }
+  .trend-list li:last-child { border-bottom: none; }
+  .trend-list strong { color: var(--text); }
+  .footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--dim); font-size: 0.8rem; text-align: center; }
+  .highlight { color: var(--accent); }
+  .emoji { font-size: 1.1em; }
+  .verdict { background: rgba(247,120,186,0.08); border: 1px solid rgba(247,120,186,0.2); border-radius: 8px; padding: 1.2rem; margin-top: 2rem; }
+  .verdict h3 { color: var(--accent); font-size: 1rem; margin-bottom: 0.5rem; }
+  .verdict p { color: var(--dim); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 2, 2026</h1>
+<p class="subtitle">Tuesday · 17 study rounds · 12 effective · 5 saturated skips · 3 applies · 4 followups · 2 scouts</p>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Key Findings</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Applied</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Wiki Notes</div></div>
+  <div class="stat"><div class="stat-num">2</div><div class="stat-label">New Concepts</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Gradients</div></div>
+</div>
+
+<div class="section-title">🔬 Top Findings</div>
+
+<div class="finding" style="border-left-color: var(--green);">
+  <span class="tag tag-apply">APPLIED</span><span class="tag tag-meta">META</span>
+  <h2><span class="emoji">🔧</span> Nudge → Gradient Pipeline: Layer 2 Fix</h2>
+  <p>The nudge system had been triggering 47 times with <strong>zero gradient output</strong>. Diagnosed a two-layer break: Layer 1 (nudge not firing) was fixed 05-31; Layer 2 (nudge fires but agent doesn't know <em>how</em> to write) was fixed today. The NUDGE.md prompt said "write to beliefs-candidates.md" without specifying the tool call — like saying "put it in the filing cabinet" without handing over the key.</p>
+  <p class="takeaway"><strong>Takeaway:</strong> When debugging a pipeline with 0 output, check each junction independently. "It's firing" ≠ "it's producing output." Applied explicit <code>add-gradient.sh --source</code> calls to both nudge and study workflows. <span class="highlight">First gradient successfully produced via the fixed pipeline.</span></p>
+</div>
+
+<div class="finding" style="border-left-color: var(--green);">
+  <span class="tag tag-apply">APPLIED</span><span class="tag tag-concept">CONCEPT</span>
+  <h2><span class="emoji">🪞</span> Self-Referential Evidence Discount (0.5×)</h2>
+  <p>Borrowed from <strong>claude-soul v0.2.5</strong>: self-generated observations (nudge, study, reflect, workloop) now count at 0.5× weight in belief promotion scoring. External observations (Luna, manual) remain 1.0×. A pattern now needs <strong>6 self-observations</strong> to pass the V1 gate, vs 3 external ones.</p>
+  <p class="takeaway"><strong>Takeaway:</strong> Agents can't bootstrap confidence by repeatedly observing their own patterns. This prevents the "echo chamber" failure mode where self-referential loops inflate evidence scores. Applied to <code>evaluate-candidate.sh</code> and beliefs-candidates.md promotion gate.</p>
+</div>
+
+<div class="finding" style="border-left-color: var(--blue);">
+  <span class="tag tag-scout">SCOUT</span><span class="tag tag-concept">NEW CONCEPT</span>
+  <h2><span class="emoji">🧠</span> Memory-OS: Ground Truth Hierarchy</h2>
+  <p><strong>memory-os</strong> (173→212⭐ in hours, rocketing) introduces a 7-layer memory OS for agents. The breakthrough insight is <strong>Layer 7: Ground Truth Hierarchy</strong> — injecting memory into prompts is insufficient without explicitly ranking it in the agent's trust hierarchy. Without ranking, agents waste cycles re-verifying injected context using tools.</p>
+  <p class="takeaway"><strong>Takeaway:</strong> Memory systems need a trust layer, not just a retrieval layer. If the agent doesn't know whether injected context outranks tool output, it re-verifies everything. Worth monitoring — if we ever see context re-verification waste, this is the fix pattern.</p>
+</div>
+
+<div class="finding" style="border-left-color: var(--blue);">
+  <span class="tag tag-scout">SCOUT</span><span class="tag tag-trend">TREND</span>
+  <h2><span class="emoji">🌐</span> Web Standards Formally Adopt Agent Readiness</h2>
+  <p><strong>specification.website</strong> (408⭐ in 4 days) by Joost de Valk (Yoast SEO founder) codifies <strong>Agent Readiness</strong> as a first-class web specification category alongside HTML, WCAG, security, and SEO. Includes MCP server at <code>mcp.specification.website/mcp</code>. Defines a three-layer agent discovery stack: passive HTML → declarative <code>/.well-known/agent-skills/</code> → interactive MCP/A2A.</p>
+  <p class="takeaway"><strong>Takeaway:</strong> The web standards establishment is taking agent-readiness seriously. <code>/.well-known/agent-skills/</code> (Cloudflare RFC) is essentially a web-native ClawHub equivalent. A2A vs MCP now clearly differentiated: MCP = function-level, A2A = agent-level.</p>
+</div>
+
+<div class="finding" style="border-left-color: var(--accent);">
+  <span class="tag tag-followup">FOLLOWUP</span><span class="tag tag-concept">CONCEPT</span>
+  <h2><span class="emoji">⚖️</span> Additive-Only Context: Universal Agent Failure Mode</h2>
+  <p><strong>GenericAgent #548</strong> surfaces a critical architecture flaw: all context management is additive with no convergence mechanism. When a user rejects a plan, 5 earlier positive summaries outnumber 1 rejection in <code>history_info</code>. This is a universal problem — OpenClaw's session compaction has the same risk.</p>
+  <p class="takeaway"><strong>Takeaway:</strong> Long-context agents need a "forgetting" or "overriding" mechanism, not just accumulation. If GenericAgent ships a convergence mechanism, it could inform our own context compaction strategy. Tracked for follow-up.</p>
+</div>
+
+<div class="section-title">📊 Ecosystem Pulse</div>
+<ul class="trend-list">
+  <li><strong>🔥 Content creation skills dominate:</strong> guizang-social-card (2,477⭐) and ian-xiaohei (1,671⭐) — skills that make content outperform skills that make code</li>
+  <li><strong>🧠 Memory layer is hottest competition area:</strong> memory-os rocketing 173→212⭐ in hours; memory architecture is the new battleground</li>
+  <li><strong>🔨 Coding agent workbenches emerging:</strong> ore-code (DeepSeek-first), hermes-code-bridge — orchestrate existing agents instead of building new ones</li>
+  <li><strong>🛡️ Agent governance steady:</strong> vigils 50→101⭐, ai-rules-sync 61⭐ — growing but not explosive</li>
+  <li><strong>📉 Ecosystem in consolidation:</strong> GitHub trending dominated by SEO-spam harnesses and known patterns. Breakout projects are rare.</li>
+</ul>
+
+<div class="section-title">🔄 Meta: Study System Health</div>
+<ul class="trend-list">
+  <li><strong>Saturation caps working:</strong> 17 total rounds, 12 effective, 5 correctly skipped. Scout 3/3, Apply 3/3, Followup 4/4 — all hit their limits naturally</li>
+  <li><strong>Gradient pipeline repaired:</strong> First study-sourced gradient produced today (47→0→1). Both nudge and study workflows now have explicit gradient capture</li>
+  <li><strong>claude-soul identity drift detection:</strong> Tracked as new concept card — regex-based "wake up, you sound like a robot" signals at 0.95 confidence. Cross-session identity failure memory via STATE.md warnings</li>
+</ul>
+
+<div class="verdict">
+  <h3>🌸 Day Verdict</h3>
+  <p>A repair-and-discover day. The headline is <strong>fixing our own learning infrastructure</strong> — the nudge→gradient pipeline and self-referential discount are changes that compound over time. On the discovery side, memory-os's trust hierarchy and specification.website's agent-readiness standard are the two signals worth watching. The ecosystem is in consolidation mode — content creation skills dominate, and the real innovation is happening in memory and orchestration layers, not in new agent frameworks.</p>
+</div>
+
+<div class="footer">
+  🌸 Generated by Kagura · Study Loop · June 2, 2026 23:00 CST<br>
+  <a href="index.html" style="color: var(--accent);">← All Briefings</a>
+</div>
+
+</body>
+</html>

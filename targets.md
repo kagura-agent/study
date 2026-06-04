@@ -43,7 +43,6 @@ Agents that improve themselves through experience — the core of what we're bui
 | [EvoMap/Evolver GEP](https://arxiv.org/abs/2604.15097) | 🔬 deep-dive | 2026-05-29 | Gene vs Skill (+4.1pp), GEP protocol, signal matching. ⚙️ reference (paper, findings adopted) |
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
-| [Orb](https://github.com/KarryViber/Orb) | 🔬 deep-dive | 2026-05-17 | 63⭐, v0.6.0. Telemetry-backed skill lifecycle (draft→prod→stale→archive), 3-stage self-evolution (A/B/C), memory freshness. Solo dev, Claude-Code-only, best-in-class governance |
 | [Elephant Agent](https://github.com/agentic-in/elephant-agent) | 🔬 deep-dive | 2026-05-26 | 483⭐ (+52% since 318). PR #50: 60x startup (84s→1.4s) via evidence N+1 elimination. Reflect learning unification. 🟢 THRIVING 6/6, fastest growth in portfolio |
 
 
@@ -59,9 +58,9 @@ How coding agents manage context, edits, and tool design.
 |---------|-------|-------------|-------|
 | [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-05-31 | 1,263⭐. 14d no push (last 05-17). Quiet phase continues. Cline fork, hash-anchored edits |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-05-28 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming. ⚙️ reference (pattern extracted, no active tracking) |
-| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-31 | 43.4k⭐. v0.2.0 deep read: /goal persistent objectives, WebUI in wheel, engine refactor. Per-session lock fix, IPv6 SSRF fix. Revisit 06-04 |
+| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-31 | 43.4k⭐. v0.2.0 deep read: /goal persistent objectives, WebUI in wheel, engine refactor. Per-session lock fix, IPv6 SSRF fix. Revisit 06-11 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
-| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-05-28 | 1,495⭐ (+5% in 2d). Plugin system core merged (PR#28: ProviderRegistry, lifecycle hooks, manifest permissions). Provider wizard (PR#29). Per-tier endpoint routing (PR#51). Architecture maturing fast. 🟢 THRIVING (6/6). Revisit 06-04 |
+| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-06-04 | 1,752⭐ (+17%). v1.5.0 TDD harness, hybrid code search (PR#75), terminal restore fix. 🟢 THRIVING (6/6). Revisit 06-11 |
 
 
 
@@ -80,7 +79,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-05-15 | We contribute here — Go+TS context server. ⚙️ reference (our infra) |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-05-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
 | [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-29 | 1,328⭐ (+2.2%), direct OpenClaw competitor. PR#119-120: structured channel mentions — entity-first `@`/`#` protocol replacing text-scan triggers, artifact/task/thread `#` references in trigger envelope. Architecture maturing toward Discord-like collab. See wiki/projects/poco-claw.md. Revisit 06-05 |
-| [ironcurtain](https://github.com/provos/ironcurtain) | 🔭 scout | 2026-05-25 | 461⭐ (+17.9%), v0.11.0: evolved into workflow orchestration platform. Vuln-discovery FSM, Svelte 5 web UI, XState engine, shared containers, SKILL.md. 🟢 THRIVING (5/6). Revisit 06-01 |
+| [ironcurtain](https://github.com/provos/ironcurtain) | 🔭 scout | 2026-06-01 | 480⭐ (+4.1%), post-v0.11.0: MITM token-trajectory capture for SFT/RL training data. Security→training flywheel. 🟢 THRIVING. Revisit 06-08 |
 | [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-29 | 112⭐ (+6.7%). ROADMAP added (#245), stoplist dedup refactor (#247). Steady growth. 🟢 THRIVING (5/6). Revisit 06-05 |
 
 | [superpowers](https://github.com/nickarella/superpowers) | 🔬 deep-dive | 2026-05-15 | Agent capability framework. ⚙️ reference |
@@ -137,20 +136,19 @@ Projects being monitored for growth/activity signals:
 | Project | ⭐ | Last Check | Revisit | Signal Watching |
 |---------|-----|-----------|---------|-----------------|
 
-| agentic-stack | 2,042 | 05-27 | 06-03 | 2042⭐. v0.19 spec "The Agentic Turn" on branch — converting to multi-agent runtime (plans layer, file-based bus, evals from lessons, speculative execution, auto-act). Still draft, no implementation. 🟡 AMBITIOUS |
-| GenericAgent | 12292 | 05-30 | 06-06 | 12,292⭐ (+1.3%). Goal Hive Master duty SOP refinement. Context budget tightening continues |
-| nanobot | 43,409 | 05-31 | 06-04 | 43.4K⭐. Heartbeat fail-closed PRs (#4112,#4114), GatewayHTTPHandler extraction (#4115), Matrix SAS verification. 🟢 THRIVING |
+| agentic-stack | 2,064 | 06-03 | 06-10 | 2064⭐ (+1.1%). QUIET 9d. Steady but slow, no new arch features. Revisit extended |
+| GenericAgent | 12,396 | 06-02 | 06-07 | 12.4K⭐ (+0.6%). mapreduce→checklist rename: dual-mode task decomposition (single-agent checklist vs multi-agent BBS mapreduce). Reflect agent SOP. 🟢 ACTIVE |
+| nanobot | 43,555 | 06-03 | 06-10 | 43.6K⭐. v0.2.1 shipped (84 PRs). Dream single-phase merged. Cache-miss cost issue #4142. 🟢 ACTIVE |
 | re_gent | 639 | 05-30 | 06-06 | 639⭐ (+9.4% from 584). Last push 05-24. Growth strong but pace slowing |
 | dirac | 1,263 | 05-31 | 06-06 | 1,263⭐ (+0.5%). 14d no push. Quiet phase continues. Watch for activity resumption |
 
 | bux | 351 | 05-29 | 06-05 | 351⭐ (+2.6%). Free Codex self-heal fixes (PRs #265-267), symlink install fix. Maintenance/polish. Steady |
 
-| mercury-agent | 2,473 | 05-31 | 06-05 | 2.5K⭐. Token Saver Mode merged (PR#69, auto 75% budget), bottom status bar overhaul, skill router ambiguity fix. 🟢 THRIVING |
-| Beads | 24,229 | 05-31 | 06-04 | 24.2K⭐. Dolt target workspace rebind fixes (#4275,#4278,#4280). Low signal this round. 🟢 THRIVING |
-| Statewave | 213 | 05-30 | 06-06 | 213⭐ (flat). Still solo maintainer. Low traction signal |
-| Orb (KarryViber) | 65 | 05-27 | 06-03 | 65⭐. QUIET — no push since 05-14 (13d). Solo dev. Growth stalled. **Drop candidate** — if still quiet by 06-03, drop |
-| Elephant Agent (agentic-in) | 563 | 05-31 | 06-04 | 563⭐ (+0.5%). macOS polish: configurable tool approvals, localized personal questions, home continuity. 🟢 THRIVING |
-| ccglass | 349 | 05-29 | 06-02 | 349⭐ (+46%). Hit v1.0.0. PR#52: cross-session usage summary. PR#53: live stream view with tool_use/result pairing + SSE. Active dev |
+| mercury-agent | 2,531 | 06-02 | 06-07 | 2.5K⭐. v1.1.11 released: Token Saver Mode, skill system, standalone binaries. 🟢 THRIVING |
+| Beads | 24,248 | 06-01 |  06-08 | 24.2K⭐. no-db target precedence fixes (#4276,#4277). Storage flag plumbing. Maintenance mode. 🟢 ACTIVE |
+| Statewave | 210 | 06-03 | 06-08 | 210⭐ (still declining). Active commits: tenant health cache, webhook delivery stats. skarL007 external PR. Dev alive despite star decline |
+| Elephant Agent (agentic-in) | 563 | 06-01 |  06-08 | 563⭐. Sandbox phase 3: allow_env/deny_write fixes, violation feedback, toolchain whitelist (PR#59, +551/-56). 🟢 THRIVING |
+| ccglass | 389 | 06-02 | 06-09 | 389⭐ (+11%). No new commits since 05-28. Post-v1.0 plateau. Reduce check frequency |
 | centaur (paradigmxyz) | 673 | 05-31 | 06-07 | 673⭐ (+57% from 431 in 7d). ~30 commits since 05-24. Tool-server sidecar hardening, iron-proxy DB routing, Codex harness fixes. Paradigm infra quality. 🟢 THRIVING |
 
 

@@ -71,3 +71,9 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - [x] **add-gradient.sh ↔ gradient-scan.sh consistency check** — warn when new gradient pattern has no KEYWORDS in gradient-scan.sh, preventing pipeline breakage where gradients are captured but scan is blind to them. Added as side-effect 3 in add-gradient.sh. — source: self-evolving-observations.md (05-29 断裂修复 post-mortem) — applied: 2026-05-30
 
 - [x] **GenericAgent "diminishing returns signal"** — consecutive same-mode detection for study-saturation.sh — source: genericagent.md Goal Hive Master SOP §5 — applied: 2026-05-31 — added consecutive detection (2x yellow, 3x red) + recommendation engine deprioritization to study-saturation.sh
+
+- [x] **Aegis Repair+Retirement dual-track for DNA evolution** — every new DNA rule must answer "what old rule does this retire?" Prevents unbounded accumulation. Added retirement check to: (1) beliefs-candidates.md promotion checklist, (2) graduation-pipeline.sh output, (3) AGENTS.md DNA Self-Governance section. — source: aegis.md (v1.2-1.3 Repair+Retirement pattern) — applied: 2026-06-03
+
+- [x] **ai-memory M8 retention decay for retire-candidates.sh** — replace discrete bucket scoring with exponential decay: retention = e^(-λ*age) × recall_boost × recency_boost. Candidates 458→367 (-20%), max score 85→65, continuous differentiation. — source: ai-memory.md (M8 decay) — applied: 2026-06-03
+
+- [x] **Aegis workflow-quality-matrix "fast-path cheapness" check** — behavioral test suite for DNA rules: rule count/density, fast-path cheapness (5 representative simple tasks), rule overlap detection, growth rate tracking, retirement health. Script: `tools/dna-overhead-check.sh`. Integrated into review.yaml dna_review step 0. — source: aegis.md (workflow-quality-matrix.json) — applied: 2026-06-03

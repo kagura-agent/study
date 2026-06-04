@@ -131,6 +131,54 @@ if [[ $stale_count -eq 0 ]]; then
   echo "  ✅ All entries within TTL"
 fi
 
+# --- Cross-reference: TODO.md Track: items vs targets.md Tracking table ---
+echo ""
+echo "🔗 CROSS-REFERENCE (TODO.md ↔ targets.md):"
+echo "─────────────────────────────────────────"
+
+TODO_FILE="$HOME/.openclaw/workspace/TODO.md"
+mismatch_count=0
+
+if [[ -f "$TODO_FILE" ]]; then
+  # Extract open Track: items from TODO.md (project names)
+  TODO_PROJECTS=$(grep '^- \[ \] Track:' "$TODO_FILE" | sed 's/^- \[ \] Track: //' | sed 's/ -.*//' | sed 's/ ([^)]*)//' | sort)
+  
+  # Extract projects from targets.md Tracking table (bottom section)
+  # The tracking section starts after "## Tracking (revisit dates)"
+  TARGETS_PROJECTS=$(sed -n '/^## Tracking/,$ p' "$TARGETS" | grep '^|' | grep -v '^| Project\|^|---' | awk -F'|' '{print $2}' | xargs -I{} echo {} | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//' | sort)
+  
+  # Find items in TODO.md but NOT in targets.md tracking table
+  echo "  📋 In TODO.md Track: but NOT in targets.md tracking table:"
+  found_todo_only=false
+  while IFS= read -r proj; do
+    [[ -z "$proj" ]] && continue
+    # Fuzzy match: check if any word from proj appears in targets tracking section
+    proj_key=$(echo "$proj" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/ /g' | awk '{print $1}')
+    if ! echo "$TARGETS_PROJECTS" | tr '[:upper:]' '[:lower:]' | grep -q "$proj_key"; then
+      echo "    ⚠️  $proj"
+      ((mismatch_count++))
+      found_todo_only=true
+    fi
+  done <<< "$TODO_PROJECTS"
+  $found_todo_only || echo "    ✅ All TODO.md Track: items found in targets.md"
+  
+  # Find items in targets.md tracking table but NOT in TODO.md (stale entries?)
+  echo "  📊 In targets.md tracking table but NOT in TODO.md Track:" 
+  found_targets_only=false
+  while IFS= read -r proj; do
+    [[ -z "$proj" ]] && continue
+    proj_key=$(echo "$proj" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/ /g' | awk '{print $1}')
+    if ! grep -qi "Track:.*$proj_key" "$TODO_FILE" 2>/dev/null; then
+      echo "    ⚠️  $proj"
+      ((mismatch_count++))
+      found_targets_only=true
+    fi
+  done <<< "$TARGETS_PROJECTS"
+  $found_targets_only || echo "    ✅ All targets.md tracking items found in TODO.md"
+else
+  echo "  ❌ TODO.md not found, skipping cross-reference"
+fi
+
 echo ""
 echo "═══════════════════════════════════════════"
 echo "  Summary:"
@@ -138,13 +186,15 @@ echo "  Total entries: $total"
 echo "  Past-due revisit: $pastdue_count"
 echo "  Stale (TTL exceeded): $stale_count"
 echo "  DROPPED still listed: $dropped_count"
-echo "  Action needed: $((pastdue_count + stale_count + dropped_count))"
+echo "  Cross-ref mismatches: $mismatch_count"
+echo "  Action needed: $((pastdue_count + stale_count + dropped_count + mismatch_count))"
 echo "═══════════════════════════════════════════"
 
-if [[ $((pastdue_count + stale_count + dropped_count)) -gt 0 ]]; then
+if [[ $((pastdue_count + stale_count + dropped_count + mismatch_count)) -gt 0 ]]; then
   echo ""
   echo "💡 Recommended actions:"
   [[ $dropped_count -gt 0 ]] && echo "  • Remove DROPPED entries from tracking table"
   [[ $pastdue_count -gt 0 ]] && echo "  • Do followup on past-due items or update revisit dates"
   [[ $stale_count -gt 0 ]] && echo "  • Verify stale entries: still relevant? Update date or drop"
+  [[ $mismatch_count -gt 0 ]] && echo "  • Sync cross-ref: add missing items to targets.md or TODO.md"
 fi

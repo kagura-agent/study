@@ -24,9 +24,10 @@ How agents persist, retrieve, and reason about past experience.
 
 | [gastownhall/beads](https://github.com/gastownhall/beads) | 👁️ following | 2026-05-31 | 24.2k⭐, v1.0.5 gated (breaking migration), v1.0.6 in progress. See tracking table |
 | [krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) | 🔬 deep-dive | 2026-05-10 | 61⭐, Lakebase architecture (SQLite local + PG global), RAG failure mode taxonomy, temporal decay, nudgets. See wiki/projects/krusch-context-mcp.md |
-| [mnem](https://github.com/Uranid/mnem) | 🔬 deep-dive | 2026-05-05 | 18⭐, Rust, versioned KG + hybrid GraphRAG + content-addressed CIDs, WASM-clean core. Best-in-class retrieval benchmarks. See wiki/projects/mnem.md |
+| [mnem](https://github.com/Uranid/mnem) | 🔬 deep-dive | 2026-06-05 | 139⭐, Rust, versioned KG + hybrid GraphRAG + content-addressed CIDs, WASM-clean core. Best-in-class retrieval benchmarks. See wiki/projects/mnem.md |
 | [ClawMem](https://github.com/yoloshii/ClawMem) | 🔬 deep-dive | 2026-05-11 | 158⭐, on-device memory layer for Claude Code + OpenClaw + Hermes. BM25+Vector+Graph hybrid, content-type half-lives, 3-layer merge safety, intent-classified search. See wiki/projects/clawmem.md |
 | [TencentDB-Agent-Memory](https://github.com/Tencent/TencentDB-Agent-Memory) | 🔭 scout | 2026-05-22 | 3763⭐, Tencent. 4-tier progressive memory pipeline, fully local, zero external API deps. 20% merge rate, external PRs accepted. 32 open issues. |
+| [LLM-Wiki Paper](https://arxiv.org/abs/2605.25480) | 🔬 deep-dive | 2026-06-06 | arXiv:2605.25480, Tencent WeChat. Retrieval-as-Reasoning paradigm, Error Book self-correction. SOTA multi-hop QA. Validates our memex/wiki architecture. ⚙️ reference (paper, Error Book pattern applicable) |
 
 **Key question:** What's the right abstraction for agent memory — documents, graphs, or episodes?
 
@@ -39,7 +40,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | ACE (SambaNova) | 🔬 deep-dive | 2026-05-15 | beliefs→DNA architecture mirrors ours. ⚙️ reference (identity layer peer) |
-| [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-05-14 | 11.2k⭐, conductor multi-agent orchestrator, code review principles, context budget tightening |
+| [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-06-04 | 12,514⭐ (+49% in 5wk). goal_hive control theory rewrite (J*/Ĵ/y/e fractal loop). 🟢 THRIVING |
 | [EvoMap/Evolver GEP](https://arxiv.org/abs/2604.15097) | 🔬 deep-dive | 2026-05-29 | Gene vs Skill (+4.1pp), GEP protocol, signal matching. ⚙️ reference (paper, findings adopted) |
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
@@ -60,7 +61,7 @@ How coding agents manage context, edits, and tool design.
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-05-28 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming. ⚙️ reference (pattern extracted, no active tracking) |
 | [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-31 | 43.4k⭐. v0.2.0 deep read: /goal persistent objectives, WebUI in wheel, engine refactor. Per-session lock fix, IPv6 SSRF fix. Revisit 06-11 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
-| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-06-04 | 1,752⭐ (+17%). v1.5.0 TDD harness, hybrid code search (PR#75), terminal restore fix. 🟢 THRIVING (6/6). Revisit 06-11 |
+| [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-06-11 | 1,756⭐. v1.6.0 stable, no new commits since 05-31. 6 open issues (v1.6.0 regressions). 🟢 THRIVING. Revisit 06-11 |
 
 
 
@@ -137,16 +138,16 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,064 | 06-03 | 06-10 | 2064⭐ (+1.1%). QUIET 9d. Steady but slow, no new arch features. Revisit extended |
-| GenericAgent | 12,396 | 06-02 | 06-07 | 12.4K⭐ (+0.6%). mapreduce→checklist rename: dual-mode task decomposition (single-agent checklist vs multi-agent BBS mapreduce). Reflect agent SOP. 🟢 ACTIVE |
-| nanobot | 43,555 | 06-03 | 06-10 | 43.6K⭐. v0.2.1 shipped (84 PRs). Dream single-phase merged. Cache-miss cost issue #4142. 🟢 ACTIVE |
+| GenericAgent | 12,514 | 06-04 | 06-12 | 12.5K⭐. goal_hive control theory rewrite. Output DI refactoring. 🟢 ACTIVE |
+| nanobot | 43,609 | 06-04 | 06-12 | 43.6K⭐. PR #4186 proposes dual-phase Dream reversal + redaction + atomic writes. Issue #4179 A2A orchestration. MCP reconnect hardening. 🟢 ACTIVE | v0.2.1 released (84 PRs, WebUI workbench, long-run stability, CLI Apps+MCP). Azure AAD auth, hook snapshots. 43.7K⭐ |
 | re_gent | 639 | 05-30 | 06-06 | 639⭐ (+9.4% from 584). Last push 05-24. Growth strong but pace slowing |
 | dirac | 1,263 | 05-31 | 06-06 | 1,263⭐ (+0.5%). 14d no push. Quiet phase continues. Watch for activity resumption |
 
-| bux | 351 | 05-29 | 06-05 | 351⭐ (+2.6%). Free Codex self-heal fixes (PRs #265-267), symlink install fix. Maintenance/polish. Steady |
+| bux | 370⭐ | following | 06-12 | bootstrap self-heal fixes (05-26), stars 292→370 |
 
-| mercury-agent | 2,531 | 06-02 | 06-07 | 2.5K⭐. v1.1.11 released: Token Saver Mode, skill system, standalone binaries. 🟢 THRIVING |
-| Beads | 24,248 | 06-01 |  06-08 | 24.2K⭐. no-db target precedence fixes (#4276,#4277). Storage flag plumbing. Maintenance mode. 🟢 ACTIVE |
-| Statewave | 210 | 06-03 | 06-08 | 210⭐ (still declining). Active commits: tenant health cache, webhook delivery stats. skarL007 external PR. Dev alive despite star decline |
+| mercury-agent | 2,563 | 06-05 | 06-12 | 2.6K⭐. v1.1.12 daemon hotfix. Stars flat. Skill system converges with SKILL.md standard. 264 forks. 🟢 THRIVING |
+| Beads | 24,357 | 06-05 | 06-12 | 24.4K⭐ (+1.4%). Docs/CI fixes. No architectural changes. 1,623 forks. 🟢 ACTIVE |
+| Statewave | 207 | 06-05 | 06-12 | 207⭐ (-2.4% ⚠️ 3rd consecutive decline). Tenant-scoped health cache, dead-letter webhooks. Zero community. Consider drop next check |
 | Elephant Agent (agentic-in) | 563 | 06-01 |  06-08 | 563⭐. Sandbox phase 3: allow_env/deny_write fixes, violation feedback, toolchain whitelist (PR#59, +551/-56). 🟢 THRIVING |
 | ccglass | 389 | 06-02 | 06-09 | 389⭐ (+11%). No new commits since 05-28. Post-v1.0 plateau. Reduce check frequency |
 | centaur (paradigmxyz) | 673 | 05-31 | 06-07 | 673⭐ (+57% from 431 in 7d). ~30 commits since 05-24. Tool-server sidecar hardening, iron-proxy DB routing, Codex harness fixes. Paradigm infra quality. 🟢 THRIVING |
@@ -161,3 +162,4 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-05-31 | 364⭐ (from 191, +91%). Active (pushed 05-30). Google ADK, dual-memory (Weaviate+Neo4j) |
 | [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |
 | TrustClaw (ComposioHQ) | 718 | 05-29 | 06-06 | 718⭐ (+2.3%). 14d no commits. Stars still growing but development stalled. **Drop candidate** if no push by 06-06 |
+| ai-memory (akitaonrails) | 539 | 06-06 | 06-13 | 539⭐ (was 159 on 05-25, +239%). Cross-vendor agent memory becoming a real category. 🟢 THRIVING |

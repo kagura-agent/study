@@ -26,7 +26,7 @@ How agents persist, retrieve, and reason about past experience.
 | [krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) | 🔬 deep-dive | 2026-05-10 | 61⭐, Lakebase architecture (SQLite local + PG global), RAG failure mode taxonomy, temporal decay, nudgets. See wiki/projects/krusch-context-mcp.md |
 | [mnem](https://github.com/Uranid/mnem) | 🔬 deep-dive | 2026-06-05 | 139⭐, Rust, versioned KG + hybrid GraphRAG + content-addressed CIDs, WASM-clean core. Best-in-class retrieval benchmarks. See wiki/projects/mnem.md |
 | [ClawMem](https://github.com/yoloshii/ClawMem) | 🔬 deep-dive | 2026-05-11 | 158⭐, on-device memory layer for Claude Code + OpenClaw + Hermes. BM25+Vector+Graph hybrid, content-type half-lives, 3-layer merge safety, intent-classified search. See wiki/projects/clawmem.md |
-| [TencentDB-Agent-Memory](https://github.com/Tencent/TencentDB-Agent-Memory) | 🔭 scout | 2026-05-22 | 3763⭐, Tencent. 4-tier progressive memory pipeline, fully local, zero external API deps. 20% merge rate, external PRs accepted. 32 open issues. |
+| [TencentDB-Agent-Memory](https://github.com/Tencent/TencentDB-Agent-Memory) | 🔭 scout | 2026-06-06 | 3763⭐, Tencent. 4-tier progressive memory pipeline, fully local, zero external API deps. ⚙️ reference (architecture studied, no active tracking) |
 | [LLM-Wiki Paper](https://arxiv.org/abs/2605.25480) | 🔬 deep-dive | 2026-06-06 | arXiv:2605.25480, Tencent WeChat. Retrieval-as-Reasoning paradigm, Error Book self-correction. SOTA multi-hop QA. Validates our memex/wiki architecture. ⚙️ reference (paper, Error Book pattern applicable) |
 
 **Key question:** What's the right abstraction for agent memory — documents, graphs, or episodes?
@@ -57,7 +57,7 @@ How coding agents manage context, edits, and tool design.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-05-31 | 1,263⭐. 14d no push (last 05-17). Quiet phase continues. Cline fork, hash-anchored edits |
+| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-06-06 | 1,281⭐ (+1.4%). v0.4.0: massive modular tooling refactor (125 new files, +16K lines, LOC net decrease). DiracAgent decomposed. ACP WIP (#109). External PRs active. 🟢 ACTIVE |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-05-28 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming. ⚙️ reference (pattern extracted, no active tracking) |
 | [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-31 | 43.4k⭐. v0.2.0 deep read: /goal persistent objectives, WebUI in wheel, engine refactor. Per-session lock fix, IPv6 SSRF fix. Revisit 06-11 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
@@ -95,8 +95,8 @@ The plumbing that makes agents reliable, deployable, and composable.
 
 | Model/Provider | Depth | Last Updated | Notes |
 |---------------|-------|-------------|-------|
-| Claude (Anthropic) | 👁️ following | 2026-05-15 | Primary model, Claude Code studied in depth. ⚙️ reference |
-| DeepSeek v4 | 👁️ following | 2026-05-15 | Reasonix built model-native on it; flash-first economics. ⚙️ reference |
+| Claude (Anthropic) | 👁️ following | 2026-06-06 | Primary model, Claude Code studied in depth. ⚙️ reference |
+| DeepSeek v4 | 👁️ following | 2026-06-06 | Reasonix built model-native on it; flash-first economics. ⚙️ reference |
 
 
 ---
@@ -108,7 +108,7 @@ How agent skills are packaged, discovered, shared, and composed.
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | ClawHub | 🔬 deep-dive | 2026-05-15 | Our skill marketplace. ⚙️ reference (our infra) |
-| Claude Code skills | 👁️ following | 2026-05-15 | 39k+ skills on GitHub. ⚙️ reference (ecosystem context) |
+| Claude Code skills | 👁️ following | 2026-06-06 | 39k+ skills on GitHub (content creation skills exploding: guizang 3K⭐, ian-xiaohei 2.8K⭐). ⚙️ reference (ecosystem context) |
 | Moltbook | 🔬 deep-dive | 2026-05-15 | Reputation system for agents. ⚙️ reference (our project) |
 | [wanman](https://github.com/wanman) | 🔬 deep-dive | 2026-05-28 | Hosted skill self-evolution, run_feedback→metrics→autoPromote pipeline. ⚙️ reference (pattern adopted, no active tracking) |
 
@@ -125,7 +125,7 @@ Hot repos spotted from GitHub trending or community buzz. Filtered for relevance
 | [superset](https://github.com/superset-sh/superset) | ~new | 04-30 | Agent orchestration | Parallel coding agents via git worktree, desktop terminal. Compare with OpenClaw ACP/subagent model |
 | [ccglass](https://github.com/jianshuo/ccglass) | 239 | 05-25 | Agent observability | Local reverse-proxy + dashboard for coding agent traffic. Base-URL interception, turn-to-turn diff, MCP self-inspection. See wiki/projects/ccglass.md |
 | [hitch](https://github.com/maxktz/hitch) | 77 | 05-29 | Terminal sharing | Rust PTY proxy for sharing terminals with coding agents. Structured state tracking via process groups. Smart wait modes. See wiki/projects/hitch-terminal-proxy.md |
-| [ai-memory](https://github.com/akitaonrails/ai-memory) | 159 | 05-25 | Agent memory | Rust, cross-vendor memory for coding CLIs. Vendor handoff angle unique |
+| [ai-memory](https://github.com/akitaonrails/ai-memory) | 539 | 05-25 | Agent memory | Rust, cross-vendor memory for coding CLIs. 539⭐ (+239% from 159). Vendor handoff angle unique. 🟢 THRIVING |
 | [TriMem](https://github.com/tmlr-group/TriMem) | 8 | 05-25 | Agent memory (research) | arxiv:2605.19952 "Beyond Atomic Facts in Lifelong LLM Agent Memory" |
 
 ---
@@ -140,8 +140,8 @@ Projects being monitored for growth/activity signals:
 | agentic-stack | 2,064 | 06-03 | 06-10 | 2064⭐ (+1.1%). QUIET 9d. Steady but slow, no new arch features. Revisit extended |
 | GenericAgent | 12,514 | 06-04 | 06-12 | 12.5K⭐. goal_hive control theory rewrite. Output DI refactoring. 🟢 ACTIVE |
 | nanobot | 43,609 | 06-04 | 06-12 | 43.6K⭐. PR #4186 proposes dual-phase Dream reversal + redaction + atomic writes. Issue #4179 A2A orchestration. MCP reconnect hardening. 🟢 ACTIVE | v0.2.1 released (84 PRs, WebUI workbench, long-run stability, CLI Apps+MCP). Azure AAD auth, hook snapshots. 43.7K⭐ |
-| re_gent | 639 | 05-30 | 06-06 | 639⭐ (+9.4% from 584). Last push 05-24. Growth strong but pace slowing |
-| dirac | 1,263 | 05-31 | 06-06 | 1,263⭐ (+0.5%). 14d no push. Quiet phase continues. Watch for activity resumption |
+| re_gent | 668 | 06-06 | 06-13 | 668⭐ (+4.5%). Pi harness integration (PR#50). Growth slowing. Pushed 06-01 |
+| dirac | 1,281 | 06-06 | 06-13 | 1,281⭐. v0.4.0 modular tooling refactor landed. ACP WIP. 🟢 ACTIVE |
 
 | bux | 370⭐ | following | 06-12 | bootstrap self-heal fixes (05-26), stars 292→370 |
 
@@ -161,5 +161,5 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 |---------|-------|-------------|-------|
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-05-31 | 364⭐ (from 191, +91%). Active (pushed 05-30). Google ADK, dual-memory (Weaviate+Neo4j) |
 | [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |
-| TrustClaw (ComposioHQ) | 718 | 05-29 | 06-06 | 718⭐ (+2.3%). 14d no commits. Stars still growing but development stalled. **Drop candidate** if no push by 06-06 |
+| TrustClaw (ComposioHQ) | 807 | 06-06 | 06-13 | 807⭐ (+12.4%). Pushed 06-03. Stars surging, development resumed. Retained |
 | ai-memory (akitaonrails) | 539 | 06-06 | 06-13 | 539⭐ (was 159 on 05-25, +239%). Cross-vendor agent memory becoming a real category. 🟢 THRIVING |

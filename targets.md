@@ -66,7 +66,12 @@ How coding agents manage context, edits, and tool design.
 
 
 
+| [Tokenomics](https://arxiv.org/abs/2601.14470) | 🔬 deep-dive | 2026-06-07 | arXiv:2601.14470, MSR 2026. Code Review = 59.4% of tokens, input = 53.9% ("communication tax"). Validates TACO/context compression. ⚙️ reference (paper) |
+| [Harness Engineering](https://openai.com/index/harness-engineering/) | 🔬 deep-dive | 2026-06-07 | OpenAI blog. 1M LOC 0 human code, AGENTS.md as TOC (~100 lines), repo as system of record, agent-to-agent review. ⚙️ reference (industry practice) |
+
 **Key insight (Dirac):** Context curation is a multiplier — less context = better reasoning = lower cost. AST-native reads (file skeleton → drill into function) outperform full-file reads.
+
+**Key insight (Tokenomics):** Review/refinement = 59.4% of cost, not generation (8.6%). Input tokens = 53.9% → context compression (TACO, AST-native reads) has 2x leverage vs output compression.
 
 ---
 
@@ -147,10 +152,10 @@ Projects being monitored for growth/activity signals:
 
 | mercury-agent | 2,563 | 06-05 | 06-12 | 2.6K⭐. v1.1.12 daemon hotfix. Stars flat. Skill system converges with SKILL.md standard. 264 forks. 🟢 THRIVING |
 | Beads | 24,357 | 06-05 | 06-12 | 24.4K⭐ (+1.4%). Docs/CI fixes. No architectural changes. 1,623 forks. 🟢 ACTIVE |
-| Statewave | 207 | 06-05 | 06-12 | 207⭐ (-2.4% ⚠️ 3rd consecutive decline). Tenant-scoped health cache, dead-letter webhooks. Zero community. Consider drop next check |
-| Elephant Agent (agentic-in) | 563 | 06-01 |  06-08 | 563⭐. Sandbox phase 3: allow_env/deny_write fixes, violation feedback, toolchain whitelist (PR#59, +551/-56). 🟢 THRIVING |
+| Statewave | 207 | 06-06 | 06-12 | 207⭐ (flat). Re-evaluated: 55 ext PRs/30d, 6 issue authors, 5 commits today. Community healthier than stars suggest. Retain |
+| Elephant Agent (agentic-in) | 565 | 06-06 | 06-13 | 565⭐ (+0.4%). Sandbox phase 3 complete. macOS polish. Growth slowing. 🟢 ACTIVE |
 | ccglass | 389 | 06-02 | 06-09 | 389⭐ (+11%). No new commits since 05-28. Post-v1.0 plateau. Reduce check frequency |
-| centaur (paradigmxyz) | 673 | 05-31 | 06-07 | 673⭐ (+57% from 431 in 7d). ~30 commits since 05-24. Tool-server sidecar hardening, iron-proxy DB routing, Codex harness fixes. Paradigm infra quality. 🟢 THRIVING |
+| centaur (paradigmxyz) | 724 | 06-06 | 06-13 | 724⭐ (+7.6%). iron-control centralizes credentials (drops sidecar), CloudWatch tool, de-Paradigm-ification, Slack resilience. 🟢 THRIVING |
 
 
 ## Chat-to-Knowledge Infrastructure

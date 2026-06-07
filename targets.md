@@ -85,7 +85,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-05-15 | We contribute here — Go+TS context server. ⚙️ reference (our infra) |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-05-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
 | [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-29 | 1,328⭐ (+2.2%), direct OpenClaw competitor. PR#119-120: structured channel mentions — entity-first `@`/`#` protocol replacing text-scan triggers, artifact/task/thread `#` references in trigger envelope. Architecture maturing toward Discord-like collab. See wiki/projects/poco-claw.md. Revisit 06-05 |
-| [ironcurtain](https://github.com/provos/ironcurtain) | 🔭 scout | 2026-06-01 | 480⭐ (+4.1%), post-v0.11.0: MITM token-trajectory capture for SFT/RL training data. Security→training flywheel. 🟢 THRIVING. Revisit 06-08 |
+| [ironcurtain](https://github.com/provos/ironcurtain) | 👁️ following | 2026-06-07 | 492⭐ (+2.5%). PR#281: vuln-discovery hardening (fault-tolerant status parsing, poll deadlock fix, invariant-gated verdict downgrade, abort-masks-sink). Trace threading complete. Model→opus-4-8. 25 ext PRs/30d. 🟢 THRIVING. Revisit 06-14 |
 | [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-29 | 112⭐ (+6.7%). ROADMAP added (#245), stoplist dedup refactor (#247). Steady growth. 🟢 THRIVING (5/6). Revisit 06-05 |
 
 | [superpowers](https://github.com/nickarella/superpowers) | 🔬 deep-dive | 2026-05-15 | Agent capability framework. ⚙️ reference |
@@ -150,12 +150,13 @@ Projects being monitored for growth/activity signals:
 
 | bux | 370⭐ | following | 06-12 | bootstrap self-heal fixes (05-26), stars 292→370 |
 
-| mercury-agent | 2,563 | 06-05 | 06-12 | 2.6K⭐. v1.1.12 daemon hotfix. Stars flat. Skill system converges with SKILL.md standard. 264 forks. 🟢 THRIVING |
-| Beads | 24,357 | 06-05 | 06-12 | 24.4K⭐ (+1.4%). Docs/CI fixes. No architectural changes. 1,623 forks. 🟢 ACTIVE |
+| mercury-agent | 2,574 | 06-07 | 06-14 | 2.6K⭐ (+0.4%). 1 commit/5d (UI log collapse). Stars flat. 🟢 STABLE |
+| Beads | 24,390 | 06-07 | 06-14 | 24.4K⭐ (+0.1%). Dolt schema fixes, CI work. No architectural changes. 1,627 forks. 🟢 ACTIVE |
 | Statewave | 207 | 06-06 | 06-12 | 207⭐ (flat). Re-evaluated: 55 ext PRs/30d, 6 issue authors, 5 commits today. Community healthier than stars suggest. Retain |
 | Elephant Agent (agentic-in) | 565 | 06-06 | 06-13 | 565⭐ (+0.4%). Sandbox phase 3 complete. macOS polish. Growth slowing. 🟢 ACTIVE |
 | ccglass | 389 | 06-02 | 06-09 | 389⭐ (+11%). No new commits since 05-28. Post-v1.0 plateau. Reduce check frequency |
-| centaur (paradigmxyz) | 724 | 06-06 | 06-13 | 724⭐ (+7.6%). iron-control centralizes credentials (drops sidecar), CloudWatch tool, de-Paradigm-ification, Slack resilience. 🟢 THRIVING |
+| centaur (paradigmxyz) | 728 | 06-07 | 06-14 | 728⭐ (+0.6%). Minor fixes only (SimilarWeb, Slack requester). No new arch patterns. 🟢 STABLE |
+| ironcurtain (provos) | 492 | 06-07 | 06-14 | 492⭐ (+2.5%). vuln-discovery hardening PR#281. 25 ext PRs/30d. 🟢 THRIVING |
 
 
 ## Chat-to-Knowledge Infrastructure
@@ -165,6 +166,6 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-05-31 | 364⭐ (from 191, +91%). Active (pushed 05-30). Google ADK, dual-memory (Weaviate+Neo4j) |
-| [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 19⭐, Rust, purest thin-harness: 1 tool (bash), immutable kernel, verify contract, hook system. macOS-only. See wiki/projects/lazar.md |
+| [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 21⭐, Rust, purest thin-harness. macOS-only. ⚙️ reference (archived — 32d no push, stale) |
 | TrustClaw (ComposioHQ) | 807 | 06-06 | 06-13 | 807⭐ (+12.4%). Pushed 06-03. Stars surging, development resumed. Retained |
 | ai-memory (akitaonrails) | 539 | 06-06 | 06-13 | 539⭐ (was 159 on 05-25, +239%). Cross-vendor agent memory becoming a real category. 🟢 THRIVING |

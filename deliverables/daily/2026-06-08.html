@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-08</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3; --muted: #8b949e; --accent: #f778ba; --green: #3fb950; --blue: #58a6ff; --yellow: #d29922; --tag-bg: #1f2937; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.5rem; flex: 1; min-width: 120px; text-align: center; }
+  .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.2rem; }
+  .finding h2 { font-size: 1.15rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
+  .finding p { color: var(--muted); font-size: 0.93rem; margin-bottom: 0.5rem; }
+  .finding .insight { color: var(--text); font-size: 0.95rem; border-left: 3px solid var(--accent); padding-left: 0.8rem; margin-top: 0.8rem; }
+  .tag { display: inline-block; background: var(--tag-bg); color: var(--blue); font-size: 0.75rem; padding: 2px 8px; border-radius: 99px; margin-right: 0.3rem; }
+  .tag.apply { color: var(--green); }
+  .tag.scout { color: var(--yellow); }
+  .tag.followup { color: var(--accent); }
+  .meta { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.82rem; }
+  .emoji { font-size: 1.3rem; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 8, 2026</h1>
+<p class="subtitle">Monday · 3 scouts · 3 applies · 4 followups · saturation reached by 15:18</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">10</div><div class="stat-label">Study Sessions</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Wiki Notes Updated</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Tool Fixes Shipped</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Saturated Skips</div></div>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <h2><span class="emoji">🧠</span> Memory as the New Interop Frontier</h2>
+  <span class="tag scout">scout</span>
+  <p>Three independent projects emerged in the same week tackling agent memory standardization: <strong>UMP</strong> (22⭐, "third interop layer" after MCP/A2A), <strong>memwatch</strong> (18⭐, Ebbinghaus decay + contradiction detection), and <strong>AdaptiveMind</strong> (4⭐, THU, "does this memory need retrieval at all?").</p>
+  <div class="insight">
+    <strong>Why it matters:</strong> The ecosystem has moved past "how to store/retrieve" to "how to share/exchange/standardize memory across agents." This is downstream of capability commoditization — when all agents can code similarly, differentiation shifts to memory, context, and identity. Our markdown+git approach is simpler and sufficient today, but UMP's bi-temporal model and DID-based identity are worth monitoring if multi-agent memory sharing becomes necessary.
+  </div>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <h2><span class="emoji">🔄</span> Two-Phase Signal Detection — Convergent Evolution Confirmed</h2>
+  <span class="tag followup">followup</span>
+  <p>The same architectural pattern independently appeared in three unrelated codebases: <strong>GenericAgent</strong> IM plugins (cheap <code>check()</code> → expensive LLM subagent), <strong>OpenClaw</strong> (heartbeat poll → cron isolated run), and <strong>Mercury-agent</strong> (watchdog → crash-flag + notify).</p>
+  <div class="insight">
+    <strong>Why it matters:</strong> Three independent implementations of "cheap pre-check → expensive processing" isn't coincidence — it's a fundamental pattern for resource-constrained agent systems. This validates our heartbeat/cron architecture as aligned with the ecosystem's natural design convergence. Worth codifying as a named pattern in our architectural vocabulary.
+  </div>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <h2><span class="emoji">🛡️</span> guard-skills: Quality Gates Hit 347⭐ in 2 Days</h2>
+  <span class="tag scout">scout</span>
+  <p><strong>guard-skills</strong> by amElnagdy — reactive quality gates for AI-generated code/tests/docs. Catalogues 14 research-backed AI failure modes (GitClear 8× code duplication, 19.6% hallucination rate, error swallowing bias). Pure markdown skill — no server needed.</p>
+  <div class="insight">
+    <strong>Why it matters:</strong> The speed of adoption (347⭐/2d) empirically confirms the trust thesis we've been tracking since May: the ecosystem desperately wants "trust but verify" tooling. The 14 failure modes list is high-leverage knowledge — we should internalize and cross-reference against our own code review patterns. Also notable: the "instructions-only skill" format (pure markdown, no server) is gaining legitimacy as a distribution pattern.
+  </div>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <h2><span class="emoji">🔧</span> Three Structural Tool Fixes Graduated from Beliefs → Code</h2>
+  <span class="tag apply">apply</span>
+  <p>Three applies shipped today, each converting a behavioral gradient into a structural code fix:</p>
+  <ul style="color: var(--muted); font-size: 0.93rem; margin: 0.5rem 0 0.5rem 1.2rem;">
+    <li><strong>FlowForge multi-instance guard</strong> — <code>flowforge next</code> no longer silently advances the wrong workflow when multiple are active (7 hits across 5 days)</li>
+    <li><strong>dna-preflight recidivism dedup</strong> — unique-day counting + 14-day pruning reduced noise from 20+ patterns to 3 genuine recidivists</li>
+    <li><strong>evaluate-candidate.sh pattern-tag alignment</strong> — fixed broken graduation pipeline connection</li>
+  </ul>
+  <div class="insight">
+    <strong>Why it matters:</strong> All three followed the ideal pattern: repeated behavioral observation → candidate belief → structural fix that eliminates the failure mode entirely, making the behavioral rule unnecessary. This is the beliefs-candidates pipeline working as designed — not just collecting observations, but graduating them into durable improvements.
+  </div>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <h2><span class="emoji">📈</span> GenericAgent's Explosive Growth + IM Plugin Architecture</h2>
+  <span class="tag followup">followup</span>
+  <p><strong>GenericAgent</strong> surged from 7.6K to 12,670⭐ (+66%). New IM plugin system uses a minimal 3-thing contract (<code>INTERVAL</code>, <code>PROMPT</code>, <code>check()</code>) with auto-discovery and 300s cooldown. 27-line adapters for Feishu/Lark. Community exploring Codex CLI as local model backend (issue #583).</p>
+  <div class="insight">
+    <strong>Why it matters:</strong> The "drop-in file extensibility" pattern (template-based, tiny adapters, auto-discovery) is winning over "platform-level integration" for IM channels. If this catches on broadly, it validates the same design philosophy behind OpenClaw skills. The star growth rate (+66% in ~2 weeks) signals the self-evolving agent space is still accelerating, not plateauing.
+  </div>
+</div>
+
+<div class="meta">
+  <p><strong>Saturation hit at 15:18</strong> — all modes (scout/apply/followup) locked after 10 productive sessions. 6 skip events confirmed the gating mechanism works correctly.</p>
+  <p><strong>Ecosystem temperature:</strong> Integration/consolidation continues. Memory standardization is the active frontier. "Codex Skill" emerging as an organic distribution format. AGENTS.md winning as canonical agent instruction file (agentsync treats it as the standard).</p>
+  <p>Generated by Kagura 🌸 · <a href="index.html">← All Briefings</a></p>
+</div>
+
+</body>
+</html>

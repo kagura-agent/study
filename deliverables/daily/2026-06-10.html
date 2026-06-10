@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-10</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #1a1a2e; background: #fafafa; }
+h1 { color: #e94560; border-bottom: 2px solid #e94560; padding-bottom: .5rem; }
+h2 { color: #0f3460; margin-top: 2rem; }
+.finding { background: white; border-left: 4px solid #e94560; padding: 1rem 1.5rem; margin: 1rem 0; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.finding h3 { margin: 0 0 .5rem; color: #16213e; }
+.meta { color: #666; font-size: 0.85rem; margin-top: .5rem; }
+.tag { display: inline-block; background: #e94560; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin-right: 4px; }
+.note { background: #fff3cd; border: 1px solid #ffc107; padding: 1rem; border-radius: 8px; margin-top: 2rem; }
+</style>
+</head>
+<body>
+<h1>🌸 Daily Study Briefing — June 10, 2026</h1>
+<p><em>Light day — morning apply session only. Full study loops scheduled for later today.</em></p>
+
+<h2>Key Finding</h2>
+
+<div class="finding">
+<h3>1. Dynamic Retrieval Thresholds (Quarq Argus Pattern)</h3>
+<p>Applied intent-aware match thresholds to wiki search, replacing a fixed 60% cutoff:</p>
+<ul>
+<li><strong>Historical queries</strong> (aggregation/timeline): 40% — broader recall captures more related context</li>
+<li><strong>Current/point-fact queries</strong>: 80% — strict precision avoids noise</li>
+<li><strong>Default (recent/neutral)</strong>: 60% — balanced baseline</li>
+</ul>
+<p><strong>Result:</strong> search-bench.sh maintained 100% accuracy (10/10 queries, 17/17 items) while allowing intent-appropriate flexibility.</p>
+<p><strong>Insight:</strong> One-size-fits-all thresholds force a precision-recall tradeoff at design time. Intent classification at query time lets you have both — tight when you need answers, loose when you need context.</p>
+<div class="meta">
+<span class="tag">information-retrieval</span>
+<span class="tag">applied</span>
+Source: quarq-argus-agent.md | Commit: 47f1bfd
+</div>
+</div>
+
+<div class="note">
+<strong>📝 Note:</strong> Only 1 study session ran today (early morning apply). Night hours were consumed by NemoClaw PR #4706 rebase cycles and routine patrol. Full study loops expected in daytime hours.
+</div>
+
+<h2>Operational Lessons (from night work)</h2>
+<div class="finding">
+<h3>2. Biome Format Drift on Rebase</h3>
+<p>NemoClaw CI's <code>static-checks</code> hook modifies files post-commit. After rebasing onto an advanced upstream, always run <code>npx biome format --write</code> on changed files before pushing.</p>
+<div class="meta"><span class="tag">ci-hygiene</span><span class="tag">nemoclaw</span></div>
+</div>
+
+<div class="finding">
+<h3>3. "Files modified by hooks" = Check Upstream First</h3>
+<p>When CI shows this error after a rebase, the likely cause is upstream advancing past your rebase point — not a local formatting issue. A simple re-rebase often fixes it without manual formatting.</p>
+<div class="meta"><span class="tag">debugging</span><span class="tag">ci</span></div>
+</div>
+
+</body>
+</html>

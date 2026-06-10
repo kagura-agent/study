@@ -71,7 +71,8 @@ while IFS= read -r line; do
 
   # Find owner/repo from the map
   # Try exact name first, then try the name part before parentheses
-  clean_name=$(echo "$project" | sed 's/ (.*//')
+  # Strip markdown link syntax: [Name](url) → Name
+  clean_name=$(echo "$project" | sed 's/^\[\([^]]*\)\].*/\1/' | sed 's/ (.*//')
   owner_repo=""
   for key in "${!REPO_MAP[@]}"; do
     if [[ "$key" == "$clean_name" || "$key" == "$project" ]]; then
@@ -83,7 +84,7 @@ while IFS= read -r line; do
   # If not found by name, try case-insensitive
   if [[ -z "$owner_repo" ]]; then
     for key in "${!REPO_MAP[@]}"; do
-      if echo "$key" | grep -qi "^${clean_name}$"; then
+      if [[ "${key,,}" == "${clean_name,,}" ]]; then
         owner_repo="${REPO_MAP[$key]}"
         break
       fi
@@ -120,7 +121,7 @@ while IFS= read -r line; do
   fi
 
   if [[ -z "$owner_repo" ]]; then
-    echo "  ⚠️  $project — no repo URL found in targets.md or wiki/projects/"
+    echo "  ⚠️  $clean_name — no repo URL found in targets.md or wiki/projects/"
     ((error_count++)) || true
     ((total++)) || true
     continue
@@ -130,7 +131,7 @@ while IFS= read -r line; do
   pushed_at=$(gh api "repos/$owner_repo" --jq '.pushed_at' 2>/dev/null || echo "ERROR")
   
   if [[ "$pushed_at" == "ERROR" || -z "$pushed_at" ]]; then
-    echo "  ❌ $project ($owner_repo) — API error"
+    echo "  ❌ $clean_name ($owner_repo) — API error"
     ((error_count++)) || true
     ((total++)) || true
     continue
@@ -144,12 +145,12 @@ while IFS= read -r line; do
   
   if [[ "$pushed_date" > "$last_check_full" || "$pushed_date" == "$last_check_full" ]]; then
     days_since=$(( ($(date -d "$TODAY" +%s) - $(date -d "$pushed_date" +%s)) / 86400 ))
-    echo "  🟢 ACTIVE  $project ($owner_repo)"
+    echo "  🟢 ACTIVE  $clean_name ($owner_repo)"
     echo "             pushed: $pushed_date (${days_since}d ago) | last check: $last_check | revisit: ${revisit:-?}"
     ((active_count++)) || true
   else
     days_since=$(( ($(date -d "$TODAY" +%s) - $(date -d "$pushed_date" +%s)) / 86400 ))
-    echo "  ⚪ QUIET   $project ($owner_repo)"
+    echo "  ⚪ QUIET   $clean_name ($owner_repo)"
     echo "             pushed: $pushed_date (${days_since}d ago) | last check: $last_check | revisit: ${revisit:-?}"
     ((quiet_count++)) || true
   fi

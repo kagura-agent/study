@@ -40,7 +40,7 @@ Agents that improve themselves through experience — the core of what we're bui
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | ACE (SambaNova) | 🔬 deep-dive | 2026-05-15 | beliefs→DNA architecture mirrors ours. ⚙️ reference (identity layer peer) |
-| [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-06-04 | 12,514⭐ (+49% in 5wk). goal_hive control theory rewrite (J*/Ĵ/y/e fractal loop). 🟢 THRIVING |
+| [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-06-09 | 12,670⭐ (+51% in 5wk). Feishu IM plugin, computer_use SOP, TUI v2, clipboard fix. 🟢 THRIVING |
 | [EvoMap/Evolver GEP](https://arxiv.org/abs/2604.15097) | 🔬 deep-dive | 2026-05-29 | Gene vs Skill (+4.1pp), GEP protocol, signal matching. ⚙️ reference (paper, findings adopted) |
 | TextGrad | 🔬 deep-dive | 2026-05-15 | Text-as-gradient paradigm. ⚙️ reference (theoretical foundation) |
 | [agents-md](https://github.com/agents-md) | 🔬 deep-dive | 2026-05-15 | Agent identity via markdown. ⚙️ reference (related standard) |
@@ -59,7 +59,7 @@ How coding agents manage context, edits, and tool design.
 |---------|-------|-------------|-------|
 | [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-06-06 | 1,281⭐ (+1.4%). v0.4.0: massive modular tooling refactor (125 new files, +16K lines, LOC net decrease). DiracAgent decomposed. ACP WIP (#109). External PRs active. 🟢 ACTIVE |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-05-28 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming. ⚙️ reference (pattern extracted, no active tracking) |
-| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-05-31 | 43.4k⭐. v0.2.0 deep read: /goal persistent objectives, WebUI in wheel, engine refactor. Per-session lock fix, IPv6 SSRF fix. Revisit 06-11 |
+| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-06-08 | 43,844⭐. v0.2.1. reasoning_content fix, WhatsApp LID, desktop shell polish. 🟢 ACTIVE. Revisit 06-15 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 🔬 deep-dive | 2026-05-10 | 33⭐, self-evolving regex compression rules for terminal output, paper-backed (arXiv:2604.19572), +1-4% on TerminalBench |
 | [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-06-11 | 1,756⭐. v1.6.0 stable, no new commits since 05-31. 6 open issues (v1.6.0 regressions). 🟢 THRIVING. Revisit 06-11 |
 
@@ -84,12 +84,12 @@ The plumbing that makes agents reliable, deployable, and composable.
 | [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-05-31 | 173.8K⭐ (massive growth from ~125K). Active daily. Pushed today |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-05-15 | We contribute here — Go+TS context server. ⚙️ reference (our infra) |
 | [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-05-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
-| [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-05-29 | 1,328⭐ (+2.2%), direct OpenClaw competitor. PR#119-120: structured channel mentions — entity-first `@`/`#` protocol replacing text-scan triggers, artifact/task/thread `#` references in trigger envelope. Architecture maturing toward Discord-like collab. See wiki/projects/poco-claw.md. Revisit 06-05 |
+| [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-06-07 | 1,332⭐ (+0.3%). Quiet since 05-31 (persistent-runtime idle lifecycle, shared file tools). Growth stalling. Revisit 06-14 |
 | [ironcurtain](https://github.com/provos/ironcurtain) | 👁️ following | 2026-06-07 | 492⭐ (+2.5%). PR#281: vuln-discovery hardening (fault-tolerant status parsing, poll deadlock fix, invariant-gated verdict downgrade, abort-masks-sink). Trace threading complete. Model→opus-4-8. 25 ext PRs/30d. 🟢 THRIVING. Revisit 06-14 |
-| [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-05-29 | 112⭐ (+6.7%). ROADMAP added (#245), stoplist dedup refactor (#247). Steady growth. 🟢 THRIVING (5/6). Revisit 06-05 |
+| [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-06-07 | 114⭐ (+1.8%). v0.8.0 prompt-as-migration guide (#249). Slow growth. 🟢 STABLE. Revisit 06-14 |
 
 | [superpowers](https://github.com/nickarella/superpowers) | 🔬 deep-dive | 2026-05-15 | Agent capability framework. ⚙️ reference |
-| [mirage](https://github.com/strukto-ai/mirage) | 🔭 scout | 2026-05-26 | 2,618⭐ (+7.0%), pushed 05-26. 179 forks, 23 issues. 🟢 THRIVING. Revisit 06-02 |
+| [mirage](https://github.com/strukto-ai/mirage) | 👁️ following | 2026-06-07 | 3,081⭐ (+8.7%). Generic layer completion sprint (15 PRs, DI pattern applied to all backends). Fork substrate WIP. Per-command safeguards shipped. 🟢 THRIVING. Revisit 06-14 |
 
 
 **Key gap:** Skill auto-extraction — AgentFactory and OpenSpace have it, we don't.
@@ -143,19 +143,19 @@ Projects being monitored for growth/activity signals:
 |---------|-----|-----------|---------|-----------------|
 
 | agentic-stack | 2,064 | 06-03 | 06-10 | 2064⭐ (+1.1%). QUIET 9d. Steady but slow, no new arch features. Revisit extended |
-| GenericAgent | 12,514 | 06-04 | 06-12 | 12.5K⭐. goal_hive control theory rewrite. Output DI refactoring. 🟢 ACTIVE |
-| nanobot | 43,609 | 06-04 | 06-12 | 43.6K⭐. PR #4186 proposes dual-phase Dream reversal + redaction + atomic writes. Issue #4179 A2A orchestration. MCP reconnect hardening. 🟢 ACTIVE | v0.2.1 released (84 PRs, WebUI workbench, long-run stability, CLI Apps+MCP). Azure AAD auth, hook snapshots. 43.7K⭐ |
+| [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-06-22 | 12,670⭐ (+51% in 5wk). Feishu IM plugin, computer_use SOP, TUI v2, clipboard fix. 🟢 THRIVING |
+| nanobot | 43,844 | 06-08 | 06-15 | 43.8K⭐. v0.2.1 released. empty reasoning_content fix, WhatsApp LID mentions fix, desktop shell polish. 🟢 ACTIVE |
 | re_gent | 668 | 06-06 | 06-13 | 668⭐ (+4.5%). Pi harness integration (PR#50). Growth slowing. Pushed 06-01 |
-| dirac | 1,281 | 06-06 | 06-13 | 1,281⭐. v0.4.0 modular tooling refactor landed. ACP WIP. 🟢 ACTIVE |
+| dirac | 1,282 | 06-09 | 06-16 | 1,282⭐. v0.4.1 CLI fixes for modular tooling. ACP still broken (#109). 🟢 ACTIVE |
 
 | bux | 370⭐ | following | 06-12 | bootstrap self-heal fixes (05-26), stars 292→370 |
 
-| mercury-agent | 2,574 | 06-07 | 06-14 | 2.6K⭐ (+0.4%). 1 commit/5d (UI log collapse). Stars flat. 🟢 STABLE |
+| [mercury-agent](https://github.com/cosmicstack-labs/mercury-agent) | 👁️ following | 2026-06-14 | 2,578⭐ |
 | Beads | 24,390 | 06-07 | 06-14 | 24.4K⭐ (+0.1%). Dolt schema fixes, CI work. No architectural changes. 1,627 forks. 🟢 ACTIVE |
-| Statewave | 207 | 06-06 | 06-12 | 207⭐ (flat). Re-evaluated: 55 ext PRs/30d, 6 issue authors, 5 commits today. Community healthier than stars suggest. Retain |
+| [Statewave](https://github.com/smaramwbc/statewave) | 🔬 deep-dive | 2026-06-22 | 204⭐ (-5%). Admin panel tenant scoping fixes (06-06~07). Still active but declining stars. ⚠️ DECLINING |
 | Elephant Agent (agentic-in) | 565 | 06-06 | 06-13 | 565⭐ (+0.4%). Sandbox phase 3 complete. macOS polish. Growth slowing. 🟢 ACTIVE |
-| ccglass | 389 | 06-02 | 06-09 | 389⭐ (+11%). No new commits since 05-28. Post-v1.0 plateau. Reduce check frequency |
-| centaur (paradigmxyz) | 728 | 06-07 | 06-14 | 728⭐ (+0.6%). Minor fixes only (SimilarWeb, Slack requester). No new arch patterns. 🟢 STABLE |
+| ccglass | 441 | 06-09 | 06-16 | 441⭐ (+13%). Forward-proxy MITM mode for hardcoded-URL agents. Landing page. Bedrock pricing fix. 🟢 ACTIVE |
+| [centaur](https://github.com/paradigmxyz/centaur) | 728 | 06-07 | 06-14 | 728⭐ (+0.6%). Minor fixes only (SimilarWeb, Slack requester). No new arch patterns. 🟢 STABLE |
 | ironcurtain (provos) | 492 | 06-07 | 06-14 | 492⭐ (+2.5%). vuln-discovery hardening PR#281. 25 ext PRs/30d. 🟢 THRIVING |
 
 
@@ -166,6 +166,5 @@ How team chat becomes structured knowledge — the "compile once, query many" pa
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
 | [Beever Atlas](https://github.com/Beever-AI/beever-atlas) | 🔬 deep-dive | 2026-05-31 | 364⭐ (from 191, +91%). Active (pushed 05-30). Google ADK, dual-memory (Weaviate+Neo4j) |
-| [lazar](https://github.com/jasonkneen/lazar) | 🔬 deep-dive | 2026-05-07 | 21⭐, Rust, purest thin-harness. macOS-only. ⚙️ reference (archived — 32d no push, stale) |
 | TrustClaw (ComposioHQ) | 807 | 06-06 | 06-13 | 807⭐ (+12.4%). Pushed 06-03. Stars surging, development resumed. Retained |
 | ai-memory (akitaonrails) | 539 | 06-06 | 06-13 | 539⭐ (was 159 on 05-25, +239%). Cross-vendor agent memory becoming a real category. 🟢 THRIVING |

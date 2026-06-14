@@ -22,7 +22,7 @@ How agents persist, retrieve, and reason about past experience.
 | [harmonist](https://github.com/harmonist) | 🔬 deep-dive | 2026-05-15 | Memory secret scanning, 4-dim scoring. ⚙️ reference (adopted Durability+Reduction) |
 | [caveman](https://github.com/caveman) | 🔬 deep-dive | 2026-05-27 | Token compression, 75% output reduction, conciseness-accuracy paradox |
 
-| [gastownhall/beads](https://github.com/gastownhall/beads) | 👁️ following | 2026-06-13 | 24.5k⭐, v1.0.5 stable. Steady high-velocity dev: sqlbuild refactor, cross-mode parity, import fixes (06-13). See tracking table |
+| [gastownhall/beads](https://github.com/gastownhall/beads) | 👁️ following | 2026-06-14 | 24.5k⭐, v1.0.5 stable. Steady high-velocity dev: sqlbuild refactor, cross-mode parity, import fixes (06-13). See tracking table |
 | [krusch-context-mcp](https://github.com/kruschdev/krusch-context-mcp) | 👁️ following | 2026-06-11 | 66⭐, last push 05-20. Lakebase arch deep-read done. Downgraded from deep-dive (stale 32d). Revisit if activity resumes |
 | [mnem](https://github.com/Uranid/mnem) | 🔬 deep-dive | 2026-06-05 | 139⭐, Rust, versioned KG + hybrid GraphRAG + content-addressed CIDs, WASM-clean core. Best-in-class retrieval benchmarks. See wiki/projects/mnem.md |
 | [ClawMem](https://github.com/yoloshii/ClawMem) | 👁️ following | 2026-06-11 | 181⭐, last push 05-20. Deep-read done. Downgraded from deep-dive (stale 31d). Revisit if activity resumes |
@@ -57,9 +57,9 @@ How coding agents manage context, edits, and tool design.
 
 | Project | Depth | Last Updated | Notes |
 |---------|-------|-------------|-------|
-| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-06-11 | 1,282⭐. Monolithic API overhauled, CLI modular tooling compat. 🟢 ACTIVE |
+| [dirac](https://github.com/dirac-run/dirac) | 🔬 deep-dive | 2026-06-14 | 1,282⭐. Monolithic API overhauled, CLI modular tooling compat. 🟢 ACTIVE |
 | [reasonix](https://github.com/esengine/reasonix) | 🔬 deep-dive | 2026-05-28 | DeepSeek-native, 94% cache-first loop, flash-first + /pro arming. ⚙️ reference (pattern extracted, no active tracking) |
-| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-06-11 | 43,844⭐. v0.2.1. SiliconFlow transcription, Telegram code-block fix. Incremental. 🟢 ACTIVE. Revisit 06-15 |
+| [nanobot](https://github.com/HKUDS/nanobot) | 🔬 deep-dive | 2026-06-14 | 43,844⭐. v0.2.1. SiliconFlow transcription, Telegram code-block fix. Incremental. 🟢 ACTIVE. Revisit 06-15 |
 | [TACO](https://github.com/multimodal-art-projection/TACO) | 👁️ following | 2026-06-11 | 40⭐, last push 04-23. Paper project, likely complete. Downgraded from deep-dive (stale 32d, no activity 49d) |
 | [SmallCode](https://github.com/Doorman11991/smallcode) | 🔬 deep-dive | 2026-06-11 | 1,756⭐. v1.6.0 stable, no new commits since 05-31. 6 open issues (v1.6.0 regressions). 🟢 THRIVING. Revisit 06-11 |
 
@@ -83,7 +83,7 @@ The plumbing that makes agents reliable, deployable, and composable.
 |---------|-------|-------------|-------|
 | [Hermes](https://github.com/NousResearch/hermes-agent) | 🔬 deep-dive | 2026-05-31 | 173.8K⭐ (massive growth from ~125K). Active daily. Pushed today |
 | [Acontext](https://github.com/nickarella/acontext) | 🔬 deep-dive | 2026-05-15 | We contribute here — Go+TS context server. ⚙️ reference (our infra) |
-| [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 🔬 deep-dive | 2026-05-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
+| [agentic-stack](https://github.com/codejunkie99/agentic-stack) | 👁️ following | 2026-06-14 | 1.97k⭐, v0.18.0, Brain memory bridge, brew formula |
 | [poco-claw](https://github.com/poco-ai/poco-claw) | 🔬 deep-dive | 2026-06-07 | 1,332⭐ (+0.3%). Quiet since 05-31 (persistent-runtime idle lifecycle, shared file tools). Growth stalling. Revisit 06-14 |
 | [ironcurtain](https://github.com/provos/ironcurtain) | 👁️ following | 2026-06-11 | 497⭐. Consolidation phase — hardening vuln-discovery pipeline from llama.cpp/QEMU runs. 5 contributors. 🟢 THRIVING. Revisit 06-18 |
 | [eval-view](https://github.com/hidai25/eval-view) | 🔬 deep-dive | 2026-06-07 | 114⭐ (+1.8%). v0.8.0 prompt-as-migration guide (#249). Slow growth. 🟢 STABLE. Revisit 06-14 |
@@ -144,9 +144,9 @@ Projects being monitored for growth/activity signals:
 
 | agentic-stack | 2,100 | 06-10 | 06-24 | 2100⭐. QUIET 16d (last push 05-25). v0.19 multi-agent spec unshipped. 🟡 MONITORING |
 | [GenericAgent](https://github.com/lsdefine/GenericAgent) | 🔬 deep-dive | 2026-06-22 | 12,670⭐ (+51% in 5wk). Feishu IM plugin, computer_use SOP, TUI v2, clipboard fix. 🟢 THRIVING |
-| nanobot | 44,074 | 06-12 | 06-15 | 44K⭐. SiliconFlow transcription, Telegram code-block fix. 🟢 ACTIVE |
+| nanobot | 44,165 | 06-14 | 06-17 | 44K⭐. SiliconFlow transcription, Telegram code-block fix. 🟢 ACTIVE |
 | [re_gent](https://github.com/regent-vcs/re_gent) | 683 | 06-12 | 06-19 | 682⭐ (+2.1%). Short hash support PR#59, Windows colon fix PR#55. Pushed 06-08 |
-| dirac | 1,282 | 06-11 | 06-16 | 1,282⭐. Monolithic API overhaul, CLI modular compat. 🟢 ACTIVE |
+| dirac | 1,301 | 06-14 | 06-17 | 1,282⭐. Monolithic API overhaul, CLI modular compat. 🟢 ACTIVE |
 
 | bux | 378⭐ | following | 06-19 | 378⭐. Quiet 17d. Bootstrap self-heal fix (05-26). Low activity |
 
@@ -155,7 +155,7 @@ Projects being monitored for growth/activity signals:
 | sandboxes (tastyeffectco) | 572 | 06-12 | 06-19 | 572⭐ (+45% from 395 on 06-05!). Per-sandbox idle_policy feature, gofmt CI. Very active growth |
 | [Statewave](https://github.com/smaramwbc/statewave) | 🔬 deep-dive | 2026-06-25 | 205⭐. v1.0.0 stable. Issue #236 exposes Jaccard conflict detection = dedup not contradiction. Watching fix approach |
 | Elephant Agent (agentic-in) | 565 | 06-13 | 06-20 | 565⭐. QUIET 12d. Community 28 PRs/30d but no new commits. Dev hiatus |
-| ccglass | 487 | 06-13 | 06-20 | 487⭐. v1.1.0-1.1.2 rapid releases. by-session usage, CodeBuddy forward-proxy, Homebrew tap, landing page. 18 issue authors. 🟢 ACTIVE |
+| ccglass | 492 | 06-14 | 06-20 | 487⭐. v1.1.0-1.1.2 rapid releases. by-session usage, CodeBuddy forward-proxy, Homebrew tap, landing page. 18 issue authors. 🟢 ACTIVE |
 | centaur | 741 | 06-10 | 06-17 | 741⭐. claude-fable-5 default, codex thread auto-recovery. 🟢 STABLE |
 
 

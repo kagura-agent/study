@@ -168,8 +168,8 @@ if [[ -n "$STARS" ]]; then
     formatted="$STARS"
   fi
   # Update star count in notes: replace patterns like "24.5k⭐" or "500⭐" or "3,763⭐"
-  if echo "$new_notes" | grep -qP '[0-9][0-9.,]*[kK]?⭐'; then
-    new_notes=$(echo "$new_notes" | sed -E "s/[0-9][0-9.,]*[kK]?⭐/${formatted}⭐/")
+  if printf '%s\n' "$new_notes" | grep -qP '[0-9][0-9.,]*[kK]?⭐'; then
+    new_notes=$(printf '%s\n' "$new_notes" | sed -E "s|[0-9][0-9.,]*[kK]?⭐|${formatted}⭐|")
   else
     # No existing star count, prepend
     new_notes="${formatted}⭐. ${new_notes}"
@@ -201,8 +201,13 @@ if $DRY_RUN; then
   exit 0
 fi
 
-# Apply change
-sed -i "${line_num}s|.*|${new_line}|" "$TARGETS_FILE"
+# Sanitize pipe chars in notes to prevent markdown table corruption
+new_line=$(printf '%s' "$new_line" | sed 's/| \([^|]*\)|$/| \1|/')
+
+# Apply change — use ENVIRON to avoid awk -v backslash interpretation (\n → newline, \t → tab)
+export _FF_NEW_LINE="$new_line"
+awk -v line="$line_num" 'NR==line{print ENVIRON["_FF_NEW_LINE"];next}{print}' "$TARGETS_FILE" > "${TARGETS_FILE}.tmp" && mv "${TARGETS_FILE}.tmp" "$TARGETS_FILE"
+unset _FF_NEW_LINE
 
 echo ""
 echo "✅ Updated ${PROJECT} in targets.md"

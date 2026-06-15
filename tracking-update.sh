@@ -73,7 +73,7 @@ if $LIST; then
   echo "📋 Tracked Projects in targets.md"
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   grep -P "^\| \[" "$TARGETS_FILE" | while IFS='|' read -r _ name depth date notes _rest; do
-    name=$(echo "$name" | sed 's/.*\[\(.*\)\].*/\1/' | xargs)
+    name=$(echo "$name" | sed 's/.*\[\([^]]*\)\].*/\1/' | xargs)
     depth=$(echo "$depth" | xargs)
     date=$(echo "$date" | xargs)
     notes=$(echo "$notes" | head -c 60 | xargs)
@@ -92,7 +92,7 @@ if $STALE; then
   cutoff_epoch=$(date -d "$TODAY - ${STALE_DAYS} days" +%s 2>/dev/null || date -d "${STALE_DAYS} days ago" +%s)
   found=0
   grep -P "^\| \[" "$TARGETS_FILE" | while IFS='|' read -r _ name depth date notes _rest; do
-    name_clean=$(echo "$name" | sed 's/.*\[\(.*\)\].*/\1/' | xargs)
+    name_clean=$(echo "$name" | sed 's/.*\[\([^]]*\)\].*/\1/' | xargs)
     date_clean=$(echo "$date" | xargs)
     date_epoch=$(date -d "$date_clean" +%s 2>/dev/null || echo 0)
     if [[ $date_epoch -le $cutoff_epoch && $date_epoch -gt 0 ]]; then
@@ -115,18 +115,21 @@ if [[ -z "$PROJECT" ]]; then
   exit 1
 fi
 
+# Escape PROJECT for use in PCRE patterns (handles regex special chars like . + ( ) etc.)
+PROJECT_RE=$(printf '%s' "$PROJECT" | perl -pe 's/([\\\^\$\.\|\?\*\+\(\)\[\]\{\}])/\\$1/g')
+
 # Find the project row (case-insensitive match on project name within markdown link)
 # First try exact match at start of link text, then anywhere in link text
-line_num=$(grep -niP "^\| \[${PROJECT}\b" "$TARGETS_FILE" 2>/dev/null | head -1 | cut -d: -f1 || true)
+line_num=$(grep -niP "^\| \[${PROJECT_RE}\b" "$TARGETS_FILE" 2>/dev/null | head -1 | cut -d: -f1 || true)
 
 if [[ -z "$line_num" ]]; then
   # Try match anywhere in the link text (handles org/repo format like gastownhall/beads)
-  line_num=$(grep -niP "^\| \[.*${PROJECT}[^]]*\]" "$TARGETS_FILE" 2>/dev/null | head -1 | cut -d: -f1 || true)
+  line_num=$(grep -niP "^\| \[.*${PROJECT_RE}[^]]*\]" "$TARGETS_FILE" 2>/dev/null | head -1 | cut -d: -f1 || true)
 fi
 
 if [[ -z "$line_num" ]]; then
   # Try match in the URL part
-  line_num=$(grep -niP "^\|.*${PROJECT}" "$TARGETS_FILE" 2>/dev/null | head -1 | cut -d: -f1 || true)
+  line_num=$(grep -niP "^\|.*${PROJECT_RE}" "$TARGETS_FILE" 2>/dev/null | head -1 | cut -d: -f1 || true)
 fi
 
 if [[ -z "$line_num" ]]; then
@@ -184,6 +187,9 @@ if [[ -n "$NOTES" ]]; then
   fi
 fi
 
+# Sanitize pipe chars in notes to prevent markdown table corruption
+new_notes=$(printf '%s' "$new_notes" | sed 's/|/∣/g')
+
 # Build new row (preserve the name/link column exactly)
 new_line="| $(echo "$col_name" | xargs) | ${new_depth} | ${new_date} | ${new_notes} |"
 
@@ -200,9 +206,6 @@ if $DRY_RUN; then
   echo "   $new_line"
   exit 0
 fi
-
-# Sanitize pipe chars in notes to prevent markdown table corruption
-new_line=$(printf '%s' "$new_line" | sed 's/| \([^|]*\)|$/| \1|/')
 
 # Apply change — use ENVIRON to avoid awk -v backslash interpretation (\n → newline, \t → tab)
 export _FF_NEW_LINE="$new_line"

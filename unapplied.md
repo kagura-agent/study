@@ -103,3 +103,11 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - [x] **Architect-loop "Disagreement is mandatory" (Phase 0 spec pushback)** — require agents to review spec against actual code and raise conflicts before implementing. Silent compliance = defect. Added Phase 0 section to team-lead/SKILL.md + AGENTS.md Claude Code prompt guidelines. — source: architect-loop.md Rule #3 — applied: 2026-06-14
 
 - [x] **Ponytail YAGNI 6-rung ladder for Claude Code prompts** — 6-step minimalism check (YAGNI → stdlib → native → existing dep → one-liner → minimum code) + `ponytail:` upgrade path comments. Added to AGENTS.md and team-lead/SKILL.md. — source: ponytail-yagni-skill.md — applied: 2026-06-14
+
+- [x] **why-was-fable-banned grade-scaling for Phase 0 spec pushback** — replaced blanket Phase 0 ("every task gets it including simple fixes") with LIGHT/STANDARD/HEAVY tiers in AGENTS.md + team-lead/SKILL.md. Structural auto-escalation: ≥2 files → STANDARD min; auth/migration/schema/secret paths → HEAVY min. LIGHT tasks skip Phase 0 entirely (only require runnable acceptance check); HEAVY adds must_read evidence + ≥2 rejected_alternatives + risks + monotonic forbidden_paths. — source: why-was-fable-banned.md + grade-scaling-enforcement gradient (2026-06-17) — applied: 2026-06-17
+
+- [x] **Competing PR early check script** — structural gate (tools/competing-pr-check.sh) that detects competing/merged/closed PRs + verifies issue state before implementation. Integrated into workloop.yaml find_work + study nodes as mandatory checks. — source: competing-pr-early-check gradient (inspector#32371) — applied: 2026-06-16
+
+- [x] **Compass-skills fact-vs-decision constraint split for Phase 0** — classify each constraint as fact-inferrable (resolve from code) vs user-owned-decision (flag, don't assume). Added to AGENTS.md STANDARD/HEAVY Phase 0 prompts + team-lead/SKILL.md STANDARD/HEAVY templates. — source: compass-skills.md — applied: 2026-06-18
+
+- [x] **Followup pre-check aggregation** — consolidated tracking-due + tracking-activity + tracking-health into single followup-status.sh. 3 tool calls → 1, unified per-item view with inline activity status. Updated study.yaml followup node. — source: study-followup-precheck-aggregation gradient — applied: 2026-06-19

@@ -29,6 +29,14 @@ set -euo pipefail
 TARGETS_FILE="${HOME}/.openclaw/workspace/study/targets.md"
 TODAY=$(date +%Y-%m-%d)
 
+# Trim leading/trailing whitespace (replaces xargs which breaks on quotes)
+trim() {
+  local var="$*"
+  var="${var#"${var%%[![:space:]]*}"}"
+  var="${var%"${var##*[![:space:]]}"}"
+  printf '%s' "$var"
+}
+
 # Depth emoji mapping
 depth_emoji() {
   case "$1" in
@@ -73,10 +81,12 @@ if $LIST; then
   echo "📋 Tracked Projects in targets.md"
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   grep -P "^\| \[" "$TARGETS_FILE" | while IFS='|' read -r _ name depth date notes _rest; do
-    name=$(echo "$name" | sed 's/.*\[\([^]]*\)\].*/\1/' | xargs)
-    depth=$(echo "$depth" | xargs)
-    date=$(echo "$date" | xargs)
-    notes=$(echo "$notes" | head -c 60 | xargs)
+    name=$(echo "$name" | sed 's/.*\[\([^]]*\)\].*/\1/')
+    name=$(trim "$name")
+    depth=$(trim "$depth")
+    date=$(trim "$date")
+    notes=$(echo "$notes" | head -c 60)
+    notes=$(trim "$notes")
     printf "  %-25s %-16s %s  %s\n" "$name" "$depth" "$date" "$notes"
   done
   echo ""
@@ -92,12 +102,13 @@ if $STALE; then
   cutoff_epoch=$(date -d "$TODAY - ${STALE_DAYS} days" +%s 2>/dev/null || date -d "${STALE_DAYS} days ago" +%s)
   found=0
   grep -P "^\| \[" "$TARGETS_FILE" | while IFS='|' read -r _ name depth date notes _rest; do
-    name_clean=$(echo "$name" | sed 's/.*\[\([^]]*\)\].*/\1/' | xargs)
-    date_clean=$(echo "$date" | xargs)
+    name_clean=$(echo "$name" | sed 's/.*\[\([^]]*\)\].*/\1/')
+    name_clean=$(trim "$name_clean")
+    date_clean=$(trim "$date")
     date_epoch=$(date -d "$date_clean" +%s 2>/dev/null || echo 0)
     if [[ $date_epoch -le $cutoff_epoch && $date_epoch -gt 0 ]]; then
       days_ago=$(( ($(date +%s) - date_epoch) / 86400 ))
-      depth_clean=$(echo "$depth" | xargs)
+      depth_clean=$(trim "$depth")
       printf "  %-25s %-16s %s (%dd ago)\n" "$name_clean" "$depth_clean" "$date_clean" "$days_ago"
       found=1
     fi
@@ -145,9 +156,9 @@ echo "📍 Found: $current_line"
 
 # Parse current fields
 IFS='|' read -r _ col_name col_depth col_date col_notes _ <<< "$current_line"
-old_depth=$(echo "$col_depth" | xargs)
-old_date=$(echo "$col_date" | xargs)
-old_notes=$(echo "$col_notes" | xargs)
+old_depth=$(trim "$col_depth")
+old_date=$(trim "$col_date")
+old_notes=$(trim "$col_notes")
 
 # Build new values
 new_date="$TODAY"
@@ -191,7 +202,8 @@ fi
 new_notes=$(printf '%s' "$new_notes" | sed 's/|/∣/g')
 
 # Build new row (preserve the name/link column exactly)
-new_line="| $(echo "$col_name" | xargs) | ${new_depth} | ${new_date} | ${new_notes} |"
+col_name_trimmed=$(trim "$col_name")
+new_line="| ${col_name_trimmed} | ${new_depth} | ${new_date} | ${new_notes} |"
 
 # Show diff
 echo ""

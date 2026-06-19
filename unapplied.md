@@ -111,3 +111,5 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 - [x] **Compass-skills fact-vs-decision constraint split for Phase 0** — classify each constraint as fact-inferrable (resolve from code) vs user-owned-decision (flag, don't assume). Added to AGENTS.md STANDARD/HEAVY Phase 0 prompts + team-lead/SKILL.md STANDARD/HEAVY templates. — source: compass-skills.md — applied: 2026-06-18
 
 - [x] **Followup pre-check aggregation** — consolidated tracking-due + tracking-activity + tracking-health into single followup-status.sh. 3 tool calls → 1, unified per-item view with inline activity status. Updated study.yaml followup node. — source: study-followup-precheck-aggregation gradient — applied: 2026-06-19
+
+- [x] **Scholar-loop population funnel for workloop issue selection** — batch smoke-screen multiple candidate issues before committing to expensive study+implement cycle. Created `tools/issue-funnel.sh` (6 gates + quality scoring), integrated into workloop.yaml find_work node as recommended approach for ≥3 candidates. — source: scholar-loop.md — applied: 2026-06-19

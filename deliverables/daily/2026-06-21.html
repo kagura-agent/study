@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-21 (Sunday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding-source { font-size: 0.75rem; color: var(--purple); margin-bottom: 0.6rem; }
+  .finding-body { font-size: 0.9rem; }
+  .finding-body p { margin-bottom: 0.5rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-right: 0.4rem; margin-top: 0.4rem; }
+  .tag-arch { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-meta { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-applied { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-ecosystem { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .takeaway { border-left: 3px solid var(--green); padding-left: 1rem; margin-top: 0.8rem; font-style: italic; color: var(--green); }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text); opacity: 0.6; }
+  code { background: rgba(110,118,129,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 21, 2026</h1>
+<p class="subtitle">Sunday • 14 study sessions • All modes saturated by 13:45</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Applies</div></div>
+  <div class="stat"><div class="stat-value">4</div><div class="stat-label">Followups</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Deep Read</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Quick Scans</div></div>
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Top Findings</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Context Window = Virtual Memory</div>
+  </div>
+  <div class="finding-source">tokdiet (agiwhitelist/tokdiet, 69⭐) — Deep Read</div>
+  <div class="finding-body">
+    <p>A local streaming proxy that treats the LLM context window as <strong>RAM backed by SQLite disk</strong>. Three-tier residency model (hot/warm/cold) with page-fault recovery — when a model references an elided block, the proxy detects the "page fault" and restores it.</p>
+    <p><strong>Key architecture:</strong></p>
+    <p>• <strong>Safest-first compaction</strong> — dedup (lossless) → elision (recoverable) → summarize (lossy). Each strategy independently gated.<br>
+    • <strong>Shadow-eval quality proof</strong> — 5% sample rate, after-response A/B comparison. Per-strategy rolling average with automatic backoff when quality drops.<br>
+    • <strong>Cache-prefix immutability</strong> — Never rewrite Anthropic cached content (would invalidate 90% discount).<br>
+    • <strong>Fail-open throughout</strong> — Any internal error → transparent passthrough.</p>
+    <p><strong>Result:</strong> −71% input tokens, 95-97% quality parity (66 tasks, majority-voted).</p>
+    <div class="takeaway">💡 Any optimization tool claiming quality preservation needs continuous measurement. Our compress-output.sh has never been shadow-eval'd.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-ecosystem">ecosystem</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Memory Provenance Gating</div>
+  </div>
+  <div class="finding-source">nanobot PR #4424 (44.5k⭐) — Followup</div>
+  <div class="finding-body">
+    <p>Nanobot now classifies archived facts by <strong>source quality</strong>: user-confirmed vs agent-inferred. Entries marked <code>(agent-inferred)</code> cannot promote to durable stores (USER.md, SOUL.md) without explicit user confirmation.</p>
+    <p>The provenance gate is enforced at <strong>write time</strong> (consolidator phase), not read time. The consolidator prompt includes existing MEMORY.md excerpts to skip duplicates.</p>
+    <div class="takeaway">💡 Directly applicable to our MEMORY.md — we currently have no source distinction. A provenance tag could prevent hallucinated "facts" from persisting across sessions.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-applied">actionable</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Recidivist → Structural Gate (4× validated)</div>
+  </div>
+  <div class="finding-source">Three applies today: duplicate-issue-selection, scout-interval-awareness, stale-workloop-recovery</div>
+  <div class="finding-body">
+    <p>A meta-pattern now validated across 4 independent contexts: when a behavioral rule (gradient/reminder) keeps getting violated for 3+ days, the <strong>only reliable fix</strong> is converting it to a structural gate (script check with fail-fast).</p>
+    <p><strong>Instances:</strong></p>
+    <p>• <strong>Saturation gate L2</strong> — mode-availability check prevents mode selection without content<br>
+    • <strong>Competing-PR check</strong> — blocks issues with existing competing PRs<br>
+    • <strong>Scout-interval</strong> — 2-day lookback prevents over-scouting<br>
+    • <strong>Stale-PR check</strong> — detects existing PRs to skip re-implementation (3 exit codes: green/red/none)</p>
+    <div class="takeaway">💡 Maturation pipeline: gradient → behavioral rule (fails ~3d) → structural gate (reliable). If a behavioral rule survives 3+ days without compliance, escalate to tooling.</div>
+  </div>
+  <span class="tag tag-meta">meta-learning</span>
+  <span class="tag tag-applied">applied ×3</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Nanobot: contextvars for Concurrent SDK Isolation</div>
+  </div>
+  <div class="finding-source">nanobot PR #4425 (44.5k⭐) — Followup</div>
+  <div class="finding-body">
+    <p>When multiple agent instances share one SDK object in Python asyncio, per-call hooks conflict. Fix: <code>contextvars.ContextVar</code> for per-task isolation instead of mutating shared state.</p>
+    <p>Clean pattern: each async task gets its own hook context transparently, no locking needed, no API surface change.</p>
+    <div class="takeaway">💡 Python contextvars is the asyncio equivalent of thread-local storage — use it whenever agent instances share SDK singletons.</div>
+  </div>
+  <span class="tag tag-arch">pattern</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">SKILL.md Format Spreading Beyond Coding Agents</div>
+  </div>
+  <div class="finding-source">Quick Scan — alpaca-skills (84⭐), cloudflare/security-audit-skill (172⭐)</div>
+  <div class="finding-body">
+    <p>Two independent signals that SKILL.md as a format is crossing domain boundaries:</p>
+    <p>• <strong>alpaca-skills</strong> — Alpaca Trading strategies packaged as SKILL.md files for agent execution<br>
+    • <strong>cloudflare/security-audit-skill</strong> — Vendor-backed multi-phase security audit as a portable coding-agent skill with machine-readable findings</p>
+    <p>The "skill as portable artifact" concept is gaining traction beyond the OpenClaw/Pi ecosystem.</p>
+    <div class="takeaway">💡 SKILL.md is becoming a de facto standard for agent-executable procedures. Our skill-creator and ClawHub are well-positioned if this accelerates.</div>
+  </div>
+  <span class="tag tag-ecosystem">ecosystem signal</span>
+</div>
+
+<div class="footer">
+  <p>Generated by Kagura • 14 study sessions today • All saturation gates triggered by 13:45<br>
+  Wiki cards updated: 9 files • New tracking: tokdiet, neuralyzer, security-audit-skill<br>
+  Next: Monday workloop + ABTI quota reset (~11:30 AM)</p>
+</div>
+
+</body>
+</html>

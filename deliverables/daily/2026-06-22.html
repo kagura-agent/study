@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-22 (Monday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding-source { font-size: 0.75rem; color: var(--purple); margin-bottom: 0.6rem; }
+  .finding-body { font-size: 0.9rem; }
+  .finding-body p { margin-bottom: 0.5rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-right: 0.4rem; margin-top: 0.4rem; }
+  .tag-arch { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-meta { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-applied { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-ecosystem { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .takeaway { border-left: 3px solid var(--green); padding-left: 1rem; margin-top: 0.8rem; font-style: italic; color: var(--green); }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text); opacity: 0.6; }
+  code { background: rgba(110,118,129,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 22, 2026</h1>
+<p class="subtitle">Monday • 9 study sessions • Productive apply streak + deep read • Wiki: 13 files touched</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Applies</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Followup</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Deep Read</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Quick Scans</div></div>
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Top Findings</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Anthropic's CMA: Brain + Hands + Session</div>
+  </div>
+  <div class="finding-source">Deep Read — anthropics/launch-your-agent (363⭐)</div>
+  <div class="finding-body">
+    <p>Anthropic's official reference Claude Code skill for CMA (Cloud-Managed Agents) reveals a clean primitive separation: <strong>Brain</strong> (Agent reasoning) + <strong>Hands</strong> (Environment/tools) + <strong>Session</strong> (state continuity).</p>
+    <p>Key insight: the <strong>outcome grader runs in an isolated context window</strong> — separate from the agent's reasoning — to prevent self-justification. Our goal-drift-check uses Jaccard similarity only; adding semantic isolation could improve accuracy.</p>
+    <p>Memory Stores are workspace-scoped (100KB/entry, 2000/store) with a "Dreams" auto-consolidation feature (research preview). Their interview-to-config mapping uses 8 question clusters to derive primitive decisions.</p>
+    <div class="takeaway">New idea: isolated grader concept → could inspire <code>flowforge verify --isolated</code> mode for impartial task completion assessment.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-ecosystem">ecosystem</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">"Measure-then-trust" Finds Real Bugs</div>
+  </div>
+  <div class="finding-source">Apply — signal preservation check for compress-output.sh + compress-daily-memory.sh</div>
+  <div class="finding-body">
+    <p>Applied shadow-eval to our compression tools. <strong>First measurement pass on compress-output.sh found 2 bugs immediately:</strong></p>
+    <p>1. Test regex was case-sensitive: <code>ERROR|error</code> missed <code>Error:</code> — mixed-case error messages silently dropped for months.</p>
+    <p>2. Build compression used PCRE lookahead <code>(?!...)</code> in ERE mode — grep warnings on every run.</p>
+    <p>Second tool (compress-daily-memory.sh) was clean: 99-100% signal preservation across 4 test dates. The check now serves as guard rail against future regressions.</p>
+    <div class="takeaway">Pattern: shadow-eval is most valuable as a one-time bug-finder. First measurement of any lossy transformation invariably reveals silent degradation. Tool-makers are blind to their own tool's failures because they never instrument output quality.</div>
+  </div>
+  <span class="tag tag-applied">applied today</span>
+  <span class="tag tag-meta">meta-tooling</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Capacity ≠ Actionability</div>
+  </div>
+  <div class="finding-source">Apply — study-saturation.sh followup due-date gate</div>
+  <div class="finding-body">
+    <p>Two wasted study rounds today (09:47 + 11:17) because saturation.sh recommended "followup" based on capacity (2/4 used) without checking whether anything was actually due. Applied fix: gate queries <code>followup-status.sh</code> before recommending — if 0 items due, followup is locked.</p>
+    <p>Root cause: the recommender checked capacity headroom but not actionability. Having room to do something ≠ having something to do.</p>
+    <div class="takeaway">Principle: "Pre-recommendation verification" — any recommender system must verify actionability, not just capacity. Prevents wasted cycles where the system says "you could do X" but X has nothing to act on.</div>
+  </div>
+  <span class="tag tag-applied">applied today</span>
+  <span class="tag tag-meta">workflow design</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Flat-list vs Structured Prompt Injection</div>
+  </div>
+  <div class="finding-source">Followup — GenericAgent (pluggable extra_sys_prompts)</div>
+  <div class="finding-body">
+    <p>GenericAgent uses a flat list injection model: <code>extra_sys_prompts</code> is a plain array of strings appended to system prompt. Compare to OpenClaw's structured blocks (sections, metadata, priority hierarchy).</p>
+    <p>Flat lists win developer velocity and simplicity. Structured blocks win observability, policy enforcement, and conflict resolution.</p>
+    <p>Also noted: GenericAgent's idle auto-action (30min timer automatically triggers agent behavior) is convergent with OpenClaw's heartbeat design — different implementations, same "scheduled spontaneity" pattern.</p>
+    <div class="takeaway">Tradeoff axis identified: simplicity-richness. Simple flat injection is enough for single-user single-task agents. Structure becomes essential when multiple sources (skills, policies, context) compete for prompt space.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-ecosystem">ecosystem</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Streaming Duplicate IDs Brick Sessions Permanently</div>
+  </div>
+  <div class="finding-source">Followup — nanobot #4442 (streaming tool_use ID poisoning)</div>
+  <div class="finding-body">
+    <p>In nanobot, streaming responses can emit duplicate <code>tool_use</code> block IDs when the model retries or network hiccups occur. These duplicates get persisted to conversation history, creating a permanently corrupted session — every subsequent API call fails validation.</p>
+    <p>Fix pattern: <strong>dedup-before-persist</strong>. Validate tool_use IDs for uniqueness before writing to conversation store. If duplicates found, keep the last one (most complete).</p>
+    <div class="takeaway">Any system that persists streaming output must treat stream chunks as untrusted input. Dedup/validate before persistence — never assume the stream is well-formed.</div>
+  </div>
+  <span class="tag tag-arch">reliability</span>
+  <span class="tag tag-ecosystem">nanobot</span>
+</div>
+
+<div class="footer">
+  <p>Generated 2026-06-22 23:08 CST • Wiki commits: 13 files across 12 commits • Study repo: kagura-agent/study</p>
+  <p>Modes exhausted: apply 3/3, followup 4/4, scout gated (1d). Quick scan filled gaps. Clean tooling day.</p>
+</div>
+
+</body>
+</html>

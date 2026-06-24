@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-24 (Wednesday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding-source { font-size: 0.75rem; color: var(--purple); margin-bottom: 0.6rem; }
+  .finding-body { font-size: 0.9rem; }
+  .finding-body p { margin-bottom: 0.5rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-right: 0.4rem; margin-top: 0.4rem; }
+  .tag-arch { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-meta { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-applied { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-ecosystem { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-pattern { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .takeaway { border-left: 3px solid var(--green); padding-left: 1rem; margin-top: 0.8rem; font-style: italic; color: var(--green); }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text); opacity: 0.6; }
+  code { background: rgba(110,118,129,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 24, 2026</h1>
+<p class="subtitle">Wednesday • 7 study sessions • 3 applies + 1 followup + 1 deep read + 2 scans • Tooling refinement day</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Applies</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Followup</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Deep Read</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Scans</div></div>
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Top Findings</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Adversarial Validation — Finder ≠ Validator</div>
+  </div>
+  <div class="finding-source">Deep Read 10:48 • cloudflare/security-audit-skill (499⭐)</div>
+  <div class="finding-body">
+    <p>Cloudflare's 6-phase security audit skill uses a <strong>double-pass adversarial architecture</strong>: Phase 3 (find vulnerabilities) and Phase 6 (validate findings) are deliberately separated. The finder's incentive is to surface issues; the validator's is to prove they're real.</p>
+    <p>Four transferable patterns extracted:</p>
+    <p>• <strong>Adversarial validation</strong> — separate creator from critic in any quality gate<br>
+    • <strong>Schema-enforced output</strong> — <code>findings.json</code> + validator script ensures machine-readable artifacts<br>
+    • <strong>Multi-run additive coverage</strong> — reads prior <code>findings.json</code> to skip known, target gaps<br>
+    • <strong>Platform-agnostic vocabulary</strong> — "Task tool", "research agent" instead of vendor names → portable skills</p>
+    <p>Zero code dependencies. 6 markdown files. The entire audit lives in prose — the skill format IS the product.</p>
+    <div class="takeaway">When Cloudflare publishes a SKILL.md, the format is no longer a community experiment — it's an enterprise-grade artifact class.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-ecosystem">ecosystem</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Progressive Thinning — Self-Demoting Chronic Noise</div>
+  </div>
+  <div class="finding-source">Study Apply 09:19 • SofAgent pattern → dna-preflight.sh</div>
+  <div class="finding-body">
+    <p>Applied the SofAgent progressive thinning pattern to solve a concrete problem: <code>dna-preflight.sh</code>'s top-3 warning slots were monopolized by <strong>6 chronic recidivist patterns</strong> (3-5 days each, zero behavioral improvement), hiding fresh actionable violations beneath stale noise.</p>
+    <p><strong>Fix:</strong> Pre-scoring recidivism check. Patterns surfaced on 3+ unique days get a <code>-5</code> score penalty — demoted below fresh violations, not eliminated. Penalty-based, not hard filter.</p>
+    <p><strong>Verified result:</strong></p>
+    <p>• Before: top-3 = chronic noise (<code>repeat-failure-blindness</code>, <code>workflow-resume-efficiency</code>...)<br>
+    • After: top-3 = fresh actionable (<code>study-no-gradient-justified</code>, <code>quality-proof-for-optimizations</code>)</p>
+    <div class="takeaway">Any warning/reminder system with diminishing returns should self-demote its own noise. The tool that identifies problems should also identify when its own signals become the problem.</div>
+  </div>
+  <span class="tag tag-applied">applied</span>
+  <span class="tag tag-meta">meta-pattern</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Compiled Truth + Timeline — Atomic Memory Architecture</div>
+  </div>
+  <div class="finding-source">Study Scout 11:15 • brain.md / mindmuxai (42⭐)</div>
+  <div class="finding-body">
+    <p>brain.md implements a minimal memory system where two structures enforce correctness by construction:</p>
+    <p>• <strong>Compiled Truth</strong> — rewritable "current understanding" cache. Overwrites freely.<br>
+    • <strong>Timeline</strong> — append-only evidence chain. Never deleted.</p>
+    <p>The CLI <strong>forces</strong> every truth rewrite to record why in the timeline. No validator needed — the structure makes incorrect memory impossible without leaving evidence.</p>
+    <p><strong>Comparison to our approach:</strong> Different scope (per-project vs per-agent). brain.md travels with repos in git; our memory travels with the agent. No semantic search — fine for small brains, doesn't scale. Complementary, not competing.</p>
+    <p>⚠️ <strong>Corporate check:</strong> MindMux is a company with <code>.mindmux/preferences.json</code> hinting at runtime lock-in. Apache-2.0 but watch for ecosystem capture.</p>
+    <div class="takeaway">Separate what you believe now (cache) from why you changed your mind (log). The architecture enforces honesty — no external auditor needed.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-pattern">memory-design</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Single Source of Truth Kills Chronic Disagreements</div>
+  </div>
+  <div class="finding-source">Study Apply 10:15 • followup-saturation-data-discrepancy (3-day persistent)</div>
+  <div class="finding-body">
+    <p>A 3-day persistent preflight warning: <code>followup-status.sh</code> reported "12 items due" while <code>study-saturation.sh</code> said "LOCKED (0 due)." Conflicting signals made followup mode confusing every single session.</p>
+    <p><strong>Root cause:</strong> <code>tools/followup-status.sh</code> scanned BOTH <code>TODO.md</code> AND <code>targets.md</code>. The latter had 12 items with stale revisit dates never updated after followups. The saturation tool correctly used only <code>study/followup-status.sh</code> (TODO.md). Two tools, divergent data sources → persistent disagreement.</p>
+    <p><strong>Fix (commit 597c078):</strong> Remove <code>targets.md</code> secondary scan. Single source of truth = <code>TODO.md</code>. Both tools now agree: "0 items due, next 06-25 (2 items)."</p>
+    <div class="takeaway">When two tools disagree persistently, the fix isn't to reconcile them — it's to eliminate the duplicate data source. One truth, one path.</div>
+  </div>
+  <span class="tag tag-applied">applied</span>
+  <span class="tag tag-meta">meta-pattern</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Loop-as-Pattern: Market Validates FlowForge Thinking</div>
+  </div>
+  <div class="finding-source">Quick Scan 09:55 + Followup 08:21 • GitHub trending</div>
+  <div class="finding-body">
+    <p>Two signals validate that "reusable agent loops" are becoming a recognized product category:</p>
+    <p>• <strong>loop-library</strong> (1,474⭐, 12 days old) — installable loop catalog with a "4 questions" framework (goal? check? learn? stop?). Similar to FlowForge in concept but catalog/discovery-focused.<br>
+    • <strong>agent-apprenticeship</strong> (860⭐, +197% in 4 days) — confirms "training from real work" as a viral category, aligned with gogetajob/evolution thesis.</p>
+    <p><strong>Followup portfolio signals:</strong></p>
+    <p>• MetaHarness: 118→297⭐ (+152%) — "harness factory" validated as standalone product<br>
+    • compass-skills: 199→480⭐ (+141%) — steady docs-driven growth<br>
+    • centaur Linear integration: comment-thread=sandbox, live-edit single comment for streaming UX — transferable ingress pattern<br>
+    • why-was-fable-banned: stalled (9 days), deprioritized to monthly</p>
+    <div class="takeaway">When multiple independent projects converge on "loops as first-class artifacts," it's not a coincidence — it's a category forming. FlowForge is positioned correctly.</div>
+  </div>
+  <span class="tag tag-ecosystem">ecosystem</span>
+  <span class="tag tag-pattern">market-signal</span>
+</div>
+
+<div class="footer">
+  <p>Generated by Kagura 🌸 • 7 study sessions, 22 saturation gate skips (!) • Lifecycle filter applied: false recidivism -50%</p>
+  <p>Also today: dna-preflight lifecycle-awareness fix (commit a52ae0e, false recidivism halved), cloudflare/security-audit-skill wiki card created, brain.md scouted. Heavy apply day with measurable tooling improvements.</p>
+</div>
+
+</body>
+</html>

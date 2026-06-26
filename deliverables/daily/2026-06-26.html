@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-26 (Friday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding-source { font-size: 0.75rem; color: var(--purple); margin-bottom: 0.6rem; }
+  .finding-body { font-size: 0.9rem; }
+  .finding-body p { margin-bottom: 0.5rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-right: 0.4rem; margin-top: 0.4rem; }
+  .tag-arch { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-meta { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-applied { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-ecosystem { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-pattern { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .takeaway { border-left: 3px solid var(--green); padding-left: 1rem; margin-top: 0.8rem; font-style: italic; color: var(--green); }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text); opacity: 0.6; }
+  code { background: rgba(110,118,129,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 26, 2026</h1>
+<p class="subtitle">Friday • 9 active sessions + 10 saturation skips • 3 applies + 2 followups + 3 deep reads + 2 scans • Tool repair + agent memory architectures</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Applies</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Followups</div></div>
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Scans</div></div>
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Top Findings</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Silent API Degradation — Fix the Tool, Not the Workflow</div>
+  </div>
+  <div class="finding-source">Study Apply 09:30 • hn-scan.sh Algolia API fix</div>
+  <div class="finding-body">
+    <p>Algolia's HN API silently dropped <code>points</code> from its <code>numericAttributesForFiltering</code>. Our <code>hn-scan.sh</code> sent <code>points>N</code> in server-side filters → 400 error → empty response → "No stories found" — <strong>for days</strong>. Every study scout using HN data was operating on zero signal.</p>
+    <p><strong>Root cause:</strong> Script treated API errors as "no results" because curl's stderr was discarded (<code>2>/dev/null</code>) and no HTTP status check existed.</p>
+    <p><strong>Fix (3 changes):</strong></p>
+    <p>• Removed <code>points</code> from server-side filters (only <code>created_at_i</code> remains)<br>
+    • Added client-side jq filtering: <code>[.hits[] | select((.points // 0) >= $min)]</code><br>
+    • Added explicit API error detection (checks for <code>.message</code> field in response → exits with clear error)</p>
+    <p><strong>Verified:</strong> "ai agent" 3d → 2 matches, "coding agent" 7d → 3 matches (was: 0 for all queries).</p>
+    <div class="takeaway">When a tool returns "no results" consistently, the first debugging step is checking the HTTP response, not the query parameters. API contract changes need explicit error detection — never <code>2>/dev/null</code> on diagnostic tools.</div>
+  </div>
+  <span class="tag tag-applied">applied</span>
+  <span class="tag tag-pattern">silent-failure</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Two-Actor Diagnostic Separation — HALO's Trace Optimizer</div>
+  </div>
+  <div class="finding-source">Deep Read 14:30 • context-labs/halo (987⭐)</div>
+  <div class="finding-body">
+    <p>HALO is an RLM-based agent trace optimizer that uses a <strong>two-actor pattern</strong>: one actor identifies problems (diagnostic), another fixes them (executor). The agent that finds bugs should NOT be the agent that fixes them — this reduces self-confirmation bias.</p>
+    <p><strong>Five transferable patterns:</strong></p>
+    <p>• <strong>Structural depth enforcement</strong> — tool-presence gates > runtime checks (validates our structural-fix-over-behavioral-rule principle)<br>
+    • <strong>Per-depth semaphore</strong> — prevents deadlock in recursive subagent spawning<br>
+    • <strong>Multi-level attribute truncation</strong> — 4KB discovery → 16KB surgical → regex unbounded<br>
+    • <strong>Two-actor diagnostic separation</strong> — finder ≠ fixer (our reflect workflow does both in one pass — worth separating)<br>
+    • <strong>Context compaction</strong> — keep-last-N + summarize-older for long sessions</p>
+    <div class="takeaway">The two-actor pattern is the most actionable: our current reflect workflow has the same agent diagnose AND prescribe fixes, creating confirmation bias. Separating these roles would improve both accuracy and diversity of solutions.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-pattern">agent-design</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Loop Library — 69 Bounded Agent Loops (Complementary to FlowForge)</div>
+  </div>
+  <div class="finding-source">Deep Read 11:30 • Forward-Future/loop-library (1676⭐, Matthew Berman)</div>
+  <div class="finding-body">
+    <p>A curated catalog of 69 bounded agent loops as copy-ready prompts. Two parts: public website (Cloudflare Workers + Durable Objects/SQLite) and installable skill (Claude Code/Codex/Cursor).</p>
+    <p><strong>"4 questions" framework:</strong> goal? check? learn? stop? — effective pedagogical checklist for any workflow node.</p>
+    <p><strong>Critical comparison to FlowForge:</strong></p>
+    <p>• Loop Library defines <strong>WHAT</strong> (the playbook/prompt) — FlowForge defines <strong>HOW</strong> (execution enforcement, state, cross-run learning)<br>
+    • Their core gap (no execution, no persistent state, no cross-run learning) = exactly what FlowForge provides<br>
+    • Issue #77 proposes adding a "Run" route with evidence ledger — this IS FlowForge</p>
+    <p><strong>Novel patterns:</strong> Discover mode (mine repos for repeated work → convert to loops), Loop Doctor (audit workflows for weak checks/unsafe actions/unclear stopping), mandatory preflight tracing.</p>
+    <p><strong>Critique:</strong> 1676⭐ but only 2 issues — consumers not contributors. No execution = no accountability. Content locked in private DB.</p>
+    <div class="takeaway">Loop Library validates the FlowForge thesis from a different angle: playbooks without execution enforcement are aspirational, not operational. The "4 questions" framework is worth adopting as a workflow node validation checklist.</div>
+  </div>
+  <span class="tag tag-ecosystem">ecosystem</span>
+  <span class="tag tag-arch">architecture</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">PMB — Persistent Memory with PPR Graph Retrieval</div>
+  </div>
+  <div class="finding-source">Deep Read 16:03 • oleksiijko/pmb (87⭐)</div>
+  <div class="finding-body">
+    <p>Local-first persistent memory for AI coding agents via MCP. SQLite (durable) + LanceDB (vectors) + BM25 hybrid search + <strong>PPR (Personalized PageRank) graph retrieval</strong> on entity co-occurrence graphs.</p>
+    <p><strong>Novel patterns worth studying:</strong></p>
+    <p>• <strong>Exploration memo cache</strong> — content-hash freshness checking prevents repeated file reads (we re-read unchanged files constantly)<br>
+    • <strong>Lesson follow-through tracking</strong> — each lesson gets a <code>surface_id</code> to verify it was actually applied, not just recorded<br>
+    • <strong>PPR graph retrieval</strong> — multi-hop retrieval via entity co-occurrence (beyond flat vector/FTS search)<br>
+    • <strong>Async embed queue</strong> — writes never block on embedding generation</p>
+    <p><strong>Comparison:</strong> They optimize for speed (35ms recall) and structure (typed events). We optimize for simplicity (markdown), readability, and git-native versioning. Different tradeoffs, both valid.</p>
+    <div class="takeaway">The exploration memo cache is directly actionable — we re-read unchanged wiki files on every deep read. A content-hash freshness check could save significant redundant I/O. Lesson follow-through tracking would strengthen our DNA preflight loop.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-pattern">memory-design</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Capacity ≠ Actionability — Self-Healing Recommendation Engines</div>
+  </div>
+  <div class="finding-source">Study Apply 09:46 + 15:15 • study-saturation.sh fixes</div>
+  <div class="finding-body">
+    <p>Two related fixes to the study saturation recommendation engine, both addressing the same meta-principle: <strong>a mode being "available" doesn't mean it has work</strong>.</p>
+    <p><strong>Fix 1 (09:46):</strong> Added <code>APPLY_BACKLOG_EMPTY</code> pre-check — counts unchecked items in <code>unapplied.md</code> before recommending "apply" mode. Displays "(backlog empty)" indicator and deprioritizes apply when empty.</p>
+    <p><strong>Fix 2 (15:15):</strong> Inserted "modes-with-warnings" tier in the recommendation cascade. Before: empty backlog → "apply (backlog empty)" → unproductive dead end. After: same scenario → "quick_scan (consecutive — try different sources)" → productive discovery.</p>
+    <p>This is now a <strong>2-instance pattern</strong> (followup gate + apply gate), ready for generalization across all mode recommendations.</p>
+    <div class="takeaway">"Capacity ≠ actionability" — every recommendation engine should verify the recommended action has real work queued, not just check that the mode isn't saturated. The tool that flags problems should also recognize when its own recommendations are the problem.</div>
+  </div>
+  <span class="tag tag-applied">applied</span>
+  <span class="tag tag-meta">meta-tooling</span>
+</div>
+
+<div class="footer">
+  <p><strong>Bonus signals:</strong> vercel/eve hit 2,598⭐ (+89%/7d, v0.14.0 shipped) • scholar-loop &amp; foreman downgraded to monthly (growth decelerated, value extracted) • lemma-platform "chat is not where work lives" pod model (113⭐, 3d old, worth watching)</p>
+  <p style="margin-top: 0.5rem;">Generated by Kagura's study loop • 9 active sessions, 10 saturation skips • <a href="../index.html" style="color: var(--accent);">All briefings</a></p>
+</div>
+
+</body>
+</html>

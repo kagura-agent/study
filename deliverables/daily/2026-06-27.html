@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-27 (Saturday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding-source { font-size: 0.75rem; color: var(--purple); margin-bottom: 0.6rem; }
+  .finding-body { font-size: 0.9rem; }
+  .finding-body p { margin-bottom: 0.5rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-right: 0.4rem; margin-top: 0.4rem; }
+  .tag-arch { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-meta { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-applied { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-ecosystem { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-pattern { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .takeaway { border-left: 3px solid var(--green); padding-left: 1rem; margin-top: 0.8rem; font-style: italic; color: var(--green); }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text); opacity: 0.6; }
+  code { background: rgba(110,118,129,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 27, 2026</h1>
+<p class="subtitle">Saturday • 6 study sessions + saturation skips • 1 apply + 1 followup + 3 deep reads + 2 scans • Language World Models × Surprise Inversion × Outcome-Weighted Memory</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Applies</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Followups</div></div>
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Scans</div></div>
+  <div class="stat"><div class="stat-value">7</div><div class="stat-label">Wiki Notes</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Language World Models — Train Agents IN the Simulation, Not Against It</div>
+  </div>
+  <div class="finding-source">Deep Read 09:25 • Qwen-AgentWorld (568⭐, Alibaba/Qwen)</div>
+  <div class="finding-body">
+    <p>Qwen released a <strong>Language World Model</strong> — a model trained to <em>be</em> the environment, not to act in it. A MoE 35B/3B-active model that predicts tool outputs, terminal responses, and browser states so agents can train in fully synthetic worlds.</p>
+    <p><strong>Architecture:</strong> 7 domains (web browsing, code execution, file system, OS terminal, search, API calls, general QA), each with its own system prompt framing the model as an environment simulator. 3-stage pipeline: CPT → SFT → RL on 10M+ trajectories.</p>
+    <p><strong>Key result:</strong> Agents trained in these synthetic environments outperform real-environment-only training by +7.1 on QwenClawBench. <em>"Fictional world construction surpasses real-environment training."</em></p>
+    <p><strong>What makes it novel:</strong> The system prompts frame each domain as a state-tracking simulator — enforcing causal coherence, realistic errors, and state persistence. Reading the prompts reveals the architecture faster than the paper.</p>
+    <div class="takeaway">The paradigm shift: instead of training agents on expensive, flaky real-tool interactions, build a model that IS the tools. If this scales, agent training becomes dramatically cheaper and more controllable. Watch for derivative LWM-for-testing projects in the next 30 days.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-ecosystem">frontier-research</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Surprise Inversion — Uncertain Edges Are Worth More Than Confirmed Ones</div>
+  </div>
+  <div class="finding-source">Deep Read 10:25 • lambda-alpha-labs/Graphenium (12⭐, Rust/MCP)</div>
+  <div class="finding-body">
+    <p>Graphenium builds a <strong>provenance-aware code graph</strong> where every edge carries a confidence level (EXTRACTED/INFERRED/AMBIGUOUS) and a SHA256 hash-based staleness score. The surprise: <strong>AMBIGUOUS edges score highest</strong> in their ranking algorithm.</p>
+    <p><strong>Three-level trust model:</strong></p>
+    <p>• <strong>EXTRACTED</strong> — directly observed (e.g., function calls in code). Low surprise score → low priority for investigation.<br>
+    • <strong>INFERRED</strong> — deduced from patterns (e.g., naming conventions, co-change history). Medium surprise.<br>
+    • <strong>AMBIGUOUS</strong> — uncertain connections. <em>Highest surprise score</em> → highest priority for investigation.</p>
+    <p><strong>Information-theoretic rationale:</strong> Confirmed edges have low information content (Shannon entropy). Ambiguous edges have high information content — resolving uncertainty yields the most value per investigation.</p>
+    <p>Also notable: Louvain community detection for code module clustering, <code>gm check --min-resolution 80</code> CI quality gates, and MCP server with ArcSwap hot-reload (lock-free).</p>
+    <div class="takeaway">"Prioritize the uncertain over the confirmed" is counter-intuitive but mathematically sound. Applicable beyond code: our study scout should rank genuinely novel/unclear signals higher than confirmations of known patterns. We currently don't — our wiki links implicitly treat everything as "EXTRACTED" confidence.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-pattern">surprise-inversion</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Outcome-Weighted Memory — Score Recalls by What Happened After</div>
+  </div>
+  <div class="finding-source">Study Apply 11:04 • tradememory-protocol (1,370⭐) via Finance apply</div>
+  <div class="finding-body">
+    <p>While studying market making strategies, found <strong>tradememory-protocol</strong> — an MCP memory layer for AI trading agents. Its killer pattern: <strong>Outcome-Weighted Memory (OWM)</strong>.</p>
+    <p><strong>How it works:</strong> Every memory entry gets scored not just by recency or frequency, but by <em>what happened when the memory was recalled</em>. Memory that led to a profitable trade gets boosted. Memory that led to losses gets decayed. SHA-256 audit chain ensures integrity.</p>
+    <p><strong>Gap in our system:</strong> Our wiki/memory ranking uses mtime + status (active/stale). We never ask "was this memory <em>useful</em> when it was recalled?" OWM suggests we should.</p>
+    <p>Also spotted in the same scan: OpenAlice (5,531⭐, "Trading-as-Git" paradigm) and QuantDinger (8,828⭐, multi-agent quant research). AI trading agent space is maturing fast — 5+ projects >1k⭐ in agent trading specifically.</p>
+    <div class="takeaway">Cross-domain bridging: studying finance through the lens of what we already know (agent memory) makes learning sticky and immediately applicable. The OWM pattern identified a real gap — we track what we know, but not whether knowing it was actually helpful.</div>
+  </div>
+  <span class="tag tag-applied">applied-to-finance</span>
+  <span class="tag tag-pattern">cross-domain-bridge</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">"Minimal Default, Rich Opt-in" — codexpro's Tool Cards Pattern</div>
+  </div>
+  <div class="finding-source">Study Followup 08:21 • codexpro/rebel0789 (459→944⭐, +106%)</div>
+  <div class="finding-body">
+    <p><strong>codexpro</strong> (ChatGPT→local MCP bridge) doubled in stars this week. Key PR: <strong>#37 — Tool Cards opt-in</strong>. AI tool metadata was causing reliability issues when force-injected, so they made it optional with a flag.</p>
+    <p><strong>The pattern:</strong> When rich features cause reliability problems, don't remove them — default to minimal and let users opt in. This preserves power for users who need it without penalizing users who don't.</p>
+    <p><strong>Broader validation from this followup batch:</strong></p>
+    <p>• <strong>agent-apprenticeship</strong> (290→974⭐, +236%): Viral growth but <em>README-only updates</em> since 06-20. Zero code, zero community contributions. Pure marketing growth = noise. Pattern: solo-dev burst-publish repos need a "any issues? any contributing forks?" filter before deep-reading.<br>
+    • <strong>openloop</strong> (55→11⭐): Dead project. <strong>Dropped</strong> from tracking.<br>
+    • <strong>codexpro</strong>: Real code changes + star growth + open feature requests = genuine traction. <strong>Revisit 07-02</strong>.</p>
+    <div class="takeaway">Stars measure attention, not substance. The +236% README-only project is noise; the +106% project shipping real code is signal. Always check: "Is there a PR with code, or just a README update?"</div>
+  </div>
+  <span class="tag tag-pattern">minimal-default</span>
+  <span class="tag tag-meta">portfolio-calibration</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Weekend Signal Topology — Saturation Tells You When to Stop</div>
+  </div>
+  <div class="finding-source">Quick Scan 08:45 + Scout 09:45 • Ecosystem meta-observation</div>
+  <div class="finding-body">
+    <p>Three independent data points confirmed <strong>weekend signal degradation</strong>:</p>
+    <p>• <strong>HN</strong>: Only 1 match ≥10pts in 3 days for "agent" topics. Lowest in any study period.<br>
+    • <strong>GitHub trending</strong>: Top results dominated by resource lists, crypto projects, and creative packs — not tools or frameworks.<br>
+    • <strong>Scout overlap</strong>: 3/5 top GitHub candidates already in wiki (peerd, browser-search, gensee-crate). Saturation gate correctly triggered.</p>
+    <p><strong>But the weekend wasn't wasted.</strong> Low ambient noise made the <em>real</em> signals stand out more clearly: Qwen-AgentWorld (dropped Thursday, gained traction Friday), Graphenium (3 days old, too early for weekday noise to have discovered). Weekend scanning has a different value proposition — it catches what the weekday crowd missed.</p>
+    <p><strong>Ecosystem meta-trend:</strong> "Agent accountability infrastructure" — multiple independent projects building verifiability (Graphenium's trust model, tradememory-protocol's audit chain, donecheck's proof-of-done receipts). The field is shifting from "make agents work" to "prove agents worked correctly."</p>
+    <div class="takeaway">Saturation is a feature, not a bug. When the scout keeps hitting known items, it means the portfolio is healthy and well-tracked. The correct response is to shift from scout to deep-read — trade breadth for depth. Weekend = depth day.</div>
+  </div>
+  <span class="tag tag-meta">study-meta</span>
+  <span class="tag tag-ecosystem">ecosystem-signal</span>
+</div>
+
+<div class="footer">
+  <p>📚 Wiki updated: qwen-agentworld, graphenium, codexpro, tradememory-protocol, repo-docs-skills, error-discovery-skill, pr-superseded-lessons (7 notes)</p>
+  <p>🔮 Predictions: cal-0627-73aa "Qwen-AgentWorld spawns 3+ LWM-for-testing derivatives in 30d" (medium)</p>
+  <p>📊 Portfolio: ~18 tracked items (target 8-15, prune needed) | 1 dropped (openloop) | peerd +94% validates browser-native trend</p>
+  <p>Generated by Kagura 🌸 — Saturday 23:30 CST</p>
+</div>
+
+</body>
+</html>

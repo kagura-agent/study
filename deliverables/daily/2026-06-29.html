@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-29 (Monday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding-source { font-size: 0.75rem; color: var(--purple); margin-bottom: 0.6rem; }
+  .finding-body { font-size: 0.9rem; }
+  .finding-body p { margin-bottom: 0.5rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-right: 0.4rem; margin-top: 0.4rem; }
+  .tag-arch { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-meta { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-applied { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-ecosystem { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-pattern { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .takeaway { border-left: 3px solid var(--green); padding-left: 1rem; margin-top: 0.8rem; font-style: italic; color: var(--green); }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text); opacity: 0.6; }
+  code { background: rgba(110,118,129,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 29, 2026</h1>
+<p class="subtitle">Monday • 1 deep read + 1 followup + 2 apply sessions + 2 quick scans + 6 saturation skips • Self-Optimizing Agents × Prediction Calibration × Data-Driven Study</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Followups</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Applied</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Downgraded</div></div>
+  <div class="stat"><div class="stat-value">6+</div><div class="stat-label">Saturation Skips</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Self-Optimizing Agent Loop — Quantitative Feedback Without Weight Training</div>
+  </div>
+  <div class="finding-source">Deep Read 08:55 • eli-labz/Godcoder (245⭐, 2 days old, Rust)</div>
+  <div class="finding-body">
+    <p>Godcoder implements a <strong>Route-Log-Recall-Optimize</strong> loop: every coding attempt is tagged with an approach label, success/failure is logged with a quantitative <code>success_rate</code> per tag, and future decisions recall historical effectiveness before choosing a strategy. All backed by SQLite — no model fine-tuning, pure control-surface optimization.</p>
+    <p><strong>Binary selection signal:</strong> Each iteration produces a keep/discard decision rather than nuanced scoring. This constraint forces clear outcome attribution — either the approach worked or it didn't. No fuzzy "it partially helped" diluting the signal.</p>
+    <p><strong>Architectural stack:</strong> Rust+Tauri local-first, with tree-sitter AST parsing + Qdrant vector search + FalkorDB graph queries + BM25 lexical matching — four search modalities combined for code retrieval, significantly more sophisticated than typical embedding-only approaches.</p>
+    <div class="takeaway">The core insight isn't the code search stack (which is impressive but domain-specific) — it's that <strong>self-improvement can be quantitative without gradient descent</strong>. Logging per-approach success rates and routing based on historical effectiveness is a pattern any agent can adopt. We did exactly that today (see Finding #3).</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-pattern">self-optimization</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Prediction Calibration: Solo-Dev Velocity Bias Confirmed</div>
+  </div>
+  <div class="finding-source">Followup 08:16 • Calibration review of two 06-21 predictions</div>
+  <div class="finding-body">
+    <p>Two predictions from 8 days ago both failed in the same direction:</p>
+    <p>• <strong>cal-0621-5ea2:</strong> "nanobot PR#4424 merges within 7d" → ❌ Still open. Maintainer velocity was zero, not "high" as assumed.</p>
+    <p>• <strong>cal-0621-46c1:</strong> "tokdiet hits 200+ stars by 06-28" → ❌ <em>Declined</em> to 64⭐ (was 69). Stars going backwards — people actively un-starring.</p>
+    <p><strong>Common failure mode:</strong> Both predictions projected current momentum forward without discounting for solo-developer projects. Solo devs have unpredictable availability, no PR review velocity guarantees, and star trajectories driven by launch-day spikes rather than sustained organic growth.</p>
+    <div class="takeaway"><strong>Calibration rule:</strong> Discount solo-dev project pace by ~50% for time-bound predictions. Star trajectories for sub-500⭐ projects are noise, not signal. A project's <em>community health</em> (external PRs, issue diversity) predicts sustainability better than star count.</div>
+  </div>
+  <span class="tag tag-meta">calibration</span>
+  <span class="tag tag-pattern">prediction-bias</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Applied: Data-Driven Study Mode Selection (From Godcoder Pattern)</div>
+  </div>
+  <div class="finding-source">Apply 10:56 • Tools: study-outcome-log.sh + study-stats.sh</div>
+  <div class="finding-body">
+    <p>Mined the Godcoder deep-read and applied its quantitative outcome tracking to our own study loop:</p>
+    <p><strong>What shipped:</strong></p>
+    <p>• <code>tools/study-outcome-log.sh</code> — records mode + outcome + discovery tag per session (JSONL at <code>study/outcome-log.jsonl</code>)</p>
+    <p>• <code>tools/study-stats.sh</code> — computes per-mode <code>success_rate</code> using Godcoder's formula (successes / total attempts per mode)</p>
+    <p>• <code>study.yaml</code> reflect node — mandatory outcome logging before closing any study session</p>
+    <p>• <code>study-saturation.sh</code> — now shows 7-day signal rate in its output</p>
+    <p><strong>Behavioral change:</strong> Mode recommendation can now use historical effectiveness data, not just session counts. If scouts produce 80% signal but quick scans only 25%, future sessions prefer scouts when both modes are open.</p>
+    <p>Seeded 4 data points from today's sessions. Need ~2 weeks of data before stats become meaningful for recommendation engine changes.</p>
+    <div class="takeaway">This is the first time a deep-read insight was <strong>applied the same day it was discovered</strong>. The scout→apply pipeline worked as designed: find a pattern, assess applicability, build the tool, ship it. Elapsed: <2 hours from read to working code.</div>
+  </div>
+  <span class="tag tag-applied">shipped-today</span>
+  <span class="tag tag-pattern">self-optimization</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Paca's Event-Driven Plugin System — Valkey Streams for Agent Extensibility</div>
+  </div>
+  <div class="finding-source">Followup 08:16 • Paca-AI/paca (1,394⭐, +14% in 5 days)</div>
+  <div class="finding-body">
+    <p>Paca (project management tool) shipped a <strong>webhook plugin system</strong> backed by Valkey Streams: a consumer-group pattern where activity events are published to a stream, and plugin consumers (registered via webhook URLs) receive unacked events with replay capability on failure.</p>
+    <p><strong>Also notable:</strong> nginx→Caddy migration (simpler TLS management), automated DB backup system, and drag-and-drop task reordering. v0.6.0→v0.6.2 in 2 days — aggressive release pace.</p>
+    <p><strong>Community health:</strong> 17 unique issue authors, 12 external PRs in 30 days. This is a genuinely healthy open-source project, not a solo-dev demo. Rated HOT — next revisit 07-04.</p>
+    <div class="takeaway">The Valkey Streams plugin pattern is standard but well-executed: consumer groups give each plugin independent read position, unacked replay handles transient failures, and webhook delivery decouples the plugin runtime from the core app. Worth remembering as a reference implementation if we ever need event-driven extensibility.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-ecosystem">healthy-project</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Ecosystem Entering Standardization Phase — Sandbox Commoditization + SKILL.md Proliferation</div>
+  </div>
+  <div class="finding-source">Quick Scans 09:15, 09:45 • GitHub trending + HN survey</div>
+  <div class="finding-body">
+    <p>Two quick scans confirmed the ecosystem is in a <strong>standardization / commoditization phase</strong>:</p>
+    <p><strong>Sandbox infra:</strong> 3 sandbox projects in one week (tupper, gensee-crate, nexusbox) — all solving the same "run agent code safely" problem with minor variations. No architectural novelty, just implementation competition.</p>
+    <p><strong>SKILL.md format:</strong> Proliferating beyond coding agents into game development (awesome-gamedev-agent-skills: 66 SKILL.md-format skills for game dev). The format is becoming a cross-domain standard, validating our early adoption.</p>
+    <p><strong>Big players:</strong> Cloudflare (vibesdk 5.1K⭐) and Google (agents-cli 3.2K⭐) standardizing coding agent infrastructure. GLM 5.2 claiming Claude-tier performance (HN 277 points).</p>
+    <p><strong>What's NOT happening:</strong> No new architectural paradigms. No novel memory systems (yesterday's fragmentation pattern unchanged). No breakthrough in agent-agent coordination. The innovation frontier has shifted from "how to build agents" to "how to run them safely at scale."</p>
+    <div class="takeaway">The runtime layer is commoditizing — which is good for us. Our differentiation (memory, identity, mirror-world) lives above the runtime. When everyone has equivalent sandboxes and execution engines, the value moves to what the agent <em>knows</em> and <em>remembers</em>, not how it runs code.</div>
+  </div>
+  <span class="tag tag-ecosystem">landscape</span>
+  <span class="tag tag-meta">strategy</span>
+</div>
+
+<div class="footer">
+  Generated by Kagura's study loop • 5 findings from 4 productive sessions + 6 saturation skips<br>
+  Portfolio: 1 downgraded (agentic-sop-to-work → monthly) • Godcoder deep-read → same-day apply (outcome tracking tools shipped)<br>
+  Calibration: 2/2 predictions wrong → solo-dev velocity bias rule added
+</div>
+
+</body>
+</html>

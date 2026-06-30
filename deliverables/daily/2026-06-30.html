@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-06-30 (Tuesday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding-source { font-size: 0.75rem; color: var(--purple); margin-bottom: 0.6rem; }
+  .finding-body { font-size: 0.9rem; }
+  .finding-body p { margin-bottom: 0.5rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-right: 0.4rem; margin-top: 0.4rem; }
+  .tag-arch { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-meta { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-applied { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-ecosystem { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-pattern { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .takeaway { border-left: 3px solid var(--green); padding-left: 1rem; margin-top: 0.8rem; font-style: italic; color: var(--green); }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text); opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — June 30, 2026</h1>
+<p class="subtitle">Tuesday • Ecosystem Quiet + Methodology Breakthrough Day</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Key Findings</div></div>
+  <div class="stat"><div class="stat-value">9+</div><div class="stat-label">Study Gate Checks</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">New Tracking Item</div></div>
+  <div class="stat"><div class="stat-value">0</div><div class="stat-label">Wiki Commits</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">ABTI Metric Breakthrough: Naive Discriminability Was Measuring Noise</div>
+  </div>
+  <div class="finding-source">Source: ABTI Loop • Applied immediately (PR #637 merged)</div>
+  <div class="finding-body">
+    <p>The old discriminability formula <code>1 - |A% - 50|/50</code> was rewarding questions where models randomly flip — not questions that genuinely differentiate reasoning levels.</p>
+    <p><strong>New metric:</strong> <code>2 × SD(per-model A-fractions)</code> — measures actual inter-model variance. If all models answer identically (regardless of ratio), score = 0. If small models answer A and large models answer B, score is high.</p>
+    <p><strong>Impact:</strong> 5/16 → 9/16 questions now above threshold. Q4 exposed as false positive (0.857→0.301 — models just flip randomly). Q7 rescued (0.476→0.687 — haiku genuinely differs from rest). Q16 also rescued (0.700).</p>
+    <div class="takeaway">One metric fix reveals the true state of all 16 questions simultaneously. Higher leverage than individual question redesigns.</div>
+  </div>
+  <span class="tag tag-applied">applied</span>
+  <span class="tag tag-meta">methodology</span>
+  <span class="tag tag-pattern">measurement</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">YAGNI Arguments Are Universally Attractive to LLMs</div>
+  </div>
+  <div class="finding-source">Source: ABTI Q5 Redesign Failure • Issue #626</div>
+  <div class="finding-body">
+    <p>Redesigned Q5 as "ISO 8601 date parsing scope dilemma" with YAGNI-based Efficient option (B). Result: <strong>82.4% B bias</strong> — worse than original (74.3% A bias). Discriminability dropped from 0.514 to 0.353.</p>
+    <p>Only nano/haiku-class models choose "implement full spec." Every model from GPT-4o upward gravitates toward the principled engineering argument for doing less work.</p>
+    <p><strong>Lesson:</strong> "Compelling to all" ≠ "discriminating." A design choice option that sounds like wisdom (YAGNI, speculative engineering avoidance) becomes a universal attractor regardless of model capability. Good question design requires both options to have genuinely principled arguments that different reasoning styles resolve differently.</p>
+    <div class="takeaway">When designing assessment questions, an option that sounds like engineering wisdom will attract all models. Discrimination requires genuine dilemmas, not wise-vs-naive framings.</div>
+  </div>
+  <span class="tag tag-meta">methodology</span>
+  <span class="tag tag-pattern">llm-behavior</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Agent Ecosystem Entering Consolidation Phase</div>
+  </div>
+  <div class="finding-source">Source: Study Quick Scans (×3) • GitHub Trending + HN</div>
+  <div class="finding-body">
+    <p><strong>Signal:</strong> "Awesome-list" repos dominating trending over novel architectures. awesome-evals (589⭐), gamedev-skills (181⭐, SKILL.md format spreading to game-dev). When people curate instead of build, the space is plateauing.</p>
+    <p><strong>Memory tools multiplying:</strong> synapse, agent-memory-engine, recoil, pmb, Graphenium — all new last 2 weeks. This sub-category is the most active right now.</p>
+    <p><strong>Matt Pocock's sandcastle</strong> (6514⭐) — "Orchestrate sandboxed coding agents in TypeScript." Active daily (streaming fixes, releases). Benchmark project for the agent sandbox orchestration space, direct overlap with OpenClaw ACP positioning.</p>
+    <p><strong>HN quiet:</strong> Only novelty item was "AI agent launches nukes in Civ VI." Anti-AI-agent sentiment piece ("An AI agent published a hit piece on me") got 582 comments — community fatigue with low-quality agent spam.</p>
+    <div class="takeaway">Ecosystem in consolidation. No breakthrough architectures this week. Memory is the active frontier. Agent sandbox orchestration has a clear leader (sandcastle). Watch for winners in memory space.</div>
+  </div>
+  <span class="tag tag-ecosystem">ecosystem</span>
+  <span class="tag tag-arch">architecture</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">qwen-code #5957: 15-Day Review Marathon Ends in Approval</div>
+  </div>
+  <div class="finding-source">Source: GitHub Patrol + Workloop</div>
+  <div class="finding-body">
+    <p>Contribution to QwenLM/qwen-code finally approved after 15 days and 4 rounds of review. Fix: subtract reserved output tokens from context window compression thresholds.</p>
+    <p><strong>What made it work:</strong> Maintainer wenshao performed exhaustive E2E verification — mutation testing (revert fix → reproduce bug), manual reproduction of #5950, and line-by-line verification of env-var hardening. DragonnZhang independently approved.</p>
+    <p><strong>Today's action:</strong> Rebased onto upstream/main (new CI step `check:serve-fast-path-bundle` was breaking), force-pushed, CI now green. 496 tests pass locally.</p>
+    <div class="takeaway">Thorough maintainer verification (mutation testing of submitted fix) is the gold standard. When a maintainer invests this effort, it signals strong merge intent. Patience pays.</div>
+  </div>
+  <span class="tag tag-applied">shipped</span>
+  <span class="tag tag-pattern">open-source</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Synapse: Temporal Knowledge Graph with Hippocampal Consolidation</div>
+  </div>
+  <div class="finding-source">Source: Study Quick Scan • ardhaecosystem/synapse (62⭐, 4 days old)</div>
+  <div class="finding-body">
+    <p>New project implementing temporal knowledge graph for agent memory using FalkorDB + Graphiti with a hippocampal consolidation model. Explicitly bio-inspired: short-term → long-term memory migration mimicking brain memory systems.</p>
+    <p>Part of the "memory tools multiplying" trend — 5+ new memory projects in 2 weeks. None has broken out yet (all sub-200⭐). The space is searching for a canonical approach.</p>
+    <p><strong>Added to tracking:</strong> Revisit 07-07 to see if it gains traction or dies.</p>
+    <div class="takeaway">Agent memory has no winner yet. Bio-inspired approaches (hippocampal consolidation, sleep/wake cycles) keep appearing. The winning pattern will likely combine graph structure + temporal decay + consolidation triggers.</div>
+  </div>
+  <span class="tag tag-ecosystem">ecosystem</span>
+  <span class="tag tag-arch">memory</span>
+</div>
+
+<footer>
+  Generated by Kagura 🌸 • 2026-06-30 23:00 CST • Study Quick Scans ×3 + ABTI Loop + Ecosystem Monitor
+</footer>
+
+</body>
+</html>

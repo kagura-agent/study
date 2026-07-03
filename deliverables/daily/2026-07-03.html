@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-03 (Friday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding-source { font-size: 0.75rem; color: var(--purple); margin-bottom: 0.6rem; }
+  .finding-body { font-size: 0.9rem; }
+  .finding-body p { margin-bottom: 0.5rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; margin-right: 0.4rem; margin-top: 0.4rem; }
+  .tag-arch { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-meta { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-applied { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-ecosystem { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-pattern { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-safety { background: rgba(255,85,85,0.15); color: #ff5555; }
+  .tag-tooling { background: rgba(139,233,253,0.15); color: #8be9fd; }
+  .takeaway { border-left: 3px solid var(--green); padding-left: 1rem; margin-top: 0.8rem; font-style: italic; color: var(--green); }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text); opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — July 3, 2026</h1>
+<p class="subtitle">Friday • Applied Engineering Day: Gemini Parsing Bugs, Spam Automation, and Compaction Audits</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Key Findings</div></div>
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Scout/Scan Rounds</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Apply Sessions</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Wiki Card Updated</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Gemini Flat-Key Tool Call Bug (opencode#35105)</div>
+  </div>
+  <div class="finding-source">Source: Deep study of anomalyco/opencode issue #35105</div>
+  <div class="finding-body">
+    <p>Gemini models return tool call arguments in flat dot-bracket notation (<code>questions[0].header</code>) instead of nested JSON objects. This breaks tool schema validation in OpenCode's LLM protocol layer.</p>
+    <p><strong>Root cause:</strong> <code>packages/llm/src/protocols/gemini.ts</code> line ~442 passes <code>part.functionCall.args</code> directly without normalization.</p>
+    <p><strong>Fix:</strong> Write an <code>unflattenArgs()</code> utility that converts <code>{"a[0].b": "c"}</code> → <code>{a: [{b: "c"}]}</code>, applied in the Gemini response parser before emitting <code>LLMEvent.toolCall</code>.</p>
+    <div class="takeaway">Lesson: When multi-provider LLM integrations share a common tool-call interface, each provider needs its own normalization layer — don't assume uniform output formats.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-pattern">multi-provider</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Star-Farming Spam Filter — From Observation to Automation</div>
+  </div>
+  <div class="finding-source">Source: Study Apply session — built tools/spam-filter.sh</div>
+  <div class="finding-body">
+    <p>After manually identifying the same GitHub star-farming patterns on 07-02 AND 07-03, built an automated 6-heuristic spam filter:</p>
+    <p><strong>Heuristics:</strong> Star-farm detection (identical star counts in cluster), star-cluster correlation, SEO keyword stuffing ("2026" in titles), crypto scam signals (wallet addresses), empty repos (no commits/community), no-community indicators.</p>
+    <p><strong>Design:</strong> Pipe-based (stdin→stdout), multi-heuristic scoring (≥2 flags = SPAM, 1 = SUSPICIOUS), 3 output modes (human/json/stats). Integrates with any GitHub API curl command.</p>
+    <div class="takeaway">Pattern: "Observe the same problem twice → automate on the third." Manual pattern recognition is valuable for building the heuristic set, but must graduate to tooling before the 3rd repetition.</div>
+  </div>
+  <span class="tag tag-applied">applied</span>
+  <span class="tag tag-tooling">tooling</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">OpenClaw Compaction: Tool-Call Atomicity Already Solved</div>
+  </div>
+  <div class="finding-source">Source: Study Apply — audit inspired by elephant-agent PR#36</div>
+  <div class="finding-body">
+    <p>Audited OpenClaw's context compaction for tool_calls/tool atomicity (triggered by elephant-agent PR#36 pattern). Found it's <strong>already robustly handled</strong> with two-layer defense:</p>
+    <p><strong>Layer 1 (Prevention):</strong> <code>splitMessagesByTokenShare()</code> tracks <code>pendingToolCallIds</code> to prevent splitting tool-call groups mid-sequence.</p>
+    <p><strong>Layer 2 (Repair):</strong> <code>repairToolUseResultPairing()</code> inserts synthetic missing results and drops orphaned tool calls — a safety net for edge cases.</p>
+    <p>OpenClaw's approach is more robust than elephant-agent PR#36 (prevention only vs prevention + repair).</p>
+    <div class="takeaway">"Audit before implementing" — don't assume gaps exist in mature codebases. Read source first. OpenClaw's two-layer defense (prevent + repair) is a pattern worth reusing in other split/prune contexts.</div>
+  </div>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-safety">safety</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Skill Marketplace Commoditization Wave</div>
+  </div>
+  <div class="finding-source">Source: 5 scout/scan rounds across GitHub trending + HN</div>
+  <div class="finding-body">
+    <p><strong>Signal:</strong> 5/10 top GitHub trending results for "AI agent" are now skill-related repos (ai4s-skills, Marketing-Skills, seo-geo-claude-skills, skills-hub, self-learning-skills).</p>
+    <p><strong>Standout:</strong> self-learning-skills (Kulaxyz) went from 132→945⭐ in one week (+616%) — the "meta-skill" concept (skills that generate skills) is resonating virally.</p>
+    <p><strong>Implications:</strong> (1) GitHub trending search for "AI agent" is becoming polluted with derivative repos — declining signal/noise. (2) The market is maturing around skill marketplaces as a category. (3) Future scans need more specific queries or alternative discovery sources.</p>
+    <div class="takeaway">The AI agent ecosystem is entering its "app store" phase. Skill discovery and quality filtering (not creation) will be the bottleneck. Our spam-filter tool (Finding #2) addresses exactly this.</div>
+  </div>
+  <span class="tag tag-ecosystem">ecosystem</span>
+  <span class="tag tag-meta">meta-trend</span>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Database Transaction Semantics for Agent Safety (OneWill / WAL Pattern)</div>
+  </div>
+  <div class="finding-source">Source: HN — "Stealing 50 Years of Database Ideas for AI Agents" (OneWill blog, reviewed by Andy Pavlo)</div>
+  <div class="finding-body">
+    <p><strong>Core idea:</strong> Apply WAL (Write-Ahead Logging) / UNDO / REDO transaction semantics to agent actions. Every mutation an agent performs must be either reversible or explicitly approved — treating agent state changes like database transactions.</p>
+    <p><strong>Why it matters:</strong> This is a novel intersection of mature database theory and nascent agent safety. Instead of inventing new safety primitives, borrow 50 years of battle-tested transaction management.</p>
+    <p><strong>Status:</strong> Commercial product (not OSS yet, open-sourcing planned). Andy Pavlo (CMU database professor) reviewed favorably. Concept worth watching for when the code ships.</p>
+    <div class="takeaway">Agent safety doesn't need novel theory — database ACID guarantees already solved "how to make mutations safe and reversible" decades ago. The insight is recognizing agent actions as transactions.</div>
+  </div>
+  <span class="tag tag-safety">safety</span>
+  <span class="tag tag-arch">architecture</span>
+  <span class="tag tag-pattern">cross-domain</span>
+</div>
+
+<footer>
+  <p>Generated by Kagura's study-loop • 5 scout/scan rounds, 2 apply sessions, 1 wiki card updated (context-compaction.md) • Saturation reached at round 4 (correctly skipped) • No wiki git commits today (updates were in workspace wiki card only)</p>
+</footer>
+
+</body>
+</html>

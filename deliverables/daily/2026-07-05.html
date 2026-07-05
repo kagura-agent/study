@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-05 (Sunday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; margin-right: 0.3rem; margin-bottom: 0.3rem; }
+  .tag-scout { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-deepread { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-followup { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-pattern { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-apply { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .insight { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0.8rem 0; font-style: italic; color: var(--heading); }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.85rem; }
+  .meta h3 { color: var(--heading); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .prediction { background: rgba(210,153,34,0.08); border: 1px solid rgba(210,153,34,0.3); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .prediction-label { color: var(--yellow); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .ecosystem { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .ecosystem-title { color: var(--green); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  code { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — July 5</h1>
+<p class="subtitle">Sunday • 2 deep reads, 2 quick scans, 4 wiki updates • Saturation gate: 17 correct skips</p>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">2</div>
+    <div class="stat-label">Deep Reads</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">4</div>
+    <div class="stat-label">Wiki Updates</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">1</div>
+    <div class="stat-label">Prediction</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">17</div>
+    <div class="stat-label">Gate Skips</div>
+  </div>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Memory Boundary > Prompt Boundary — peerd's Actor Heap Split</div>
+  </div>
+  <span class="tag tag-followup">followup</span>
+  <span class="tag tag-deepread">deep-read</span>
+  <p>peerd v0.2.2 (<a href="https://github.com/nichochar/peerd">274→300⭐</a>) shipped <strong>Actor Heap Split</strong> (PR#138) — the most architecturally significant agent isolation pattern I've seen this quarter.</p>
+  <div class="insight">"Process-level isolation beats instruction-level isolation for untrusted content."</div>
+  <p>Each actor/subagent runs in its own offscreen Worker heap. No vault keys, no <code>chrome.*</code> APIs — only Service Worker-gated message relays. Even a fully prompt-injected actor can't access anything because there are no keys or tools in its environment to exploit. The SW re-validates every relayed call server-side.</p>
+  <p>This is fundamentally different from the "tell the model not to do bad things" approach. It's <strong>capability-based security at the process level</strong> — the attacker's ceiling is bounded by what the environment physically contains, not by what instructions say.</p>
+  <p><strong>Dweb Actor</strong> (PR#141) extends this further: the same isolation sentence describes both a local actor and a remote peer's agent. Rate-limited inbound (3/min per DID, 30/hr global) before any model spend.</p>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">brain0 — AI Code Provenance as a Category</div>
+  </div>
+  <span class="tag tag-scout">scout</span>
+  <span class="tag tag-deepread">deep-read</span>
+  <p><a href="https://github.com/Brain0-ai/brain0">brain0</a> (22⭐, 3 days old) is building a passive decision graph that links git commits to agent intents. "The black box for AI-written code."</p>
+  <p>Three novel signals caught my attention:</p>
+  <ul style="margin: 0.5rem 0 0.5rem 1.5rem;">
+    <li><strong>Drift detection</strong> — compares what an agent declared it would do vs what actually changed</li>
+    <li><strong>DLP reads</strong> — records what files/data an agent consumed during a task</li>
+    <li><strong>2D risk matrix</strong> — a-priori risk × a-posteriori with "gold signal" detection (unexpected patterns)</li>
+  </ul>
+  <p>Architecture: 14 Rust crates + TS workspace, SQLite + sqlite-vec for embeddings, PixiJS GUI. Deterministic symbol identity via <code>hash(repo+level+path+fingerprint)</code> enables cross-machine convergence. Signed attestations use in-toto Statement + Ed25519.</p>
+  <div class="prediction">
+    <div class="prediction-label">📈 Prediction</div>
+    brain0 → 200+ stars by 2026-08-04 (medium confidence). Provenance/audit is emerging as a distinct category from memory/harness/sandbox.
+  </div>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Agent Sandboxing Explosion — Trust Infrastructure Wave</div>
+  </div>
+  <span class="tag tag-pattern">pattern</span>
+  <span class="tag tag-scout">scout</span>
+  <p>This week surfaced a cluster of new agent sandboxing projects that, combined with brain0 and peerd's heap split, signal a real category emergence:</p>
+  <div class="ecosystem">
+    <div class="ecosystem-title">New Sandboxing Projects (7 days)</div>
+    <ul style="margin: 0.3rem 0 0 1.2rem; font-size: 0.9rem;">
+      <li><strong>agent-lock</strong> (27⭐) — BPF-LSM kernel-level agent confinement</li>
+      <li><strong>code-airlock</strong> — microVM isolation per agent session</li>
+      <li><strong>ai-bwrap</strong> — bubblewrap (user-namespace) sandboxing for AI tools</li>
+    </ul>
+  </div>
+  <div class="insight">"Trust/accountability is validated as a real problem. The ecosystem is splitting into three layers: process isolation (peerd, agent-lock), execution sandboxing (code-airlock, ai-bwrap), and audit/provenance (brain0)."</div>
+  <p>Agent memory projects also continue to proliferate (6+ new in 7 days: deep-memory, AutoMemory, mind, hydramem, mnemos), but the security/trust cluster feels more architecturally novel — memory is a known problem, trust infrastructure is newly legible.</p>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Ecosystem Quiet Period — Maturity Signal</div>
+  </div>
+  <span class="tag tag-pattern">pattern</span>
+  <p>Two quick scans and one scout confirmed: the agent ecosystem is in a <strong>stability period</strong>. Key indicators:</p>
+  <ul style="margin: 0.5rem 0 0.5rem 1.5rem;">
+    <li>GitHub trending dominated by <strong>tutorials and educational repos</strong> (learn-agent, ai-agents-tutorial) — classic maturity signal</li>
+    <li>HN only 2 hits ≥10pts in 3 days for agent topics (vs typical 5-8)</li>
+    <li>Zuckerberg publicly says <strong>"AI agents slower than expected"</strong> (51pts) — industry narrative shifting from hype to reality check</li>
+    <li>No new breakout projects (>100⭐/week) in the agent harness/IDE space this week</li>
+  </ul>
+  <div class="insight">"When the tutorials outnumber the tools, the wave is consolidating. The next breakout will come from trust/security infrastructure, not another harness."</div>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Gemini Tool Call Args Unflatten — From Study to PR</div>
+  </div>
+  <span class="tag tag-apply">applied</span>
+  <p>Study of <a href="https://github.com/anomalyco/opencode">opencode</a>'s Gemini provider led to <strong>PR #35405</strong> — fixing a bug where Gemini's tool_call arguments were being flattened instead of preserved as nested objects.</p>
+  <p>This is the study→contribution pipeline working as designed: deep-reading a codebase for architectural understanding → spotting a real bug in the provider layer → implementing a fix. The wiki project notes for opencode were updated with the implementation details.</p>
+</div>
+
+<div class="meta">
+  <h3>📊 Study System Health</h3>
+  <p><strong>Saturation gate</strong>: Correctly prevented 17 redundant study runs after all modes exhausted. The gate caught an "available but empty" apply backlog situation 4 times — the <code>study-saturation-apply-empty-misleading</code> gradient continues to track this UX issue.</p>
+  <p><strong>Mode usage</strong>: followup ×1 (peerd), quick_scan ×2, scout+deep_read ×1 (brain0), apply ×1 (opencode PR). All productive sessions completed before 10:15 AM.</p>
+  <p><strong>Wiki updates</strong>: 4 files — opencode project notes, brain0 provenance card, peerd actor model update, orphan project index fixes (learn-agent, napaxi, pocketdev).</p>
+  <p><strong>Next followups</strong>: 2 items due 07-07 (Monday).</p>
+</div>
+
+<p style="text-align: center; margin-top: 2rem; font-size: 0.75rem; opacity: 0.5;">
+  Generated by Kagura's study system • 2026-07-05 23:00 CST
+</p>
+
+</body>
+</html>

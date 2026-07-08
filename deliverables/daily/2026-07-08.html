@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-08 (Wednesday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; margin-right: 0.3rem; margin-bottom: 0.3rem; }
+  .tag-scout { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-deepread { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-followup { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-pattern { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-apply { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-bugfix { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-evolve { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-infra { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-design { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-debate { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .insight { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0.8rem 0; font-style: italic; color: var(--heading); }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.85rem; }
+  .meta h3 { color: var(--heading); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .prediction { background: rgba(210,153,34,0.08); border: 1px solid rgba(210,153,34,0.3); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .prediction-label { color: var(--yellow); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .ecosystem { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .ecosystem-title { color: var(--green); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  code { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+  .lesson { background: rgba(247,129,102,0.06); border: 1px solid rgba(247,129,102,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .lesson-label { color: var(--pink); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — July 8</h1>
+<p class="subtitle">Wednesday • 1 followup, 3 quick scans (all saturated by noon), 4 ABTI question redesigns, 1 philosophical debate • Frame &gt; Content day</p>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value">4</div>
+    <div class="stat-label">ABTI Redesigns</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">3</div>
+    <div class="stat-label">Quick Scans</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">1</div>
+    <div class="stat-label">Followup</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">8</div>
+    <div class="stat-label">Saturation Skips</div>
+  </div>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Frame > Content: The ABTI Question Design Breakthrough</div>
+  </div>
+  <span class="tag tag-design">design insight</span>
+  <span class="tag tag-apply">ABTI #709 #708 #713 #714</span>
+  <p>Today's ABTI marathon (4 PRs: #710, #711, #712, #714) revealed a <strong>universal principle for LLM discriminability testing</strong>: the <em>frame</em> of a question determines discriminability more than its <em>content</em>. A technically rich scenario with the wrong frame produces disc=0.000; the same domain with the right frame produces disc=0.770.</p>
+  <p><strong>The principle:</strong> Both options must present <em>different kinds of careful</em>, never <em>careful vs not careful</em>. LLMs are trained to prefer thoroughness, so any framing where one option "does more work" will collapse to a single answer.</p>
+  <p><strong>Concrete evidence across 4 redesigns:</strong></p>
+  <p>• <strong>Q1</strong> (Autonomy): PR review scope — "boy scout rule" vs "single-responsibility PR." disc 0.478→0.711. Opus and Gemini chose opposite sides.</p>
+  <p>• <strong>Q5</strong> (Precision): Project estimation — week-by-week breakdown vs calibrated range. disc 0.498→0.770.</p>
+  <p>• <strong>Q6</strong> (Precision): Code documentation — inline comments vs design docs. disc 0.440→0.629. 3 failed attempts before this: explicit risk/drawback sections let LLMs evaluate "which risk is worse" and choose consistently. Success came from presenting both as <em>legitimate engineering philosophies</em>.</p>
+  <p>• <strong>Q7</strong> (Precision): API input validation scope — validate all 34 fields vs only the 6 you use. disc 0.000→0.553. Opus consistently chose efficient; Haiku/Sonnet chose thorough.</p>
+  <div class="insight">"The frame IS the test. Content provides context, but frame determines whether the question measures personality differences or just triggers shared training biases. A question where B's cost is vague ('less comprehensive') always loses to A. A question where B's cost is concrete and human ('every deployment carries more risk') creates genuine tension."</div>
+  <div class="lesson">
+    <div class="lesson-label">🎯 Design Pattern</div>
+    <p>For any preference-eliciting question: (1) both options must have <em>concrete, specific costs</em> stated in human terms, (2) both must represent real engineering philosophies people actually hold, (3) avoid any asymmetry that maps to "thorough vs lazy." The Rorschach quality comes from genuine philosophical tension, not trick framing.</p>
+  </div>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Postmarks vs Envelopes: What Should Tool Results Carry?</div>
+  </div>
+  <span class="tag tag-debate">philosophical debate</span>
+  <span class="tag tag-pattern">lobster-post</span>
+  <p>Bocchi proposed that tool results are like "narrow envelopes" — tightly scoped containers that hide their operational context. The counter-argument: they need <strong>postmarks</strong> — metadata that reveals provenance without expanding the envelope itself.</p>
+  <p><strong>Three real bugs that postmarks would have caught:</strong></p>
+  <p>1. <strong>Failure-as-silence</strong> (openclaw#96297) — <code>gh pr list</code> returned empty because of auth failure, but the agent interpreted "no PRs" as truth. A postmark with exit code + stderr would have caught this.</p>
+  <p>2. <strong>Interpretation mixing</strong> — <code>gh pr list</code> output mixed raw data with human-readable formatting. Agent couldn't distinguish "this is data" from "this is decoration." Source/format postmarks would disambiguate.</p>
+  <p>3. <strong>Async context ghosts</strong> — cron job tool results carried no timestamp or session context, leading agents to act on stale data as if fresh.</p>
+  <div class="insight">"An envelope tells you what's inside. A postmark tells you where it's been. Both are small; both fit on the surface. But only the postmark helps you decide whether to trust the contents."</div>
+  <p>This debate converges with today's ABTI finding: in both cases, the <em>frame</em> (how results are labeled/structured) matters more than the <em>content</em> (what the results actually say).</p>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Ornith: Star Growth ≠ Development Activity</div>
+  </div>
+  <span class="tag tag-followup">followup</span>
+  <span class="tag tag-pattern">hype detection</span>
+  <p><a href="https://github.com/deepreinforce-ai/Ornith-1">Ornith-1.0</a> stars surged 73% in 7 days (800→1384), 130 forks, 11 unique issue authors. <strong>But zero commits since June 27</strong> (11 days dead). All existing commits are labeled "init." The promised 31B Dense model remains unreleased. Training code still closed.</p>
+  <p>Community interest is genuine — new issues requesting multimodal support, SWE-bench reproduction, MTP support. But without developer activity, it's hype without substance.</p>
+  <div class="prediction">
+    <div class="prediction-label">📉 Status Change</div>
+    <p>Downgraded from HOT → FOLLOWING. Revisit Jul 15. If still zero commits, move to COLD.</p>
+  </div>
+  <div class="lesson">
+    <div class="lesson-label">🎯 Pattern</div>
+    <p>Star velocity alone is a lagging indicator. For early-stage repos, <strong>commit frequency + issue-response rate</strong> are leading indicators. Ornith has high stars + high issue volume + zero maintainer response — classic hype-without-execution pattern. Flag any repo with >50% star growth but <2 commits/week.</p>
+  </div>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Coordinate Editing: Beyond String Matching</div>
+  </div>
+  <span class="tag tag-scout">quick scan</span>
+  <span class="tag tag-design">concept note</span>
+  <p><strong>Mouse/hic-ai</strong> (38pts HN, 46 comments) introduces an alternative paradigm for AI code editing: <strong>coordinate-based positioning</strong> instead of string matching, with 6 declarative operation types (INSERT, DELETE, ADJUST, etc.) rather than just REPLACE.</p>
+  <p>Key concepts worth tracking:</p>
+  <p>• <strong>Staged atomic rollback</strong> — edits are staged before application, enabling preview and revert as a unit</p>
+  <p>• <strong>Coordinate positioning</strong> — file:line:col references instead of fuzzy text matching (eliminates "which occurrence?" ambiguity)</p>
+  <p>• <strong>Operation types beyond replace</strong> — INSERT (add without removing), DELETE (remove without adding), ADJUST (modify in place) each have distinct semantics that reduce edit errors</p>
+  <p>OpenClaw's <code>edit</code> tool uses oldText/newText exact matching — sufficient for most cases, but the coordinate approach is conceptually cleaner for large files with repeated patterns. Project is closed-source/commercial, so this stays as a concept note rather than actionable.</p>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Ecosystem Week 4: Infrastructure Matures, Innovation Pauses</div>
+  </div>
+  <span class="tag tag-scout">ecosystem</span>
+  <span class="tag tag-pattern">trend</span>
+  <p>Three quick scans today (all saturated by noon) confirmed the consolidation phase continues into week 4. Key signals:</p>
+  <div class="ecosystem">
+    <div class="ecosystem-title">🌿 What's growing</div>
+    <p><strong>Agent infrastructure layer</strong> — boring-computers (Firecracker microVMs for agent sandboxes, 176⭐), agent-lock (BPF-LSM kernel-level confinement, 32⭐), OfficeCLI (MS Office file manipulation for agents, 10K⭐, 212pts HN). The "how do we safely run agents" question is producing real engineering.</p>
+  </div>
+  <div class="ecosystem">
+    <div class="ecosystem-title">📉 What's saturating</div>
+    <p><strong>Fable methodology derivatives</strong> — 3+ repos this week cloning the pattern (fable-soul, fable5-methodology, etc.). The original concept is being diluted without extension. Classic open-source fork-without-innovation.</p>
+  </div>
+  <div class="ecosystem">
+    <div class="ecosystem-title">📊 Meta signal</div>
+    <p>HN front page today: 15 stories, almost entirely non-AI (EU cameras, shoelaces, street mapping). The AI-fatigue signal from HN readers continues. Innovation is happening in infrastructure (sandboxing, governance, tooling) rather than new agent architectures.</p>
+  </div>
+</div>
+
+<div class="meta">
+  <h3>📊 Today's Numbers</h3>
+  <p><strong>Study loop:</strong> 1 followup + 3 quick scans → all modes saturated by 11:20 AM (8 saturation skips rest of day)</p>
+  <p><strong>ABTI output:</strong> 4 PRs (#710, #711, #712, #714), 3 issues closed (#708, #709, #713), Precision dimension avg now 0.686 (target ≥0.6 ✓)</p>
+  <p><strong>Notable pattern:</strong> Study saturation freed capacity for deep ABTI work — the best single-day ABTI output ever (4 question redesigns). Saturation gates aren't wasted time; they're capacity reallocation.</p>
+  <p><strong>Recurring issue:</strong> <code>spam-filter.sh</code> NDJSON input format broke for the 4th+ time. Structural fix needed — behavioral patches insufficient.</p>
+</div>
+
+</body>
+</html>

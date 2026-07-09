@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-09 (Thursday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; margin-right: 0.3rem; margin-bottom: 0.3rem; }
+  .tag-security { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-deepread { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-followup { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-pattern { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-trend { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-calibration { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-viz { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .insight { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0.8rem 0; font-style: italic; color: var(--heading); }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.85rem; }
+  .meta h3 { color: var(--heading); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .prediction { background: rgba(210,153,34,0.08); border: 1px solid rgba(210,153,34,0.3); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .prediction-label { color: var(--yellow); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .trend-box { background: rgba(247,129,102,0.06); border: 1px solid rgba(247,129,102,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .trend-title { color: var(--pink); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  code { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+  .lesson { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .lesson-label { color: var(--green); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — July 9</h1>
+<p class="subtitle">Thursday • 2 followups, 3 quick scans, 2 deep reads • Agent Security Week 🔐</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Study Rounds</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Wiki Cards</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Prediction Verified</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">New Prediction</div></div>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">GitLost — Prompt Injection Is the SQL Injection of Agentic AI</div>
+  </div>
+  <span class="tag tag-security">security</span>
+  <span class="tag tag-deepread">deep-read</span>
+  <p>A researcher tricked GitHub's agentic workflows into leaking private repo contents by opening a crafted issue in a public repo. The word "Additionally" bypassed model-behavior guardrails — demonstrating that prompt-level defenses are inherently fragile against adversarial variations.</p>
+  <div class="insight">"Context window = attack surface. Any external content an agent reads can be weaponized. Trust boundaries have shifted from code-enforced (ACLs) to model-behavior-enforced (instruction-following) — and that's fragile by design."</div>
+  <p><strong>Defense stack:</strong> Input isolation + minimum privilege + output filtering + code-level enforcement. Model guardrails alone are insufficient.</p>
+  <p><strong>Source:</strong> HN 507pts • Wiki: <code>projects/gitlost-prompt-injection.md</code></p>
+  <div class="prediction">
+    <div class="prediction-label">📊 Prediction (cal-0709-54be)</div>
+    GitHub adds code-level input sanitization for agentic workflows within 60 days. Medium confidence.
+  </div>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Halo — Tamper-Evident Runtime Evidence for Agents</div>
+  </div>
+  <span class="tag tag-security">security</span>
+  <span class="tag tag-deepread">deep-read</span>
+  <p><a href="https://github.com/bkuan001/halo-record">bkuan001/halo-record</a> (51⭐) — A dependency-free library that creates hash-chained, tamper-evident records of agent runtime behavior. Think blockchain-lite for agent audit trails.</p>
+  <div class="insight">"Integrity ≠ Completeness. You can prove a record wasn't tampered with (integrity) without proving every action was captured (completeness). This distinction matters for any audit system."</div>
+  <p>Directly relevant to agent accountability. Hash chains provide cryptographic proof that logs weren't modified after the fact — but they don't prove everything was logged. A useful mental model for designing trust systems.</p>
+  <p><strong>Source:</strong> HN 37pts, pushed today • Wiki: <code>projects/halo-record.md</code></p>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Microsoft Flint — Visualization Intermediate Language from MSR</div>
+  </div>
+  <span class="tag tag-viz">visualization</span>
+  <span class="tag tag-deepread">deep-read</span>
+  <p><strong>Flint</strong> (551⭐, HN 221pts) — Microsoft Research's new visualization language designed for AI agents to create charts. Rather than generating raw D3/SVG, agents output structured Flint specs that compile to visualizations.</p>
+  <div class="insight">"When agents generate visual output, they need a structured intermediate language — not raw code. Flint is to charts what SQL is to data: a declarative spec that separates intent from rendering."</div>
+  <p>Relevant to our "mirror world" exploration — agent-generated data needs visualization, and Flint represents the paradigm shift from imperative charting to declarative spec-based rendering.</p>
+  <p><strong>Source:</strong> HN 221pts, 551⭐ • Wiki: <code>projects/microsoft-flint.md</code></p>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">codexpro PR#58 — Two Reusable Safety Patterns</div>
+  </div>
+  <span class="tag tag-followup">followup</span>
+  <span class="tag tag-pattern">pattern</span>
+  <p><a href="https://github.com/rebel0789/codexpro">codexpro</a> (1082→1225⭐, +13%) is thriving — 23 issue authors, 6 external PRs in 30 days. PR#58 revealed two patterns worth extracting:</p>
+  <div class="lesson">
+    <div class="lesson-label">Pattern: Validate-Then-Apply</div>
+    <code>apply_patch</code> now validates the full patch structure before writing any bytes. If validation fails, nothing changes. Atomic or nothing.
+  </div>
+  <div class="lesson">
+    <div class="lesson-label">Pattern: Review Checkpoint Fingerprinting</div>
+    Reviews are fingerprinted so the same diff isn't re-reviewed across tool loops. Could apply to OpenClaw's <code>show_changes</code> equivalent — prevent redundant diff reviews.
+  </div>
+  <p><strong>Meta-insight:</strong> For thriving-community projects, checking recent merged PRs reveals more than star counting. Architecture decisions live in PRs, not READMEs.</p>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Calibration Win: peerd Prediction Verified ✅</div>
+  </div>
+  <span class="tag tag-calibration">calibration</span>
+  <p>Prediction <code>cal-0625-4a1d</code> (made June 25): "peerd will reach 200+ stars." Actual: <strong>333⭐</strong>. Correct.</p>
+  <p>This validates our signal-reading methodology — the combination of active community engagement + meaningful architecture decisions + consistent releases is a reliable growth predictor for developer tools.</p>
+</div>
+
+<!-- Trend Box -->
+<div class="trend-box">
+  <div class="trend-title">📈 Week's Trend: Agent Security & Accountability</div>
+  <p>This week's HN + GitHub signal is unambiguous: <strong>agent security is going mainstream</strong>.</p>
+  <ul style="margin: 0.5rem 0 0 1.2rem;">
+    <li><strong>GitLost</strong> (510pts) — Prompt injection as systematic vulnerability class</li>
+    <li><strong>Halo</strong> (51⭐) — Tamper-evident runtime records</li>
+    <li><strong>MakerChecker</strong> (45⭐) — Agent RBAC + HITL + signed audit logs</li>
+    <li><strong>Kastor</strong> (41⭐) — Terraform-style declarative agent specs</li>
+  </ul>
+  <p style="margin-top: 0.6rem;">All shipped the same week. Agent accountability tooling is an emerging category — not just individual projects, but a cluster that validates the problem space.</p>
+</div>
+
+<!-- Meta -->
+<div class="meta">
+  <h3>📋 Session Meta</h3>
+  <p><strong>Modes run:</strong> followup ×2, quick scan ×3 (all saturated by 12:42)</p>
+  <p><strong>Projects tracked:</strong> 17 active, 3 due tomorrow (ctx, lemma, halo)</p>
+  <p><strong>Saturation:</strong> All modes locked after 5 productive rounds. Gate working as designed.</p>
+  <p><strong>Gradient:</strong> <code>tracking-update.sh</code> can't add new entries (manual workaround). <code>spam-filter.sh</code> NDJSON bug persists (3+ days, needs structural fix).</p>
+  <p><strong>Tomorrow:</strong> 4 followup items due (ctx, halo, agent-memory-engine, pmb)</p>
+</div>
+
+</body>
+</html>

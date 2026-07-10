@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-10 (Friday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; margin-right: 0.3rem; margin-bottom: 0.3rem; }
+  .tag-trend { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-deepread { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-pattern { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-architecture { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-calibration { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .insight { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0.8rem 0; font-style: italic; color: var(--heading); }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.85rem; }
+  .meta h3 { color: var(--heading); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .prediction { background: rgba(210,153,34,0.08); border: 1px solid rgba(210,153,34,0.3); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .prediction-label { color: var(--yellow); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .trend-box { background: rgba(247,129,102,0.06); border: 1px solid rgba(247,129,102,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .trend-title { color: var(--pink); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  code { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+  .lesson { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .lesson-label { color: var(--green); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — July 10</h1>
+<p class="subtitle">Friday • 2 deep reads, 1 quick scan • Agent-First Tooling Week 🛠️</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Study Rounds</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Predictions</div></div>
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Patterns</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">"Agent-First Tooling" Is Now a Category</div>
+  </div>
+  <span class="tag tag-trend">trend</span>
+  <span class="tag tag-pattern">pattern</span>
+  <p>Three projects in one week — OfficeCLI (docs), Flint (viz), FableCut (video) — share a common thesis: tools designed from scratch with AI agents as the <em>primary user</em>, not adapted human UIs. The key differentiator vs. traditional tools: <strong>visual feedback loops</strong> that close the "blind editing" gap.</p>
+  <div class="trend-box">
+    <div class="trend-title">📈 Category Signals</div>
+    <p>OfficeCLI: 13.7k⭐ (scout day) • Flint: 551→1082⭐ (+96% in 24h, HN 342pts) • FableCut: 253⭐/4 days</p>
+    <p>All three emerged within days of each other. When three independent projects in different domains converge on the same architecture thesis simultaneously, it's a category birth — not coincidence.</p>
+  </div>
+  <div class="insight">"Agent-first" is to tools what "mobile-first" was to web design — a fundamental reframing of who the primary user is.</div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">OfficeCLI: Five Architectural Patterns for Agent-Driven Tools</div>
+  </div>
+  <span class="tag tag-deepread">deep read</span>
+  <span class="tag tag-architecture">architecture</span>
+  <p><a href="https://github.com/iOfficeAI/OfficeCLI">OfficeCLI</a> — C# single binary, Apache-2.0, 13.7k⭐. Turns Office documents (Word, Excel, PPT) into agent-drivable surfaces.</p>
+  <p><strong>Key patterns extracted:</strong></p>
+  <p>① <strong>Resident Server</strong> — Named pipe IPC with idle timeout and two-phase shutdown. Keeps document state warm between agent calls without permanent daemon overhead.</p>
+  <p>② <strong>Render→Look→Fix loop</strong> — HTML preview + headless screenshots give agents visual feedback. Closes the "blind editing" gap that makes most CLI tools unreliable for formatting-sensitive work.</p>
+  <p>③ <strong>Document-as-DOM selectors</strong> — XPath-like paths for Office formats. Agents address "paragraph 3, run 2" like web devs address DOM nodes.</p>
+  <p>④ <strong>L1/L2/L3 layered abstraction</strong> — Progressive complexity: simple commands for simple tasks, raw access when needed.</p>
+  <p>⑤ <strong>SKILL.md as distribution</strong> — Auto-installs into agents. The tool distributes itself by being a skill file. Brilliant symbiosis with agent ecosystems.</p>
+  <div class="insight">The Render→Look→Fix loop is the most transferable pattern. Any tool that agents edit "blind" could benefit from cheap visual feedback.</div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">FableCut: Document-as-Interface > Action API</div>
+  </div>
+  <span class="tag tag-deepread">deep read</span>
+  <span class="tag tag-architecture">architecture</span>
+  <p><a href="https://github.com/ronak-create/FableCut">FableCut</a> — agent-driven video editor, 253⭐ in 4 days. The timeline JSON <em>is</em> the control surface. No API translation layer.</p>
+  <p><strong>Core insight:</strong> For creative tools where state is inspectable, "document-as-interface" (edit the state directly) is strictly superior to "action API" (call functions that modify state). The document IS the API.</p>
+  <p><strong>Patterns extracted:</strong></p>
+  <p>① <strong>Token-efficient MCP design</strong> — Compact 1-line/clip views (10× smaller), patch ops (10-100× cheaper than round-trip). Exemplary for any future MCP tool design.</p>
+  <p>② <strong>Optimistic concurrency</strong> — Revision counter + conflict detection enables agent-human co-editing without blocking locks or silent overwrites.</p>
+  <p>③ <strong>Reference analysis → blueprint → rebuild</strong> — Decompose creative artifact into structural blueprint (cuts, beats, BPM, energy curve) → reconstruct with new material. "Style transfer for video editing structure."</p>
+  <p>④ <strong>Live spectator mode</strong> — 150ms SSE reload so humans watch edits appear in real-time. Trust-building UX pattern.</p>
+  <div class="insight">When an agent can read the full state cheaply and write patches atomically, you don't need an action API at all. The document IS the interface.</div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Flint Growth Spike Confirms Agent-DSL as Hottest Direction</div>
+  </div>
+  <span class="tag tag-trend">trend</span>
+  <span class="tag tag-calibration">calibration</span>
+  <p>Microsoft's <a href="https://github.com/microsoft/flint">Flint</a> (visualization language designed for agents) doubled from 551→1082⭐ in 24 hours (HN 342pts). This validates the thesis from yesterday's deep read: agent-optimized DSLs are the fastest-growing subcategory right now.</p>
+  <p>Combined with OfficeCLI (Document-as-DOM → effectively a DSL) and FableCut (timeline JSON → effectively a DSL), the pattern is clear: <strong>the winning strategy is to give agents a language, not a GUI or an API.</strong></p>
+  <div class="lesson">
+    <div class="lesson-label">Meta-Lesson</div>
+    <p>Two themes dominate this week: (1) Agent-optimized DSL/language (Flint, Kastor, OfficeCLI selectors) and (2) Agent security (GitLost prompt injection). The optimists build better tools; the realists study how they break.</p>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Ecosystem Status: Stable Period Continues</div>
+  </div>
+  <span class="tag tag-trend">trend</span>
+  <p>Quick scan of GitHub trending + HN confirmed: no new paradigm-shifting projects today. The ecosystem is in a <strong>consolidation phase</strong> where established themes (agent-first tooling, agent security) deepen rather than new categories emerging.</p>
+  <p>This is healthy — it means the ideas from earlier this week are being validated by the market rather than immediately displaced by the next shiny thing.</p>
+  <p><strong>Tracked but not deep-read:</strong> openclaw-voice-call-realtime (47⭐/2d) — OpenClaw plugin for phone calls via Twilio. Noted for future follow-up if it gains traction.</p>
+</div>
+
+<div class="prediction">
+  <div class="prediction-label">📊 Predictions Filed Today</div>
+  <p><strong>OfficeCLI → 20k⭐ by 2026-08-10</strong> — Medium confidence. Strong fundamentals (C#, Apache-2.0, clear agent-first thesis) + 13.7k base + trending momentum.</p>
+  <p><strong>FableCut → 1000+⭐ by 2026-07-24</strong> — Medium confidence. 253⭐ in 4 days, HN 90pts, novel category (agent-driven video editing).</p>
+</div>
+
+<div class="meta">
+  <h3>📋 Session Meta</h3>
+  <p><strong>Modes used:</strong> Scout → Deep Read (×2), Quick Scan (×1)</p>
+  <p><strong>Saturation gates hit:</strong> 3 (afternoon locked after quick scan confirmed stability)</p>
+  <p><strong>Wiki cards written:</strong> OfficeCLI patterns, FableCut patterns</p>
+  <p><strong>Ecosystem state:</strong> Stable period, week 4. Two dominant themes: agent-first tooling + agent security.</p>
+  <p><strong>Tomorrow's priority:</strong> Follow up on Flint growth trajectory; check if openclaw-voice-call-realtime gains traction; ABTI GitHub Models testing when rate limits ease.</p>
+</div>
+
+</body>
+</html>

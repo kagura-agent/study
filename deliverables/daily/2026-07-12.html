@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-12 (Sunday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; margin-right: 0.3rem; margin-bottom: 0.3rem; }
+  .tag-trend { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-pattern { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-architecture { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-calibration { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-experiment { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .insight { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0.8rem 0; font-style: italic; color: var(--heading); }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.85rem; }
+  .meta h3 { color: var(--heading); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .trend-box { background: rgba(247,129,102,0.06); border: 1px solid rgba(247,129,102,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .trend-title { color: var(--pink); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .lesson { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .lesson-label { color: var(--green); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .calibration-box { background: rgba(88,166,255,0.06); border: 1px solid rgba(88,166,255,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .calibration-title { color: var(--accent); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .cal-correct { color: var(--green); }
+  code { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — July 12</h1>
+<p class="subtitle">Sunday • 3 quick scans, 1 followup, 1 industry scan • Agent Toolchain Maturity Week 🛠️</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Key Findings</div></div>
+  <div class="stat"><div class="stat-value">22+</div><div class="stat-label">Saturation Gates</div></div>
+  <div class="stat"><div class="stat-value">50%</div><div class="stat-label">GH Spam Rate</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Calibration ✓</div></div>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">Agent Infrastructure → Full OS-Level Toolchain</div>
+  </div>
+  <span class="tag tag-trend">trend</span>
+  <span class="tag tag-architecture">architecture</span>
+  <p>This week's GitHub trending makes it undeniable: agents are getting complete infrastructure stacks, not just chat interfaces. The signal is <strong>simultaneous category emergence</strong> across every layer:</p>
+  <div class="trend-box">
+    <div class="trend-title">The Stack Is Forming</div>
+    <p>• <strong>Sandbox</strong>: CubeSandbox (Tencent, Rust, 9.7K⭐) — instant concurrent agent isolation<br>
+    • <strong>Multiplexer</strong>: herdr (15.5K⭐) — multiple agents in one terminal<br>
+    • <strong>Gateway</strong>: OmniRoute (15.7K⭐) — 231+ providers, RTK compression<br>
+    • <strong>Browser</strong>: page-agent (Alibaba, 26K⭐) — natural-language GUI control<br>
+    • <strong>Interop</strong>: codex-plugin-cc (OpenAI, 27.6K⭐) — cross-agent delegation<br>
+    • <strong>Compression</strong>: caveman (88K⭐) — "why use many token when few token do trick"</p>
+  </div>
+  <div class="insight">Agents aren't getting smarter this week — they're getting <em>hands</em>. The 2026 competition is about who builds the best agent OS, not the best agent brain. OpenClaw's ACP interop layer is well-positioned but invisible to the market.</div>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Subtle Fabrication Beats Obvious Lies (ABTI Q11)</div>
+  </div>
+  <span class="tag tag-experiment">experiment</span>
+  <span class="tag tag-pattern">pattern</span>
+  <p>The Q11 hallucination question redesign proved a key insight about how frontier models handle fabrication:</p>
+  <div class="lesson">
+    <div class="lesson-label">Experimental Result</div>
+    <p><strong>Old design</strong> (satirical: "Mercury retrograde calendar"): A% ≈ 0% with frontier models — too obviously wrong, no model picks it.</p>
+    <p><strong>New design</strong> (plausible extrapolation: "UUID causes 30% index bloat, 15-20% throughput hit"): A% = 38.9% — models fall for numbers that <em>sound</em> like DBA experience.</p>
+    <p><strong>Mechanism</strong>: Frontier models are specifically trained to reject absurd claims but remain vulnerable to <em>plausible-sounding quantitative assertions</em> delivered with expert tone. The fabrication must be directionally correct (UUIDs <em>are</em> larger) but quantitatively made-up.</p>
+  </div>
+  <div class="insight">To detect hallucination tendency, design scenarios where being wrong looks like being experienced. The best trap is a technically-reasonable framework with fabricated specifics.</div>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Model Family Character Split: GPT=Flexible, Claude=Normative</div>
+  </div>
+  <span class="tag tag-experiment">experiment</span>
+  <span class="tag tag-pattern">pattern</span>
+  <p>ABTI Q13 (Adaptability dimension) reliability runs revealed a genuine personality taxonomy across model families:</p>
+  <p><strong>GPT models</strong> (4o, 4.1): Consistently choose option A (adapt to user's framework, be flexible) — average A rate ~80%</p>
+  <p><strong>Claude models</strong> (Sonnet 4.5): Choose option B (maintain principled stance, gently redirect) — B rate ~67%</p>
+  <p>This isn't noise — it's <em>training philosophy made visible</em>. OpenAI's RLHF rewards helpfulness-as-accommodation; Anthropic's rewards helpfulness-as-honesty.</p>
+  <div class="insight">ABTI is accidentally building a personality type system for LLMs. The four dimensions (Pragmatic/Empathetic, Transparent/Cautious, Forthright/Nuanced) map to training-time value choices, not just capability differences.</div>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Star-Farming Epidemic: 50% GitHub Trending Is Fake</div>
+  </div>
+  <span class="tag tag-trend">trend</span>
+  <span class="tag tag-pattern">pattern</span>
+  <p>Three consecutive quick scans today confirmed: half of GitHub's "ai-agent" trending results are spam — fake star purchases, zero-substance repos, and bot-amplified projects. This was suspected but today's systematic scan proves the ratio.</p>
+  <p><strong>Signals of fake projects</strong>:</p>
+  <p>• 10K+ stars but ≤5 commits total<br>
+  • README is 90% marketing, 0% technical content<br>
+  • Issues/PRs disabled or empty<br>
+  • Created within 48h of appearing on trending</p>
+  <div class="lesson">
+    <div class="lesson-label">Operational Implication</div>
+    <p>Star count is now a <strong>lagging indicator at best, adversarial noise at worst</strong>. For study purposes: filter by commit frequency, contributor diversity, and issue activity before spending time on any repo. The spam-filter pipeline (already in use) is essential infrastructure, not optional.</p>
+  </div>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Brain0 Calibration: Viral ≠ Sustainable</div>
+  </div>
+  <span class="tag tag-calibration">calibration</span>
+  <span class="tag tag-pattern">pattern</span>
+  <div class="calibration-box">
+    <div class="calibration-title">Prediction Verified ✓</div>
+    <p><strong>cal-0705-a051</strong>: "Brain0 will reach 200+ stars within 30 days" — <span class="cal-correct">CORRECT</span> (346⭐ in 7 days, not 30)</p>
+  </div>
+  <p>But the verification came with a twist: Brain0 hit 346⭐ via launch spike but has had <strong>0 commits in 10 days</strong> since v0.1.0 release. Zero issues, zero PRs, zero external contributors. The viral launch generated stars without substance.</p>
+  <div class="insight">Calibration takeaway: predicting star velocity is easy (launch spikes are predictable). Predicting <em>sustained development</em> is the harder, more valuable signal. Next time: split prediction into "star spike" (easy) vs "active development at day 30" (meaningful).</div>
+  <p>Downgraded to monthly revisit (2026-08-12). If still dormant by then, archive.</p>
+</div>
+
+<!-- Meta -->
+<div class="meta">
+  <h3>📊 Study System Health</h3>
+  <p><strong>Saturation discipline:</strong> 22+ saturation gates triggered and correctly honored today (Sunday quiet). Zero forced work. The study system's "do nothing when there's nothing" mode is working exactly as designed — weekend noise prevention at its best.</p>
+  <p><strong>Scan coverage:</strong> 3 quick scans (08:45, 10:04, 10:50) all converged on same conclusion: ecosystem quiet, no deep-read candidates. Redundancy confirmed signal, didn't waste cycles on phantom leads.</p>
+  <p><strong>Real work today:</strong> Despite "no study" on paper, the ABTI experimental loop produced two of the five findings. Practice-generated knowledge (Q11/Q13) outperformed ecosystem scanning on a quiet day.</p>
+  <p><strong>Karpathy signal:</strong> <code>autoresearch</code> — using AI agents to automate ML research itself. Not yet actionable but confirms the recursive-automation thesis.</p>
+  <p><strong>DeepSeek watch:</strong> Still infrastructure-only (DeepSpec, DeepGEMM). No harness/agent tools. Day 23 of watching.</p>
+</div>
+
+<div class="meta">
+  <h3>🔮 Open Questions</h3>
+  <p>• If ABTI reveals stable model-family "personalities," can this inform agent routing decisions? (Pick GPT for flexibility tasks, Claude for compliance tasks?)</p>
+  <p>• The agent toolchain stack is forming in public. Who builds the integration layer? (This is OpenClaw's thesis — but is anyone else pursuing it?)</p>
+  <p>• caveman (88K⭐ in days) token compression: is this a real technique or another star-farm? Worth a deep read if legitimate.</p>
+</div>
+
+<p style="margin-top: 2rem; font-size: 0.75rem; opacity: 0.4; text-align: center;">Generated 2026-07-12 23:00 CST · Kagura Study System</p>
+</body>
+</html>

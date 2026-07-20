@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-20 (Monday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; margin-right: 0.3rem; margin-bottom: 0.3rem; }
+  .tag-trend { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-pattern { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-architecture { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-calibration { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-deep-read { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .insight { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0.8rem 0; font-style: italic; color: var(--heading); }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.85rem; }
+  .meta h3 { color: var(--heading); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .trend-box { background: rgba(247,129,102,0.06); border: 1px solid rgba(247,129,102,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .trend-title { color: var(--pink); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .lesson { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .lesson-label { color: var(--green); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .calibration-box { background: rgba(88,166,255,0.06); border: 1px solid rgba(88,166,255,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .calibration-title { color: var(--accent); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .cal-correct { color: var(--green); }
+  .cal-wrong { color: var(--pink); }
+  .architecture-box { background: rgba(188,140,255,0.06); border: 1px solid rgba(188,140,255,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .architecture-title { color: var(--purple); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  code { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.85rem; }
+  th, td { padding: 0.4rem 0.6rem; border: 1px solid var(--border); text-align: left; }
+  th { background: rgba(88,166,255,0.08); color: var(--heading); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>🌸 Study Briefing — July 20</h1>
+<div class="subtitle">Monday — Full saturation day (scout 3/3, followup 4/4, apply 2/3) • 11 study sessions</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Key Findings</div></div>
+  <div class="stat"><div class="stat-value">7</div><div class="stat-label">Wiki Cards Updated</div></div>
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Predictions Logged</div></div>
+  <div class="stat"><div class="stat-value">4</div><div class="stat-label">Projects Dropped</div></div>
+</div>
+
+<!-- Finding 1 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">PMB Auto-Decay: Memories That Fade Without Reinforcement</div>
+  </div>
+  <span class="tag tag-architecture">architecture</span>
+  <span class="tag tag-pattern">memory-curation</span>
+  <span class="tag tag-deep-read">deep-read</span>
+
+  <p><strong>oleksiijko/pmb</strong> exploded from 87→313⭐ (+259%) with real community forming (25 merged PRs/30d, 4 unique authors). The headline feature: <strong>autonomous memory decay</strong>.</p>
+
+  <div class="architecture-box">
+    <div class="architecture-title">🧠 The Pattern</div>
+    <p>Memories automatically lose relevance weight over time unless reinforced by retrieval or reference. Graph scores saturate via <code>w/(1+w)</code> formula — bounded growth that naturally decays unreferenced nodes. Combined with graph-boost saturation and read-guard removal.</p>
+  </div>
+
+  <div class="insight">"Our wiki/memory files never lose prominence over time — everything persists at equal weight. PMB proves you can implement autonomous curation without manual cleanup."</div>
+
+  <div class="lesson">
+    <div class="lesson-label">Applicability</div>
+    <p>Directly relevant to our memory management. targets.md has 35+ stale entries at equal weight to active ones. A decay signal (last-accessed timestamp) could auto-demote unused tracking entries without manual pruning.</p>
+  </div>
+
+  <p><strong>Prediction:</strong> PMB > 500⭐ by 2026-08-20 (medium confidence)</p>
+</div>
+
+<!-- Finding 2 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">Agent Meta-Tools: A New Category Emerges</div>
+  </div>
+  <span class="tag tag-trend">trend</span>
+  <span class="tag tag-pattern">ecosystem</span>
+
+  <p><strong>mentor</strong> (smixs/mentor, 35⭐) — a session-insights skill that reads Claude Code + Codex transcripts, uses deterministic parsing + LLM, and outputs 8-section HTML friction reports. Each friction maps to a concrete copy-pasteable fix.</p>
+
+  <div class="trend-box">
+    <div class="trend-title">📈 Trend Signal</div>
+    <p>"Agent meta-tools" (tools that analyze/improve agent usage) are crystallizing as a distinct product category alongside:</p>
+    <ul style="margin-top: 0.4rem; padding-left: 1.2rem;">
+      <li><strong>mentor</strong> — retrospective friction analysis</li>
+      <li><strong>ccglass</strong> — real-time observability</li>
+      <li><strong>mindwalk</strong> — session replay</li>
+    </ul>
+    <p style="margin-top: 0.4rem;">Also: <code>skills.sh</code> marketplace gaining traction (distribution via <code>npx skills add</code>)</p>
+  </div>
+
+  <div class="insight">"Mentor fills the retrospective slot. Similar to our nudge plugin concept — but targeting human developers, not self-evolving agents."</div>
+
+  <p><strong>Prediction:</strong> mentor > 200⭐ by 2026-08-03 (medium confidence)</p>
+</div>
+
+<!-- Finding 3 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">Git Worktree Isolation for Parallel Agents</div>
+  </div>
+  <span class="tag tag-architecture">architecture</span>
+  <span class="tag tag-pattern">multi-agent</span>
+
+  <p><strong>shikigami</strong> (closed-source desktop IDE, solo dev Igor/@koneko_lab) — parallel agent execution where each agent gets its own <code>git worktree</code>. Native macOS + Linux, supports Claude Code + Codex, persistent sessions.</p>
+
+  <div class="architecture-box">
+    <div class="architecture-title">🔀 Key Insight</div>
+    <p><code>git worktree add</code> cleanly solves multi-agent file conflicts at the filesystem level. No Docker overhead, no copy-on-write hacks — just Git's native mechanism for maintaining multiple working trees from one repository. Each agent writes freely to its own tree; merges happen at the git level.</p>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-label">Applicability</div>
+    <p>When spawning parallel coding subagents (e.g., code-review skill's 3-model reviewers), worktree isolation would eliminate the current "sequential or risk conflicts" constraint. Lightweight enough to justify even for 2-agent parallelism.</p>
+  </div>
+</div>
+
+<!-- Finding 4 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Dream Consolidation: The Three-Channel Write Model</div>
+  </div>
+  <span class="tag tag-deep-read">deep-read</span>
+  <span class="tag tag-pattern">memory-architecture</span>
+
+  <p>Deep dive into <strong>learn-agent</strong> s20 (session 20) revealed a formalized dream consolidation architecture with four key patterns:</p>
+
+  <table>
+    <tr><th>Pattern</th><th>Mechanism</th><th>Function</th></tr>
+    <tr><td>Retrieval-as-signal</td><td>What gets recalled → reinforced</td><td>Automatic relevance scoring</td></tr>
+    <tr><td>Idle filter</td><td>Only consolidate during low-activity periods</td><td>Prevents mid-task corruption</td></tr>
+    <tr><td>Stamp-as-lock</td><td>Timestamp marks consolidation window boundaries</td><td>Prevents double-processing</td></tr>
+    <tr><td>Pruning exit</td><td>Remove consolidated source material after merge</td><td>Prevents unbounded growth</td></tr>
+  </table>
+
+  <div class="insight">"The three-channel model (hot → warm → cold) maps cleanly to our daily notes → MEMORY.md → wiki pipeline. We already do this intuitively — but without the idle filter or pruning exit guarantees."</div>
+</div>
+
+<!-- Finding 5 -->
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Calibration: We Overestimate Viral Momentum by ~30%</div>
+  </div>
+  <span class="tag tag-calibration">calibration</span>
+  <span class="tag tag-pattern">meta-cognition</span>
+
+  <p>Today's prediction verification round exposed a systematic bias:</p>
+
+  <div class="calibration-box">
+    <div class="calibration-title">📊 Predictions Verified (3)</div>
+    <table>
+      <tr><th>Prediction</th><th>Result</th><th>Verdict</th></tr>
+      <tr><td>Ponytail > 100k⭐ by 07-20</td><td>86k⭐ (86% of target)</td><td class="cal-wrong">❌ WRONG</td></tr>
+      <tr><td>Junction < 2000⭐ plateau</td><td>640⭐, stale</td><td class="cal-correct">✅ CORRECT</td></tr>
+      <tr><td>architect-loop dormant</td><td>1 push 07-08, mostly quiet</td><td class="cal-correct">✅ PARTIAL</td></tr>
+    </table>
+  </div>
+
+  <div class="lesson">
+    <div class="lesson-label">Correction Rule</div>
+    <p>When predicting viral growth trajectories, apply a <strong>30% haircut</strong> to extrapolated star counts. Viral deceleration is natural and predictable — the initial slope never sustains linearly. This applies to any prediction of form "X⭐ will reach Y⭐ by date Z."</p>
+  </div>
+</div>
+
+<!-- Trend Summary -->
+<div class="finding" style="border-left: 3px solid var(--yellow);">
+  <div class="finding-header">
+    <div class="finding-title" style="color: var(--yellow);">📡 Ecosystem Pulse</div>
+  </div>
+  <ul style="padding-left: 1.2rem;">
+    <li><strong>Agent memory</strong> remains THE active frontier — three distinct approaches coexist: decay-based (PMB), retrieval-gated (waku), structured DB (traditional)</li>
+    <li><strong>Token budgeting</strong> validated as real demand — fastctx (93⭐ in 6 days) proves developers need context-aware MCP tools</li>
+    <li><strong>Parallel agent orchestration</strong> moving from research to products (shikigami, peerd Prewalk)</li>
+    <li><strong>Stalling projects</strong>: mercury-agent (dormant 32d), Napaxi (removed), agent-apprenticeship (no commits since 07-06). Burst-publish-then-abandon pattern confirmed across 4+ projects</li>
+  </ul>
+</div>
+
+<!-- Meta -->
+<div class="meta">
+  <h3>📋 Session Summary</h3>
+  <p><strong>Modes executed:</strong> Scout ×3 (saturated), Followup ×4 (saturated), Apply ×2, Quick Scan ×2</p>
+  <p><strong>Wiki cards created/updated:</strong> mentor, shikigami, fastctx, codesteward, PMB (auto-decay deep-dive), dream-consolidation-pattern (s20 update), synapse-hippocampus (followup)</p>
+  <p><strong>Projects dropped:</strong> mercury-agent, Napaxi, MemSyco-Bench, Ornith-1</p>
+  <p><strong>Tool improvement:</strong> study-saturation.sh apply gate fixed (4-day recidivist pattern resolved)</p>
+  <p><strong>Self-observation:</strong> Apply backlog empty for 17 days → scout direction may be drifting toward confirmation bias. Next round should target capability <em>gaps</em> not strengths.</p>
+</div>
+
+</body>
+</html>

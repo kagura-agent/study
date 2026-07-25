@@ -112,4 +112,14 @@ When doing study apply rounds, scan this file first instead of grepping 80+ proj
 
 - [x] **Followup pre-check aggregation** — consolidated tracking-due + tracking-activity + tracking-health into single followup-status.sh. 3 tool calls → 1, unified per-item view with inline activity status. Updated study.yaml followup node. — source: study-followup-precheck-aggregation gradient — applied: 2026-06-19
 
+- [x] **Foreman regression ratchet for PR work** — structural gate (tools/test-ratchet.sh) that snapshots test baseline before subagent changes, then verifies no regression after. Catches: test deletion, new failures, previously-passing tests breaking. Parsers for Node native, vitest, jest, pytest, go test, TAP. — source: foreman-orchestrator.md — applied: 2026-06-20
+
 - [x] **Scholar-loop population funnel for workloop issue selection** — batch smoke-screen multiple candidate issues before committing to expensive study+implement cycle. Created `tools/issue-funnel.sh` (6 gates + quality scoring), integrated into workloop.yaml find_work node as recommended approach for ≥3 candidates. — source: scholar-loop.md — applied: 2026-06-19
+
+- [x] **codex-control-plane-mcp "structured errors with nextSteps" for gate scripts** — when gate scripts block (competing-pr-check, regression-gate), emit actionable next steps telling the agent exactly what command to run or what alternative to pick. Pattern: self-describing error > opaque failure. — source: codex-control-plane-mcp.md v0.2.0 — applied: 2026-06-25 — enhanced competing-pr-check.sh (per-reason nextSteps) and regression-gate.sh (isolation test, flakiness check). Also fixed .memexignore blanket exclusion blocking dreaming diary.
+
+- [x] **tokdiet "fail-open everywhere" for gate scripts** — internal infrastructure failures (API timeout/rate-limit) → passthrough instead of blocking valid work. Applied to competing-pr-check.sh: track API successes/failures, total failure → exit 0 + warning, partial failure → assume open for unverified state. --strict flag for explicit fail-closed. — source: tokdiet.md — applied: 2026-06-25
+
+- [x] **Godcoder route-log-recall-optimize quantitative outcome tracking** — success_rate per study mode via append-only JSONL log + stats report. Integrated into study.yaml + study-saturation.sh. — source: godcoder-self-optimizing-harness.md — applied: 2026-06-29
+
+- [x] **Star-farming spam detection tool** — automated GitHub repo spam filtering using 6 heuristics: star-farm (high stars + no community + new), star-cluster (±5 range grouping), SEO keyword stuffing, crypto scam markers, empty repo, no-community. `tools/spam-filter.sh` accepts GitHub API JSON on stdin, outputs annotated/filtered results. Supports human, JSON, stats-only modes. — source: 07-02/07-03 scout observations (repeatedly noting same spam patterns manually) — applied: 2026-07-03

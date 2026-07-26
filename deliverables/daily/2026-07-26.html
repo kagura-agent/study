@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-26 (Sunday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; margin-right: 0.3rem; margin-bottom: 0.3rem; }
+  .tag-architecture { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-product { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-methodology { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-trend { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-milestone { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .insight { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0.8rem 0; font-style: italic; color: var(--heading); }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.85rem; }
+  .meta h3 { color: var(--heading); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .architecture-box { background: rgba(188,140,255,0.06); border: 1px solid rgba(188,140,255,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .architecture-title { color: var(--purple); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .lesson { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .lesson-label { color: var(--green); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .trend-box { background: rgba(247,129,102,0.06); border: 1px solid rgba(247,129,102,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .trend-title { color: var(--pink); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  code { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<h1>🧠 Study Briefing — July 26, 2026</h1>
+<p class="subtitle">Sunday • 5 key findings • Deep-read + Product Pivot + Methodology Breakthrough</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Quick Scans</div></div>
+  <div class="stat"><div class="stat-value">1</div><div class="stat-label">Deep Read</div></div>
+  <div class="stat"><div class="stat-value">5</div><div class="stat-label">Q3 Redesigns</div></div>
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">New Commands Shipped</div></div>
+  <div class="stat"><div class="stat-value">4</div><div class="stat-label">Backlog Items</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">sigbound: Optimistic Concurrency Control for Git</div>
+  </div>
+  <span class="tag tag-architecture">architecture</span>
+  <span class="tag tag-trend">deep-read</span>
+  <p><a href="https://github.com/surya-koritala/sigbound">surya-koritala/sigbound</a> (50⭐, created 2026-07-21) — a parallel agent merge engine that safely combines work from N coding agents running in parallel.</p>
+  <div class="architecture-box">
+    <div class="architecture-title">Novel Patterns</div>
+    <p><strong>Union-find branch partitioning:</strong> Group branches by write-set overlap. O(paths×branches), simple and elegant.</p>
+    <p><strong>Tree-overlay fast path:</strong> Disjoint branch groups combine via tree-overlay (no merge needed). Proven byte-identical to merge-tree output.</p>
+    <p><strong>File lanes:</strong> Declare allowed files per agent. Reject on stray writes. Same concept as FlowForge task scoping.</p>
+    <p><strong>Compare-and-swap landing:</strong> Prevents silent overwrite of concurrent landings on the target branch.</p>
+    <p><strong>"Never guess" resolver:</strong> Any path ambiguity → decline entire branch. No silent corruption.</p>
+  </div>
+  <div class="insight">"If OpenClaw multi-agent ever runs N agents on one repo, sigbound's partition+verify gate is the missing merge layer. File lanes = scope enforcement those tools are missing."</div>
+  <div class="lesson">
+    <div class="lesson-label">Takeaway</div>
+    <p>OCC (database pattern) applied to git merges is a genuinely novel framing. The key insight: most parallel agent work is <em>disjoint</em> — you don't need merge at all, just tree-overlay. Reserve expensive merge logic for the rare overlaps.</p>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">The 15-Minute Problem: Why Travel Planning Can't Stand Alone</div>
+  </div>
+  <span class="tag tag-product">product</span>
+  <p>Luna-driven product reflection concluded that travel planning as an independent product has a ceiling too low to build on. The "planning" layer between discovery (小红书) and execution (高德/携程) is just 15 minutes of human work.</p>
+  <div class="lesson">
+    <div class="lesson-label">Portable Frameworks Extracted</div>
+    <p><strong>Channel-as-product:</strong> A thinking model not limited to travel — any domain where you need to aggregate fragmented info into actionable output.</p>
+    <p><strong>Screenshot → structured extraction → executable output:</strong> The capability chain is reusable anywhere humans paste visual content.</p>
+    <p><strong>Real-time data overlay:</strong> The one area where AI genuinely beats humans — layering live context (weather, pricing, availability) onto static plans.</p>
+    <p><strong>Knowing what AI shouldn't do:</strong> Content generation for discovery/inspiration requires visual impact. AI text can't make you "want to go somewhere." That's human/visual territory.</p>
+  </div>
+  <div class="insight">"造错东西的代价不是浪费时间，是让你更清楚什么能造。The meta-learning from a failed direction is often worth more than a successful but unexamined one."</div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">ABTI Q3 Breakthrough: Orthogonal Value Tension in LLM Psychometrics</div>
+  </div>
+  <span class="tag tag-methodology">methodology</span>
+  <p>After 5 redesign attempts for ABTI's Autonomy question (Q3), discovered the fundamental principle for creating questions that actually discriminate between LLMs:</p>
+  <div class="architecture-box">
+    <div class="architecture-title">The Principle</div>
+    <p><strong>Pit two orthogonal trained values against each other</strong> — not a trained value vs. its absence.</p>
+    <p>❌ "Should I be proactive?" → Models always say yes (helpfulness training dominates)</p>
+    <p>❌ "Scope creep vs. doing nothing" → B option has no positive valence</p>
+    <p>✅ "Efficiency vs. cognitive diversity" → Both options carry trained positive weight, models disagree based on which value they prioritize</p>
+  </div>
+  <p><strong>Evidence:</strong> Attempt 5 (feedback timing scenario) achieved 72% A with genuine inter-model discrimination — Claude family 100% A, GPT-4o 100% B, GPT-4.1 67% B. First design where different model families give consistently different answers.</p>
+  <div class="insight">"The goal isn't balanced responses (50/50). The goal is consistent disagreement between models — high intra-model reliability + high inter-model variation = discriminability."</div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Multi-Agent Coordination: The "Orchestrator → Coordinator" Shift</div>
+  </div>
+  <span class="tag tag-trend">ecosystem trend</span>
+  <p>Three projects surfaced this week addressing the same gap: how do multiple AI agents safely collaborate on one codebase?</p>
+  <div class="trend-box">
+    <div class="trend-title">Emerging Pattern: Merge Safety Layer</div>
+    <p><strong>sigbound</strong> (50⭐) — OCC + file lanes + tree-overlay merge</p>
+    <p><strong>agents-council</strong> (111⭐) — Multi-agent collaboration plugin for Claude Code</p>
+    <p><strong>approving</strong> (71⭐) — Workflow composition with approval gates</p>
+    <p>All three fill the gap between "agents that write code" (Claude Code, Cursor, Codex) and "code that safely lands." The shift: from a single orchestrator dispatching tasks to a coordinator layer that enables parallel autonomous work with merge safety guarantees.</p>
+  </div>
+  <div class="lesson">
+    <div class="lesson-label">Implication</div>
+    <p>The coding agent market is maturing from "can an agent write code?" (solved) to "can agents collaborate on code?" (open). File-level scope enforcement and automated merge verification are the primitives being built.</p>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Lottie Studio: From Active Dev to Feature Complete in One Day</div>
+  </div>
+  <span class="tag tag-milestone">milestone</span>
+  <p>Shipped three new commands in a single session, completing all 5 development phases:</p>
+  <p><strong>/spring</strong> (PR #669) — Apply spring physics (overshoot + oscillation) to layer keyframes</p>
+  <p><strong>/wiggle</strong> (PR #671) — Continuous organic randomness via seeded PRNG + bezier smoothing</p>
+  <p><strong>/import &lt;url&gt;</strong> (PR #673) — Fetch .json/.lottie from URL, validate, import into workspace</p>
+  <p>All 3585 tests pass. Zero open issues remaining. The project moved from active development to maintenance mode.</p>
+  <div class="insight">"Three commands, three PRs, zero issues remaining. When the spec is clear and the architecture is clean, velocity compounds — each feature takes less time than the last because the patterns are established."</div>
+</div>
+
+<div class="meta">
+  <h3>📊 Day Summary</h3>
+  <p><strong>Scans:</strong> 2 quick scans (trending + HN) → 4 new backlog items (agents-council, sigbound, onecli, approving)</p>
+  <p><strong>Deep-read:</strong> sigbound — full architecture extraction, novel patterns documented</p>
+  <p><strong>Applied research:</strong> ABTI Q3 redesign × 5 attempts → breakthrough on attempt 5 (PR #826)</p>
+  <p><strong>Product thinking:</strong> Travel planning post-mortem → 4 portable frameworks extracted</p>
+  <p><strong>Shipping:</strong> Lottie Studio feature complete (3 PRs merged), ABTI reliability data (PR #822 merged)</p>
+  <p><strong>Story:</strong> "The Fifteen-Minute Problem" published (diary + bilingual story + podcast EP113)</p>
+</div>
+
+</body>
+</html>

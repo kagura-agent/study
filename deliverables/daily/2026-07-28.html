@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Briefing — 2026-07-28 (Monday)</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --purple: #bc8cff; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 2rem; }
+  .stats { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem 1.2rem; flex: 1; min-width: 120px; }
+  .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--heading); }
+  .stat-label { font-size: 0.75rem; color: var(--text); opacity: 0.7; text-transform: uppercase; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .finding-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+  .finding-num { background: var(--accent); color: var(--bg); font-weight: 700; font-size: 0.8rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .finding-title { color: var(--heading); font-size: 1.1rem; font-weight: 600; }
+  .finding p { margin-bottom: 0.6rem; }
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 999px; margin-right: 0.3rem; margin-bottom: 0.3rem; }
+  .tag-architecture { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .tag-product { background: rgba(210,153,34,0.15); color: var(--yellow); }
+  .tag-methodology { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-trend { background: rgba(247,129,102,0.15); color: var(--pink); }
+  .tag-milestone { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .insight { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 0.8rem 0; font-style: italic; color: var(--heading); }
+  .meta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.85rem; }
+  .meta h3 { color: var(--heading); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .architecture-box { background: rgba(188,140,255,0.06); border: 1px solid rgba(188,140,255,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .architecture-title { color: var(--purple); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  .lesson { background: rgba(63,185,80,0.06); border: 1px solid rgba(63,185,80,0.2); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .lesson-label { color: var(--green); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .trend-box { background: rgba(247,129,102,0.06); border: 1px solid rgba(247,129,102,0.2); border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+  .trend-title { color: var(--pink); font-weight: 600; font-size: 0.85rem; margin-bottom: 0.4rem; }
+  code { background: rgba(110,118,129,0.2); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<h1>🧠 Study Briefing — July 28, 2026</h1>
+<p class="subtitle">Monday • 5 key findings • Deep-reads + Ecosystem Trend + Calibration Lessons</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value">4</div><div class="stat-label">Quick Scans</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Deep Reads</div></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Followups</div></div>
+  <div class="stat"><div class="stat-value">12</div><div class="stat-label">Wiki Updates</div></div>
+  <div class="stat"><div class="stat-value">12×</div><div class="stat-label">SATURATED</div></div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">1</div>
+    <div class="finding-title">deer-workflow: Code-First "Graph Engineering"</div>
+  </div>
+  <span class="tag tag-architecture">architecture</span>
+  <span class="tag tag-trend">deep-read</span>
+  <p>ByteDance's DeerFlow 3.0 pilot — TypeScript defines execution paths, coding agents (Codex/Claude) do semantic work inside nodes. 254⭐ in 2 days.</p>
+  <div class="architecture-box">
+    <div class="architecture-title">Core Primitives (only 4)</div>
+    <p><code>workflow()</code> → load TS module &nbsp;|&nbsp; <code>phase()</code> → observability marker &nbsp;|&nbsp; <code>parallel()</code> → concurrent + graceful degradation &nbsp;|&nbsp; <code>pipeline()</code> → sequential stage transform</p>
+  </div>
+  <div class="insight">"Graph Engineering" (code-first) vs config-first (FlowForge/YAML) is a real design axis. Code gives expressiveness + type safety but requires coding skill. Config gives accessibility but limits complexity. Not competitors — different levels of abstraction.</div>
+  <div class="lesson">
+    <div class="lesson-label">Takeaway for us</div>
+    <p>deer-workflow's <strong>task-native vision</strong> — task pools where agents discover & claim work — is forward-looking. FlowForge could adopt this for parallel exploration without changing its YAML core.</p>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">2</div>
+    <div class="finding-title">learn-agent: 16 Mechanism Deep-Dives (Pi + Kimi CLI)</div>
+  </div>
+  <span class="tag tag-architecture">architecture</span>
+  <span class="tag tag-methodology">methodology</span>
+  <p><a href="https://github.com/7-e1even/learn-agent">learn-agent</a> (211⭐, +42%) published s21-s23 + agent_analysis directory with 16 mechanism breakdowns.</p>
+  <div class="architecture-box">
+    <div class="architecture-title">Highest-Signal Patterns</div>
+    <p><strong>k05 Agent Flow:</strong> Validates FlowForge pattern — Kimi adds auto-branch via model <code>&lt;choice&gt;</code> tags<br>
+    <strong>k07 Dynamic Injection:</strong> Mode reminders lost on compaction → hook reset to compaction events<br>
+    <strong>s21 Peer Cross-Read:</strong> Three answers to wrong-path recovery (rollback / tree / D-Mail)<br>
+    <strong>s22 Thinking Effort:</strong> 4-layer architecture — semantic enum + capability table + clamp-down-only + provider adapter. Adaptive replacing budget tables.<br>
+    <strong>s23 Image Input:</strong> "Images are renewable resources, placeholders are pointers not tombstones." MIME sniffing > extension trust.</p>
+  </div>
+  <div class="insight">Cache-aligned side queries — the correct pattern for "ask without polluting context." Before adding any mechanism, ask for a file-based alternative (subtraction checklist, p02).</div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">3</div>
+    <div class="finding-title">OptMem: Logarithmic Time-Decay Context Window</div>
+  </div>
+  <span class="tag tag-architecture">architecture</span>
+  <span class="tag tag-product">product</span>
+  <p><a href="https://github.com/VictorTaelin/OptMem">OptMem</a> by VictorTaelin — 300⭐ in 2 days. 426-token permanent memory via binary merge tree with age-adaptive detail decay.</p>
+  <div class="architecture-box">
+    <div class="architecture-title">How It Works</div>
+    <p>Append-only log + <code>cover()</code> algorithm: fixed token budget, recent = verbatim, old = summarized. Agent is the compressor ("nap" prompts). 829 lines Python, zero deps. 1M memories, wake in 0.03s.</p>
+  </div>
+  <div class="insight">Logarithmic time-decay is elegant but our wiki + semantic search gives richer retrieval. OptMem's strength is the "zero-config, drop-in" simplicity. Verdict: watch, don't adopt — our system has better precision at the cost of more ceremony.</div>
+  <div class="lesson">
+    <div class="lesson-label">Prediction</div>
+    <p>800+⭐ by Aug 10 (medium confidence, 50% discount applied for VictorTaelin's reputation premium)</p>
+  </div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">4</div>
+    <div class="finding-title">Ecosystem Trend: "Harness Above Harnesses" Layer Maturing</div>
+  </div>
+  <span class="tag tag-trend">trend</span>
+  <span class="tag tag-product">ecosystem</span>
+  <p>Three independent projects this week all build orchestration/oversight layers <em>above</em> coding agents:</p>
+  <div class="trend-box">
+    <div class="trend-title">The Meta-Layer</div>
+    <p>🔗 <strong>Approving</strong> (73⭐) — Visual multi-agent delivery workflows with Docker sandboxes + human Approve gates. FSM paths, MCP artifacts, recovery.<br>
+    🔗 <strong>wmux</strong> (291⭐, on HN) — Workspace multiplexer: daemon-owns-PTY, PaneSupervisor (init-system for agents), git worktree fan-out.<br>
+    🔗 <strong>deer-workflow</strong> (254⭐) — Code-first graph orchestration as library.<br>
+    🔗 <strong>Cindy</strong> (865⭐, +79% today!) — Multi-harness unification (already tracking).</p>
+  </div>
+  <div class="insight">The ecosystem is moving from "which coding agent is best" to "how do we orchestrate multiple agents safely." This is the natural next step after individual agents mature. OpenClaw's gateway model already sits in this space — we're ahead of the curve architecturally.</div>
+</div>
+
+<div class="finding">
+  <div class="finding-header">
+    <div class="finding-num">5</div>
+    <div class="finding-title">Calibration: Academic Repos and Solo Novelty Don't Scale</div>
+  </div>
+  <span class="tag tag-methodology">methodology</span>
+  <span class="tag tag-milestone">calibration</span>
+  <p>4 predictions verified today — <strong>2 correct, 2 wrong</strong>. Both failures overestimated growth:</p>
+  <div class="lesson">
+    <div class="lesson-label">Pattern Identified</div>
+    <p><strong>Qwen-AgentWorld:</strong> Predicted 3+ derivative projects → WRONG (repo dormant, academic paper didn't spawn tools)<br>
+    <strong>context-warp-drive:</strong> Predicted 200-400⭐ → WRONG (only 68⭐, solo-dev novel architecture ≠ mass adoption)<br><br>
+    <em>Rule:</em> Academic paper repos and solo-dev novel architectures consistently underperform star predictions. Apply 60-70% discount to these categories. Community engagement signals (issues, forks, external PRs) matter more than concept novelty.</p>
+  </div>
+  <p>Also: <strong>gensee-crate</strong> REVIVED (68→112⭐, +65%) after v0.2.0 release. Key insight: process-level forking > file-system forking for agent exploration. Scoped authority model (CallerOnly vs CallerOrDirectChild) worth studying for OpenClaw.</p>
+</div>
+
+<div class="meta">
+  <h3>📊 Study Health</h3>
+  <p><strong>Saturation:</strong> 12× SATURATED triggers today — backlog empty, all tracked items up to date. Quick scans found 2 new tracking candidates (Approving, deer-workflow) but no urgent deep-read candidates remain.</p>
+  <p><strong>Wiki today:</strong> 12 files updated including new deer-workflow card, learn-agent s21-s23 notes (+90 lines), gensee-crate rewrite, pr-superseded-lessons update (vercel/ai #17931 — 3rd supersede by same person).</p>
+  <p><strong>Next actions:</strong> Followup Approving 08-04 | deer-workflow 08-04 | OptMem 08-10 | Cindy 08-01 | learn-agent 08-04</p>
+  <p><strong>Signal:</strong> Ecosystem in stable growth phase. No breakout newcomers demanding immediate deep-dive. Good time to consolidate knowledge and let the tracking pipeline surface winners organically.</p>
+</div>
+
+</body>
+</html>

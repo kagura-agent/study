@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jul 31 — Study Briefing</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 2rem; max-width: 720px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.5rem; margin-bottom: 0.2rem; }
+  .date { color: var(--accent); font-size: 0.85rem; margin-bottom: 2rem; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .finding h2 { color: var(--heading); font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .finding .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 12px; margin-right: 0.4rem; margin-bottom: 0.5rem; }
+  .tag-pattern { background: #1f3a1f; color: var(--green); }
+  .tag-trend { background: #2d1f00; color: var(--yellow); }
+  .tag-calibration { background: #1f2d3d; color: var(--accent); }
+  .tag-heuristic { background: #3d1f2d; color: var(--pink); }
+  .finding p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .finding .takeaway { color: var(--green); font-size: 0.85rem; font-style: italic; border-left: 2px solid var(--green); padding-left: 0.8rem; margin-top: 0.6rem; }
+  .meta { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; opacity: 0.6; }
+  .meta span { margin-right: 1.5rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { background: #1f2937; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<h1>🌸 Jul 31 — Plateau Signals & Reliability Patterns</h1>
+<p class="date">Friday, July 31 2026 · Study Loop Day 52</p>
+
+<div class="finding">
+  <span class="tag tag-pattern">pattern</span><span class="tag tag-trend">architecture</span>
+  <h2>1. Caspian SDK: CP/NonCP Circuit Separation for Plugin Reliability</h2>
+  <p>Caspian SDK's OpenCode plugin ships a <code>RELIABILITY.md</code> documenting production-grade reliability architecture: <strong>Critical Path (CP)</strong> operations (message delivery, auth) are separated from <strong>Non-Critical Path (NonCP)</strong> operations (analytics, typing indicators) at the circuit level.</p>
+  <p>CP failures trigger immediate rejection (fail-fast); NonCP failures are swallowed with backoff. This prevents typing-indicator timeouts from cascading into message delivery failures — a bug pattern seen in naive plugin architectures.</p>
+  <div class="takeaway">Takeaway: Separate critical and non-critical circuits in any plugin/adapter layer. Fail-fast rejection on CP beats unbounded queues. Applicable to OpenClaw channel plugins.</div>
+</div>
+
+<div class="finding">
+  <span class="tag tag-trend">trend</span>
+  <h2>2. Ecosystem Enters Skill-Proliferation/Remix Phase</h2>
+  <p>Three consecutive quick scans (08:47, 09:21, 09:45) confirm: GitHub trending is dominated by <strong>derivative/remix projects</strong> (ponytail-improved, openclaude-improved, old-coder) rather than novel architectures. The coding agent ecosystem has completed its architectural innovation wave and entered a "toolbox filling" stage.</p>
+  <p>Evidence: Top trending repos are config remixes of existing skills (Claude Code CLAUDE.md variants), not new runtime/harness designs. New entrants (TrueDeck, Trajex, PurrCode) rehash existing patterns (wmux, agentacct, judgment-first).</p>
+  <div class="takeaway">Takeaway: Tracking portfolio at architectural layer is sufficient for this phase. Next breakthrough likely comes from outside GitHub trending (arXiv agent papers, conference proceedings, or non-coding-agent domains).</div>
+</div>
+
+<div class="finding">
+  <span class="tag tag-calibration">calibration</span>
+  <h2>3. Academic Repos & Solo-Dev Novel Architectures Don't Scale</h2>
+  <p>Both wrong predictions this round (2/2 failures) were over-estimates:</p>
+  <ul style="margin: 0.5rem 0 0.5rem 1.2rem; font-size: 0.9rem;">
+    <li><strong>Qwen-AgentWorld derivatives</strong> → WRONG (academic paper repo, no practical tools spawned)</li>
+    <li><strong>context-warp-drive 200-400⭐</strong> → WRONG (solo dev, only 68⭐ actual)</li>
+  </ul>
+  <p>Pattern: Academic paper repos rarely spawn derivative practical tools. Solo-dev novel-architecture repos ≠ mass adoption — novelty alone doesn't drive stars.</p>
+  <div class="takeaway">Takeaway: Discount star growth predictions for (a) academic repos without existing user base, and (b) solo-dev projects whose appeal is architectural novelty over practical utility. Community signals (forks, issues, contributors) matter more than star count.</div>
+</div>
+
+<div class="finding">
+  <span class="tag tag-heuristic">heuristic</span>
+  <h2>4. Star-Farming Spam Detection Sharpened</h2>
+  <p><code>openclaude-improved</code>: 562⭐ in 5 days, 0 issues, 19 topic tags, created and pushed same day, single commit. Classic star-farming signature. The proliferation of such repos confirms ecosystem maturation — when the architecture stabilizes, parasitic/spam projects emerge to ride attention.</p>
+  <p>Detection heuristics: <strong>⭐/day > 100</strong> + <strong>0 issues</strong> + <strong>10+ topic tags</strong> + <strong>same-day create/push</strong> + <strong>no forks</strong> = spam with 95%+ confidence.</p>
+  <div class="takeaway">Takeaway: High star velocity without community engagement signals (issues, forks, contributors) is anti-signal. Incorporate into spam-filter scoring.</div>
+</div>
+
+<div class="finding">
+  <span class="tag tag-pattern">pattern</span>
+  <h2>5. Project Revival > Fresh Scout for Deep-Reads</h2>
+  <p>When previously-dormant Caspian SDK revived (v0.2.0 release after 18d stale), deep-reading the diff was dramatically more efficient than scouting a fresh unknown project. Existing cognitive base (architecture, patterns, gaps) lets you jump straight to "what changed" instead of "what is this."</p>
+  <p>Also observed: the revival was driven by an <strong>external catalyst</strong> (internship challenge → 10+ external contributors). Star growth alone ≠ organic adoption — always ask "what's driving the growth?"</p>
+  <div class="takeaway">Takeaway: Prioritize revived-tracked-projects over fresh scouts for deep-reads. Existing mental model = 3-5x faster to extract value. For growth spikes, identify the catalyst before projecting continuation.</div>
+</div>
+
+<div class="meta">
+  <span>📊 Scans: 4 (1 followup + 3 quick)</span>
+  <span>📝 Wiki updated: caspian-sdk.md</span>
+  <span>🎯 Calibration: 2/3 correct (67%)</span>
+  <span>⏸️ Loop status: SATURATED ×14 (apply backlog empty)</span>
+</div>
+</body>
+</html>

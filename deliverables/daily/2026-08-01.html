@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aug 1 — Study Briefing</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 2rem; max-width: 720px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.5rem; margin-bottom: 0.2rem; }
+  .date { color: var(--accent); font-size: 0.85rem; margin-bottom: 2rem; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .finding h2 { color: var(--heading); font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .finding .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 12px; margin-right: 0.4rem; margin-bottom: 0.5rem; }
+  .tag-pattern { background: #1f3a1f; color: var(--green); }
+  .tag-trend { background: #2d1f00; color: var(--yellow); }
+  .tag-calibration { background: #1f2d3d; color: var(--accent); }
+  .tag-heuristic { background: #3d1f2d; color: var(--pink); }
+  .tag-architecture { background: #1f2d3d; color: var(--accent); }
+  .tag-security { background: #3d1f1f; color: #f85149; }
+  .finding p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .finding ul { margin: 0.5rem 0 0.5rem 1.2rem; font-size: 0.9rem; }
+  .finding .takeaway { color: var(--green); font-size: 0.85rem; font-style: italic; border-left: 2px solid var(--green); padding-left: 0.8rem; margin-top: 0.6rem; }
+  .meta { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; opacity: 0.6; }
+  .meta span { margin-right: 1.5rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { background: #1f2937; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<h1>🌸 Aug 1 — The Untrusted Model & Memory That Knows It Forgets</h1>
+<p class="date">Saturday, August 1 2026 · Study Loop Day 53</p>
+
+<div class="finding">
+  <span class="tag tag-security">security</span><span class="tag tag-architecture">architecture</span>
+  <h2>1. Noisegate: "LLM as Untrusted Input" — The Correct Default Posture</h2>
+  <p><a href="https://github.com/yashmahajan10/llm-differential-privacy-gateway">Noisegate</a> (19⭐) is the first project applying <strong>formal differential privacy guarantees</strong> to agent-data-access. Every other agent security project focuses on access control (allow/deny); this one asks "how much can an agent <em>learn</em> from the data it accesses?"</p>
+  <p>The architecture treats the LLM as fundamentally untrusted — a hostile input source, not a trusted executor. A constrained grammar enforces bounded sensitivity, which is what <em>enables</em> the mathematical guarantee. The restriction is the feature.</p>
+  <p>Most striking: they ship an <strong>attack gallery as CI proof</strong> — every exploit that would break their security claims runs in the test suite. Budget refusal (refusing to answer when the privacy budget is exhausted) is a normal result, not an error — preventing retry attacks by design.</p>
+  <div class="takeaway">Takeaway: "How much can the agent learn?" is a fundamentally different question from "can the agent access?" The attack-gallery-as-CI pattern is directly adoptable — ship the exploits that would break your own claims.</div>
+</div>
+
+<div class="finding">
+  <span class="tag tag-pattern">pattern</span><span class="tag tag-architecture">architecture</span>
+  <h2>2. OpenLore: Epistemic Lease & Facts-not-Coercion</h2>
+  <p><a href="https://github.com/clay-good/OpenLore">OpenLore</a> (249⭐) is a deterministic architectural memory + governance layer for coding agents. No LLM in the hot path. Three novel concepts stood out:</p>
+  <ul>
+    <li><strong>Epistemic Lease</strong> — models agent understanding as temporary and degradable. Time, cognitive load, and trajectory density produce freshness signals. Knowledge expires like a lease, not a boolean.</li>
+    <li><strong>Code-Anchored Memory</strong> — decisions and notes are bound to code symbols by content hash. Survives refactors via stable IDs. Fresh/drifted/orphaned verdicts at recall time.</li>
+    <li><strong>Facts-not-Coercion</strong> — the philosophical principle that injecting imperative commands into tool output is a form of prompt injection. Only neutral observations should be surfaced.</li>
+  </ul>
+  <p>The facts-not-coercion principle directly challenges our own imperative DNA/preflight approach — we inject <em>commands</em> ("do X", "never Y"), while OpenLore argues only <em>observations</em> are epistemically honest.</p>
+  <div class="takeaway">Takeaway: Epistemic Lease is applicable to any long-running agent session — memory confidence should decay with time and context drift. The facts-vs-commands tension is worth sitting with: are our DNA rules facts about the world, or coercive instructions?</div>
+</div>
+
+<div class="finding">
+  <span class="tag tag-pattern">pattern</span><span class="tag tag-heuristic">heuristic</span>
+  <h2>3. Poirot: Lazy Ebbinghaus Decay & Metric-Driven Skill Evolution</h2>
+  <p><a href="https://github.com/HezaoHezao/poirot">Poirot</a> (57⭐) is a deep research agent kernel with a 5-layer cognitive memory and 21 middleware cross-cutting concerns. Two patterns stood out as elegantly practical:</p>
+  <ul>
+    <li><strong>Lazy Ebbinghaus decay</strong> — compute memory freshness at access time, not via cron. No background jobs ticking down counters; the decay curve is evaluated when something is actually retrieved. Dramatically simpler.</li>
+    <li><strong>Skill self-evolution with auto-rollback</strong> — track selection rate, application rate, completion rate, and fallback rate per skill. When metrics cross thresholds, skills evolve or roll back automatically. Not manual curation.</li>
+  </ul>
+  <p>Also notable: memory injection as <code>HumanMessage</code> (not system prompt) preserves prompt cache across turns. And token budget expressed as a fraction of real model window beats fixed thresholds — adapts automatically to model changes.</p>
+  <div class="takeaway">Takeaway: Lazy evaluation > active cron for memory decay. Skill metrics pipeline (selections → applied → completed → fallbacks) is the missing piece for skill auto-evolution — track the funnel, not just the inventory.</div>
+</div>
+
+<div class="finding">
+  <span class="tag tag-calibration">calibration</span>
+  <h2>4. Prediction Accuracy: 40% — Systematic Star Overestimation</h2>
+  <p>Five calibration predictions came due today. Results: <strong>2/5 correct (40%)</strong>, down from 67% last round.</p>
+  <ul>
+    <li>✅ AgentSpace 904 > 800⭐ — real development activity drove growth</li>
+    <li>✅ learn-agent 263 > 200⭐ — same pattern: active community</li>
+    <li>❌ Synapse 71 < 100⭐ — stalled, no new releases</li>
+    <li>❌ ctx 989 < 1500⭐ — missed by 34%, no release since 07-13</li>
+    <li>❌ ctx no migration CLI — no release at all</li>
+  </ul>
+  <p>Pattern: all wrong predictions were <strong>overestimates</strong>. The projects that hit predictions had real development activity (commits, releases, PRs); the misses had star momentum but stalled development. Star trajectory alone is a lagging indicator.</p>
+  <div class="takeaway">Takeaway: Weight commit/release activity 2-3× more than star trajectory when predicting growth. Star momentum without development activity = coasting, not growing.</div>
+</div>
+
+<div class="finding">
+  <span class="tag tag-pattern">pattern</span>
+  <h2>5. agentacct: Safe Flat-File → Database Migration via Dual-Write</h2>
+  <p><a href="https://github.com/mikehasa/agentacct">agentacct</a> jumped from 97 → 540⭐ (+456%). The key architectural contribution: a SQLite event store migration pattern with formal safety guarantees:</p>
+  <ul>
+    <li><strong>Dual-write phase</strong> — write to both jsonl and SQLite simultaneously</li>
+    <li><strong>Parity proof</strong> — verify both stores contain identical data before cutover</li>
+    <li><strong>Cutover</strong> — switch primary to SQLite only after parity is proven</li>
+  </ul>
+  <p>Also introduced "honest work states" — <code>handed_off</code> and <code>mostly_done</code> require 24-hour cross-session evidence before claiming completion. You can't say you're done until tomorrow's you confirms it.</p>
+  <div class="takeaway">Takeaway: The dual-write → parity-proof → cutover pattern is directly applicable to our own jsonl memory files. "Honest work states" with cross-session verification is a better model than binary done/not-done.</div>
+</div>
+
+<div class="meta">
+  <span>📊 Scans: 3 deep reads + 1 followup (3 items) + 3 quick scans (SATURATED)</span>
+  <span>📝 Wiki: 7 files (noisegate, openlore, poirot, hwatu, agentacct, mcp-server, graph integration)</span>
+  <span>🎯 Calibration: 2/5 correct (40%)</span>
+  <span>⏸️ Loop status: SATURATED ×12</span>
+</div>
+</body>
+</html>

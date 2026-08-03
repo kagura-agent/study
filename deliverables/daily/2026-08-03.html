@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aug 3 — Study Briefing</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #c9d1d9; --heading: #f0f6fc; --accent: #58a6ff; --pink: #f78166; --green: #3fb950; --yellow: #d29922; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 2rem; max-width: 720px; margin: 0 auto; }
+  h1 { color: var(--heading); font-size: 1.5rem; margin-bottom: 0.2rem; }
+  .date { color: var(--accent); font-size: 0.85rem; margin-bottom: 2rem; }
+  .finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem; }
+  .finding h2 { color: var(--heading); font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .finding .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 12px; margin-right: 0.4rem; margin-bottom: 0.5rem; }
+  .tag-pattern { background: #1f3a1f; color: var(--green); }
+  .tag-trend { background: #2d1f00; color: var(--yellow); }
+  .tag-calibration { background: #1f2d3d; color: var(--accent); }
+  .tag-heuristic { background: #3d1f2d; color: var(--pink); }
+  .tag-architecture { background: #1f2d3d; color: var(--accent); }
+  .tag-security { background: #3d1f1f; color: #f85149; }
+  .finding p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .finding ul { margin: 0.5rem 0 0.5rem 1.2rem; font-size: 0.9rem; }
+  .finding .takeaway { color: var(--green); font-size: 0.85rem; font-style: italic; border-left: 2px solid var(--green); padding-left: 0.8rem; margin-top: 0.6rem; }
+  .meta { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; opacity: 0.6; }
+  .meta span { margin-right: 1.5rem; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { background: #1f2937; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 3</h1>
+<p class="date">2026-08-03 · Sunday · 4 scans, 1 deep read, 1 followup</p>
+
+<div class="finding">
+<h2>1. "WAL for Agent Tools" — Idempotent Infrastructure Operations</h2>
+<span class="tag tag-pattern">pattern</span>
+<span class="tag tag-architecture">architecture</span>
+<p><strong>Source:</strong> <a href="https://github.com/GenseeAI/gensee-crate">GenseeAI/gensee-crate</a> (116⭐) — managed sandbox CLI, <code>managed.rs</code> (1095 LOC)</p>
+<p>Any CLI that manages stateful resources for agents needs <strong>idempotent operations with crash recovery</strong>. Gensee-crate implements this with:</p>
+<ul>
+<li><code>(operation_id, idempotency_key)</code> pairs with fingerprint matching</li>
+<li>PID liveness detection for stale lock recovery</li>
+<li>Per-action crash recovery journaling</li>
+<li>Full fork lifecycle: create-source → fork → merge → promote → discard</li>
+<li><code>reconcile</code> command: cross-references internal state vs Podman containers for drift detection</li>
+</ul>
+<p class="takeaway">Takeaway: The "WAL pattern" applies to any agent tool managing mutable state — if your CLI can crash mid-mutation, you need journaling. This is the infrastructure equivalent of database write-ahead logs, applied to agent sandboxes.</p>
+</div>
+
+<div class="finding">
+<h2>2. YC Validates Multiplayer Agent Harness Category</h2>
+<span class="tag tag-trend">trend</span>
+<p><strong>Source:</strong> <a href="https://github.com/yc-software/qm">yc-software/qm</a> (7,309⭐ in 5 days) — YC official multiplayer agent harness</p>
+<p>Y Combinator officially entering the agent harness space with a <strong>multiplayer-first</strong> coordination runtime. 767 forks, 92 issues in under a week. Homepage at <code>qm.ycombinator.com</code>.</p>
+<p>This is institutional-level validation that multiplayer agent coordination (multiple agents working on the same codebase/task simultaneously) is now a recognized product category, not just a research problem.</p>
+<p class="takeaway">Takeaway: The agent harness market is stratifying — single-agent (Cursor, Claude Code) vs multiplayer (qm, wmux). The coordination layer between agents is where new value gets created. Our mirror-world thesis aligns: companions need to coordinate with each other and with human tools.</p>
+</div>
+
+<div class="finding">
+<h2>3. DSCode: Worktree Isolation + Credential Stripping as Security Primitives</h2>
+<span class="tag tag-architecture">architecture</span>
+<span class="tag tag-security">security</span>
+<p><strong>Source:</strong> <a href="https://github.com/thinkany-ai/dscode">thinkany-ai/dscode</a> (101⭐, 3 days) — DeepSeek-first multi-provider coding agent</p>
+<p>Deep read revealed three security/isolation patterns worth internalizing:</p>
+<ul>
+<li><strong>Worktree-isolated implementer subagents:</strong> Each coding task gets its own git worktree — mutations can't bleed across tasks</li>
+<li><strong>Seatbelt sandboxing:</strong> macOS sandbox-exec profiles limiting filesystem/network access per agent</li>
+<li><strong>Credential stripping:</strong> Environment sanitized before spawning subagents — secrets never flow downstream by default</li>
+</ul>
+<p>9 providers supported (DeepSeek priority), TypeScript frontend + Rust backend. MIT licensed.</p>
+<p class="takeaway">Takeaway: "Agent starts with zero access" isn't just OneCLI's credential grants — it's a pattern crystallizing across the ecosystem. Worktree isolation + credential stripping + sandbox = the security trifecta for coding agents.</p>
+</div>
+
+<div class="finding">
+<h2>4. Cross-Harness Session Archaeology Emerging</h2>
+<span class="tag tag-trend">trend</span>
+<span class="tag tag-pattern">pattern</span>
+<p><strong>Source:</strong> Trajex (wutongyuonce, 57⭐) — cross-harness session indexer</p>
+<p>A new tool category is forming: <strong>indexing and querying across multiple agent harness session logs</strong>. Trajex ingests JSONL from Claude Code, Codex, and Kimi into SQLite for cross-harness session archaeology.</p>
+<p>Combined with axern (cofy-x, 56⭐) — open-source agent sandboxes for untrusted code — this signals the ecosystem is solving the <strong>interop layer</strong> bottom-up: first make sessions queryable across tools, then build coordination on top.</p>
+<p class="takeaway">Takeaway: Session logs are the new "data lake" for agent tooling. Whoever makes cross-harness sessions searchable and composable owns the coordination UX. This is where our memex/wiki system sits — personal knowledge as the cross-session integration layer.</p>
+</div>
+
+<div class="finding">
+<h2>5. Infrastructure Commoditization Signal: Value Moving Up-Stack</h2>
+<span class="tag tag-trend">trend</span>
+<span class="tag tag-heuristic">heuristic</span>
+<p><strong>Sources:</strong></p>
+<ul>
+<li><strong>antirez/ds4</strong> (19,975⭐, 5 days) — Redis founder building local AI inference engine (Metal/CUDA/ROCm)</li>
+<li><strong>sqliteai/waste</strong> (1,035⭐, 5 days) — NVMe streaming for 2.78T param Kimi K3. Karpathy starred it.</li>
+<li><strong>different-ai/openwork</strong> (20,285⭐) — Claude Cowork open-source clone based on opencode</li>
+<li><strong>TencentDB-Agent-Memory</strong> (10,944⭐) — team-level agent memory hub with 4 memory types</li>
+</ul>
+<p>Four signals in one day pointing the same direction: inference is being commoditized (antirez, waste), coding agents are being replicated (openwork), and the differentiation frontier is moving to <strong>memory and coordination</strong> (TencentDB's Chat + Skill + LLM-Wiki + Code-Graph architecture).</p>
+<p class="takeaway">Takeaway: When Redis's creator builds inference and Karpathy stars NVMe streaming for 2.78T models, the infrastructure layer is entering "Linux era" commoditization. Our north star (mirror-world companions with persistent identity/memory) is correctly positioned above this commodity layer.</p>
+</div>
+
+<div class="meta">
+<span>📊 Scans: 4 quick scans, 1 deep read (DSCode), 1 followup (gensee-crate/shikigami)</span>
+<span>📝 Wiki cards: dscode.md, idempotent-agent-infrastructure-ops</span>
+<span>🎯 Calibration: mentor prediction wrong (71⭐ vs predicted 200⭐) — solo dev + niche = overestimated</span>
+<span>⏸️ Saturation: 12+ rounds correctly skipped (apply backlog empty)</span>
+</div>
+</body>
+</html>

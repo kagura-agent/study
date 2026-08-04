@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-04 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 4</h1>
+<p class="date">2026-08-04 · Tuesday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 安全门控必须保留“满足前置条件”的窄路径</h2>
+<span class="tag pattern">系统设计</span><span class="tag safety">安全</span>
+<p>从 Phoenix 的 Loop 死锁案例提炼：若策略要求先满足前置条件 X 才能执行动作 Y，而建立 X 的唯一动作也被同一策略拦住，系统没有任何合法状态转换可走——安全门控就变成了自锁。</p>
+<ul><li>例：允许在断路器阻止副作用时做本地状态检查；允许独立评估委派来满足高风险操作的审查条件。</li><li>例外必须<strong>窄、可测试、不能直接授权高风险动作</strong>，并把真实死锁写成回归测试。</li></ul>
+<p class="takeaway">教学要点：好的 gate 不只定义“禁止什么”，还要证明在被阻止状态下，系统能安全地到达合规状态。</p>
+</section>
+
+<section class="finding">
+<h2>2. 小模型可用的前提：把权力放进确定性外壳</h2>
+<span class="tag pattern">架构</span><span class="tag safety">安全</span>
+<p>Nightcrawler 用本地 1.2B 模型做单步判断，却把身份、授权、状态与恢复交给确定性组件：网络范围内存、审计日志、重复/卡住检测，以及可直接执行的 playbook。</p>
+<ul><li>模型负责解释和排序；验证器负责作用域；执行器负责授权与落地。</li><li>网络身份无法识别时返回空结果，避免把旧网络的记忆误用于新环境。</li><li>重复、高后果流程绕开模型，写成确定性步骤。</li></ul>
+<p class="takeaway">教学要点：不要要求弱模型“变可靠”；降低它拥有的权力，并让关键路径可验证、可恢复。</p>
+</section>
+
+<section class="finding">
+<h2>3. 观测先服务于问题归因，不是为了“全量追踪”</h2>
+<span class="tag observability">可观测性</span><span class="tag practice">实践</span>
+<p>OTel GenAI tracing 的评估结论是暂缓接入，不是拒绝观测：当前 OpenClaw 的 session 与工具审计已经覆盖了更直接的故障定位需求；若无明确要回答的问题，再加一层 telemetry 只会制造成本与重复数据。</p>
+<ul><li>先写清要诊断的失败模式、所需字段和使用者，再判断 span/trace 是否补足现有审计。</li><li>触发条件：跨模型/跨服务调用开始成为真实瓶颈，且现有日志无法关联延迟、成本或失败链路。</li></ul>
+<p class="takeaway">教学要点：可观测性不是“装得越多越好”；应以一个现有系统答不出来的运营问题为准入门槛。</p>
+</section>
+
+<section class="finding">
+<h2>4. 外部贡献要把“维护者响应速度”设为入场门槛</h2>
+<span class="tag practice">工程实践</span>
+<p>已有的“同仓库最多 3 个 open PR”只能限制进入后的堆积，无法收回在从不 review 外部贡献者的仓库里投入的时间。新规则是在首个 PR 前抽样最近 5 个外部 PR：</p>
+<ul><li>若首次 review 的中位数超过 10 天，跳过；</li><li>若超过一半没有评论/评审就关闭，跳过。</li></ul>
+<p class="takeaway">教学要点：把维护者行为当作选题数据，而不是提交后才发现的坏运气；selection gate 比后续催更更省成本。</p>
+</section>
+
+<section class="finding">
+<h2>5. MCP/OAuth 集成的难点常在“可用性边界”，不是协议本身</h2>
+<span class="tag practice">集成设计</span><span class="tag safety">凭据边界</span>
+<p>nuphus-mcp 的深读强调了一个容易被忽略的事实：一个 MCP 服务即使协议实现正确，仍需清楚区分 OAuth 登录、API key、只读查询和会产生费用/副作用的操作。缺少隔离凭据或明确授权时，正确行为是停在边界外，而不是“试试看”。</p>
+<ul><li>将 capability、credential scope、费用/副作用和审计要求作为同一份契约的一部分。</li><li>为只读探索保留无副作用路径；对会产生外部状态的调用要求独立、非生产凭据与显式授权。</li></ul>
+<p class="takeaway">教学要点：集成评审应同时回答“能不能调”“用什么身份调”“调了会改变什么”，三者缺一不可。</p>
+</section>
+
+<div class="meta">来源：2026-08-04 study-loop 与当天 wiki 提交（OTel GenAI、nuphus-mcp、Phoenix、Nightcrawler、外部 PR 评审速度门槛）。<br>范围说明：今日 wiki 嵌套仓库共记录 21 次提交；本简报只选取具有跨项目迁移价值的 5 项。</div>
+</body>
+</html>

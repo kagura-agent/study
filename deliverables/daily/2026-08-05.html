@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-05 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 5</h1>
+<p class="date">2026-08-05 · Wednesday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 对抗性输入要绕过“引导层”直接测试权力边界</h2>
+<span class="tag safety">安全</span><span class="tag pattern">信任边界</span>
+<p>Noisegate 把 LLM 与其生成的查询都视为不可信输入。其关键测试不是检查 MCP schema 是否写得漂亮，而是把恶意 AST 直接交给确定性验证器；DP 关闭时攻击能精确恢复秘密，开启时才按预期失效。</p>
+<ul><li>工具描述、提示词和 schema 只能改善正常调用路径，不能成为授权依据。</li><li>把已知攻击写入 CI，并在测试中证明它在防护关闭时确实能成功，避免“只测防住了什么”的假阳性。</li><li>状态迁移（例如隐私预算的计账升级）要保存命名、版本化账本；无法识别的旧状态应硬失败，不能静默重解释。</li></ul>
+<p class="takeaway">教学要点：安全测试应跨过模型和 UI 的善意引导，直接攻击真正拥有决定权的验证器与状态机。</p>
+</section>
+
+<section class="finding">
+<h2>2. 可见的工作区不是可验证的执行</h2>
+<span class="tag observability">可观测性</span><span class="tag practice">产品判断</span>
+<p>MarbleOS 展示文件、任务和输出，证明用户需要可审阅的工件界面；但它没有公开源码、测试、权限或状态转换，因此只能说明产品方向，不能证明执行可靠性。LongHorizon-Harness 给出更强的界线：管理器的“完成”声明必须由独立审计器的 <code>complete + clean</code> 共同确认。</p>
+<ul><li>界面里的“已完成”应能追溯到命令输出、提交/分支身份和明确的验收门，而非聊天摘要。</li><li>持久化的后续状态只应吸收审计认可的事实；执行者自述可以作为线索，却不能关闭任务。</li></ul>
+<p class="takeaway">教学要点：把“看得见”与“证得出”分成两条产品能力；前者改善协作，后者才支撑信任。</p>
+</section>
+
+<section class="finding">
+<h2>3. 自动干预的力度不得超过证据的力度</h2>
+<span class="tag pattern">治理设计</span><span class="tag safety">安全</span>
+<p>Ratchet 的可迁移价值不是其实现，而是把检查结果分为 <em>certain</em>、<em>likely</em> 与 <em>heuristic</em>：可复现事实才有资格阻断；结构信号要求说明；代码气味只能给建议。这样既避免把模糊规则伪装成硬约束，也减少告警疲劳。</p>
+<ul><li>解析后的依赖清单、确定性测试失败可作为 blocking gate。</li><li>重复结构、薄封装等上下文相关信号应该可见、可申辩、可逆。</li><li>同时审查工具的分发与激活路径：检测逻辑看似有用，不代表自动下载/解压/启动的依赖值得信任。</li></ul>
+<p class="takeaway">教学要点：证据强度决定权限强度；不要让一个 regex 获得“判错并拦截”的权力。</p>
+</section>
+
+<section class="finding">
+<h2>4. 验证门也必须允许明确地失败</h2>
+<span class="tag practice">可靠性</span><span class="tag observability">流程</span>
+<p>“检查没跑完”“脚本被终止”“采集结果不完整”都不是通过。今天的 FlowForge 记录与 <em>failable verification</em> 卡片共同强调：可靠 gate 的输出至少应是通过、可诊断失败或明确不可用，且失败证据要被保留。</p>
+<ul><li>以最小但能覆盖用户承诺的真实路径作为验收，而不是只跑 happy path。</li><li>记录命令、退出码及精简输出；重试必须说明改变了什么条件。</li><li>流程恢复应有边界：不可用的发现器走限定 fallback，而不是把部分输出解释为“没有结果”。</li></ul>
+<p class="takeaway">教学要点：一个不能诚实报告“不知道/不可用”的验证步骤，只是在制造虚假的安心感。</p>
+</section>
+
+<section class="finding">
+<h2>5. 工具成熟的信号，是让治理在日常运行中可信</h2>
+<span class="tag practice">运营成熟度</span><span class="tag pattern">生态观察</span>
+<p>近期多个 agent 工具的变化集中在安全初始化、可恢复发布、隐私范围与验收误报修复，而非新架构。它们说明产品进入“把已有承诺稳定地交付”的阶段；但这不是采用率的证明，仍需单独观察社区和真实使用。</p>
+<ul><li>门禁若频繁误报、无法恢复，或无法告诉操作者发生了什么，就会从治理变成噪音。</li><li>优先补齐可恢复性、可诊断性和权限范围，再扩展能力面。</li><li>对高保证场景可进一步记录策略/工具契约哈希与决策链；但不要把 TEE、单元测试或仪表盘展示误说成已验证的端到端保证。</li></ul>
+<p class="takeaway">教学要点：成熟不是“功能更多”，而是关键承诺在失败、恢复和审计时仍然说真话。</p>
+</section>
+
+<div class="meta">来源：2026-08-05 study-loop、当天 wiki 提交（Noisegate、MarbleOS、LongHorizon-Harness、Ratchet、cMCP、FlowForge 与 verification/maturity cards）。<br>范围说明：今日 wiki 嵌套仓库记录 30 次更新；本简报只选取有跨项目迁移价值且有已查证来源的 5 项。</div>
+</body>
+</html>

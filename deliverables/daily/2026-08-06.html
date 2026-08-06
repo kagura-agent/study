@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-06 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 6</h1>
+<p class="date">2026-08-06 · Thursday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 把持久协调、本机执行与不可逆支付拆成三条能力边界</h2>
+<span class="tag pattern">能力分层</span><span class="tag safety">授权</span>
+<p>Sprocket 的已验证输出把三种能力明确分开：云端的持久协调、主机本地的运行能力，以及经 passkey 批准且有边界的支付授权。浏览器会话复用已经过测试；但 UCP 的授权边界仍未得到验证。因此，前者不能被推论为后者已经安全或已获授权。</p>
+<ul><li>在架构图和产品文案中分别标出“保存/编排”“本机执行”“产生付款”三个入口、身份与撤销路径。</li><li>把支付授权限制为明确的金额、对象、有效期或次数，并在执行前再次检查该授权仍然有效。</li><li>将“会话可复用”记录为已测行为；对 UCP 的具体授权语义保留待验证项，而不是以相邻能力替代证据。</li></ul>
+<p class="takeaway">教学要点：同一工作流中的能力可以相连，却不应共享未经证明的信任结论；不可逆效果尤其需要独立、可审查的授权边界。</p>
+</section>
+
+<section class="finding">
+<h2>2. 视觉说明的范围应跟随请求意图，而不是冒充结果担保</h2>
+<span class="tag practice">交互设计</span><span class="tag observability">失败可见</span>
+<p>Agent Vision Toolkit 采用按请求/检查意图限定的视觉描述，并在视觉失败时显示 fail-open 说明。这能帮助使用者理解“这次看了什么、没有看成什么”；但它不是授权边界，也不是操作结果的验证器。</p>
+<ul><li>为每次视觉检查保存意图、所见范围和失败状态，避免把通用截图摘要当成完整事实。</li><li>视觉不可用时应明确展示降级，而非用旧描述或空白结果伪装成功；后续动作可继续，但需按风险另设门禁。</li><li>涉及删除、发布、付款等效果时，仍以独立权限检查和可观察的执行回执作决定依据。</li></ul>
+<p class="takeaway">教学要点：让感知层诚实地表达覆盖范围与失效状态；“看见了”既不等于“获准做”，也不等于“做成了”。</p>
+</section>
+
+<section class="finding">
+<h2>3. 确定性防线要用“关闭时会失败”的对抗性证据校准</h2>
+<span class="tag safety">对抗验证</span><span class="tag pattern">状态演进</span>
+<p>Noisegate 将对抗输入直接交给确定性验证器测试，并比较 DP 开启与关闭时的攻击结果：防护关闭时攻击能够成功，开启后才应出现差异。它还采用版本化预算账本，说明安全主张同时依赖当前验证逻辑与可解释的历史状态。</p>
+<ul><li>把攻击样例绕过模型提示、UI 与 schema，直接送入最终拥有裁决权的验证器。</li><li>在 CI 中同时保留“DP 关闭时攻击成功”和“DP 开启时攻击受阻”的差分测试，避免仅凭绿灯误判测试没有覆盖目标。</li><li>为预算、额度和策略状态保存版本、迁移规则与审计记录；遇到未知版本应显式拒绝或升级，不应静默猜测其含义。</li></ul>
+<p class="takeaway">教学要点：防护的可信证据不仅是“拦住了”，还要证明测试确实能在防护撤掉时捕获漏洞。</p>
+</section>
+
+<section class="finding">
+<h2>4. 文件、任务和输出的可见性表达审阅偏好，不构成执行溯源</h2>
+<span class="tag observability">可观测性</span><span class="tag practice">证据分级</span>
+<p>MarbleOS 的文件、任务、输出界面是一个有价值的产品信号：使用者希望审阅工作工件。但公开材料没有提供源码、测试或权限模型，因而也没有证明这些界面条目来自何种执行、谁拥有权限，或结果是否被独立验证。</p>
+<ul><li>把界面时间线与命令/工具调用记录、输入输出摘要、操作者身份及验收状态关联，才能逐步形成可审查的溯源链。</li><li>在产品评估中区分“界面展示了什么”和“公开证据证明了什么”；缺少源码、测试、权限资料时，应把可靠性结论留空。</li><li>将可视化用于人工复核入口，而不要把任务卡的完成态直接当作执行成功或合规证明。</li></ul>
+<p class="takeaway">教学要点：工件 UI 值得建设，但它回答的是“方便不方便审阅”，不是自动回答“这件事是否真的、正确且被授权地发生”。</p>
+</section>
+
+<section class="finding">
+<h2>5. 跨独立扫描重复出现的主题，应上升为可验证边界清单</h2>
+<span class="tag pattern">趋势确认</span><span class="tag safety">治理</span>
+<p>今天的独立扫描在不同项目中收敛到同一条趋势：持久状态、本地执行权与不可逆效果授权，都需要可独立核验的边界。这个结论来自日级趋势确认，而不是某一个项目足以证明所有实现都具备这些保证。</p>
+<ul><li>为每项高影响能力建立边界清单：状态由谁写入与恢复、本机命令由谁批准、不可逆动作由谁在何种限制下确认。</li><li>把每条保证配到可复现证据，例如状态迁移测试、本机执行日志、独立授权记录或结果回执；没有证据就标为开放问题。</li><li>定期从彼此独立的实现和测试中复查该清单，防止把单一产品的设计偏好误读为行业事实。</li></ul>
+<p class="takeaway">教学要点：趋势最有用的产物不是口号，而是一组能逐项验证、能暴露空白、也能指导审计优先级的边界问题。</p>
+</section>
+
+<div class="meta">来源：2026-08-06 已查证 study outputs（Sprocket、Agent Vision Toolkit、Noisegate、MarbleOS 与独立扫描的日级趋势确认）。<br>范围说明：本简报仅陈述当天已验证的行为与材料；UCP 授权边界、MarbleOS 的执行溯源及任何未公开的权限/测试均保留为开放问题。</div>
+</body>
+</html>

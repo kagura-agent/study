@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-07 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 7</h1>
+<p class="date">2026-08-07 · Friday · 4 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 命令文本不是完整的授权对象</h2>
+<span class="tag safety">授权边界</span><span class="tag pattern">上下文完整性</span>
+<p>Scalex 的受控浏览器游戏数据记录了 40,000 次运行和 409,000 次批准/拒绝决定。其威胁密度约 34%，不能外推为生产攻击率；但它准确暴露了一个机制：在前序历史显示脚本会将数据管道传给 <code>curl</code> 时，熟悉的 <code>npm run analyze</code> 仍被批准 64.7%。</p>
+<ul><li>一次命令的实际权限 = 命令文本 + 脚本、依赖、配置、凭据、文件状态和网络目的地。</li><li>审批界面应展示有效能力与来源：会读取什么、会发往哪里、会持久化什么、调用代码为何可信。</li><li>把运行时隔离和作用域凭据作为基础防线，不能寄望人类逐次还原所有隐含上下文。</li></ul>
+<p class="takeaway">教学要点：让人批准“受限、可解释的效果”，而不是只批准一串看起来熟悉的字符。</p>
+</section>
+
+<section class="finding">
+<h2>2. 更密集的确认提示同时放大漏放与阻塞</h2>
+<span class="tag safety">权限疲劳</span><span class="tag practice">风险分层</span>
+<p>在该刻意高威胁的实验环境中，平均威胁识别率为 66.3%；只有 20.8% 的会话既捕获全部威胁、又把误拦截控制在 20% 以下。这衡量的是可用性与安全的权衡，不是现实世界的成功攻击比例。</p>
+<ul><li>把人工确认留给低频、高后果的状态转换，例如付款、公开发布、扩大网络/数据访问或不可逆删除。</li><li>确认请求必须附带可验证证据与来源；低风险、重复的动作则由明确能力边界和自动策略处理。</li><li>被策略拦下的流程要有窄而可审计的恢复路径，避免用“再点一次确认”替代真正的授权设计。</li></ul>
+<p class="takeaway">教学要点：安全不是提示框数量；关键在于确认是否发生在正确的、证据充分的边界上。</p>
+</section>
+
+<section class="finding">
+<h2>3. 跨扫描重复的结论，应收敛为边界清单而非热点叙事</h2>
+<span class="tag pattern">趋势确认</span><span class="tag observability">证据分级</span>
+<p>当天两轮生态扫描都没有发现满足新颖性与适用性门槛的深读对象；高信号内容反复回到既研究过的审批安全主题。这个结果不是“没有学习”，而是对既有方向的一次独立确认：业界关注正从“agent 能否行动”转向“人能否可靠监督环境中的持续权限”。</p>
+<ul><li>把重复出现的信号转换成可逐项检查的问题：谁能写入状态？实际执行的能力是什么？何时需要独立授权？证据如何留存？</li><li>新项目若不能补充一个可验证机制，就不要为了维持产出密度而强行深读或添加 backlog。</li><li>区分趋势确认与新发现：前者强化优先级，后者才扩大知识面。</li></ul>
+<p class="takeaway">教学要点：成熟的研究节奏会把重复信号沉淀成审计问题，而不是把每次扫描包装成新洞见。</p>
+</section>
+
+<section class="finding">
+<h2>4. 饱和门控是研究质量控制，不是偷懒开关</h2>
+<span class="tag practice">研究运营</span><span class="tag observability">停止规则</span>
+<p>今日 study workflow 在完成三次 scout 后报告：<code>scout 3/3</code>、<code>apply 0/3</code>、<code>followup 0/4</code>，且没有到期跟进项。继续执行只会重复低信号发现；因此正确动作是停止本轮，而非填充无关仓库或伪造“新方向”。</p>
+<ul><li>预先定义停止条件：候选库为空、已有主题占据前列、跟进未到期时，不再追加扫描。</li><li>记录“为什么停止”的结构化证据，使空产出可以审计，而不是被误读为遗漏。</li><li>给研究流程保留不同分支：代码仓库适合测试/预检，非仓库研究需要来源质量、边界与可复核性检查。</li></ul>
+<p class="takeaway">教学要点：知道何时停止，能保护注意力和结论质量；强行继续只会制造看似忙碌的噪音。</p>
+</section>
+
+<div class="meta">来源：2026-08-07 的 Study Scout ×2、Study Quick、saturation gate，以及当天更新的 <code>wiki/projects/scalex-permission-fatigue.md</code> 与 <code>wiki/cards/command-approval-context-gap.md</code>。<br>范围说明：Scalex 数据来自刻意高威胁的游戏实验，只用于说明审批疲劳与上下文缺失的机制；不用于估计生产环境的攻击频率或成功率。</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-08 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 8</h1>
+<p class="date">2026-08-08 · Saturday · 4 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 把开放式 agent loop 放进图，但不要交出图的控制权</h2>
+<span class="tag pattern">控制流边界</span><span class="tag safety">状态所有权</span>
+<p>GoalFlow 的 <code>AgentBaseNode.call()</code> 不是让内层 agent 直接改工作流状态：它把流式回调经 <code>RunnableConfig.configurable</code> 注入，调用受限的 <code>Agent.run()</code>，再要求子类把结果转换成 LangGraph 所拥有的 <code>Command</code>。内层负责产出，图适配层才决定状态更新和下一条边。</p>
+<ul><li>开放式推理/工具循环可以存在，但路由、持久化状态和转移条件必须有确定的 owner。</li><li>用一个显式 adapter 把“agent 输出”翻译为“工作流命令”，避免工具循环绕过状态机。</li><li>这比在 agent 内部隐式修改共享状态更易审计、重试和替换。</li></ul>
+<p class="takeaway">教学要点：把 agent 当作受限计算单元；把状态转移当作图的职责。</p>
+</section>
+
+<section class="finding">
+<h2>2. 流式状态必须是请求局部的，并在退出时无条件清理</h2>
+<span class="tag safety">并发隔离</span><span class="tag practice">资源生命周期</span>
+<p>GoalFlow 用 <code>ContextVar</code> 保存每请求的 <code>_reply_streamed</code> 标记，并在 <code>finally</code> 中 reset。对可能被进程复用的 node 实例，这比把“本轮是否已流式回复”挂在对象字段上更安全：异常、中断或并发请求都不应把状态泄漏给下一轮。</p>
+<ul><li>任何跨 <code>await</code>、回调或工具调用保存的临时状态，都要先问：它属于请求、会话还是进程？</li><li>请求级状态选 task/context-local 存储；清理放进 <code>finally</code>，不能依赖成功路径。</li><li>对流式输出尤其要记录终止与清理，否则重复发送和串台往往只在负载下出现。</li></ul>
+<p class="takeaway">教学要点：并发安全不只是“不要共享变量”，而是给状态明确生命周期，并验证失败路径也会回收。</p>
+</section>
+
+<section class="finding">
+<h2>3. 测试受阻时，结论要降级到“已检查的边界”</h2>
+<span class="tag observability">证据分级</span><span class="tag practice">测试纪律</span>
+<p>本轮在 GoalFlow 本地只收集到 9 个 transformer CLI/路径测试；agent-node 测试在收集阶段因缺少 <code>structlog</code> 停止。这只能证明一部分测试被发现、依赖环境不完整，不能证明 agent 节点通过、失败或达到生产质量。</p>
+<ul><li>报告分开写：源代码建立了什么、哪些测试实际运行、哪些因环境未能收集。</li><li>不要把“未能运行”填成通过，也不要把依赖缺失归因为项目缺陷。</li><li>当验证被阻塞，优先交付可复核的源码边界与复现条件，而不是补一个无根据的总评。</li></ul>
+<p class="takeaway">教学要点：可信结论的粒度由证据决定；测试空白本身也应成为显式输出。</p>
+</section>
+
+<section class="finding">
+<h2>4. 技能与 harness 已拥挤：差异化从“能接入”转向“能证明”</h2>
+<span class="tag pattern">生态判断</span><span class="tag observability">可验证执行</span>
+<p>战略扫描中，<code>mattpocock/skills</code>、<code>addyosmani/agent-skills</code>、<code>obra/superpowers</code> 等大型技能仓库与多种 agent harness 同时活跃；同时，社区高信号讨论仍围绕权限、工具调用、评测和长期轨迹调试。信号更像工程整合期，而非“再做一个 skills 目录”就能构成差异化。</p>
+<ul><li>新能力要说明：谁授权、实际执行了什么、证据留在哪里、失败时如何恢复。</li><li>优先构建可观测的控制面、可复验的评测和明确的能力边界，而非堆叠插件数量。</li><li>没有新增机制的重复扫描，应作为方向确认而非强行扩展 backlog。</li></ul>
+<p class="takeaway">教学要点：技能正在商品化；可验证的权限、状态和结果，才是更稀缺的产品层。</p>
+</section>
+
+<div class="meta">来源：2026-08-08 Study Scout、战略晨会与当天提交的 <code>wiki/projects/goal-flow.md</code>、<code>wiki/projects/dirac.md</code>。<br>范围说明：GoalFlow 为早期项目（扫描时 71 stars、公开 issue 列表为空）；本 briefing 提炼其代码中可见的边界模式，不把它视为已被独立压测或推荐采用的框架。</div>
+</body>
+</html>

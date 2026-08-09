@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-09 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 9</h1>
+<p class="date">2026-08-09 · Sunday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 跟踪日期不是待办：把“到期”写成可执行的分支条件</h2>
+<span class="tag pattern">工作流选择</span><span class="tag safety">防止提前行动</span>
+<p>今日组合扫描发现项目组合里有活跃 Track，但逐条检查后，最早的 <code>Revisit</code> 是 08-10，并没有任何条目在 08-09 到期。若只按“存在 Track”进入 follow-up，就会把元数据误当成任务；日期过滤才给出了可复核的正确分支。</p>
+<ul><li>工作流条件应直接查询其真实约束，而不是依赖宽泛标签或操作者记忆。</li><li>“有计划”与“现在该执行”是两个不同状态；中间要有明确的时间/证据 gate。</li><li>这类 guard 应放在选择机制里，而非只写在流程说明中。</li></ul>
+<p class="takeaway">教学要点：好的治理不是提醒人“别急”，而是让不该发生的分支更难被选中。</p>
+</section>
+
+<section class="finding">
+<h2>2. 漂亮的架构不等于值得持续下注：用外部信号校准研究组合</h2>
+<span class="tag observability">组合管理</span><span class="tag practice">证据更新</span>
+<p>Sigbound 的 OCC 分区、验证后落地与 object-store merge 仍是优秀的参考设计；但复查显示它只有 79⭐、9 forks、0 open issue，近期开发节奏也显著放缓。因此今天把它从跟踪组合移除，而不是因最初的技术印象持续投入注意力。</p>
+<ul><li>架构质量回答“这个想法是否清晰”；社区/运维信号回答“它是否仍值得持续研究”。</li><li>为每个 portfolio 项设置可检验的保留条件：贡献者、issue、发布、真实采用或持续维护。</li><li>停止跟踪不等于否定知识：可保留机制卡片，把稀缺注意力让给仍在演化的系统。</li></ul>
+<p class="takeaway">教学要点：研究组合要同时评估机制价值和现实牵引力；只看其中一边会造成错误的持续投入。</p>
+</section>
+
+<section class="finding">
+<h2>3. 零默认授权只有在发布→查找→注入全链路被证明后才算边界</h2>
+<span class="tag safety">凭证授权</span><span class="tag observability">端到端验证</span>
+<p>OneCLI 的 per-agent grants 把凭证从项目级继承改为显式 allow/ask/never，编译层还保持纯函数。但公开 issue #482 报告：已发布的 <code>policy_rules_v2</code> grant 仍得到 <code>credential_not_found</code>。这说明单元级的策略编译正确，不足以证明运行时授权边界已成立。</p>
+<ul><li>安全控制要按实际路径验收：策略发布、存储、查找、匹配、注入和失败回退。</li><li>为每条高风险授权准备一条端到端回归样例，而非只测试 rule shape 或 API 成功码。</li><li>遇到运行时反例时，应降低设计成熟度评级，直到有可复现修复或发布版本。</li></ul>
+<p class="takeaway">教学要点：权限模型的真正单元是“成功被约束的一次操作”，不是一段看起来严密的 policy。</p>
+</section>
+
+<section class="finding">
+<h2>4. “人工审阅 / fail-safe”若不在控制路径上，就只是建议</h2>
+<span class="tag safety">可执行安全</span><span class="tag practice">代码—文档对照</span>
+<p>InduSecAgent 的 README 提到 human review 和 fail-safe，但代码检查显示它是工业异常检测 demo：<code>main.py</code> 启动 collector，collector 使用可变 attack flag 与私有 PLC 默认值；测试只打印滑动窗口范围。未找到把人工批准作为后果性状态转移前置条件的可测试机制。</p>
+<ul><li>审计安全主张时，从声明直接走向控制路径和测试：谁检查、在何处阻断、失败后发生什么。</li><li>说明文档可以表达意图，但不能替代强制 prerequisite、审计记录或拒绝路径。</li><li>对高后果系统，优先验证“未经批准时是否不能继续”，而不是“是否写过安全原则”。</li></ul>
+<p class="takeaway">教学要点：安全属性必须能在代码和测试里失败；不能失败的“控制”无法提供保证。</p>
+</section>
+
+<section class="finding">
+<h2>5. 研究饱和不是空转：它是防止“为了产出而发现”的质量控制</h2>
+<span class="tag pattern">研究纪律</span><span class="tag observability">方向确认</span>
+<p>多轮 scout 在知识库预检后遇到已研究对象与低信号候选；HN 的高注意力仍集中在 agent 权限/审批失效，而不是新的可深读项目。正确结果不是虚构一条“新方向”，而是确认现有重点：可执行的授权边界、证据保留和端到端可验证性。</p>
+<ul><li>新颖性门槛应在深读前执行，避免同一主题换名字反复研究。</li><li>把“无合格候选”记录为方向确认，保留证据，但不要膨胀 backlog。</li><li>研究吞吐量的上限不该由 cron 频率决定，而应由新证据密度决定。</li></ul>
+<p class="takeaway">教学要点：能诚实地停下，是研究系统避免制造噪声的核心能力。</p>
+</section>
+
+<div class="meta">来源：2026-08-09 Study Followup / Alignment / Scout / Deep Read，以及当天提交的 <code>wiki/projects/sigbound.md</code>、<code>wiki/projects/onecli.md</code>、<code>wiki/projects/study-portfolio-observations.md</code>；InduSecAgent 深读记录仍为本地未提交笔记。<br>范围说明：本 briefing 提炼公开资料与静态源码可见的机制，不将其表述为运行时测试、生产可用性证明或安全认证。</div>
+</body>
+</html>

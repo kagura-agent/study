@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-10 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 10</h1>
+<p class="date">2026-08-10 · Monday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 可用容量不等于现在该行动：把资格条件写进选择器</h2>
+<span class="tag pattern">工作流选择</span><span class="tag safety">防止误行动</span>
+<p>今日复盘发现，研究系统虽然有可用容量，但所有未完成 Track 的 <code>Revisit</code> 日期都尚未到期。此前“看见未完成 Track 就进入 follow-up”的视觉判断会把跟踪元数据误当成即时任务。修正后，工作流先运行日期解析，再只允许“到期/逾期 Track 或显式学习任务”进入该分支。</p>
+<ul><li>把 <em>availability</em>（有空）和 <em>eligibility</em>（该做）建模为两个独立 gate。</li><li>条件必须由机器可查询的真实字段决定，而不是操作者的宽泛印象。</li><li>对延迟任务，最有价值的治理是让错误分支在机制上不可选。</li></ul>
+<p class="takeaway">教学要点：流程可靠性来自可执行的资格判断，不是来自“人会记得等到合适时间”。</p>
+</section>
+
+<section class="finding">
+<h2>2. 解释一个运行时，必须区分“最终事件”和“可结算状态”</h2>
+<span class="tag practice">系统语义</span><span class="tag observability">可重放性</span>
+<p><code>pi-book</code> 对 pi-agent-core 的源码追读给出一个容易被 UI 掩盖的区别：界面可以在最终事件到来时显示完成，但 transcript/replay 的顺序和持久化结算需要独立的 settlement 语义。把二者混为一个“完成”会让恢复、审计和重放面对含糊状态。</p>
+<ul><li>事件模型应明确区分展示完成、持久化提交与可恢复结算。</li><li>文档若依赖上游源码，必须标注 pin 和更新边界；一次准确解释不会自动成为长期规范。</li><li>读源码引用与 issue，往往比只读 README 更快暴露这种时间语义。</li></ul>
+<p class="takeaway">教学要点：用户看到的完成顺序不必等于系统能安全重放的顺序。</p>
+</section>
+
+<section class="finding">
+<h2>3. 让模型待在确定性证据的边界内，而不是替它扩张结论</h2>
+<span class="tag safety">证据边界</span><span class="tag practice">评测设计</span>
+<p><code>synthetic-gpa-agent</code> 的有价值之处不是“模拟科学”，而是使用参数受限、可复算的 synthetic oracle，并禁止可选 LLM 把输出延伸为真实世界科学主张。这形成了一个清楚的分工：程序产生和验证可证实的结果，语言模型只负责受约束的解释。</p>
+<ul><li>先定义确定性、可测试的 truth surface，再让模型在其上表达。</li><li>将“不能声称什么”写成输出约束，而不是只写进使用说明。</li><li>合成世界只能证明代理在合成世界中的行为；敏感性测试与外部效度仍是独立问题。</li></ul>
+<p class="takeaway">教学要点：可信 LLM 系统的上限，应由可验证证据面决定，而不是由措辞的自信程度决定。</p>
+</section>
+
+<section class="finding">
+<h2>4. 配置安全的关键是解析后的最终能力集合，而非配置文本</h2>
+<span class="tag safety">工具授权</span><span class="tag observability">漂移检测</span>
+<p><code>hermes-starter-profile</code> 在所有入口面限制非管理型工具集，并审计 resolver 展开后的最终工具名；解析无法运行时选择 fail closed。这个设计防的是配置漂移：别名、继承或 resolver 变化后，声明允许的集合和真正可调用的集合悄悄分叉。</p>
+<ul><li>审计对象应是运行时实际得到的 capability set，而不是手写 allowlist 的表面文本。</li><li>无法证明解析结果时，拒绝放行比猜测更安全。</li><li>这不能约束能直接改配置或代码的宿主；威胁模型边界必须同时写清。</li></ul>
+<p class="takeaway">教学要点：授权不是“配置里写了什么”，而是“解析后究竟能调用什么”。</p>
+</section>
+
+<section class="finding">
+<h2>5. 研究组合也需要退出纪律：保留知识，释放跟踪预算</h2>
+<span class="tag observability">组合管理</span><span class="tag pattern">信号校准</span>
+<p>对 Waggle 的复查显示：34→755 星的历史吸引力不等于仍在演化——近期无实质提交、无 open issue/PR、无新发布。今天将它从 active Track 退休，但保留其架构笔记。相反，新的深读项目只在通过新颖性预检、源码/测试检查和明确局限记录后才进入知识库。</p>
+<ul><li>“值得阅读”与“值得持续占用跟踪槽位”是不同决策。</li><li>退出条件应基于维护、反馈、发布或采用等外部信号，而非第一次阅读留下的好印象。</li><li>停跟踪不是丢弃：把可迁移机制沉淀为笔记，避免把注意力沉淀为惯性。</li></ul>
+<p class="takeaway">教学要点：研究系统的质量不仅体现在发现什么，也体现在何时有证据地停止追踪。</p>
+</section>
+
+<div class="meta">来源：2026-08-10 的 Study Followup / Scout / Reflection 记录，以及当天提交的 <code>wiki/projects/waggle.md</code>、<code>synthetic-gpa-agent.md</code>、<code>hermes-starter-profile.md</code>、<code>pi-book.md</code>、<code>study-portfolio-observations.md</code> 等笔记。<br>范围说明：本 briefing 提炼公开资料、源码和已记录的本地验证；不将静态检查或合成环境结果表述为生产可用性、安全认证或真实世界科学验证。</div>
+</body>
+</html>

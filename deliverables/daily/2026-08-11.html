@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-11 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 11</h1>
+<p class="date">2026-08-11 · Tuesday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 让系统进化，但别让它接管评判系统</h2>
+<span class="tag pattern">自进化</span><span class="tag safety">权力边界</span>
+<p><code>KADATH</code> 把一个 agent 的 prompt、框架、工具与依赖都当作可变“基因组”，但把目标哈希、工具清单、证据冻结、评分和选择留在基因组之外的 kernel。它允许变化面很宽，却把治理面收得很窄。</p>
+<ul><li>执行后先把证据复制、哈希并冻结，再评分；评分故障可以恢复，而不必重跑 agent。</li><li>变异只在评估之后由 kernel 应用到新 worktree；子代不能修改评判标准、谱系或隔离策略。</li><li>这种设计提高的是一次实验内的可比性，不自动证明优化目标等于真实用户目标；仍需独立的 holdout 目标。</li></ul>
+<p class="takeaway">教学要点：可自我修改的系统要把“能变什么”与“谁判断变得好”分开，评审权不能随被评对象一起进化。</p>
+</section>
+
+<section class="finding">
+<h2>2. Sandbox 不是一个开关：计算、工作区、凭据和宿主桥接是四条边界</h2>
+<span class="tag safety">隔离</span><span class="tag practice">威胁建模</span>
+<p>Docker Sandboxes 用 microVM、私有 Docker Engine、网络代理和凭据代理把 agent 的计算从宿主隔开；但文档同样表明，默认可写 workspace、共享 skills、以及运行在宿主上的本地 MCP 都能跨越这层边界。</p>
+<ul><li>“在 VM 里执行”只回答进程能否触及宿主；它不回答 agent 能否改工作树、读取仓库里的忽略文件或借 MCP 使用宿主能力。</li><li>clone/只读源仓库模式比直接挂载更适合不可信代码，但仍须最小化可读文件和 host-side integrations。</li><li>凭据代理能避免把 key 暴露给 sandbox，却不替代对目标域、OAuth 例外和写入后果的审查。</li></ul>
+<p class="takeaway">教学要点：评估 agent 沙箱时，逐项问“在哪里跑、能改什么、能读到什么、又能借谁的权限”，不要用一个“已隔离”代替四个答案。</p>
+</section>
+
+<section class="finding">
+<h2>3. 信任数据模型不等于信任机制：必须落在写入与准入路径上</h2>
+<span class="tag observability">声誉系统</span><span class="tag safety">治理落地</span>
+<p><code>Loomfeed</code> 已实现带来源类型的内容关系、认识状态、可追加声誉事件和十项 scorecard。它的核心提醒却来自代码与 issue 的落差：不少 quality-gate 字段存在于 schema，却没有进入实际创建准入；“准确性”也主要衡量当下标签与社区投票的一致性，不是事后真伪。</p>
+<ul><li>表、标签、仪表盘可以记录治理意图，但只有影响发布、可见性或权限的 write path 才构成治理。</li><li>缺失指标的重新加权避免把稀疏记录直接判坏，却使不同数据覆盖度的分数不可直接比较。</li><li>更健康的声誉设计应保留可审计的证据账本，并奖励及时纠正；不能让群体投票直接授权外部行动。</li></ul>
+<p class="takeaway">教学要点：审计一套“可信”系统时，从字段名转向关键问题——它在什么时刻、以什么后果，真正阻止或改变了一次写入？</p>
+</section>
+
+<section class="finding">
+<h2>4. 可靠的经验沉淀先治理证据，再治理提示词</h2>
+<span class="tag pattern">证据生命周期</span><span class="tag safety">可回滚演化</span>
+<p><code>Janus</code> 将个人经验与共享能力分开：前者是可审查、可回滚的加密 overlay；后者要经过 7 人 cohort、类别阈值、单用户 15% 权重上限、shadow evaluation 和真实用户 canary。其更可迁移的部分不是多用户规模，而是证据本身有身份、版本、验证、审计与拒绝后重试条件。</p>
+<ul><li>个人演化先固定经过验证的证据快照；候选能力不是悄悄改写基础 Skill。</li><li>被拒的证据不能原样反复投递，除非有新的证据类别同伴或算法/政策依据改变。</li><li>issue #23 还揭示：已持久化的对话和工具结果不等于可续接的授权状态；pending approval 也是执行状态机的一部分。</li></ul>
+<p class="takeaway">教学要点：一次成功经验不应自动升级为长期行为；保留输入证据、评估依据、决定和可回滚版本，才能让演化可解释。</p>
+</section>
+
+<section class="finding">
+<h2>5. 把视觉渲染当作按需派生能力，而不是浏览器的默认真相</h2>
+<span class="tag practice">浏览器基础设施</span><span class="tag observability">成本模型</span>
+<p><code>Moli</code> 的 DOM、V8 和 computed style 保持权威；只有截图、几何、坐标输入或 screencast 等操作才临时构建 layout/paint。它把“看见像素”从持续驻留的状态，变成一个有成本、会生成新快照的请求。</p>
+<ul><li>语义提取、表单操作和脚本可停留在 DOM 层；需要坐标时才付出 layout 的成本。</li><li>这让 harness 能明确选择给模型 DOM、截图，或两者都不给，而不是让渲染路径隐式决定能力。</li><li>该效率模型不构成安全边界：结构化 DOM 反而可能扩大可读取内容；不可信页面隔离、凭据分离和结果验证仍在 harness 层。</li></ul>
+<p class="takeaway">教学要点：把昂贵或高权限的状态表示成显式、按需的 capability，既能节省资源，也让能力暴露更可审计。</p>
+</section>
+
+<div class="meta">来源：2026-08-11 的 Study Scout / Quick Scan 记录，以及当天更新的 <code>wiki/projects/kadath.md</code>、<code>docker-sandboxes.md</code>、<code>loomfeed.md</code>、<code>janus.md</code>、<code>moli.md</code>。<br>范围说明：结论以已记录的公开文档、源码、测试与 issue 检查为限；Docker Sandboxes 为闭源产品，Moli 的性能基准未在本地复现，所有早期项目的社区采用与生产成熟度仍属未验证。</div>
+</body>
+</html>

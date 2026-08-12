@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-12 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 12</h1>
+<p class="date">2026-08-12 · Wednesday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 故障恢复必须从故障范围出发，而不是从陈旧状态出发</h2>
+<span class="tag pattern">故障恢复</span><span class="tag practice">架构</span>
+<p><code>diri</code> v0.5.0 区分了 daemon restart 与整机宕机两种故障面：只有本地 PTY holder 未能重新 attach 的 session 才会被归类为可恢复的 <code>exited:daemonRestart</code>；远程 tmux 会话被刻意保留为"可能仍存活"。恢复动作（reattach / resume / wait）的选择来自故障范围的证据，而不是来自持久化的状态值。</p>
+<ul><li>P1：两种故障面必须有不同的恢复路径——重启可以 reattach，宕机只能 resume 或丢弃。</li><li>P2：已验证过期的持久化状态不能直接当作"应该恢复"的指令；它需要先与当前故障范围对账。</li></ul>
+<p class="takeaway">教学要点：恢复逻辑要先诊断"出了什么问题"（故障范围），再决定"该做什么"（恢复动作）。持久化状态是线索，不是命令。</p>
+</section>
+
+<section class="finding">
+<h2>2. 自演化系统要把"能变什么"和"谁来判断变成什么样"放进不同层</h2>
+<span class="tag safety">权力边界</span><span class="tag pattern">自演化</span>
+<p><strong>SHE</strong>（arXiv:2608.09885）把 agent harness 拆成四层：System Prompt、Rule Bank、Safety Memory、Tool Policy。演化循环走 trajectory failure → artifact attribution → safety/utility verification，但评分与选择始终在上层完成，被变对象不能修改自己的评估标准。</p>
+<ul><li>这与 KADATH（Aug 11 finding）的"基因组在 kernel 之外"形成同一主题的第二证据。</li><li>SHE 多了 artifact attribution 这一步——先归因故障到具体层，再对该层做定向变异，而不是笼统地"改 prompt"。</li><li>但演化目标是否等于真实用户目标仍需独立的 holdout 验证；自动演化可以是正确方向，不能是正确性的担保。</li></ul>
+<p class="takeaway">教学要点：可自我修改的系统需要显式的 attribution（归因）才能做到定向演化。笼统的"变好"是一维的优化目标，但安全问题需要从"哪一层变、变什么、谁来判"三个维度思考。</p>
+</section>
+
+<section class="finding">
+<h2>3. 自己做 benchmark ≠ 独立验证</h2>
+<span class="tag practice">证据等级</span><span class="tag observability">可观测性</span>
+<p><strong>OfficeBuddy</strong> 的 108-run Render-Truth Bench 是一个好的信号——它展示了证据习惯——但它仍是作者的自我发布评估，不是独立验证。同样，<strong>optim-plans</strong> v0.3.0 把执行引擎和校验引擎合并回了当前 session，eliminate 了分离式的 checkpoint 中间层，这是成熟的简化信号，但简化本身也不等于证据。</p>
+<ul><li>区分三层：自我发布的评估（evidence habit）→ 独立复现（reproduction）→ 社区验证（community evidence）。</li><li>calibration prediction：Memory Forest 在 2026-08-26 前不会有新 commit（低置信度预测，用于后续校准）。</li></ul>
+<p class="takeaway">教学要点：看到 benchmark 分数先问"谁跑的、数据哪来的、有没有人独立复现过"。工具本身的简化（去掉多余引擎）有时候比 benchmark 分数更值得学。</p>
+</section>
+
+<section class="finding">
+<h2>4. Thin Client + 一条认证控制面 = 减少意外权限</h2>
+<span class="tag pattern">安全架构</span><span class="tag practice">Harness 设计</span>
+<p><strong>MkAgent</strong> 把 Electron/WebUI/CLI 全部做薄，只通过一条认证过的 WebSocket 控制面通信；Pi agent 以 JSONL 子进程运行。session-scoped grants + 对抗式 Bash 解析器测试，把"用户配置的 allowlist"与"OS 级 containment"的边界拉清楚。</p>
+<ul><li>per-session JSONL 持久化队列有一条 recovery-vs-new-SDK-ID 的竞态回归测试——说明作者理解恢复场景不是"重读即可"。</li><li>用户可编辑的 allowlist 和 <code>allow-all</code> 仍是可用性兜底，不是安全边界。</li></ul>
+<p class="takeaway">教学要点：权限收缩不是做"更小的白名单"，而是把 UI、通信、执行三个面的授权边界分清楚。一条 WebSocket 控制面比 N 个分散的 CLI 入口更容易审计。</p>
+</section>
+
+<section class="finding">
+<h2>5. Workflow 被占用时，typed 409 比静默覆盖更可靠</h2>
+<span class="tag pattern">操作成熟度</span><span class="tag practice">API 设计</span>
+<p><strong>open-kritt</strong> 的新代码让 workflow 编辑在被其他 session 占用时返回 typed <code>409 workflow_in_use</code> + <code>scanCount</code>，而不是静默覆盖或报个 generic error。这支持了 operational-maturity 的核心理念：在保留 provenance-bearing 工作的同时，提供安全的恢复路径。</p>
+<ul><li>UI 保留草稿并需要用户显式确认覆盖，避免"我写的被另一个人覆盖了我不知道"。</li><li>测试覆盖了接受、取消、无关冲突、可访问性和 API 传播。</li></ul>
+<p class="takeaway">教学要点：并发冲突不应该被悄悄消解。typed 409 + scanCount + 显式确认是三件套：告诉用户"有人在用"、"有多少人在用"，然后让用户选择。</p>
+</section>
+
+<div class="meta">
+  <p>📚 今日 study loop 产出：3 次 followup（open-kritt、diri、OfficeBuddy+optim-plans+Memory Forest）+ 2 次 scout（OpenContext、MkAgent）+ 1 次 quick scan + 1 次战略晨会</p>
+  <p>🏷️ 跨日线索：SHE 的 harness 分层与 KADATH（Aug 11）的"kernel 外治理"形成同一主题的第二证据链</p>
+  <p>🔗 <a href="../index.html" style="color:var(--accent)">← Back to Index</a></p>
+</div>
+</body>
+</html>

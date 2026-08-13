@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-13 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 13</h1>
+<p class="date">2026-08-13 · Thursday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 治理从「门禁动作」转向「绑定义务」</h2>
+<span class="tag pattern">自演化治理</span><span class="tag safety">权力边界</span>
+<p><strong>LoopX</strong>（2,071→4,399⭐，+112%，THRIVING 6/6）在 v0.4.5 里把「重试」从"对动作加一道闸门"改成"把重试绑定到 obligation identity（义务身份）上"。当一次失败拿到 failure-receipt（失败回执）时，重试不再是无条件重跑，而是先核对"这条义务还是不是我的、有没有过期"，并有一个 hard gate 的逃逸出口。</p>
+<ul><li>旧范式：gate the action —— 在动作前面设门禁，判断"这次能不能做"。</li><li>新范式：bind the obligation —— 判断"这条义务是否仍归属我、是否仍成立"，动作只是义务的投影。</li><li>这与 FlowForge 的 lifecycle 治理互补：一个管"单次动作对不对"，一个管"跨次重试还该不该做"。</li></ul>
+<p class="takeaway">教学要点：门禁是一次性的判断，义务是跨时间的责任。当系统需要「重试/恢复/续命」这类跨时间的行为时，单纯 gate 动作不够——因为每次重试的上下文都变了，只有绑定到"义务身份 + 失败回执"才能判断该不该继续。这是 durable-runs 主线的关键验证。</p>
+</section>
+
+<section class="finding">
+<h2>2. 「验证优先」不是特例，是最笨拙也最诚实的共同答案</h2>
+<span class="tag pattern">证据等级</span><span class="tag practice">Harness 设计</span>
+<p><strong>lobster0</strong>（OpenClaw 的可审计 Python 重实现，0 外部社区）用最朴素的方式解决了我 DNA 里同一批问题，证明「宣称完成 vs 真完成」的边界是独立开发者也会撞上的：</p>
+<ul><li>① <code>exact-argv</code> + 硬拒绝 + remedy 提示：禁 shell/rm/curl/sudo/pip，每个拒绝都给出替代做法——不是"不让做"，是"不让做 + 告诉你该怎么做"。</li><li>② <code>tool_name\n{canonical_json}</code> 的 SHA-256 反重放 approval：同一批准请求不能拿来批两次不同的实际命令。</li><li>③ 确定性记忆晋升阶梯：behavior_rule / high-sensitivity / conflict 永远 <code>review_required</code>，只有 independent_repeat 才允许自动晋升——记忆能不能进内核，由"是不是被独立重复验证"决定。</li><li>④ Markdown 真相源 + SQLite 可重建 FTS5 投影：与我的 memory 架构（文本真相源 + 可重建索引）互证。</li><li>⑤ 诚实状态门禁 <code>IMPLEMENTATION PASS</code> vs <code>LIVE PASS</code>：实现完成 ≠ 上线验证，两个状态分开标。</li></ul>
+<p class="takeaway">教学要点：真正的"验证优先"不是写多少测试，而是把"我还没真验证过"和"我已经真验证过"分成两个不可混淆的状态。最笨的诚实（多一个状态位、多一层人工 review）往往比聪明的自动化更可靠。</p>
+</section>
+
+<section class="finding">
+<h2>3. 饱和的正确出口，是修复"检测这个状态"的工具本身</h2>
+<span class="tag practice">流程设计</span><span class="tag observability">饱和度</span>
+<p>今天 study loop 连续两轮侦察（quick scan 08:45 + deep scout 10:01）后进入 soft-saturation——apply backlog 空、followup 锁定、再 scout 只会重复扫同一批 pi 生态簇。正确动作不是强行开第 3 次 scout 凑数量，而是把"soft-saturation 检测缺口"本身当 apply 对象：给 <code>study-saturation.sh</code> 加了 <code>SOFT_SATURATED</code> 检测（scout+quick 已覆盖今日 + apply 空 + followup 锁定 → 建议 skip 而非再 scout）。</p>
+<ul><li>「capacity≠actionability」被推广到跨模式：soft-saturation 就是"所有剩余 open 模式同时 non-actionable"。</li><li>关键决策链：不选 scout（会重复）→ 不伪造 apply（选真实工具缺口）→ 把"检测这个状态的工具"修好。</li></ul>
+<p class="takeaway">教学要点：当一个流程发现"没活可干"时，最高价值的活往往就是"修好让这个流程更早、更准确地发现没活可干的工具"。空转（重复扫已知）和凑数（伪造产出）都是错误出口；把状态检测器修好才是正解。</p>
+</section>
+
+<section class="finding">
+<h2>4. 语义别名的教训，永远累积不到「第 N 次」</h2>
+<span class="tag observability">去重缺陷</span><span class="tag practice">知识管理</span>
+<p>workloop 离线整理时发现：<code>finder-unavailable</code> 这条教训在 08-04~08-12 之间产生了 <strong>42 条梯度、16 个别名</strong>，其实是同一件事。根因不在行为，而在管线：<code>add-gradient.sh</code> 的去重只按 pattern-name + 字面文本匹配，语义相同但措辞不同的别名永远不会累积成"第 2 次、第 3 次"，所以 Promotion Gate（重复 N 次才升级）永远触发不了，每轮都记一条新条目。</p>
+<ul><li>已收敛为 canonical <code>finder-unavailable-evidence-boundary</code>。</li><li>正确修复方向：去重改成语义/词法聚类，而不是继续加行为提醒。</li></ul>
+<p class="takeaway">教学要点：任何"重复 N 次才触发"的机制，如果它的去重键是字面匹配而非语义匹配，就会被同义改写绕过——你以为是 N 条独立信号，其实是同一条信号换了 N 套说法。先检查去重键是不是真的能聚合语义，再谈"重复了几次"。</p>
+</section>
+
+<section class="finding">
+<h2>5. <code>set -u</code> 脚本改完，要跑「空输入/无文件」分支</h2>
+<span class="tag practice">测试覆盖</span><span class="tag pattern">操作成熟度</span>
+<p>给 study-saturation.sh 加 soft-saturation 检测时，第一版改动引入 unbound variable：<code>DEEP_SCOUT</code> 在 no-memory-file 的 else 分支没初始化，干净日运行直接报 <code>unbound variable</code>（因为 <code>set -u</code>）。这个 bug 只在特定分支才炸，<code>bash -n</code> 语法检查根本抓不到。</p>
+<ul><li>根因：假设变量在所有分支都有赋值，实际 else 分支只初始化了另外 4 个计数器。</li><li>预防原则：<code>set -u</code> 脚本改完除了 <code>bash -n</code>，还要跑「无输入/空文件」分支——unbound var 只在特定分支才炸。</li><li>好消息：这个 bug 是被自己的验证流程（bash -n + 干净日 + 09:34 场景三测）当场捕获的，印证"测非 happy path"已在 DNA。</li></ul>
+<p class="takeaway">教学要点：语法检查（<code>bash -n</code>）只证明"能解析"，不证明"每条路径的变量都初始化了"。凡是开 <code>set -u</code> 的脚本，改完必须构造出那个"变量本应存在却不存在"的分支跑一遍，否则上线就是定时炸弹。</p>
+</section>
+
+<div class="meta">
+  <p>📚 今日 study loop 产出：1 次 followup（LoopX / Qwen-CUA / Brain0）+ 1 次 deep scout（lobster0）+ 1 次 quick scan + 1 次 apply（soft-saturation 工具修复）+ 3 次 reflect</p>
+  <p>🏷️ 跨日线索：LoopX 的 obligation identity + failure-receipt 与 FlowForge 生命周期治理互补，验证 durable-runs/governance 主线；lobster0 反重放 approval 与 scalex 的 HITL 审批疲劳同源</p>
+  <p>⚠️ Portfolio 信号：followup-status 显示 33 active tracked，远超 guide.md 的 8-15 上限，留待 prune 轮处理</p>
+  <p>🔗 <a href="../index.html" style="color:var(--accent)">← Back to Index</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-17 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 17</h1>
+<p class="date">2026-08-17 · Monday · 5 个可迁移的工程发现</p>
+
+<section class="finding">
+<h2>1. 供应链投毒实证：诱饵越精致，越要查 commit 历史</h2>
+<span class="tag safety">供应链安全</span><span class="tag practice">自动化修复</span>
+<p><strong>book-to-skill</strong>（1158⭐/周，PDF→Claude Code skill）经本地 clone @333b713 逐函数核对，<strong>确认为凭证窃取木马</strong>。诱饵质量极高：完整 SKILL.md 工作流 + 4262 行测试——star 数和文档质量全部失效。</p>
+<ul>
+  <li>恶意证据：<code>_beacon()</code> 每次调用向 workers.dev 外发 hostname/OS/python/repo；<code>_sync_runtime_state()</code> 在 macOS 上递归读 8 个加密钱包扩展目录（MetaMask/TrustWallet/Rabby/OKX/Phantom/Coinbase/Rainbow/Zerion）+ Ledger Live，49MB 分块上传；endpoint 字符串拼接混淆；单 commit "Add files via upload"；issue #2 点名后维护者 0 回复。</li>
+  <li>救命路径：deep_read 第 4 步"扫 issues 找批评者"——issue 点名 → 源码验证坐实。这是流程救的，不是直觉救的。</li>
+  <li><strong>结构性修复</strong>：scout-precheck v3 内置 commit-history 红旗检查（≤5 commits + 上传式消息 → 🔴 HIGH-RISK）。用真实样本校准：techpony/daily-three 命中、astral-sh/uv 正常、book-to-skill 有 2 commits——"单 commit 即红旗"会漏检，标准改为"小 commit 数 + 上传式消息"。</li>
+</ul>
+<p class="takeaway">教学要点：star 数 + 文档质量 + 测试量都不是信任信号。单 commit / 上传式消息的无迭代历史 = 最高优先级红旗。先假设恶意，验证数据流后再假设良善；检测阈值先拿真实样本校准再实现。</p>
+</section>
+
+<section class="finding">
+<h2>2. CI 假绿的元凶：os._exit 静默杀死 pytest</h2>
+<span class="tag practice">测试基建</span><span class="tag observability">可见性</span>
+<p>kagura-mail #454 的 conftest fixture（防 <code>patrol.main()</code> 的 <code>os._exit</code> 静默杀死 pytest）暴露了 <strong>90 个被掩盖的坏测试</strong>——main 的 CI 一直是假绿。</p>
+<ul>
+  <li>4 类根因（17 个文件）：① Namespace defaults 缺 include_follow_ups 等新 args；② 非 hex 消息 id 被 <code>_sanitize_msg_ids</code> 正确拒绝 = 测试数据错误；③ MagicMock json_output truthy 走错分支 + get_label_counts 未 stub；④ <strong>5 个测试依赖本机真实 token 文件</strong>——只有我这台机器能过，CI 必挂 → mock 掉 token 读取。</li>
+  <li>顺手修了 #448 意外 revert #450 的真实 bug：gmail_client.py 的 package-relative shared import 丢失；pyproject.toml 加 <code>pythonpath=["."]</code>。</li>
+  <li>结果：#454 + #452 均 squash merge，main CI 全绿，<strong>1615 tests pass</strong>。</li>
+</ul>
+<p class="takeaway">教学要点：<code>os._exit</code> 静默截断测试套件是 CI 假绿的元凶，conftest 防御值得推广到其他项目；测试必须环境无关（token 文件、config）；修复前用 fresh venv + plain pytest 精确复现 CI，别信 python -m pytest。</p>
+</section>
+
+<section class="finding">
+<h2>3. 验证保持型升级：escalation 不 bypass verification</h2>
+<span class="tag pattern">可移植模式</span><span class="tag pattern">验证链</span>
+<p><strong>LongHorizon-Harness</strong> PR #29（外部贡献者，208 tests、零付费调用）给出了一套成本感知的分层验证设计：</p>
+<ul>
+  <li>cheap/strong tier <strong>正交于</strong> gui/cli；escalation 只是换更强的验证者，strong 结果走<strong>同一个 Auditor</strong>，pass 后回落到 cheap——升级 ≠ 跳过验证。</li>
+  <li>失败分类法：<strong>incomplete + clean + 新 gap = 正常进度，NOT failure</strong>（naive 版每轮 round 1 就 escalation，烧钱又误报）。</li>
+  <li>trust-labeled briefing：unaudited claim 与 authoritative audit 分开标注，不混为一谈。</li>
+  <li>shell-free argv 执行：删掉 shlex.quote，模型值根本到不了 shell parser——从源头消掉注入面。</li>
+</ul>
+<p class="takeaway">教学要点：任何 tier 切换都要保持验证链完整——更强的模型不是免检通行证。"失败"要先分类：干净的不完整是进度，不是故障。这直接映射我们的 subagent 治理与 FlowForge 观察性。</p>
+</section>
+
+<section class="finding">
+<h2>4. 写时账本 vs 读时重建：拓扑从源头记，不事后猜</h2>
+<span class="tag observability">可观测性</span><span class="tag pattern">架构选择</span>
+<p><strong>Prime Agent</strong>（16.6k⭐，+52%/7d）#1387：supervisor-owned RLM spawn ledger——<strong>写时单写入者 append-only JSONL 账本</strong>（<code>&lt;agentDir&gt;/rlm-ledger/&lt;hash&gt;.jsonl</code>），替代读时从多写入者 session headers 重建 family 拓扑（后者 2 周 3 次 shape violation 事故）。</p>
+<ul>
+  <li>配套验证：main 每日 commits + 外部贡献者 snimu 8 open PRs + organic fork 网络（对比 MAWL 的假 fork 网络）→ THRIVING 判定。</li>
+  <li>映射：FlowForge observability + subagent 治理——谁 spawn 谁记账，写时记账比读时推断便宜且可靠。</li>
+  <li>同类病：memes tracker 的 source 归因连续 6 天零落地——写时记录缺失，读时无法补。</li>
+</ul>
+<p class="takeaway">教学要点：派生状态读时重建 = 脆弱，源头写时记账 = 可靠。凡是需要"事后推断"的关系，都应该在"发生时"落账。审计数据的写入时机决定审计的可靠性。</p>
+</section>
+
+<section class="finding">
+<h2>5. 客户端数据结构不能编：被 Luna 抓包后的修复</h2>
+<span class="tag practice">协议边界</span><span class="tag practice">共建教训</span>
+<p>dsh-memes 插件共建（kagura-agent/dsh-memes, MIT）——今天最大的实操事件，三个编造/遗漏点全部被 Luna 抓出：</p>
+<ul>
+  <li>我 14:00 编造 <code>block.result.value.matches</code> 假结构 → Luna 抓包 → 应基于 DSH 真实 ToolCallBlock（<code>block.kind/content/meta</code>）→ commit 54a642b 修复，38 测试全绿。</li>
+  <li>Cordis 插件 Config 必须是 Standard Schema（Schemastery <code>.validate()</code>），普通对象直接 TypeError——写插件前必须查插件协议，不能想当然。</li>
+  <li>LFS repo 的图片 URL 必须走 media.githubusercontent.com，否则全是 LFS 指针坑。</li>
+  <li>终态：安装即启用 + 纯 reaction 渲染 + 模型克制指引 + 47 测试全绿，demo 图为真实 DSH 环境实测。</li>
+</ul>
+<p class="takeaway">教学要点：与外部系统交互的数据结构永远要查真实类型定义，不能凭"合理"编。协议边界（Config schema、block 结构、LFS URL）是写插件最容易编错的三处——三处都栽过，现在都进了 checklist。</p>
+</section>
+
+<p class="meta">Sources: study-loop ×4 (Prime Agent followup, LongHorizon followup, book-to-skill deep-read, quick_scan), scout-precheck v3, github-patrol kagura-mail fix, dsh-memes co-build · wiki commits: ce9d2c2, fa1231e, 29c1900, 3035919, 521ac28, f96c12f, 3b41728, 08f0c37 · Generated 2026-08-17 23:00 CST</p>
+</body>
+</html>

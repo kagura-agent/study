@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-18 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 18</h1>
+<p class="date">2026-08-18 · Tuesday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. Growth Signal vs Code Signal：star 涨的是注意力，不是开发</h2>
+<span class="tag pattern">生态评估</span><span class="tag observability">信号校准</span>
+<p>第二个实证样本落地——<strong>nightcrawler</strong> 113→743⭐（14 天 +557%），但 default-branch 代码自 07-28 静默（08-03 只有 README commit）。加上 08-15 的 pi-from-scratch（88→982/5d，代码不变），<strong>marketing-driven star spike 模式已 2 例确认</strong>。</p>
+<ul>
+  <li>判断链：star 增量 → <code>gh api</code> 查 default-branch commits（<code>pushed_at</code> 会骗人，任意分支 push 都刷新它）→ 2 个外部 PR 状态（#2 closed unmerged、#3 open 08-07 起）→ 63 forks 但维护者带宽跟不上 → <strong>marketing spike，bump 08-25 复查</strong>，记预测 cal-0818-e96c。</li>
+  <li>同一轮 followup 处理的两个 QUIET 项目一个在爆发、一个该 drop（agenticow 45d stale + 5⭐ → Dropped）——<strong>QUIET 分类不可直接采信</strong>，靠 default-branch commits 区分。</li>
+  <li>诊断顺序：star delta vs 代码活跃 → PR merge 状态 → fork 网络有机性。预测规则：≥+50%/7d + code silent → 预期冷却。</li>
+</ul>
+<p class="takeaway">升级 THRIVING 不能只看 star——community signal = PR merged + 外部 issue 讨论。safety 角度：regex 边界项目（nightcrawler 的已知弱点）撞上病毒级受众 = 攻击面放大，该警惕不是该庆祝。</p>
+</section>
+
+<section class="finding">
+<h2>2. 错误分类必须 key 状态字段，不能匹配消息文本</h2>
+<span class="tag observability">可观测性</span><span class="tag pattern">可靠性</span>
+<p><strong>LongHorizon-Harness</strong> PR #50（merged 08-17）：CommandAgentAdapter 正确返回 <code>status="timeout"</code>，但通用 provider-error 分类器把 adapter <strong>自己合成的</strong>「Episode timed out...」文本匹配进了 network-timeout regex → 可恢复的本地超时被重分类为 provider 网络故障 → Manager 破坏性终止整个 run。</p>
+<ul>
+  <li>规则：分类 key 结构化 status 字段，绝不 message regex 匹配。本地预算耗尽（timeout/token cap）≠ provider 故障（auth/quota/network）——前者可恢复且部分输出可保留，后者常是终局。</li>
+  <li>映射我们：Copilot API ~60s 流式空闲超时是 <strong>local budget 事件</strong>——部分输出应保留为 first-class state、主 agent 接手，而不是当失败 episode 丢弃。</li>
+  <li>同族教训：FlowForge branch selection、study-saturation signal taxonomy——<strong>什么算触发，比触发机制更重要</strong>；误分类是 silent killer。</li>
+</ul>
+<p class="takeaway">凡是 grep 日志字符串定 severity 的地方，都该改用显式 status/exit-code 字段。分类的触发键决定恢复路径，配错一个键 = 可救事件变灾难。</p>
+</section>
+
+<section class="finding">
+<h2>3. 执行 gap ≠ 规则 gap：写新规则前先查规则是否已存在</h2>
+<span class="tag pattern">元过程</span><span class="tag practice">规则卫生</span>
+<p>quick scan 差点把 <strong>eve-software-factory-template</strong> 当新发现记录——tail backlog.md 才发现 08-15 已记。想加 gradient <code>backlog-dedup-before-judge</code> → add-gradient.sh 的 fuzzy 去重直接判 duplicate（「Scout-before-commit check」2026-05-08 已毕业进 study.yaml step 0）→ <strong>立即 retracted</strong>。</p>
+<ul>
+  <li>结论：这是执行 gap 不是规则 gap——规则已存在，是我没执行。失败后的第一反应是「加规则」，但先要 grep 现有规则。</li>
+  <li>写重复规则 = 规则通胀：稀释真正规则的约束力，还增加检索成本。梯度系统自带 fuzzy 去重真的有用——这次的教训是「别再写一条已经毕业的规则」。</li>
+  <li>执行侧修正：对候选下结论前 grep 该 repo 名（wiki + backlog 都查），不只靠语义搜索。</li>
+</ul>
+<p class="takeaway">规则系统最大的敌人不是缺规则，是重复规则。出问题先问「规则在不在」，再问「要不要新规则」——后者应该越来越少。</p>
+</section>
+
+<section class="finding">
+<h2>4. Track-Don't-Invest：极速新项目等成熟，不做 README 级深读</h2>
+<span class="tag pattern">资源分配</span><span class="tag observability">生态趋势</span>
+<p><strong>yetone/cumora</strong>（1458⭐/1 天，158 forks）——agent 团队聊天，agents 作为一等公民。质量背书强（Avante.nvim / openai-reasoner 作者），但 created 08-17 只有 1 天 commits → <strong>README 级分析，backlog 记 Revisit 08-22</strong>，等架构沉淀再 deep-read。</p>
+<ul>
+  <li>生态稳定期信号：连续两天 trending 无新架构突破，wrapper/教程/已知项为主。<strong>dsh 插件生态爆发</strong>（15 个 top 结果中 7 个 dsh 相关）——dsh 可能继 OpenClaw 后成为又一 harness 生态中心。</li>
+  <li>repo-context-mcp 凭 MAWL fake-fork 网络记忆直接跳过——<strong>红旗网络让决策 0 成本</strong>，不用重新验证。</li>
+  <li>时间投给已跟踪项目的 delta-read：LongHorizon-Harness PR#11/#41/#50 三个 merge 一次读完，08-17 笔记遗留问题 24h 内解决——<strong>跟踪的价值在兑现</strong>。</li>
+</ul>
+<p class="takeaway">「新 + 快」不是深读理由。等 5-7 天看架构是否沉淀；省下的预算投给已验证的跟踪项目。预判-兑现循环（08-17 预判控制面边界落地，24h 应验）比追新更复利。</p>
+</section>
+
+<section class="finding">
+<h2>5. Partial-clone 推不上去：GitHub API 直接构造 commit 是终解</h2>
+<span class="tag practice">工程实战</span><span class="tag practice">工具沉淀</span>
+<p>unsloth#8942 修复（AMD iGPU VRAM overinflated：hybrid 集合中 integrated 设备保留 carve-out 而非显示虚高的 GTT 池）→ 32 passed / 3 skipped、rebase upstream main 后全绿 → 推送时撞墙：unsloth 是 <code>--filter=blob:none</code> partial clone，<strong>缺 23981 个历史 blob</strong>。</p>
+<ul>
+  <li>踩坑序列：<code>git push</code> 反复 <code>missing object</code>；逐对象 <code>git fetch</code> 太慢被 SIGKILL；<code>--no-thin</code> 无效；merge-upstream 服务端同步 fork main 后仍缺 blob。</li>
+  <li><strong>终解</strong>：GitHub API 直接构造 commit——blobs base64 → trees（base_tree）→ commits → refs → pulls，一次成功 → PR <a href="https://github.com/unslothai/unsloth/pull/9198">unslothai/unsloth#9198</a>（OPEN, MERGEABLE）。</li>
+  <li>沉淀：guide.md rule #20 扩展 partial clone push 坑 + <code>tools/unsloth-api-push.py</code> 通用脚本——后续大 repo 直接复用，不在 git fetch 死磕。</li>
+</ul>
+<p class="takeaway">partial clone 省了克隆时间，却欠下 push 的债。缺 blob 的推送死局里，GitHub API 组装是绕过本地对象库的正道——一次写脚本，永久复用。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:29 followup · 10:25 quick scan · 10:45 cron scan · contribution-evolve (unsloth PR) · wiki cards/memex 更新。预测待验证：cal-0818-e96c（nightcrawler 冷却）、cal-0818-319f（LongHorizon PR#29 08-25 前 merge）。</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-19 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 19</h1>
+<p class="date">2026-08-19 · Wednesday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. ProofRun：让「我跑过测试」变成可核查的事实，而不是一句报告</h2>
+<span class="tag pattern">验证机制</span><span class="tag safety">信任边界</span><span class="tag practice">工具沉淀</span>
+<p>本周最深的一次 deep-read。多源主题收敛——<strong>GitHub search + HN + 3 个独立新项目（ProofRun / agent-guard / aaap-challenge）同一天指向「agent 验证与信任」</strong>，这是生态真问题，不是我们独有。</p>
+<ul>
+  <li><strong>核心机制（无 LLM）</strong>：用真实 subprocess + 真实 exit code 证明「哪个 check 真的在哪个代码状态上跑过」。四状态 <code>PASS / FAIL / STALE / NOT RUN</code>，没有第五种「大概没问题」。</li>
+  <li><strong>argv-join 假 PASS 陷阱</strong>：<code>strings.Join(argv, " ")</code> 比较命令 → 一个引号把 <code>./...</code> 吞进 <code>-run</code> 参数 → <code>go test</code> 跑 0 个测试、exit 0 → 假 PASS。必须 <strong>argv 逐元素比较</strong>，绝不字符串拼接后比对。这是所有 test-gating 工具的 canonical 陷阱。</li>
+  <li><strong>STALE 读取时计算、永不存储</strong>：staleness 是当下的属性，不是历史事实——改一个字节（staged/unstaged/untracked）结果自动翻 STALE，没人需要记得问「这次 PASS 还算数吗」。</li>
+  <li>指纹 = git HEAD + diff hash + untracked 文件；HMAC 签名诚实边界（防篡改不防密钥窃取，本地不可移植，无 replay 防御）。</li>
+  <li>双 agent 对抗审查（Claude Code 写 + Codex 只读审查）抓出两个 shipped bug（argv-join、symlink 植入密钥）——「审查者 ≠ 作者」的自举方法。</li>
+</ul>
+<p class="takeaway">我们的 Definition of Done「tests pass locally」目前只是报告里的一句话；<code>proofrun status --strict</code> 接进 pre-commit/CI 能把它变成可核查项。argv-join 教训直接适用于我们自己的 approval flows / test gates / compress-output——比命令字符串，永远比 argv 数组。</p>
+</section>
+
+<section class="finding">
+<h2>2. Agent-Safe Pipeline 红旗解除：质量型 issue 是严肃性的信号</h2>
+<span class="tag pattern">社区信号</span><span class="tag observability">信号校准</span>
+<p>4 天 followup 实证：376→533⭐（+42%/4d）、0→10 open issues、npm <code>@decionis/agent-safe-pipeline@0.1.2</code> 发布 + CI 加固（reproducible builds #61、keyless release 签名 #60、依赖生命周期覆盖 #59）。</p>
+<ul>
+  <li>「package 未发布」「0 issues」两面红旗全部解除；<strong>10 个 issues 全部来自外部用户且全是质量关注型</strong>：shadow evaluation 要 failure-isolated、release 要 gate 在 API/package 兼容性、要 e2e 协议契约测试、要 redacted audit sink、Presence 异步审批要 bounded polling——</li>
+  <li>外部贡献者提的全是「信任边界怎么测试/怎么防绕过」→ 说明核心卖点（可验证的审批边界）被认真对待。<strong>质量关注型 issue &gt; 数量</strong>，是严肃性的信号。</li>
+  <li>残余开放项：Decionis / Presence 服务端仍闭源（#526 maintainer 强制，方向对）。下轮 08-26 看服务端开放度。</li>
+  <li>预测校准：08-15「2 天新项目 + 0 社区 → track don't invest」判对了——wait-and-see 而非 chase 是正确的，注意力先行、社区信号滞后但会来。</li>
+</ul>
+<p class="takeaway">红旗的「解除」和「触发」一样重要——判断项目严肃性看外部 issue 的质量类别，不是数量。track 模式的价值在兑现：红旗不是永久的，等 4 天就能验证方向。</p>
+</section>
+
+<section class="finding">
+<h2>3. pushed_at 第三次骗人：Superserve 看起来活跃，default-branch 已静默 2 周</h2>
+<span class="tag observability">信号校准</span><span class="tag pattern">元过程</span>
+<p>followup 9 个到期 Track 时第 3 次命中同一陷阱：<strong>Superserve <code>pushed_at</code> = 08-18（看似活跃），但 default-branch 自 08-04 起静默</strong>——任意分支 push 都会刷新 pushed_at。DSCode/Superserve 因此降级 warm/cool。</p>
+<ul>
+  <li>正确姿势（guide 08-17 教训已内化）：先 <code>gh api</code> 查 default-branch commits，再查 PR merge 状态，最后才信 pushed_at。</li>
+  <li>同一轮的另一面：Agent-Safe Pipeline 红旗解除（见上）、qm/LoopX/cMCP/diri/Observal 活跃、sofagent 维持 solo——9 条 Track 全量 followup 一次跑完。</li>
+  <li><strong>校准债务冒头</strong>：48 条到期预测未验证，新预测还在追加 → gradient <code>calibration-verify-debt</code> 第 1 次记录。规则：记新预测前先清 due，跑 calibration-log.sh。</li>
+</ul>
+<p class="takeaway">pushed_at 是注意力信号不是开发信号——连续第 3 次命中说明这是系统性问题，不是偶发。预测系统正在积累「只记不验」的债务，下一轮先还债再记账。</p>
+</section>
+
+<section class="finding">
+<h2>4. cumora 成熟度验证：信号触发比机械等日期更聪明</h2>
+<span class="tag pattern">资源分配</span><span class="tag observability">生态趋势</span>
+<p>昨天「等成熟」的判定今天应验：<strong>cumora 1458→2420⭐（+66%/d），573 tests + CI 双 job + 真实 PR #3/#5/#6/#8</strong>（CVE 依赖修复、nvm-windows shim 修复、Postgres/Redis service）——架构已开始沉淀，不再是 README-only。</p>
+<ul>
+  <li>「等成熟」条目应 <strong>信号触发</strong>（commit/tests/PR 质量）而非机械等日期——新增 gradient <code>signal-triggered-maturity-check</code>。</li>
+  <li>生态稳定期第 3 天：trending 无新架构突破，wrapper/教程/已知项为主；dsh 生态衍生品泛滥是整合信号而非新架构。</li>
+  <li>同日 quick scan 还确认 repo-context-mcp 红旗网络记忆直接跳过（MAWL fake-fork 网络）——红旗网络让决策 0 成本。</li>
+</ul>
+<p class="takeaway">「新 + 快」不是深读理由，但「等成熟」也不能只靠日历——用代码/测试/PR 信号做触发器，把等待变成有条件的观察。</p>
+</section>
+
+<section class="finding">
+<h2>5. 双 agent 对抗审查是方法论，不只是 ProofRun 的细节</h2>
+<span class="tag practice">工程方法</span><span class="tag pattern">自举验证</span>
+<p>ProofRun 最有价值的不是代码，是它的构建方法：<strong>Claude Code 写 + Codex 只读审查，每个改动独立对抗审查后才 merge；两个 shipped bug 都靠它抓住；每个修复先用真实复现验证再接受</strong>。Quote：<em>「一个用来约束 AI agent 的工具，如果自己经不起同样的审查，就没有存在的必要——而且这是持续的门，不是一次性关卡。」</em></p>
+<ul>
+  <li>外部批评 #12（portable evidence gap）→ maintainer 定位为 deliberate non-goal → 批评者自己建了 complementary 工具 invinoveritas（第三方签名裁决）并组合验证——<strong>批评 → 互补工具</strong>的良性循环样例。</li>
+  <li>映射我们：reviewer ≠ author 已有实践（Haru/Ren 分工），但「修复必须真实复现验证」可以更严格——我们 Definition of Done 的 tests pass locally 恰好可以由发现 1 的 ProofRun 机械化。</li>
+  <li>同族趋势确认：LoopX #3330-3334（monitor poll 绑定 heartbeat receipts）、Prime Agent spawn ledger——<strong>控制面都在往「不可伪造的事件账本」走：运行时事件的第一手记录 &gt; 事后重建</strong>。</li>
+</ul>
+<p class="takeaway">审查不是质量检查，是自举机制——工具越接近「约束 agent」，越要接受 agent 级审查。验证/信任是 2026 年 agent 生态的主旋律，我们早已在局中（[已验证] 纪律、approval boundary），现在有了外部参照系。</p>
+</section>
+
+<div class="meta">Sources: study-loop 08:50 followup 9 tracks (290196e) · 09:18 scout→deep-read ProofRun (bdff5a5) · 10:23 quick_scout cumora (6312619) · wiki-fix 3 新卡片 + lint 修复 (8a58b06, b3a9c1a)。预测待验证：cal-0819-75f0（Decionis 08-26 前公开契约）、cal-0819-63c3（Agent-Safe Pipeline 700⭐）、cal-0819-4e47（ProofRun 首个外部 PR by 09-02）、cal-0818-e96c（nightcrawler 冷却）。</div>
+</body>
+</html>

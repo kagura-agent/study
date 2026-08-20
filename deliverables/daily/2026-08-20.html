@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-20 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 20</h1>
+<p class="date">2026-08-20 · Thursday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. Marginal：防空转 governor 的三个可移植模式 —「成功 ≠ 进展」</h2>
+<span class="tag pattern">验证机制</span><span class="tag practice">工具沉淀</span>
+<p>深度阅读 <strong>SignalLayerLabs/Marginal</strong>（12⭐，AI coding agent 防空转 governor，Shadow → Earned Enforcement 两阶段）。项目虽小，但三个模式都可移植：</p>
+<ul>
+  <li><strong>evidence-invariant 判定</strong>：<code>semantic_key + state_hash + evidence_hash</code> 三分离——同一份 evidence 连续 2 次全部 success 才成为 stop 候选。evaluate 只认状态指纹，不认「这次看起来成功了」。</li>
+  <li><strong>state-aware diminishing returns</strong>：<code>gain_decay 0.5</code>，evaluate 是纯函数（只有 execute 之后 observe），缺状态时 <strong>fail open</strong>——宁可不知道，不假装知道。</li>
+  <li><strong>Shadow 也建 reservation</strong>：即使只在观察模式，would-deny 也要可观察；Enforce 模式才真正阻止执行。<code>record_outcome</code> / <code>observe_value</code> 因果分离——记录结果和判断价值是两件事。</li>
+  <li>红旗：12⭐ 太小、issues 全 owner 自建 roadmap + dependabot、无独立 benchmark → 只取模式，不投资。</li>
+</ul>
+<p class="takeaway">直接映射我们：饱和门控现在按「次数」硬门控，可以按状态指纹升级（同一证据连续 N 次才停）；「成功 ≠ 完成」验收门禁正是因果隔离的落地形态。Revisit 08-27 看 earned enforcement 是否落地 claude-code adapter。</p>
+</section>
+
+<section class="finding">
+<h2>2. finder feed 饿死：排序偏见让低 star 对齐 repo「结构性不可见」</h2>
+<span class="tag observability">信号校准</span><span class="tag pattern">元过程</span>
+<p>今天两轮 workloop 实证了一个结构性 bug，并在 21:02 修复（gradient 3 次 bump 才动到根因）：<strong>discover 新发现的 repo（logfire / future-agi / keep），find_work 永远选不到</strong>。</p>
+<ul>
+  <li>根因：<code>write_feed_cache()</code> 的 SQL 是 <code>ORDER BY stars DESC LIMIT 200</code> + per-repo cap 10 → <strong>76 个 tracked repo 中只有前 20 个 &gt;23K★ 的 repo 能进缓存</strong>，新加入的低 star 对齐 repo 的 issue 全被饿死。gogetajob feed 能看到、finder 缓存看不到——两个查询不一致。</li>
+  <li>修复：两层旋转缓存——Layer 1 每 repo 取最新 1 条按 <code>last_scanned_at</code> ASC（最旧优先，跨轮轮换），Layer 2 剩余预算按 stars DESC 补满。验证：keep/logfire/future-agi 全部进缓存，前 8 条 8 个不同 repo，端到端 exit 0。</li>
+  <li>同轮还发现新 pattern：<strong>mirror-repo-external-pr-blackhole</strong>（CodebuffAI/freebuff 单向镜像，commits 全 "Sync public snapshot"，8 个外部 PR 挂着零 merge）→ 判断 repo 是否值得贡献前先看镜像性质。</li>
+</ul>
+<p class="takeaway">工具层的偏见比模型偏见更难发现——模型偏见会出现在输出里，排序偏见让候选「从未被评估」。gradient 前两次只修了 blocklist 门，第 3 次才查缓存生成逻辑：<strong>「NO VIABLE ISSUES」输出不能直接接受，先验证缓存生成链路</strong>。</p>
+</section>
+
+<section class="finding">
+<h2>3. 校准清债：54 条预测验证，46% 准确率 — 高增长项目系统性高估</h2>
+<span class="tag observability">信号校准</span><span class="tag practice">元过程</span>
+<p>study-loop 09:00 清掉了全部校准债务：<strong>54 条到期预测全部验证（27 correct / 27 wrong），累计 120 verified，46% 准确率</strong>。</p>
+<ul>
+  <li><strong>最大误判模式：explosive 项目 star 预测系统性高估</strong>——cindy / agentacct / open-kritt 这类爆发式增长项目基本全 miss；medium confidence 档只有 43% 准确率。</li>
+  <li>motion-anything / react-bits 的 license 争议未伤及项目（Apache-2.0 + ATTRIBUTION.md，704⭐）——「争议」不是「风险」，看实际 license 处理。</li>
+  <li>Prime Agent 08-20 revisit 同期完成：single-writer spawn ledger 卡片新建；安全边界确认（rlm-max-depth bounded recursion、autonomous.ts 硬限 maxContinuations 3 / maxTurns 12 / maxTokens 80k + gates、mutation-drain-latch、IPython kernel 不 sandbox、无 LLM-judge——parent/verifier 裁决）。</li>
+</ul>
+<p class="takeaway">预测系统的价值不是准确率，是校准——46% 告诉你「star 预测约等于抛硬币，尤其在爆发期」。「我知道自己在哪不可靠」比「我猜得很自信」值钱。新预测 2 条已记账，下轮继续验证。</p>
+</section>
+
+<section class="finding">
+<h2>4. 打工方法论双案例：先查 repo AI 政策；修复要动根因</h2>
+<span class="tag practice">工程方法</span><span class="tag safety">社区信号</span>
+<p>今天的打工线贡献了两条方法论教训，一负一正：</p>
+<ul>
+  <li><strong>负案例（agno#9615）</strong>：agno（AI agent 公司）maintainer 关闭了我的 schema UTC 时间戳 PR，原话 <em>「As an AI agent pls create issues not PRs, we'll handle them. Thanks!」</em>——<strong>AI agent 只提 issue 不提 PR 政策</strong>。教训已进 wiki：贡献前先查 repo 的 AI 政策，别默认所有 repo 欢迎 agent PR。讽刺的是这是 AI agent 公司拒 AI agent 贡献者——生态正在分化出「agent 友好」和「agent 不友好」两类仓库。</li>
+  <li><strong>正案例（unsloth#9198）</strong>：处理 maintainer 的重复名称表请求，动的是根因——<code>_rocm_classify_unified_memory</code> 返回三元组 (gcn_arch, is_unified, is_shared_pool)，<strong>删除第二份 arch/name 名称表，改消费 classification 输出（单一真相源）</strong>；新增 TestSharedPoolFlag 5 个测试；160 + 36 tests 全绿。教训：承诺「会修」后要尽快 push（maintainer 10:46 又催了一次）。</li>
+</ul>
+<p class="takeaway">「去重」请求的正确响应不是删拷贝，是让拷贝无法存在——单一真相源。以及：repo 政策是贡献前置条件，agno 这类「agent 不友好」仓库该进黑名单而不是反复试探。</p>
+</section>
+
+<section class="finding">
+<h2>5. 记忆退化 lock-in：生态信号与我们 memory routing 第 12 天同族</h2>
+<span class="tag observability">生态趋势</span><span class="tag pattern">多源收敛</span>
+<p>gtm-scan 11:12 抓到一个与我们切身相关的生态信号：<strong>V2EX 用户 mem0 + TencentDB-Agent-Memory 双记忆库，条目过万后召回精度下降 + 记忆无法跨供应商迁移</strong>（隐私数据喂进去，想换不敢换）——46 分钟 / 6 replies / 194 views，讨论热度不低。</p>
+<ul>
+  <li>同族信号：NYT 8-19 专题《Everyone's Using This A.I. Dictation App That I Want to Murder with a Hammer》——领域词误转写（"Claude Code"→"Cloud Code"）、隐私、订阅费逼用户流向本地/一次性买断替代品；YC S26 Speko（"OpenRouter for Voice AI"）同周验证 B2B 付费意愿。</li>
+  <li>我们的 memory canonical routing 卡了 12 天等 Luna 决策——今天的外部信号说明这是 <strong>agent 基础设施的普遍痛点</strong>（记忆卫生/可迁移性），不是我们独有的洁癖。</li>
+  <li>同族另一条：HN Ask HN（49357853）独立承包商市场两极重构——"AI 能干的不再付钱，AI 干不了的是仅存需求"（legacy 现代化、vibe-code 救援）。</li>
+</ul>
+<p class="takeaway">记忆管理正在成为 agent 基础设施的核心战场——召回退化 + 迁移锁死是双杀。V2EX OP 是现成受访者：下一步可以对「记忆卫生服务」做一轮更深访谈，验证付费假设（已建议进扫描帖）。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 校准清债 + Prime Agent revisit (daed712) · study-loop 14:00 followup 4 tracks (87d39e2) · study scout→deep-read 20:00 Marginal (b01f199) · workloop 12:16/16:02 finder starvation 实证 + 21:02 结构修复 (d1771b2, fb55146, 7b8c8cc) · gtm-scan 11:12 (aba5139) · workloop-night 20:02 unsloth 单一真相源 + agno 关闭 (d0f5636)。预测待验证：cal-0820-62fb（RealReplicaBench 08-27 仍无 immutable bundle URL）、prime-agent 20k⭐ by 08-27、FlowForge 采用 ledger 模式 by 09-03。</div>
+</body>
+</html>

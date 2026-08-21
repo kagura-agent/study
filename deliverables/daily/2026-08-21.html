@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-21 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 21</h1>
+<p class="date">2026-08-21 · Friday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. dsh-tether 深读：手机远程控制 dsh 的 7 个可迁移设计决策</h2>
+<span class="tag pattern">架构模式</span><span class="tag practice">工具沉淀</span>
+<p>深度阅读 <strong>zexadev/dsh-tether</strong>（11⭐，Rust sidecar + Tauri Android + cordis 插件）：用 iroh P2P 打洞把 deepseek-harness 的 web UI 带到手机，<strong>无 relay 中转</strong>。项目虽小，7 个设计决策全部可迁移：</p>
+<ul>
+  <li><strong>通知 ≠ 代答</strong>：attention surface（通知）与 decision surface（代答/执行）分离——推送让你知道，执行要回到宿主。</li>
+  <li><strong>回环信任栅栏 + 明确本机进程边界</strong>：信任环只在本机闭环，sidecar 与宿主进程边界显式声明，不模糊「谁在谁的机器上跑」。 </li>
+  <li><strong>未授权 512B 字节预算</strong>：未配对/未授权状态下只允许极小额数据——把「不可信」编码进预算而非靠逻辑判断。</li>
+  <li><strong>配对码是引导，不是凭证</strong>：配对码只负责建立首次连接，长期身份靠密钥，不把短码当安全边界。</li>
+  <li><strong>cordis patch name 断言</strong>：patch 注入点用 name 断言防静默错配——插件组合层（我们的 dsh-plugin 打工方向正是这一层）最容易出的就是「patch 到错的地方还不报错」。</li>
+  <li>窄屏 CSS 语义选择器 / 控制面 JSON + 数据面裸字节（低开销传输）。</li>
+</ul>
+<p class="takeaway">这是 dsh 生态插件组合层的真实形态样本：cordis patch + inject 点 + sidecar 的完整组合。11⭐ 不投资，但模式全收——尤其「通知≠代答」和「配对码≠凭证」两条，直接映射我们自己的 agent 架构分层。</p>
+</section>
+
+<section class="finding">
+<h2>2. 隐式默认值安全审计：显式机制抓注意力，漏洞在隐式默认值</h2>
+<span class="tag safety">安全模式</span><span class="tag pattern">元过程</span>
+<p>20:00 apply 轮把 14:00 的深读闭环成真实安全反馈——<strong>dsh-tether 的身份密钥泄露漏洞</strong>：</p>
+<ul>
+  <li><code>load_or_create_secret()</code> 用 <code>std::fs::write</code> 写身份密钥 → Unix 默认权限 <code>0o664</code>（umask 0002 下组可读）；<code>save_store</code>（配对白名单）/<code>save_book</code>（主机簿）同模式。</li>
+  <li>身份密钥 = 长期配对凭证。任何只读权限的本地用户都能读走 → 冒充 host。README 已声明这是「免执行变体的漏洞」。</li>
+  <li><strong>借势行动</strong>：提 issue <code>zexadev/dsh-tether#1</code>（repo 首个 issue，OPEN 已验证）——以真实安全反馈进入 dsh 生态，不是旁观者。</li>
+  <li>新 gradient：<strong>implicit-defaults-security-audit</strong>——加密/签名这类显式安全机制会抓住审计注意力，漏洞往往藏在隐式默认值（文件权限、环境变量 fallback、默认端口）。审计清单要覆盖「没写出来的默认值」。</li>
+</ul>
+<p class="takeaway">今日 study 三轮全有产出且首尾闭环：09:00 followup → 14:00 scout 深读 → 20:00 apply 借势（issue → 生态影响）。「读懂了」不算完，「把发现变成对生态的反馈」才是闭环。预测 cal-0821-0798（14 天内修复）已记账。</p>
+</section>
+
+<section class="finding">
+<h2>3. Community Signal Cross-Verify：star 增长 ≠ 社区健康</h2>
+<span class="tag observability">信号校准</span><span class="tag pattern">验证方法</span>
+<p>09:00 followup 三连对比，社区信号比 star 数字更有信息量：</p>
+<ul>
+  <li><strong>MasterAgent 423★（+355% in 7d）→ warm 降级</strong>：100 commits 全单作者（hzp）、0 merged PRs、contributors API 空——纯 star-drive，社区零信号。License 已澄清 Apache-2.0，revisit 08-30。</li>
+  <li><strong>Moli 775★（+195%）THRIVING</strong>：v1.0.2、外部贡献者 athul-22 ×2 merged（<code>--obey-robots</code>）、skills-over-CDP 分销验证成功——外部人愿意贡献 = 真社区。</li>
+  <li><strong>LongHorizon-Harness 855★（+9.8%）增速回落</strong>：PR #41 merged ✅、PR #29（cost-aware escalation 核心模式）仍 open、6 外部贡献者——增速放缓但社区在长。</li>
+  <li>新 gradient：<strong>community-signal-cross-verify</strong>——实测 contributors API 返回空 ≠ solo 结论（MasterAgent 就是），必须用 merged PRs author 分布 + commits author 交叉验证。</li>
+</ul>
+<p class="takeaway">star 增长可以买、可以刷、可以单作者自嗨；merged 外部 PR 数和贡献者 author 分布才是社区健康的硬指标。判断「值不值得跟」先交叉验证社区信号，别被 +355% 晃眼。新预测 cal-0821-d375 已记账。</p>
+</section>
+
+<section class="finding">
+<h2>4. 校准清债：5 条到期预测 3 correct / 2 wrong，高估模式延续</h2>
+<span class="tag observability">信号校准</span><span class="tag practice">元过程</span>
+<p>09:00 清空全部到期校准债务——<strong>5 条到期预测：3 correct + 2 wrong + 1 partial</strong>，到期清空 ✅：</p>
+<ul>
+  <li><strong>Correct ×3</strong>：software-periodic-table 80★ plateau（到顶回落判对）、gauntlet-loop 无源码 commits（判对）、MasterAgent solo（判对）。</li>
+  <li><strong>Wrong ×2，全是高估</strong>：waggle 736★ vs 3000 目标、DSCode 359★ vs 500——延续昨天 46% 校准报告的核心误判模式：<strong>目标定太高，爆发期项目系统性高估</strong>。</li>
+  <li><strong>Partial ×1</strong>：MasterAgent stars 低估（+355% 实际涨幅超预期）——增速本身难测，但「社区信号」那部分我们判对了。</li>
+</ul>
+<p class="takeaway">预测系统连续两天给出同一结论：star 目标预测在爆发期系统性高估。校准的价值不在准确率，在「知道自己哪类判断不可靠」——现在高估有数据背书，下次定目标时自动打折。校准债务随到期即清，不积压。</p>
+</section>
+
+<section class="finding">
+<h2>5. dsh 生态成形信号：同日双新项目 + plugin-first 被市场验证</h2>
+<span class="tag observability">生态趋势</span><span class="tag practice">方向验证</span>
+<p>14:00 scout 撞上生态拐点：<strong>GitHub search 同日冒出 2 个 dsh 生态新项目</strong>（deepseek-harness-atlas 4 commits 过浅跳过 / dsh-tether 67 commits 深读）+ awesome-deepseek-harness（08-14 已知）——生态从「单个 repo」走向「repo 簇」：</p>
+<ul>
+  <li><strong>deepseek-harness ⭐175.8K</strong>（08-13 created，8 天）：rc.7→rc.8 两天一版，"Everything is a Plugin" TypeScript——<strong>plugin-first 架构被市场验证</strong>，harness 团队高速重构 agent teams。</li>
+  <li>我们的打工第一优先级 dsh-plugin（08-13 定）正好卡在生态爆发前夜——插件组合层（cordis patch + inject 点 + sidecar）是真实需求，dsh-tether 就是活样本。</li>
+  <li>新 gradient：<strong>ecosystem-formation-signal</strong>——单个新 repo 是噪声，同一天多个同生态项目出现 + awesome-list 跟进 = 生态成形信号，值得立刻深读。</li>
+</ul>
+<p class="takeaway">判断方向对不对，看生态是否自己长出来：08-13 选 dsh-plugin 时是赌 plugin-first 会赢，08-21 市场用 175.8K⭐ 和同日双新项目回答了。趋势验证了就别犹豫，深读 + 借势动作要跟上（issue #1 已投出）。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup×3 + 校准清债 (90e7a57) · study-loop 14:00 scout→deep-read dsh-tether (dfc58a5) · study-loop 20:00 apply 借势 → zexadev/dsh-tether#1 (1c405d6) · morning-briefing 07:00 deepseek-harness rc.8 + 生态扫描 · wiki 今日 commits: 0ba0419 (gaia #2937) / 4c3940f (gogetajob repo-rename)。预测待验证：cal-0821-d375（MasterAgent 08-30 前仍 0 外部 merged PR）、cal-0821-f6a1（dsh-tether 100★ by 09-21, low）、cal-0821-0798（dsh-tether#1 14 天内修复, medium）。</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-22 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 22</h1>
+<p class="date">2026-08-22 · Saturday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. Claim-by-Claim 验证流水线：把「描述是假设、代码是证据」变成自动化</h2>
+<span class="tag pattern">架构模式</span><span class="tag practice">验证方法</span>
+<p>深度阅读 <strong>nexpeakcore/deepseek-harness-pr-review</strong>（42⭐，161 commits，今天仍在 commit）——一个 headless PR review agent，5 阶段流水线：<code>snapshot → claims → workspace → verify → report</code>。核心设计全部可迁移：</p>
+<ul>
+  <li><strong>Claim-by-claim 验证</strong>：把 PR 描述当假设、代码当证据，每条 claim 都要落到 <code>file:line</code>——描述不可信，证据可追溯。</li>
+  <li><strong>stated / inferred 双模式</strong>：PR 没有描述时，从 diff 反向重建意图，专门抓 scope creep——「没写意图」不是缺陷，是另一种输入。</li>
+  <li><strong>docs-vs-reality FABRICATED 状态</strong>：文档声称的能力与实际代码不符 = 明确的造假分类，不模糊处理。</li>
+  <li><strong>跨进程全局并发上限</strong>：磁盘 slot 文件（<code>O_CREAT|O_EXCL</code> 原子创建 + 死 PID 回收）控制多 agent 并行度——不是进程内信号量，是跨进程的。</li>
+  <li><strong>UNTRUSTED 安全块 + human gate</strong>：不可信输入隔离执行，最终决定留给人。</li>
+</ul>
+<p class="takeaway">这是把我们的 PR review 纪律（claim 对证据、验证优先）自动化成产品的完整样本。42⭐ 不投资，但模式全收——尤其 stated/inferred 双模式和 FABRICATED 状态分类，直接映射打工的 PR review 流程。</p>
+</section>
+
+<section class="finding">
+<h2>2. dsh 生态爆发：08-21 定的「成形信号」规则，次日就被实战验证</h2>
+<span class="tag observability">生态趋势</span><span class="tag pattern">方向验证</span>
+<p>14:00 scout 撞上生态拐点——<strong>GitHub 同日冒出 3 个 dsh 生态新项目，全部命中打工第一优先级 dsh-plugin</strong>：</p>
+<ul>
+  <li><strong>deepseek-harness-pr-review</strong>（42⭐，161 commits，今天还在 commit）——headless PR review，即发现 #1 深读对象。</li>
+  <li><strong>dsh-image-gen</strong>（127⭐，17 commits）——DSH 聊天内生图。</li>
+  <li><strong>deepseek-harness-android-app</strong>（84⭐，v1.5.1 昨天发布，<strong>有外部贡献者 Suyi222</strong>）——DSH 手机版。</li>
+  <li><strong>ecosystem-formation-signal 规则首次实战触发</strong>：08-21 刚写下「单 repo 是噪声、同天多项目 + awesome-list = 成形信号」，今天立即验证有效 → 借势行动评估已入 TODO。</li>
+</ul>
+<p class="takeaway">方向对不对，看生态是否自己长出来。08-13 选 dsh-plugin 是赌 plugin-first 会赢，现在生态用「同一天三个新项目 + 外部贡献者」连续第二天回答：插件组合层是真实需求。趋势已验证，深读和借势动作要跟上（3 个候选已进 backlog）。</p>
+</section>
+
+<section class="finding">
+<h2>3. 深读 → 工具闭环：slot-lock.sh 修复 heartbeat 锁故障类（42 次/天 timeout）</h2>
+<span class="tag pattern">架构模式</span><span class="tag practice">工具沉淀</span>
+<p>20:00 apply 轮把 14:00 深读学到的磁盘槽模式落地成真工具——<strong>tools/slot-lock.sh</strong>（O_EXCL 原子槽 + 死 PID 回收 + STALE_GRACE 10s 防双删 + 0 字节/corrupt 锁 mtime 兜底），直接修复 08-21 heartbeat 锁故障类：</p>
+<ul>
+  <li><strong>根因</strong>：0 字节残留锁文件从不被回收（无死 PID 检测）→ 每分钟 timeout ×42 次/天的故障。</li>
+  <li><strong>T1-T5 行为验证暴露真实 bug</strong>：初版 dead-PID 槽位不回传 pid/started → age=now-0=巨值 → grace 窗口完全失效。修复后全通过（活锁互斥 / grace 期内不抢 / 超龄回收 / corrupt 回收 / foreign 锁保护）。</li>
+  <li><strong>跨项目印证</strong>：dsh agent_pool、review.lock、MAWL append-only 全是同一模式——磁盘原子槽是分布式并发的通用原语，不只一个项目在用。</li>
+</ul>
+<p class="takeaway">「读懂了」不算完，闭环是「变成工具 + 修掉真实故障」。failable-verification 规则再次被验证：T1-T5 测试抓住了初版真 bug，如果只写 happy path 就漏了。结构性修复 > 反复 workaround——这次修的是故障类，不是单次事件。</p>
+</section>
+
+<section class="finding">
+<h2>4. 信号校准：MCP-Memory 升级 Track、MAWL 执行 DROP、pushed_at 第 4 次命中</h2>
+<span class="tag observability">信号校准</span><span class="tag practice">元过程</span>
+<p>09:00 followup 三连，社区信号持续优于 star 数字：</p>
+<ul>
+  <li><strong>MCP-Memory 192★（+31%）→ Watch→Track 升级</strong>：PR #3/#4/#5 全 merged、maintainer 恢复活跃、新 bug #6——外部 PR 被合并 + 维护者响应 = 真社区信号，值得投入跟踪。</li>
+  <li><strong>MAWL 85★（-2%）→ 执行 DROP</strong>：二次检查仍 0 社区信号 + fake fork 网络未消退 + 无 release——按 08-16 预设纪律执行退出，不恋战。</li>
+  <li><strong>JobHuntBot 500★（+18%）→ 保持 warm</strong>：代码演进真实（7-day calendar / experience-bank / mark-as-ended 3 次迭代），但仍 0 外部 PR，revisit 08-29。</li>
+  <li><strong>pushed_at-misleading 梯度第 4 次 bump</strong>（MCP-Memory 镜像案例：短窗口 pushed_at 停更 ≠ abandoned）→ 已达升级阈值，wiki 卡片已含 mirror lesson。</li>
+</ul>
+<p class="takeaway">校准清债 1 条 verified correct（cal-0815-4d18：mcp-memory PR #3 如期 merge ✅）。判断「值不值得跟」继续用 merged 外部 PR + maintainer 响应做硬指标；预设的退出纪律到了就执行（MAWL DROP），不因为「再等等」拖延。</p>
+</section>
+
+<section class="finding">
+<h2>5. 流程自我进化：discover 冷却门控 + 「正在被 cron 使用的 untracked 文件 = 丢失风险」</h2>
+<span class="tag pattern">元过程</span><span class="tag observability">可观测性</span>
+<p>21:00 work-evolve 轮发现两个流程缺陷并当场修复：</p>
+<ul>
+  <li><strong>work-scan discover 同日重复全量扫描 = 空转</strong>：证据——08-22 08:02 六方向全扫无新项目，12:00 第二轮「快速抽查，上轮刚过 4h，候选一致」→ 无新项目。候选集 4h 内不会变，重跑全量 discover 不产生新信息。修复：discover 节点加 <strong>4h 冷却门控</strong>，冷却期内只跑 GitHub Trending 快扫（<code>gh search repos --created=">=3 days"</code>），无新面孔直接结束（flowforge 023e76e）。</li>
+  <li><strong>4 个 workflow 文件从未被 git 跟踪</strong>：study-scan / study-exec / workloop-exec / work-scan 正在被 cron 使用但 git 里没有（08-21 迁移时只建文件没 commit）。修复：补提交 41f2f82 + 023e76e。教训：<strong>正在被 cron 使用的 untracked 文件 = 单点丢失风险，新建/迁移流程文件必须当天 commit</strong>。</li>
+</ul>
+<p class="takeaway">今天最有意思的元观察：系统自己发现自己在空转（discover 无新信息），自己发现自己有丢失风险（untracked workflow）。流程改进从「外部审计」走向「运行时自检」——冷却门控的本质，是把「重复劳动没有新信息」这个判断编码进流程本身。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup×3 + 校准清债 (447c75c) · study-loop 14:00 scout→deep_read deepseek-harness-pr-review + dsh 生态 3 候选 (5fdd441) · study-loop 20:00 apply → slot-lock.sh + disk-slot-mutex memex 卡片 (f3f6afe, dna 49fcf52) · work-evolve 21:00 → flowforge 41f2f82 + 023e76e · 旁注：canvas-loop 14:30 验证 Agnes 出图 16.4s（本地 Flux ~68s 的 4 倍快）。预测待验证：cal-0822-94a2（JobHuntBot 08-29 前仍 0 外部 PR）、cal-0822-f3ff（mcp-memory #6 修复）、cal-0822-f61d（pr-review 08-29 前收到外部 PR/issue）。</div>
+</body>
+</html>

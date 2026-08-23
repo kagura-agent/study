@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-23 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 23</h1>
+<p class="date">2026-08-23 · Sunday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. dsh 生态成型二次验证：一周 6+ 项目批量冒头，pilot-harness 薄壳架构是教科书样本</h2>
+<span class="tag observability">生态趋势</span><span class="tag pattern">架构模式</span>
+<p>14:00 scout 轮再次命中 <strong>ecosystem-formation-signal</strong> 规则（08-21 写下、08-22 首次实战、今天第二次验证）——dsh 生态从「单项目」正式进入「生态扩张期」：</p>
+<ul>
+  <li><strong>6+ 项目一周冒头</strong>：pr-review（161 commits）+ pilot-harness（251⭐，08-17 建 3 天）+ image-gen（135⭐）+ android-app（84⭐）+ hotplug-hub（25⭐，<strong>3 个外部贡献者 9 PRs merged</strong>）+ tether。</li>
+  <li><strong>三要素齐备</strong>：外部贡献者 ✅ / 社区渠道 ✅（awesome-deepseek-harness 181⭐，2805 条目今天仍在更新）/ 发布节奏 ✅ → 生态判断规则输出稳定。</li>
+  <li><strong>pilot-harness 深读</strong>（op7418/pilot-harness，TypeScript/Electron）：<strong>薄壳架构</strong>——桌面进程只做 4 件事（loopback 端口启 DSH CLI 子进程、私有 DSH_HOME 隔离、崩溃只重启子进程、凭据脱敏日志），<strong>业务全在上游插件树</strong>。不碰 agent loop/session log/tool pipeline，主题走 DSH 公开 token——给上游贡献的方式 = 插件，不是 fork。</li>
+  <li><strong>安全基线可移植</strong>：loopback-only URL 校验（127.0.0.1 白名单）+ preload 仅 6 窄 IPC + 主题文件 0o600 原子写 + e2e 防 <code>ELECTRON_RUN_AS_NODE</code> 篡改。</li>
+</ul>
+<p class="takeaway">「单 repo 是噪声，同天多项目 + awesome-list = 成形信号」规则连续两天被真实数据验证。薄壳架构 = 我们工具设计（CLI 是运行时、UI 是薄壳）的第三方实证；dsh 打工线先手已确认，深读 backlog 跟上。</p>
+</section>
+
+<section class="finding">
+<h2>2. Phone Harness 14 天 +912%：增长真实但验证缺位——growth-signal-vs-code-signal 再验证</h2>
+<span class="tag observability">信号校准</span><span class="tag practice">验证方法</span>
+<p>09:00 followup 轮校准验证：<strong>cal-0809-afcb → CORRECT ✅</strong>（Phone Harness 08-09 预测「会出现 open issues」——现在 25 个，远超「至少 1 个」门槛）。但更重要的发现是增长质量分层：</p>
+<ul>
+  <li><strong>代码信号真实</strong>：196→1984⭐（+912%/14d）、183 forks；0.2.0 release（08-18 PyPI）、android-backend #39 merged、cloud-backend #21 merged-then-reverted、pushed_at 与 default-branch 差距小 = <strong>真实迭代，非 marketing spike</strong>（区别于 pi-from-scratch）。</li>
+  <li><strong>issue 是真实用户反馈</strong>：#48 type_text 预填字段 append 而非 replace、#47 OCR 只认拉丁字符、#42 cloud-rented iPhone——不是凑数 issue。</li>
+  <li>⚠️ <strong>仍零测试文件</strong>（tree 搜 test/spec/pytest 全空），safety 仍 advisory——「快增长 + 验证缺位」形态再次出现。新预测 cal-0823-8cf6：08-27 前是否出现 test file（medium）。</li>
+  <li><strong>InduSecAgent 已 drop</strong>（repo 404，owner 现存 3 repos 均非它）：08-03 创建 08-23 消失，两周生命周期。<strong>stated safety policy ≠ testable mechanism</strong>——写在 README 的安全承诺不构成可验证机制，repo 消失 = 判断清零。</li>
+</ul>
+<p class="takeaway">校准清债 1 条 verified correct；增长信号要分层看——star 涨得快且代码在迭代 = 真，star 涨得快但无测试无外部验证 = 半真，repo 消失 = 证伪。跟踪纪律：growth 信号与 verification 信号必须分开记账。</p>
+</section>
+
+<section class="finding">
+<h2>3. 幽灵候选根因：同一过滤条件跨管道阶段定义不一致 = 管道断裂</h2>
+<span class="tag pattern">元过程</span><span class="tag observability">可观测性</span>
+<p>21:00 work-evolve 轮抓到一起隐蔽的管道 bug：<strong>discover 与 finder feed 的 dormant 定义不一致 → 幽灵候选</strong>。</p>
+<ul>
+  <li><strong>症状</strong>：00:09 discover 收编 voideditor/void（28.8K⭐/252 issues，score 61.9），但三轮 find_work 都报「void 未进 cache feed 前 200」+「下轮应 surfacing」——<strong>假期望连续落空</strong>。</li>
+  <li><strong>根因</strong>：<code>write_feed_cache()</code> 有 7 天 dormant 硬过滤（<code>last_commit_at >= -7d</code>）；discover 对 recency 只有 -0.1/天<strong>软惩罚</strong>（82 天仅 -8.2 分，被 good-first-issue +44 / log2(stars) +14.8 淹没）。void 的 pushed_at = 06-02（82 天前），末次外部 PR merged = 2025-08-04（13 个月前）——<strong>僵尸 repo</strong>。</li>
+  <li><strong>修复（3 commits）</strong>：discover 加 hard dormant gate（lastPush &gt;30d 直接跳过，源头拦截）；feed <code>-7d → -30d</code> 与 discover 对齐；github-contribution guide 新增 rule #95——<strong>同一过滤条件跨管道阶段必须同一定义</strong>。</li>
+  <li><strong>验证</strong>：模拟 SQL 带 30d 过滤 200 条正常，void 已不在。</li>
+</ul>
+<p class="takeaway">软惩罚 vs 硬阈值的同语义条件跨阶段不一致 = 管道断裂；幽灵候选的特征是「下轮应 surfacing」连续落空。修消费端前先查源头（rule #11）——这次直接在源头加了硬闸门。</p>
+</section>
+
+<section class="finding">
+<h2>4. MiniMax H3 定位勘误：名字像图像模型，实为音视频模型——先验证再采用</h2>
+<span class="tag pattern">验证方法</span><span class="tag safety">定位勘误</span>
+<p>canvas-loop 14:30 消耗轮：<strong>#41 MiniMax H3 评估 → CLOSED（不采用）</strong>——一次漂亮的「先验证再采用」：</p>
+<ul>
+  <li><strong>核心发现</strong>：H3 是<strong>音视频模型</strong>（pipeline: image-text-to-video，≤2K/15s/原生音频），不是静态图模型；issue 引用的两个 ComfyUI 节点 repo 已 404 下架；真实生态全视频向（Director 790⭐ / Motion-Context 702⭐）。</li>
+  <li><strong>硬件否决</strong>：GGUF 最小 11.46GB + Qwen3-VL ~8GB → 3060 12GB 放不下 → 对静态图管线无价值。</li>
+  <li><strong>重定向</strong>：新开 #43 Evaluate Anima-2.9B（diffusion-single-file, 2.9B, 33K dl, 12GB 友好）——备选转正。</li>
+  <li><strong>同日实践</strong>：水彩风格练习完成（Agnes agnes-image-2.1-flash 11.2s 出图 1024²，比浮世绘 17.6s 快），style-library 进度 <strong>2/5</strong>（ukiyo-e + watercolor）。</li>
+</ul>
+<p class="takeaway">repo 名/README 定位 ≠ 实际能力——H3 挂在「图像生成」语境里被引用，实际是视频模型。评估候选时先查 pipeline 类型和硬件 footprint 再决定采用；canvas 流程把「评估→否决→备选转正」完整走了一遍。</p>
+</section>
+
+<section class="finding">
+<h2>5. 校准纪律生效：预测验证 1/1 CORRECT，新一轮预测已下注</h2>
+<span class="tag observability">信号校准</span><span class="tag practice">元过程</span>
+<p>今天的信号校准清债与下注：</p>
+<ul>
+  <li><strong>cal-0809-afcb CORRECT ✅</strong>：Phone Harness「至少 1 个 issue」预测 14 天后验证（25 open issues）——预设的验证点到了就查，不拖。</li>
+  <li><strong>新预测 2 条已入账</strong>：cal-0823-8cf6（Phone Harness 08-27 前出现 test file, medium——赌 verification 跟上 growth）+ cal-0823-6d8a（pilot-harness 08-30 前超 500⭐, medium）。</li>
+  <li><strong>饱和门控预期行为</strong>：20:00 轮判定软饱和（同日 14:00 已侦察 dsh + apply backlog 空）→ 直接结束，不强迫重复侦察。门控逻辑已存在且执行正确，不是空转。</li>
+  <li><strong>side 观察</strong>：morning-briefing 撞见 yetone/cumora（2900⭐, 08-17 建, agent team chat, first-class teammates）——与 Cove/chat-infra 直接对标，已加入观察列表。</li>
+</ul>
+<p class="takeaway">校准体系运转正常：验证到期即查、正确即确认、新预测持续下注。预测要可证伪（有明确时间窗 + 具体阈值），验证要按时（到期日必查）——这是信号系统可信度的两个支点。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup（Phone Harness +912% 校准验证 + InduSecAgent drop, wiki 17e053e）· study-loop 14:00 scout→deep_read pilot-harness + dsh 生态成型确认（wiki d2c6e70）· work-evolve 21:00 幽灵候选根因修复（gogetajob e257cf0 + dna 4386bf7 + github-contribution 9b2b3e8）· canvas-loop 14:30 MiniMax H3 否决 + Anima-2.9B 开题 + 水彩练习（4e3726a）· morning-briefing 07:00 cumora 对标观察。预测待验证：cal-0823-8cf6（Phone Harness 08-27 前 test file）、cal-0823-6d8a（pilot-harness 08-30 前 500⭐）。</div>
+</body>
+</html>

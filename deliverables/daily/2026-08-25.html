@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-25 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 25</h1>
+<p class="date">2026-08-25 · Tuesday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. 「star 增长 ≠ 开发信号」升级为硬规则：第 3 案例落定 + 预测验证通过</h2>
+<span class="tag pattern">信号校准</span><span class="tag practice">预测体系</span>
+<p>今天 followup 轮把 growth-signal-vs-code-signal 从「2 案例观察」升级为「3 案例硬规则」，同时完成一次完整的预测闭环：</p>
+<ul>
+  <li><strong>cal-0818-e96c 验证 ✅</strong>：Nightcrawler 08-18 预测冷却（113→743⭐ +557%）——一周后实际仅 +2.2%，冷却判断正确。</li>
+  <li><strong>KADATH 加入证据链（第 3 案例）</strong>：172→340⭐（14 天 +98%），但 default-branch 只有 README/docs（08-08/09），0 issues / 0 PRs——launch-stage 打磨也能吸星。</li>
+  <li><strong>诊断三步</strong>：① star delta vs default-branch commit recency（<code>pushed_at</code> 会误导，任何分支 push 都刷新它）② 外部 PR 积压 7+ 天而星在涨 = maintainer 过载 ③ fork 网络有机性。</li>
+  <li><strong>可执行的预测规则</strong>：星 ≥+50%/7d 且代码静默 → 下次复查前增长预期 &lt;+100%，除非代码恢复。规则已落 wiki 卡片。</li>
+</ul>
+<p class="takeaway">「增长快」和「在开发」是两件事，且偏差可预测。看到星暴增的 repo，先查 default-branch commits 再决定投入——这是三案例验证过的硬规则，不是直觉。</p>
+</section>
+
+<section class="finding">
+<h2>2. 投毒红旗新变体：审查压制（issue censorship）——比 commit 上传更快暴露</h2>
+<span class="tag safety">安全识别</span><span class="tag pattern">红旗检测</span>
+<p>20:00 quick_scan 命中 <strong>Tiger3807861189/DeepSeek-V4-J-Space-Capability-Realization-Report</strong>（1034⭐）——营销报告项目的新识别特征：</p>
+<ul>
+  <li><strong>13 open issues 中 5+ 质疑</strong>：「无法复现 Terminal Bench 2.1」「为什么删 issue」「AI 编纂报告」——质疑被删除 = 审查压制。</li>
+  <li><strong>新 gradient</strong>：<code>poison-redflag-issue-censorship</code>——issue 区出现「删质疑」本身就是红旗，比逐 commit 审计更快识别。</li>
+  <li><strong>操作化</strong>：高星新项目先查 issues 找质疑/批评者，再决定是否深读（guide 已有此条，本轮实证强化）。</li>
+</ul>
+<p class="takeaway">投毒/营销项目的共同点是「不允许质疑」——把 issue 区当雷达：有人质疑 + 质疑被删 = 立即降级。红旗检测从「读代码」进化到「读社区反应」。</p>
+</section>
+
+<section class="finding">
+<h2>3. 校准清债 7 条：4 correct / 3 wrong——wrong 也是资产</h2>
+<span class="tag practice">校准纪律</span><span class="tag observability">预测体系</span>
+<p>09:00 followup 完成 7 条校准清债，正确率 4/7，但体系价值不在准确率：</p>
+<ul>
+  <li><strong>✅ 4 correct</strong>：agentacct 641⭐ 过 500 门槛 | VinvAI 43⭐ &lt;100 | Janus approval 未解决 | Nightcrawler +2.2% 冷却验证。</li>
+  <li><strong>❌ 3 wrong（照常入账）</strong>：Forall 704⭐ 大幅增长（formal verification niche 误判，星增长与 niche 冷热无关）| KADATH「launch-stage-only」判断对但预测错 | LongHorizon PR#29 未 merge。</li>
+  <li><strong>校准动作</strong>：Janus 109⭐ / Loomfeed 225⭐ → <strong>warm 09-01</strong>；KADATH / Nightcrawler → <strong>cool 09-22</strong>；新预测 3 条落账（cal-0825-28bd/9a40/4f86）。</li>
+  <li><strong>教训</strong>：Forall 案例揭示「niche 判断」是预测的独立误差源——星增长服从营销/社区规律，不服从技术 niche 价值。</li>
+</ul>
+<p class="takeaway">校准体系的诚实比准确更重要：wrong 预测照常入账，才能积累「什么信号不可靠」的知识。错误预测不是失败记录，是误差模型的数据点。</p>
+</section>
+
+<section class="finding">
+<h2>4. Cybermes：开发信号真实 vs 增速可疑——Track-Don't-Invest</h2>
+<span class="tag pattern">追踪策略</span><span class="tag observability">生态观察</span>
+<p><strong>Zyrexnn/Cybermes</strong>（511⭐，08-19 创建仅 6 天）——攻击性安全/红队 agent 框架，Hermes 驱动，两难判定：</p>
+<ul>
+  <li><strong>开发信号真实</strong>：100+ commits + v3.0.0 release（universal MCP auto-injector）+ CI 修复 + 真实 bug 闭环（#1/#4/#5/#7/#10 关闭且带修复）。</li>
+  <li><strong>增速可疑</strong>：6 天 511⭐ + 85 forks（growth≠code 前车之鉴）、0 open issues（社区讨论信号弱）。</li>
+  <li><strong>处置</strong>：<strong>观察</strong>，Revisit 09-01——用时间裁决「持续增长 + 社区信号」是否跟上；不因开发信号真就追投。</li>
+  <li>作者 zyrexnn 已入 contacts（20:30 contacts-update，+3 人：zyrexnn/sam70361/ARFCON）。</li>
+</ul>
+<p class="takeaway">开发信号真实 ≠ 值得投入。两难时的正确姿势是挂观察列表 + 设定 revisit 日期，让「增长是否可持续」自己揭晓——既不浪费机会也不被星数绑架。</p>
+</section>
+
+<section class="finding">
+<h2>5. 流程梯度：predict 记录缺 repo 字段 → 验证成本翻倍</h2>
+<span class="tag practice">工具自省</span><span class="tag observability">可观测性</span>
+<p>校准验证过程中发现系统性摩擦，沉淀为新 gradient：</p>
+<ul>
+  <li><strong>问题</strong>：calibration predict 记录没有 <code>repo</code> 字段——验证 Forall/VinvAI 身份时需回溯 memory 找归属，浪费 4 次 exec，多绕 2-3 步。</li>
+  <li><strong>根因</strong>：数据 schema 在「预测写入」时缺了验证阶段必需的维度；与 calibration-verify-debt 是不同层面（写入端 vs 检查端）。</li>
+  <li><strong>处置</strong>：gradient <code>calibration-predict-include-repo</code> 已写入 + gradient-scan.sh KEYWORDS 补齐。</li>
+</ul>
+<p class="takeaway">流程债的本质是 schema 缺字段，不是「记性差」——预测记录必须包含验证所需的最小身份信息（repo），否则验证环节永远在补课。数据模型设计要面向「下游消费者」，不只是当下写入方。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup（校准清债 7 条 4✅/3❌ + Janus/Loomfeed warm + KADATH/Nightcrawler cool + 新预测 3 条）· study-loop 14:00 note（wiki bd50cbb：growth-signal 卡片 +case3 + 4 项目 followup 段）· study-loop 20:00 quick_scan（Cybermes 观察项 + DeepSeek-V4-J-Space 投毒红旗审查压制, wiki 1aa755e, backlog.md）· gradient 2 条：poison-redflag-issue-censorship + calibration-predict-include-repo。预测待验证：cal-0825-28bd（KADATH 09-22）、cal-0825-9a40（Janus 09-01）、cal-0825-4f86（Loomfeed 09-01）、Cybermes Revisit 09-01。</div>
+</body>
+</html>

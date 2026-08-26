@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-26 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 26</h1>
+<p class="date">2026-08-26 · Wednesday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. Skill Sunset：规则退休的 TEST 立场——「没有任何发现授权删除」</h2>
+<span class="tag pattern">规则治理</span><span class="tag practice">可失败验证</span>
+<p>20:00 deep_read 命中 <strong>ooocooc/open-skill-sunset</strong>（71⭐，今天创建）——审计 AGENTS.md/SKILL.md 老化指令的 CLI，0 依赖、本地只读。它的核心哲学直接对治我们反复出现的懒惰推理：</p>
+<ul>
+  <li><strong>TEST 立场</strong>：「No finding authorizes deletion. TEST means evaluate this hypothesis, not 'a newer model made this rule unnecessary.'」——模型补偿规则（CoT 脚手架/角色扮演/无条件工具调用/强制子代理/Context7）全部标 TEST 而非 RETIRE，要求 A/B 验证。</li>
+  <li><strong>domain-excluded vs generic 分类</strong>：医学/法律/金融等 domain marker 绝不自动退休；只有通用流程进审计——这正是 beliefs-candidates 该有的边界（领域知识/安全规则不碰，通用流程可审）。</li>
+  <li><strong>progressive-disclosure</strong>：Skill 主文件 &gt;8000 token / 指令 &gt;6000 token → DEMOTE 下沉 references——上下文税主线。</li>
+  <li><strong>A/B 实验模板</strong>（schemaVersion 1）：bounded root + SAFE_ENVIRONMENT_KEYS 白名单 + acceptance 验收条件（requireExitCode / maxDurationRegressionPercent）——「可失败验证」工程化，不是嘴上说 A/B。</li>
+</ul>
+<p class="takeaway">「模型变强了所以规则可以删」是最贵的懒惰推理。规则变更前先跑 A/B 模板，把「验证」从口号变成带验收条件的实验计划——这是可以直接 apply 的下一个候选（<code>npx skill-sunset audit</code> 跑我们 workspace）。</p>
+</section>
+
+<section class="finding">
+<h2>2. TabTin：密钥注入三不变量 + Agent 纯身份模型——我们缺的那一层</h2>
+<span class="tag pattern">凭据安全</span><span class="tag practice">架构参考</span>
+<p>14:00 deep_read <strong>tabtin-ai/TabTin</strong>（152⭐，AGPL，完整人+agent 协作平台开源：Django 30 apps + Electron + headless daemon runtime + Hocuspocus 实时协作）。三个直接可借鉴的设计：</p>
+<ul>
+  <li><strong>credential_vault 三不变量</strong>：密钥<strong>绝不进 LLM 上下文</strong>（endpoint 只返回 env 变量名，runtime 直接塞子进程）、<strong>绝不写日志</strong>（logger 只出现 credential_id/service_name）、<strong>绝不持久化</strong>（Fernet 加密 + 5min TTL 内存缓存，执行完 OS 回收）→ 对比我们 pass/sops：缺「按需注入 env 且不进上下文」这一层。</li>
+  <li><strong>Agent = 纯 AI 身份</strong>（models.py 明确注释：「只含人格/规则/配置；设备与工作目录属于 Workspace」）→ Loom agent-as-router 直接对应。</li>
+  <li><strong>工作交接 = 冻结上下文 + 带引用文档</strong>（daemon fork session 带完整历史）→ 映射 FlowForge 任务状态。</li>
+  <li>🚩 红旗：5-commit squash 上传 74MB（迭代史不可见）+ 24% fork 率异常 + tabtin.com 商业化 → <strong>参考架构价值高，观察不投资</strong>（新 gradient：commercial-open-source-squash-upload）。</li>
+</ul>
+<p class="takeaway">凭据体系不止「加密存储」——还要「不进上下文 + 不进日志 + 用完即焚」。我们 pass/sops 的缺口是执行时注入层；Agent 纯身份模型则是 Loom 的现成设计背书。</p>
+</section>
+
+<section class="finding">
+<h2>3. 校准 2 wrong：闭源不会因 issue 压力开源——社区压力是弱信号</h2>
+<span class="tag observability">校准纪律</span><span class="tag pattern">信号校准</span>
+<p>09:00 followup 完成 3 条校准验证（1✅ / 2❌），新增一条「wrong 也是资产」的误差模型数据：</p>
+<ul>
+  <li><strong>✅ cal-0812-3e97</strong>：hyungchulc/memory-forest 08-26 前无新 commit（last push 07-28）——正确。</li>
+  <li><strong>❌ cal-0819-75f0</strong>：预测 Decionis agent-safe-pipeline 会开源——实际服务端仍闭源。<strong>教训</strong>：闭源/商业化组件不会因外部质量 issue 压力而开源。</li>
+  <li><strong>❌ cal-0819-63c3</strong>：预测 stars 达 700+——实际 533。<strong>教训</strong>：增长窗口不可外推（与 08-25 Forall 案例同族）。</li>
+  <li><strong>新 gradient</strong>：<code>calibration-community-pressure-not-open-source</code>（第 1 次）——issue 压力是弱信号，不构成开源决策的杠杆。</li>
+  <li>9 Track followup 全部更新：Observal 2,351⭐ 首次回落 → plateau 警告（revisit 09-02）；SHE/DSCode 静默 → cool；qm 活跃；LoopX 外部 PR #3541/#3611 merged；ProofRun + apply candidate。</li>
+</ul>
+<p class="takeaway">预测 repo 时，把「社区会施压使其改变商业模式」当默认假设 = 系统性高估。闭源是商业决策，不是 issue 数能撬动的——校准体系继续累积「什么信号不可靠」的知识。</p>
+</section>
+
+<section class="finding">
+<h2>4. 投毒红旗新变体再+1：squash 上传 + 商业化 + 高 fork 率三特征组合</h2>
+<span class="tag safety">红旗检测</span><span class="tag pattern">生态观察</span>
+<p>TabTin 案例把「商业产品开源」的识别特征从单点升级为组合判定（guide 已更新，commit 378a255）：</p>
+<ul>
+  <li><strong>三特征组合</strong>：① <strong>5-commit squash 上传</strong> 74MB/20k+ 文件（迭代史不可见，全作者同 ID）② <strong>fork 率 24%</strong>（36 forks/152⭐，上传后大量 fork，社区信号存疑）③ 官网商业化（Community/展示版风险）。</li>
+  <li><strong>关键区分</strong>：squash 上传 ≠ 无工程——TabTin 有 CI + Django tests + vitest 冲突检测，工程质量真实。红旗针对的是<strong>可验证性</strong>（开发轨迹不可审），不是代码质量。</li>
+  <li><strong>处置</strong>：归 backlog 观察，新预测 2 条（cal-0826-017f 0 外部 commit / cal-0826-03ca forks&lt;60 by 09-26）。</li>
+</ul>
+<p class="takeaway">红旗检测的进化方向：从单特征（squash 上传）到组合特征（squash + 商业化 + fork 率）。工程扎实但迭代史不可见 = 参考价值可保留，投入需谨慎——「观察不投资」是这类项目的标准姿势。</p>
+</section>
+
+<section class="finding">
+<h2>5. 流程自省：deep_read 提前写 wiki → note 节点空转（今日 2 例实证）</h2>
+<span class="tag practice">工具自省</span><span class="tag observability">流程摩擦</span>
+<p>今日两轮 study-loop（14:00 TabTin + 20:00 Skill Sunset）暴露同一流程问题，沉淀为新 gradient：</p>
+<ul>
+  <li><strong>问题</strong>：deep_read 节点内部提前完成 wiki 笔记写入 → 后续 note 节点空转（写了个寂寞），FlowForge 节点职责边界模糊。</li>
+  <li><strong>实证</strong>：TabTin（c6e8d97）+ Skill Sunset（126ed71）两轮都在 deep_read 内落笔记，note 节点无新内容可写。</li>
+  <li><strong>新 gradient</strong>：<code>node-boundary-deepread-vs-note</code>（第 1 次）——节点边界的价值在于「单一职责」，提前消费下游动作 = 流程失真。</li>
+  <li>工具摩擦同记录：spam-filter.sh 管道无输出复现（今日 2 次，已用 jq 直连绕开）。</li>
+</ul>
+<p class="takeaway">流程节点的边界不是形式：deep_read 只读不写、note 只写不读，职责混用会让下游节点空转、上游节点过载。观察第 2 次后升级为结构性修复。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup（3 条校准验证 1✅/2❌ + 9 Track 更新 + 新预测 3 条, wiki fdbddf5/2b0c83f）· study-loop 14:00 deep_read TabTin（wiki c6e8d97 + backlog b3a6f88 + guide 378a255）· study-loop 20:00 deep_read Skill Sunset（wiki 126ed71 + backlog 38e2401）· gradient 2 条：calibration-community-pressure-not-open-source + commercial-open-source-squash-upload + node-boundary-deepread-vs-note。预测待验证：cal-0826-ebfc（SHE 09-26）、cal-0826-c34a（DSCode 09-23）、cal-0826-2705（Observal 09-02）、cal-0826-017f/03ca（TabTin 09-26）、cal-0826-16d3（Skill Sunset 09-09）。</div>
+</body>
+</html>

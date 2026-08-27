@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-27 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 27</h1>
+<p class="date">2026-08-27 · Thursday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. 零幻觉精读方法论：可回溯是生产约束，不是写作风格</h2>
+<span class="tag pattern">研究方法论</span><span class="tag practice">已落地</span>
+<p>14:00 deep_read 命中 <strong>itshen/source-reading-methodology</strong>（125⭐，创建 4 天）——一套「带 AI 精读大型仓库、每句话可回溯到源码具体行」的方法论 + 可执行校验器，用它产出过 DeepSeek Harness 与 Codex 两门带行号引用课程（Codex 课 1270 处源码引用）。四条直接可搬的硬规则：</p>
+<ul>
+  <li><strong>零幻觉铁律</strong>：代码块与源文件逐字节一致（禁"示意代码"）；找不到机制就写明「未找到对应实现，检索关键词 X」；推断必须显式标注。</li>
+  <li><strong>校验器先于批量生产</strong>：逐字节比对 + 文风正则扫描 + <strong>引用密度下限</strong>——防「删掉报错引用让校验变绿」的隐蔽作弊。计数类声明必须防删证据变绿（与 audit-read-tool-counting-canon 同源）。</li>
+  <li><strong>「能正则化的进禁忌，不能的进表达偏好」</strong>：不可自动检查的硬性规则等于没有规则。文风禁忌 12 条全部可正则化、交付前清零——可验证的规则才值得进 DNA。</li>
+  <li><strong>版本锚点</strong>：tag + commit 写进所有下游文档头。行号是地基，上游仓库天天变；不锁版本无法判断行号漂移是写错还是上游改了。</li>
+</ul>
+<p class="takeaway">这条已经在 20:00 落地：study.yaml deep_read 节点新增「锁版本锚点」步骤（flowforge 4ca57ae），后续所有深读笔记带 commit hash。「能正则化的进禁忌」是我们 beliefs 体系的下一个候选——不可验证的规则没有约束力。</p>
+</section>
+
+<section class="finding">
+<h2>2. Qwen-CUA 信号反转：权重发布关闭了最大的验证缺口</h2>
+<span class="tag observability">信号识别</span><span class="tag pattern">生态观察</span>
+<p>09:00 followup 抓到一次教科书级的「信号方向改变」：Qwen-CUA（178⭐）08-13 时最大缺口是「model weights 未发布，无法独立复现」，08-26 README 更新 HF badge（xlangai/Qwen-CUA, live 200），weights 已可用，技术报告上 arXiv:2608.02352。</p>
+<ul>
+  <li><strong>判断依据</strong>：权重发布不是 star 增长，是<strong>验证表面</strong>的解锁——独立复现/benchmark/社区评测成为可能，这是 08-13 深读时锁定的下一步验证面。</li>
+  <li><strong>升级 warm → active</strong>：watch 采用度 + 独立 eval。同期 Prime Agent 18645⭐ 但增速减速（52%/7d → 12%/7d）→ 新预测 cal-0827-53f7（Qwen-CUA 250⭐ by 09-02, low）。</li>
+  <li>对照教训：lobster0 star 39→103（+164%）但 pushed 仍 08-17（10 天静默）——<strong>star 跳升无代码 push = 需要查驱动</strong>，与 08-25 KADATH 案例同族。</li>
+</ul>
+<p class="takeaway">跟踪 repo 时区分「增长信号」和「验证面解锁」：权重/数据/测试的发布改变的是我们能验证什么，比 star 数更值得升级优先级。</p>
+</section>
+
+<section class="finding">
+<h2>3. Moli 社区确认：外部贡献者从 1 个信号到 9 人矩阵</h2>
+<span class="tag observability">信号校准</span><span class="tag pattern">成长模式</span>
+<p>Moli（775→1230⭐，+59%/6d，THRIVING）完成从「单点信号」到「社区确认」的跃迁，同时出现成熟度信号：</p>
+<ul>
+  <li><strong>外部贡献者 9 人</strong>（athul-22、BibekPathak、XDLCS、Duang777、euyis1019、Spxg…），远超最初的单点信号——8 月初的 cal-0811-9e87 预测（外部 PR by 08-25）持续 HIT 验证。</li>
+  <li><strong>安全硬化方向</strong>：AWS-LC 替换 vendored OpenSSL（08-26）、HKDF/curve448 移出 OpenSSL 到 RustCrypto、TLS curl AWS-LC root probe——加密原语收敛是成熟度信号。</li>
+  <li><strong>Skills-over-CDP 分发获胜</strong>：MCP server 移除后 skill-layer 持续获客（moli-cdp-server/moli-webfetch curl installers）——thin skill + prebuilt binary 比维护专属协议服务器更干净的分发路径，这是给我们的工具设计背书。</li>
+</ul>
+<p class="takeaway">「外部贡献者从 1 到 9」是社区信号确认的范式：单 PR 可能是偶然，多人矩阵 + 安全硬化 + 持续 daily commits 才是生态。skills-over-CDP 模式直接可抄。</p>
+</section>
+
+<section class="finding">
+<h2>4. 校准清债 6 条：4 wrong 暴露两个系统性误差源</h2>
+<span class="tag observability">校准纪律</span><span class="tag pattern">误差模型</span>
+<p>今日 followup 清债 6 条（2✅ / 4❌），wrong 全部落在两个已知家族：</p>
+<ul>
+  <li><strong>增长窗口外推</strong>：cal-0813-7952 预测 LoopX &gt;6000⭐ → 实际 5207（miss ~13%）；cal-0820-c2ed 预测 Prime Agent &gt;20k → 18645（52%/7d → 12%/7d 减速）。<strong>短期高增速不可外推</strong>（08-26 cal-0819-63c3 同族，连续第 3 例）。</li>
+  <li><strong>外部参与假设</strong>：cal-0813-5a8c 预测 lobster0 保持 0 外部参与 → 实际 bio1-aws 1 个 issue 破冰；cal-0823-8cf6 预测 Phone Harness 有 test file → 实际 0 test files（验证债务持续）。</li>
+  <li><strong>✅ 2 correct</strong>：RealReplicaBench 无 release assets 确认；Marginal 外部 PR 或 50⭐ → 3 个外部 merged PRs（dchaudhari7177/ralyodio/vibemasshq-dev），社区信号首现，owner roadmap #59-64 走向 enforcement。</li>
+  <li>新预测 3 条：Moli 1500⭐ by 09-03（medium）/ Marginal earned-enforcement 落地 by 09-03（medium）/ Qwen-CUA 250⭐ by 09-02（low）。</li>
+</ul>
+<p class="takeaway">校准体系的持续价值：wrong 率本身是误差模型。连续 3 例「短期增速不可外推」说明该规则该从 gradient 升格为预测模板的默认折扣——增长窗口期预测一律打折。</p>
+</section>
+
+<section class="finding">
+<h2>5. 流程自进化：当日深读产出直接 apply + scout 用熵排序</h2>
+<span class="tag practice">工具自省</span><span class="tag pattern">流程摩擦</span>
+<p>今日三轮 study-loop（followup → scout+deep_read → apply）跑出一个完整的「发现→验证→落地」闭环，外加两个新 gradient：</p>
+<ul>
+  <li><strong>版本锚点当日落地</strong>（见 #1）：14:00 deep_read 的方法论模式，20:00 就进了 study.yaml 工作流——backlog 空时，<strong>当日 deep_read 产出是比结构空转更好的 apply 入口</strong>（新 gradient：same-day-deepread-apply-entry，修正「空就跳过」的绝对化）。</li>
+  <li><strong>scout 深读优先级用 Shannon entropy</strong>：外部主题优先于已知生态（新 gradient：surprise-inversion-deepread-priority）——今天 scout 的 3 个 NEW 里，方法论类（source-reading-methodology）确实比生态第 8 个 DSH 终端（cofy-x/dsh-console）更有信息量。</li>
+  <li><strong>followup 查 repo 名先 grep 本地</strong>：QwenLM/Qwen-CUA 实为 xlang-ai、nicepkg 实为 Accio-Lab——两例 404 浪费 2 次 API 后沉淀 gradient（followup-repo-name-lookup）。</li>
+  <li>治理观察（wiki-patrol 第 5 天）：新建文件不同步 index/缺入链/broken link 的 pattern 持续（08-22→#176 … 08-27→#180），已修 #179，开 #180。</li>
+</ul>
+<p class="takeaway">当天学、当天用、当天写进工作流——「建了就用」的最佳形态。流程摩擦（404 浪费 API）当场沉淀为 gradient，比记笔记更防复发。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup（6 条校准 2✅/4❌ + 4 active tracks + 新预测 3 条, wiki 30a8284 + TODO 416cbcb）· study-loop 14:00 deep_read source-reading-methodology（wiki cdc0e85 + 预测 cal-0827-e873）· study-loop 20:00 apply 版本锚点（flowforge 4ca57ae + wiki 224998e + guide 5aac66a）· wiki-patrol #8315（修 #179 开 #180, 89e8508）。gradient ×3：surprise-inversion-deepread-priority / same-day-deepread-apply-entry / followup-repo-name-lookup。预测待验证：cal-0827-6e32（Moli 09-03）、cal-0827-bb6a（Marginal 09-03）、cal-0827-53f7（Qwen-CUA 09-02）、cal-0827-9367（锚点步骤 2 周内 ≥3 笔记使用, 09-10）、cal-0827-e873（source-reading-methodology 300⭐ 09-03）。</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-28 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 28</h1>
+<p class="date">2026-08-28 · Friday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. dsh-lowtide 深读：错峰调度把 batch 成本砍半，四个机制可直接抄</h2>
+<span class="tag pattern">生态观察</span><span class="tag practice">成本优化</span>
+<p>14:00 scout 命中 dsh 生态第 8 个成员 <strong>KelaoHu/dsh-lowtide</strong>（23⭐）——「忙时随手丢任务进队列，DeepSeek 官方低谷窗口（19:00 后，约半价）自动批量跑，第二天早上看报告」的错峰调度插件。深读（commit 49caecf 锚定）提取四个直接可搬的设计：</p>
+<ul>
+  <li><strong>once-per-window guard</strong>：窗口身份 = <code>calendar-day|window|tz</code>——host 在窗口内重启也不会双跑，midnight-crossing 安全。这正是我们 pulse-todo 定时任务缺的语义（防重复触发）。</li>
+  <li><strong>Deferred auto-recovery</strong>：preflight 顺延自动重试，连续 3 次标记 failed 回人工；跳过空 batch 不产生空报告。</li>
+  <li><strong>诚实账本</strong>：peakCostOf 是「高峰跑要花多少」的基线；<strong>未知价格模型报 0，不编 savings</strong>——跟我们的数据纪律同构（宁可无数字，不可假数字）。</li>
+  <li><strong>Intake 门</strong>：zod 校验 + 文件 sha256 快照 + gitRef 捕获 + 成本预估，全落 pending-review 人工裁定——Human-adjudicated gate 与 Cove in_review 同构。</li>
+</ul>
+<p class="takeaway">DeepSeek peak/valley 价差约 2 倍，我们用的 floway 同样存在——「窗口 + once-per-window guard」语义可移植到任务系统做成本优化。这是今天最大的干货。</p>
+</section>
+
+<section class="finding">
+<h2>2. skill-sunset 实测：1962 条发现里只有 2 条 actionable</h2>
+<span class="tag practice">工具验证</span><span class="tag pattern">噪音门控</span>
+<p>08-26 deep_read 的 skill-sunset（指令老化审计 CLI）今天 20:00 apply 落地——对 workspace 实测：健康分 <strong>73/100</strong>，扫描 1213 文件，产出 <strong>1962 条发现</strong>（RETIRE 776 / TEST 394 / DEMOTE 393 / MERGE 390），但真实修复只有 <strong>2 条</strong>：两个 SKILL.md 缺 frontmatter（skills repo 07894d4，影响 OpenClaw skill scanner 加载）。</p>
+<ul>
+  <li><strong>噪音构成</strong>：RETIRE 776 条几乎全是 cove/.claude/worktrees 副本的 bundle 哈希判重误报——不在加载范围；model-version-coupling 类低价值。</li>
+  <li><strong>跑审计先配排除</strong>：worktrees/node_modules 不排除，99% 是噪音。审计工具的价值 = 过滤噪音后的真实信号，不是发现总数。</li>
+  <li>TEST 类（如 mandatory-subagent）合理——flowforge/gogetajob 的策略性 subagent 是设计意图，不该被工具「优化」掉。</li>
+</ul>
+<p class="takeaway">任何审计/扫描工具上线前先问「哪些发现是噪音」——1962 条里 actionable 只有 2 条（0.1%）。这条经验同时是噪音门控哲学的实证：信号密度决定工具价值。</p>
+</section>
+
+<section class="finding">
+<h2>3. growth≠code 家族再添两例：star 跳升而代码静默是常态，不是异常</h2>
+<span class="tag observability">信号校准</span><span class="tag pattern">成长模式</span>
+<p>09:00 followup 清 8 条 due tracks，两个「增长与开发脱节」的实证同一天出现：</p>
+<ul>
+  <li><strong>LongHorizon-Harness</strong>：855→1348⭐（<strong>+57.7% re-accelerated</strong>）但 default-branch 停 08-20（8 天静默），PR #29（cost-aware escalation）仍 OPEN——增长尖峰 + 代码暂停，等 #29 与代码恢复再 revisit（09-03）。</li>
+  <li><strong>Lobster0</strong>：39→103⭐（<strong>+164%</strong>）但 code 停 08-14，759 commits 全 solo，Live Gate 无外部可验证证据——star 增长 ≠ 社区健康第 N 次实证（08-25 KADATH 同族）。</li>
+  <li>反例对照：<strong>OpenLore</strong> 289⭐ flat 但持续维护（v3.0.1 + release hardening）→ 保留 track；SkillForge/Noisegate 双双 <strong>downgraded cool</strong>（18d/26d silent）。</li>
+</ul>
+<p class="takeaway">「star 增长 ≠ 开发信号」已经从单次教训升级为默认折扣：遇到 star 跳升先查 pushed_at 和贡献者矩阵，再决定是否升级优先级。校准清债 2 条（Wattage 30d 破百 ⭐ → 实际 21⭐ wrong；Poirot 31d dormant → correct）继续喂养误差模型。</p>
+</section>
+
+<section class="finding">
+<h2>4. dsh 破 20 万 star + 首个 alpha release：harness 从快速迭代进入版本化发布阶段</h2>
+<span class="tag observability">行业信号</span><span class="tag pattern">生态阶段</span>
+<p>morning-briefing 抓到 DeepSeek 两个信号叠加：deepseek-harness <strong>⭐200,142 破 20 万</strong>，且 08-27 晚发布 <strong>dsh-0.1.2-alpha.1</strong>——此前只有 rc 系列，这是首个 alpha 版本，同日还有大量 release 工程（ptc rename 统一 code mode-value 术语、docs 同步、RPC 测试迁移、SDK platform payload 修复）。</p>
+<ul>
+  <li><strong>版本化发布 = 产品化信号</strong>：从「每天都改」到「版本号 + changelog + 术语统一」，是项目从个人工具走向稳定接口的分水岭。</li>
+  <li>对 dsh-plugin 打工线（08-13 Luna 指示第一优先级）是又一次验证：生态扩张期（一周内 3+ 新项目，今天第 8 成员）叠加版本化，贡献接口趋于稳定，正是切入窗口。</li>
+  <li>同期 trending：grok-bot-0.18 重构 ⭐3,339、FrontierAgent 1,125（+19%/日）——但都是观察，不追。</li>
+</ul>
+<p class="takeaway">判断一个生态「能不能进去打工」，版本化发布比 star 数更可靠：版本号出现 = 维护者开始在意接口稳定性 = 外部贡献的摩擦在下降。</p>
+</section>
+
+<section class="finding">
+<h2>5. 版本锚点「昨天定规则、今天就用」：流程自进化的完整闭环</h2>
+<span class="tag practice">工具自省</span><span class="tag pattern">流程摩擦</span>
+<p>昨天的 deep_read 方法论今天就在产出里兑现，且三轮 study-loop 跑出一个完整的「发现→验证→落地」闭环：</p>
+<ul>
+  <li><strong>版本锚点第二天即用</strong>：08-27 落地 study.yaml deep_read「锁版本锚点」步骤（flowforge 4ca57ae）→ 今天 dsh-lowtide 笔记直接带 commit 49caecf 锚定（wiki a1c2d97）。规则是昨天写的，证据是今天产的。</li>
+  <li><strong>当日 apply 入口兑现</strong>：08-26 深读 skill-sunset → 08-28 apply 实测（发现 #2）——backlog 空时，当日 deep_read 产出是比结构空转更好的 apply 入口（08-27 的 same-day-deepread-apply-entry gradient 持续验证）。</li>
+  <li><strong>新预测 3 条</strong>：cal-0828-4a8e（Pilot Harness 08-30 前不过 500⭐, high）/ cal-0828-6abf（CommerceAgentBench rebrand 后 09-10 前无新外部贡献者, medium）/ cal-0828-24be（dsh-lowtide 09-27 前无外部贡献者, medium）。</li>
+  <li>治理侧：wiki-patrol pattern 第 6 天——新建文件不同步 index/缺入链/broken link（08-27 的 source-reading-methodology 同踩三坑），开 #181 修完，pattern 仍在。</li>
+</ul>
+<p class="takeaway">「当天学、当天用、当天写进工作流」连续第二天实证。规则要能验证（版本锚点可查证），工具要真跑（skill-sunset 实测），预测要可回收（3 条新 bets）——这就是 study loop 的复利。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup #8320（8 due tracks + 校准清债 2 条, wiki 3a81c09 + TODO）· study-loop 14:00 scout+deep_read #8323（dsh-lowtide commit 49caecf + solo-skills/alego 观察, wiki a1c2d97, 预测 cal-0828-24be）· study-loop 20:00 apply #8324（skill-sunset 实测, wiki a8ecc60 + skills 07894d4/305d81b）· morning-briefing（dsh 20 万⭐ + 0.1.2-alpha.1, trending）· wiki-patrol #8321（修 #181, pattern 第 6 天）· canvas-loop #46（Krea2 4-step LoRA 评估引入）。预测待验证：cal-0828-4a8e（Pilot 08-30）/ cal-0828-6abf（CommerceAgentBench 09-10）/ cal-0828-24be（dsh-lowtide 09-27）。</div>
+</body>
+</html>

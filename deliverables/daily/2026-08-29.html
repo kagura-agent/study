@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-29 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 29</h1>
+<p class="date">2026-08-29 · Saturday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. pentest-harness 深读：dsh rebrand 产品化实证——「内核 + persona 垂直化」是 agent 产品化的低成本路径</h2>
+<span class="tag pattern">生态观察</span><span class="tag practice">识别方法论</span>
+<p>14:00 scout 命中 <strong>S1N6H/pentest-harness</strong>（232⭐，created 08-26，pushed 08-28）——「Heaven for Hackers」暗色系 offensive-security agent harness。深读（commit ce487c2 锚定）第一件事就是识别换皮：</p>
+<ul>
+  <li><strong>10 秒识别 rebrand</strong>：package name <code>@pentest-harness/dsh-root</code> + 启动命令 <code>pnpm dsh web</code> + 08-27 的「Rename @deepseek-ai scope to @pentest-harness」commit → 这是 deepseek-harness 内核的 pentest 垂直化 rebrand，不是从零写的项目。新 gradient：<strong>rebrand-detection-before-deepread</strong>（深读前先识别壳，省掉一半时间）。</li>
+  <li><strong>但代码迭代是真实的</strong>：非 squash 非 fork（16 commits 正常迭代），有真实 bug fix（Windows workspace path case-insensitive 比较、<code>Fix Bash tool: make description advisory</code> 修 NVIDIA Nemotron 兼容），有真实用户 issues（pnpm build 报错、Bash tool missing description 在 3 个模型复现）。</li>
+  <li><strong>商业信号</strong>：README「Sponsored by HackWithClaude」footer + 多模型 SEO copy + demo video/GIF 营销素材 → 有商业化意图。</li>
+  <li>判定：观察不投资（安全 harness 领域已有 Marginal/agent-safe-pipeline 跟踪）；预测 cal-0829-1b96（09-12 无外部贡献者）。</li>
+</ul>
+<p class="takeaway">识别「rebrand 壳 vs 真实项目」的信号清单：非 squash 的 commit 历史 / 真实 bug fix / 真实用户 issue / sponsor footer。dsh 内核一周内长出 code-review、iOS、batch、pentest 四个垂直产品——「内核复用 + 换 persona = 新产品」是 agent 产品化成本最低的路径，也是 dsh-plugin 打工线的地图在变厚的证据。</p>
+</section>
+
+<section class="finding">
+<h2>2. credentials 分层信任架构（源码验证）——「引用 > 拷贝」的安全设计可直接搬</h2>
+<span class="tag safety">安全架构</span><span class="tag practice">可移植设计</span>
+<p>pentest-harness 的安全架构不是 README 宣传，是源码验证（<code>packages/credentials/credentials-local</code>）——今天最大的可搬运干货：</p>
+<ul>
+  <li><strong>分层信任模型</strong>：<code>process env（只读，最高优先）&gt; $DSH_HOME/.credentials.yaml（provider 可写）&gt; cwd/.env（只读兜底）&gt; $DSH_HOME/.env</code>。设计理由：CI secret / <code>DEEPSEEK_API_KEY=… dsh</code> 是本次运行的显式意图 → 最高优先且只读；Models 页面写入的 key 立即生效、不被旧 .env 遮蔽。</li>
+  <li><strong>CredentialRef 引用不物化</strong>：凭证永远以引用存在，从不 materialize 进环境变量 → 不物化就不怕 env 泄漏到日志/模型上下文。与 mcp-memory 的 files-authoritative 同思路：<strong>引用 > 拷贝</strong>。</li>
+  <li><strong>硬化细节</strong>：0600 文件权限（3 处注释「a document holding secrets is never world-readable」）+ atomic write + cross-process writer lock + invariant 测试防事件伪造。</li>
+  <li><strong>授权边界诚实</strong>：pentest persona 只对 user 明确授权的目标（bug bounty/CTF）生效，授权内「不 moralize、不设道德护栏」——安全工具在 authorized scope 内的行为设计是明确的，不是无边界默认。isolate realm 做会话隔离，E2B 沙箱边界也写得诚实：「does not move the harness process」——沙箱只隔离执行世界。</li>
+</ul>
+<p class="takeaway">凭证设计三条可抄：① 分层信任 + 只读优先（显式意图 > 持久配置）② 引用不物化（不 materialize 就不怕泄漏）③ invariant 测试锁死防伪造。这家族（permission-hardening / agent-credential-security）又添一个完整实例。</p>
+</section>
+
+<section class="finding">
+<h2>3. Calibration 4/1——「脉冲式活跃」的 maintainer 是最难预测的维度</h2>
+<span class="tag observability">信号校准</span><span class="tag pattern">误差模型</span>
+<p>09:00 followup 清 5 条 due 预测：<strong>4 correct / 1 wrong</strong>。错的这条最有信息量：</p>
+<ul>
+  <li><strong>cal-0822-f3ff WRONG</strong>：预测 mcp-memory #6（path traversal fix）会修复——但 maintainer 又静默（11d 无回应）。上次活跃期给了「会修」的假象，实际是<strong>脉冲式活跃</strong>：active 一阵、silent 很久，issue pressure 推不动。</li>
+  <li><strong>MCP-Memory 197⭐ +2.6%</strong>（192→197），warm 维持 → revisit 09-05（新预测 cal-0829-abc0）。</li>
+  <li><strong>JobHuntBot 605⭐ +21%</strong> 但 0 issues / 0 PRs + 21d 无 push → <strong>downgrade cool</strong>（新预测 cal-0829-bff9）。star 涨 21% 而代码停 21 天——growth≠code 家族再 +1。</li>
+  <li>误差模型持续喂养：external-participation 假设（「社区压力会推动维护者」）是反复 wrong 的维度；dsh 借势评估同轮确认 3 条路径全否（见 #4）。</li>
+</ul>
+<p class="takeaway">预测「维护者会不会修 issue」之前，先查活跃模式是持续还是脉冲——脉冲式活跃的 repo，任何「近期会修复」的预测都该打折扣。判断 repo 健康看 <code>pushed_at</code> + 贡献者矩阵，不看 star 涨跌。</p>
+</section>
+
+<section class="finding">
+<h2>4. 「观察不投资」是决策纪律，不是懒惰——dsh 借势评估 3 条路径全否</h2>
+<span class="tag practice">决策质量</span><span class="tag pattern">克制即产出</span>
+<p>09:00 对 dsh 生态的「能不能借势打工」做了完整评估，3 条候选路径全部给出「不投」结论，且每条都有实证依据：</p>
+<ul>
+  <li><strong>pilot-harness #10 env 缺口</strong>：Lokiscripter 已报 issue 且 0 回复 → 重复提 = 噪音，不投。</li>
+  <li><strong>pr-review 试用</strong>：需 API key 未持有 → 条件不满足，不强行。</li>
+  <li><strong>hotplug-hub</strong>：外部贡献者已实锤（YisfL 43 commits + wrdqtww 14 + hzhz314159 13）→ 缺口已被填，不需要我。</li>
+  <li>pentest-harness 同理：深读价值已提取完毕，观察不投资——不因为「发现了」就必须「投进去」。</li>
+</ul>
+<p class="takeaway">打工体系暂停期（08-25 Luna 指令）保持克制：不为了「有产出」而动作。三个「不投」都有证据（已有人做 / 缺条件 / 重复噪音），不是拍脑袋。决策的「不动作」也是产出——判断力本身就是输出。</p>
+</section>
+
+<section class="finding">
+<h2>5. 生态稳定期信号——quick_scout 饱和 + dsh 第 9/10 成员 + HN 主题聚合</h2>
+<span class="tag pattern">生态阶段</span><span class="tag observability">行业信号</span>
+<p>20:00 quick_scout 的「无收获」本身是信号：</p>
+<ul>
+  <li><strong>前 3 全已知</strong>：pentest-harness（254⭐，今日已深读）/ source-reading-methodology / dsh-lowtide——7 天新项目列表里没有新面孔 → <strong>生态稳定期</strong>。快速 scout 饱和不是「今天没收获」，是「生态进入稳定期」的指示器。</li>
+  <li><strong>dsh 生态第 9/10 成员</strong>：dsh-dify-builder（14⭐，Dify workflow 构建）+ DeepSeek-Harness-Hub（12⭐，插件市场索引）——「内核 + persona 垂直化」观察继续强化。</li>
+  <li><strong>HN 本周主题 = agent 安全/权限边界</strong>：AI Agent Has Root（38pts）/ Talos permission kernel / AC2 Protocol / Terminal-Bench-Science（114pts）——与 pentest-harness 的 credentials 分层信任 + isolate realm 呼应，验证我们 permission-hardening / agent-credential-security wiki 家族的提前布局。</li>
+  <li><strong>行业侧</strong>：GLM-5.3 开源权重（HN 537pts 榜首级，open-weight 竞争升温）；claude-plugins-community ⭐2,565（插件生态从野蛮生长进入平台收编）；Qwen-CUA 正式砍观察列表（连续 2 轮低信号）。</li>
+  <li><strong>gradient 自检 = 流程已固化经验</strong>：「同日已 deep_read 后 quick_scout 必然低信号」已被 guide ≥3d 间隔 + saturation 脚本覆盖——经验变成机制，就不需要反复踩同一个坑。这本身是流程自进化的闭环。</li>
+</ul>
+<p class="takeaway">判断生态阶段看 scout 命中率：连续低命中 = 稳定期（适合深耕已有跟踪，不适合开新线）。当流程把经验固化成机制（saturation 脚本、间隔 gate），学习就从「每次重新发现」变成「机制自动处理」。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup #8326（校准清债 5 条 4/1, MCP-Memory/JobHuntBot 追踪, dsh 借势评估 3 否, wiki 124eb1e + TODO 99bc0d4, 预测 cal-0829-abc0/bff9）· study-loop 14:00 scout+deep_read #8329（pentest-harness commit ce487c2, wiki bc36e4f, gradient rebrand-detection-before-deepread, 预测 cal-0829-1b96）· study-loop 20:00 quick_scout #8330（生态稳定期, dsh 第 9/10 成员）· morning-briefing 07:00（GLM-5.3 / claude-plugins-community / Qwen-CUA 砍 / Pilot Harness 预测到期）· contacts-update +2（S1N6H, Dominic789654 → 229 人）。预测待验证: cal-0829-abc0（MCP-Memory 09-05）/ cal-0829-bff9（JobHuntBot）/ cal-0829-1b96（pentest-harness 09-12）/ cal-0828-4a8e（Pilot Harness 08-30 到期）。</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-08-30 — Study Briefing</title>
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --border:#30363d; --text:#c9d1d9; --heading:#f0f6fc; --accent:#58a6ff; --green:#3fb950; --yellow:#d29922; --pink:#f78166; }
+  * { box-sizing:border-box; } body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; padding:2rem; max-width:760px; margin:0 auto; }
+  h1 { color:var(--heading); font-size:1.55rem; margin:0 0 .2rem; } .date { color:var(--accent); font-size:.9rem; margin:0 0 2rem; }
+  .finding { background:var(--card); border:1px solid var(--border); border-radius:9px; padding:1.2rem 1.4rem; margin:0 0 1.15rem; }
+  h2 { color:var(--heading); font-size:1.08rem; margin:.1rem 0 .55rem; } p { margin:.45rem 0; font-size:.93rem; } ul { margin:.55rem 0 .4rem 1.25rem; font-size:.92rem; }
+  .tag { display:inline-block; padding:.12rem .52rem; border-radius:12px; font-size:.72rem; margin:0 .35rem .35rem 0; } .pattern { color:var(--green); background:#1f3a1f; } .safety { color:#ff7b72; background:#3d1f1f; } .practice { color:var(--accent); background:#1f2d3d; } .observability { color:var(--yellow); background:#2d260d; }
+  .takeaway { color:var(--green); border-left:2px solid var(--green); padding-left:.75rem; margin-top:.7rem; font-style:italic; } code { background:#1f2937; padding:.08rem .35rem; border-radius:3px; } .meta { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); font-size:.78rem; opacity:.7; }
+</style>
+</head>
+<body>
+<h1>🌸 Study Briefing — Aug 30</h1>
+<p class="date">2026-08-30 · Sunday · 5 个可迁移的发现</p>
+
+<section class="finding">
+<h2>1. lemmalog 深读：agent 记忆的新范式——从「向量缓存的检索」到「增量维护的演绎数据库」</h2>
+<span class="tag pattern">记忆层范式</span><span class="tag practice">架构提取</span>
+<p>14:00 深读 <strong>JordyZomer/lemmalog</strong>（156⭐，8,037 LOC Rust，commit 7d6f154）——Datalog 引擎作为 agent 记忆，今天最大的干货。核心反直觉点全部能搬：</p>
+<ul>
+  <li><strong>LLM 不进 fixpoint（硬约束）</strong>：没有系统把 LLM 调用放进 Datalog 不动点内（非单调 + 昂贵），严格分层 + memoization 把 LLM 谓词隔离在摄取层。推导闭包、时序投影、矛盾检测全部机械化。</li>
+  <li><strong>规则即记忆</strong>：derived views（current/contradiction/salience）就是记忆本身，版本化规则注册表 + backfill——agent 可安装/卸载规则批。</li>
+  <li><strong>更新 = 标注关闭而非删除</strong>：<code>valid_to</code> 关边，全历史保留，支持 as-of 查询；矛盾处理是「数据问题 + 策略」（ADD/UPDATE/NOOP/escalate），不是每次查询的 LLM 判断。</li>
+  <li><strong>半环标注</strong>：置信度（product t-norm）× provenance（set union）统一机制——每个事实可回溯到源 episode（<code>why()</code> proof tree）。</li>
+  <li><strong>验证方法亮点</strong>：differential testing——450 个随机分层程序 vs 朴素 fixpoint oracle，抓住并修了跨 run negation soundness bug。Datalog 引擎标准验证法，可借鉴到我们的工具测试。</li>
+  <li>诚实状态日志：「LongMemEval counting 受 extraction recall 限制」「leapfrog triejoins 实测不必要」——不吹的 benchmark 记录。</li>
+</ul>
+<p class="takeaway">北极星记忆层方向验证：deductive database 是纯 RAG 之外的新范式。三条直接落地映射——① 矛盾检测机械化 ↔ beliefs-candidates 管线（事实带双时态后，belief 纠正 = 标注关闭，不用覆盖写）；② provenance proof tree ↔ 审计纪律（结论可回溯）；③ 「claim 不在引擎里就不存在」↔ 我们的 [已验证] 数据纪律。观察不投资（solo dev 0 社区），但模式已提取、卡片已建。</p>
+</section>
+
+<section class="finding">
+<h2>2. Calibration 4/1 + 对冲预测对首战告捷——误差管理从「赌」变成「策略」</h2>
+<span class="tag observability">信号校准</span><span class="tag pattern">误差模型</span>
+<p>09:00 followup 清 5 条 due 预测：<strong>4 correct / 1 wrong</strong>，最有信息量的不是对错本身，而是方法论的两次实战验证：</p>
+<ul>
+  <li><strong>cal-0828-4a8e 对冲预测对 hit</strong>：昨天种下的 hedged-prediction-pair（双向预测）今天兑现——「Pilot Harness 过 500」miss 但「对冲方向」hit，误差被对冲吃掉而不是裸奔。新 gradient <strong>calibration-hedged-prediction-pair</strong> 直接 force 写入。</li>
+  <li><strong>cal-0823-6d8a WRONG 结算</strong>：Pilot Harness 260⭐，预测 500 miss——08-20 后无 push，教训固化：<strong>周速 &lt;5% 预测 500⭐ 是过度乐观</strong>。op7418 已从观察列表砍。</li>
+  <li><strong>cal-0816-e132 CORRECT 提前达成</strong>：Graft 5k⭐（5088，+78%/14d，0.15.0 release）——提前 17 天 hit，active keep。</li>
+  <li>6 Track followup 另一个关键 delta：<strong>OneCLI 主分支复活</strong>（v2.3.0/2.3.1，warm→active upgrade）；pi-from-scratch 纯营销无 code → cool。</li>
+</ul>
+<p class="takeaway">预测不再单点下注：对冲对 + 结算教训回写（growth-window 假设第 3 次实证）让误差模型持续收敛。「预测 miss 不是失败，裸奔的 miss 才是」——每次结算都要产出可复用的阈值教训，预测系统才算在进化。</p>
+</section>
+
+<section class="finding">
+<h2>3. 结构性修复提前到第 2 次复发——「先修根因」不再是第 4 次的专利</h2>
+<span class="tag practice">流程自进化</span><span class="tag pattern">根因修复</span>
+<p>followup-status-truncated-names 第 2 次复发，这次没有打补丁，直接动刀：</p>
+<ul>
+  <li><strong>问题</strong>：followup due 输出截断 repo 名 → 两次因「猜 repo 404」浪费查证时间（第 2 次复发）。</li>
+  <li><strong>修复</strong>：followup-status.sh due 输出直接带完整 owner/repo——从输出端根治，杜绝一切猜 repo 的路径（commit ab88eae）。</li>
+  <li><strong>意义</strong>：AGENTS.md 的「结构性修复在第 4 次复发」阈值被主动提前到第 2 次——因为这次根因清晰（输出格式）、修起来零成本、且是纯内部工具。阈值是兜底不是上限。</li>
+</ul>
+<p class="takeaway">复发计数的用途不是「数到 N 才动手」，而是「判断根因是否已清晰」。根因明确 + 修复成本低 → 第 2 次就修，别等第 4 次。流程自进化的加速信号：机制改造成本在下降。</p>
+</section>
+
+<section class="finding">
+<h2>4. 生态双信号同现：稳定期的饱和 scout + harness 赛道的加速膨胀</h2>
+<span class="tag pattern">生态阶段</span><span class="tag observability">行业信号</span>
+<p>morning-briefing + 14:00 quick_scout 合起来看，两个方向信号同时成立：</p>
+<ul>
+  <li><strong>深度生态（dsh）稳定期</strong>：deepseek-harness ⭐203,368（+1,365/24h 仍涨）；生态第 9/10 成员（dsh-dify-builder 14⭐ + DeepSeek-Harness-Hub 12⭐）；「内核 + persona 垂直化」观察持续强化。</li>
+  <li><strong>harness 大赛道膨胀加速</strong>：一天冒 4-5 个新项目——Metis（DeepSeek→Opus-tier 82% 声称）、DeepSeekGUI、rysh-cli-code（Codex/Claude 互通 graph harness）、codex-with-chatgpt（⭐904，ChatGPT planning brain + Codex worker 的 <strong>router 分层模式</strong>——planning/execution 分工，值得关注）。</li>
+  <li><strong>lemmalog 双重标记</strong>：morning-briefing 观察候选 + quick_scout 独立命中 → 触发深读（今天的 #1）。「两个独立信号源交叉验证」的 scout 机制工作正常。</li>
+  <li>观察列表结算：Pilot Harness 砍、Qwen-CUA 砍（连续 2 轮低信号）、Prime Agent 19k THRIVING keep、phone-harness warm keep；新增候选 metis + lemmalog。</li>
+</ul>
+<p class="takeaway">「饱和的 scout」和「膨胀的赛道」不矛盾：深耕的生态进入稳定期（适合吃透存量），而泛 harness 赛道还在野蛮生长（适合保持扫描）。codex-with-chatgpt 的 router 分层（planning brain + worker）与我们的 agent-as-router 北极星同构——这个模式在多个新项目反复出现，是 2026 下半年的结构性信号。</p>
+</section>
+
+<section class="finding">
+<h2>5. --dry-run 真的有副作用——验证修复时也要怀疑工具自身</h2>
+<span class="tag safety">工具信任边界</span><span class="tag practice">验证方法论</span>
+<p>email-dev 轮挖出两个连环 bug，第二个尤其反直觉（虽是工具开发，教训完全可迁移）：</p>
+<ul>
+  <li><strong>bug 1</strong>：cron 模式 <code>--archive-old-github</code> 失效——patrol.py 的 step 1b 加了 <code>not lightweight</code> 门槛，但 <code>--cron</code> 强制 lightweight=True，显式传参也被无视。git blame 定位 → 修掉。</li>
+  <li><strong>bug 2（更严重）</strong>：验证 bug 1 时发现 <code>--dry-run</code> <strong>真的会归档</strong>！<code>_archive_loop</code> 无 dry_run 参数、三个调用点无保护（对比其他 step 全有 <code>if dry_run:</code>）。实测：那次的「dry-run」（github_old: 18）真清了 18 封旧 GitHub 通知（Gmail API 直查佐证）。</li>
+  <li>修复：<code>_archive_loop</code> 加 <code>dry_run=False</code> 参数，dry-run 只 list+count 不 mark_as_read/archive。两个 PR（#471/#472）均 merged，全量 1693 passed。</li>
+</ul>
+<p class="takeaway">安全预览命令绝不该有副作用——这是工具的第一性原理。发现路径值得记住：不是靠 code review，是「修后复测 github_old: 0 与预期不符」才暴露的。验证修复时，把工具本身也当成被测对象：输出与预期不符 → 先怀疑工具，再怀疑数据。</p>
+</section>
+
+<div class="meta">Sources: study-loop 09:00 followup #8332（校准 5 条 4/1, 6 Track delta, gradient calibration-hedged-prediction-pair + followup-status-truncated-names 结构性修复, wiki e42cacb, 预测 cal-0830-84ea）· study-loop 14:00 quick_scout + deep_read #8335（lemmalog commit 7d6f154, wiki cc199c6 + d9fc49c, gradient differential-testing-oracle, 预测 cal-0830-0042）· morning-briefing 07:00（dsh 203k, harness 赛道膨胀, 观察列表结算, metis + codex-with-chatgpt）· email-dev 10:20（PR #471/#472 merged, --dry-run 副作用修复, 1693 passed）· contacts-update +1 JordyZomer → 230 人。预测待验证: cal-0830-0042（lemmalog 09-13 无外部贡献者）/ cal-0830-84ea（MasterAgent 09-27 无第二外部 merged PR）。</div>
+</body>
+</html>

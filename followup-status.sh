@@ -149,7 +149,11 @@ for i in $(seq 0 $((DUE_COUNT - 1))); do
   star_display=""
   [[ -n "$stars" ]] && star_display=" (${stars}⭐)"
   
-  echo "  $icon $name$star_display — due $revisit"
+  # 08-30 fix (followup-status-truncated-names 第2次): 直接输出完整 owner/repo，杜绝凭名字猜 repo
+  repo_display=""
+  [[ -n "$repo" ]] && repo_display=" ($repo)"
+  
+  echo "  $icon $name$star_display$repo_display — due $revisit"
   echo "     $detail"
 done
 

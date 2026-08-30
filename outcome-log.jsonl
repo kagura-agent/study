@@ -392,3 +392,4 @@
 {"timestamp":"2026-08-29T01:06:46Z","date":"2026-08-29","mode":"followup","outcome":"signal","tag":"pattern-extract","note":"5 条到期预测验证 (4 correct/1 wrong: cal-0822-f3ff mcp-memory) + MCP-Memory/JobHuntBot 追踪更新 + dsh 借势决定 + 2 新预测"}
 {"timestamp":"2026-08-29T06:03:45Z","date":"2026-08-29","mode":"scout","outcome":"signal","tag":"deep-read","note":"pentest-harness deep_read: dsh rebrand 产品化识别 + credentials 分层信任架构提取 + 预测 cal-0829-1b96 + Track 新增"}
 {"timestamp":"2026-08-29T12:01:19Z","date":"2026-08-29","mode":"quick","outcome":"partial","tag":"direction-confirm","note":"quick_scout 饱和: 前3全已知 (pentest-harness 今日已深读), dsh 生态扩张延续 (dsh-dify-builder/DeepSeek-Harness-Hub 第9/10成员), 生态稳定期确认"}
+{"timestamp":"2026-08-30T01:06:58Z","date":"2026-08-30","mode":"followup","outcome":"signal","tag":"direction-confirm","note":"校准 5 条验证 (3 correct/2 wrong) + 6 Track followup (OneCLI main 复活 upgrade / Graft 5k 提前达成 / 2 downgrade cool) + followup-status.sh 结构性修复 (owner/repo 直接输出)"}
